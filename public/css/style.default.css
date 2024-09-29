@@ -1645,6 +1645,31 @@ fieldset[disabled] .btn-template-primary.active {
   color: #fff;
   padding: 0 20px;
 }
+
+.company-info-row {
+  justify-content: center;
+}
+
+.horizontal-layout {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.horizontal-layout h4 {
+  font-size: 2rem;
+  font-weight: bold;
+  min-width: 150px;
+  text-align: center;
+}
+
+.horizontal-layout p {
+  font-size: 1.8rem;
+  margin: 0;
+  text-align: left;
+}
+
 .box-image-text .content h3,
 .box-image-text .content h4 {
   text-transform: uppercase;

@@ -1825,6 +1825,12 @@ fieldset[disabled] .btn-template-primary.active {
   background: url('../img/fixed-background-2.jpg') center top no-repeat;
   background-attachment: fixed;
   background-size: cover;
+  display: flex;
+  min-height: 500px;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
 }
 .bar.color-white h1,
 .bar.color-white h2,

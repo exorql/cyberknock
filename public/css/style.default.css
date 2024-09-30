@@ -321,9 +321,9 @@ ul.list-style-none {
   letter-spacing: 0.08em;
   border-top: solid 5px transparent;
 }
-.navbar ul.nav > li > a:hover {
+/* .navbar ul.nav > li > a:hover {
   border-top: solid 5px var(--primary-accent);
-}
+} */
 .navbar ul.nav > li.active > a,
 .navbar ul.nav > li.open > a {
   text-decoration: none !important;
@@ -1650,6 +1650,14 @@ fieldset[disabled] .btn-template-primary.active {
   justify-content: center;
 }
 
+.narrow-text {
+  max-width: 800px; /* 横幅を600pxに制限 */
+  margin: 0 auto;   /* 中央揃え */
+  text-align: left; /* 改行は左寄せ */
+  line-height: 1.6; /* 行間の調整（必要に応じて調整） */
+  font-size: 18px;
+}
+
 .horizontal-layout {
   display: flex;
   justify-content: flex-start;
@@ -2055,6 +2063,9 @@ fieldset[disabled] .btn-template-primary.active {
   #blog-listing-big .post .date-comments,
   #blog-homepage .post .date-comments {
     text-align: right;
+  }
+  .lead.narrow-text {
+    font-size: 18px;
   }
 }
 #blog-listing-big .post .intro,
@@ -3124,7 +3135,7 @@ fieldset[disabled] .btn-template-primary.active {
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
   color: #555555;
-  background-color: var(--navbar-focus);
+  /* background-color: var(--navbar-focus); */
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
@@ -3449,16 +3460,16 @@ p {
 .text-primary {
   color: var(--primary-accent);
 }
-a.text-primary:hover {
+/* a.text-primary:hover {
   color: var(--link-hover-bg);
-}
+} */
 .bg-primary {
   color: #fff;
   background-color: var(--primary-accent);
 }
-a.bg-primary:hover {
+/* a.bg-primary:hover {
   background-color: var(--link-hover-bg);
-}
+} */
 abbr[title],
 abbr[data-original-title] {
   border-bottom: 1px dotted #999999;

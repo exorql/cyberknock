@@ -3,10 +3,10 @@ title = "CyberKnock"
 theme = "cyberknock-web-custom"
 languageCode = "en-us"
 # Site language. Available translations in the theme's `/i18n` directory.
-defaultContentLanguage = "en"
+defaultContentLanguage = "ja"
 # Enable comments by entering your Disqus shortname
 # Enable Google Analytics by entering your tracking code
-googleAnalytics = ""
+googleAnalytics = "G-SXY5ECC001"
 
 # number of words of summarized post content (default 70)
 summaryLength = 70

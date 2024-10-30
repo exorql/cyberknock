@@ -12,7 +12,7 @@
       <link>//localhost:1313/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>//localhost:1313/contact/</guid>
-      <description>お問い合わせフォーム 下記フォームに必要事項を入力の上、「送信する」ボタンを押してください。 なお、お問い合わせ内容によっては、ご連絡までお時間がかかる場合やご回答できない場合がございます。 あらかじめご了承ください。</description>
+      <description>&lt;h1 id=&#34;お問い合わせフォーム&#34;&gt;お問い合わせフォーム&lt;/h1&gt;&#xA;&lt;p&gt;下記フォームに必要事項を入力の上、「送信する」ボタンを押してください。&#xA;なお、お問い合わせ内容によっては、ご連絡までお時間がかかる場合やご回答できない場合がございます。 あらかじめご了承ください。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

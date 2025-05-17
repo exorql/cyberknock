@@ -366,7 +366,7 @@ export default function Home() {
               <Link href="#contact" className="text-sm text-slate-400 hover:text-white transition-colors">
                 CONTACT
               </Link>
-              <Link href="#" className="text-sm text-slate-400 hover:text-white transition-colors">
+              <Link href="/privacy-policy" className="text-sm text-slate-400 hover:text-white transition-colors">
                 プライバシーポリシー
               </Link>
             </div>

@@ -184,9 +184,9 @@ export default function Home() {
                       <h5 className="font-medium text-white">【主な機能】</h5>
                       <ul className="list-disc pl-5 text-slate-300 space-y-2 mt-2">
                         <li>
-                          いつでも相談できるAIトレーナー - レベル、目標、体格に基づいたパーソナライズされたアドバイス
+                          いつでも相談できるAIトレーナー - レベル、目標、体格などのデータに基づいたパーソナライズされたアドバイス
                         </li>
-                        <li>詳細なトレーニング記録＆分析 - AIによるコンディションや成長度合いの可視化</li>
+                        <li>詳細なトレーニング記録＆分析 - コンディションや成長度合いの可視化</li>
                         <li>科学に基づいた栄養サポート - 活動量や目標に合わせた最適な食事プランの提案</li>
                       </ul>
                     </div>
@@ -253,7 +253,7 @@ export default function Home() {
         <section id="contact" className="pt-8 pb-20 bg-slate-950">
           <div className="container">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">まずはお気軽にご相談ください</h2>
+              <h2 className="text-3xl font-bold mb-4">お気軽にご相談ください</h2>
               {/* <p className="max-w-2xl mx-auto text-slate-300">
                 お客様の課題やご要望を詳しくお伺いし、最適なAI活用プランや開発プランをご提案します。
               </p> */}

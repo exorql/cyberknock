@@ -254,9 +254,9 @@ export default function Home() {
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl font-bold mb-4">まずはお気軽にご相談ください</h2>
-              <p className="max-w-2xl mx-auto text-slate-300">
-                お客様の課題やご要望を詳しくお伺いし、最適なAI活用プランや開発プランをご提案します。どんな小さなことでも、お気軽にお問い合わせください。
-              </p>
+              {/* <p className="max-w-2xl mx-auto text-slate-300">
+                お客様の課題やご要望を詳しくお伺いし、最適なAI活用プランや開発プランをご提案します。
+              </p> */}
             </div>
 
             <div className="max-w-xl mx-auto bg-slate-900 rounded-lg p-8 shadow-lg">

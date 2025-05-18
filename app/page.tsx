@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronDown, Send, ExternalLink, Code, Cpu, Globe, Lightbulb } from "lucide-react"
+import { ChevronDown, Send, ExternalLink, Code, Cpu, Globe, Lightbulb, Award, User, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -109,7 +109,7 @@ export default function Home() {
               </p> */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="bg-cyan-600 hover:bg-cyan-700">
-                  <Link href="#contact">無料相談・お問い合わせ</Link>
+                  <Link href="#contact">お問い合わせ</Link>
                 </Button>
                 <Button
                   asChild
@@ -142,7 +142,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">生成AIシステム開発</h3>
                   <p className="text-slate-300">
-                    生成AI技術やDifyなどの最新プラットフォームを活用し、業務効率化や新たな価値創出を実現するAIシステムを開発します。<br />
+                    生成AI技術やDifyなどのプラットフォームを活用し、業務効率化や新たな価値創出を実現するAIシステムを開発します。<br />
                     企業データを活用したシステム、業務自動化のためのAIエージェント構築、DifyによるAIアプリの迅速なプロトタイピングや運用支援など、生成AIを核としたソリューションを提供します。<br />
                   </p>
               </div>
@@ -170,13 +170,13 @@ export default function Home() {
             <div className="bg-slate-800/50 rounded-lg p-8 shadow-lg">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト事例: MEALIER AI</h3>
+                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト: MEALIER AI</h3>
                   <h4 className="text-xl font-medium mb-3 text-cyan-400">あなたの専属AIトレーナー＆栄養士</h4>
                   <p className="text-slate-300 mb-4">
                     本気で強くなりたい全てのアスリートへ。MEALIER
                     AIは、AI技術を駆使してあなたのトレーニングと栄養管理を最適化し、パフォーマンス向上を加速させるパーソナルサポートアプリです。
                     <span className="font-semibold text-cyan-400">
-                      AIトレーナーとのチャット機能にはDify-APIを活用し、パーソナライズされたアドバイスを提供。
+                      AIトレーナーとのチャット機能にはDify APIを活用し、パーソナライズされたアドバイスを提供。
                     </span>
                   </p>
                   <div className="space-y-4 mb-6">
@@ -214,26 +214,33 @@ export default function Home() {
             </div>
 
             {/* 会社情報 */}
-            <div className="mt-16 bg-slate-800/50 rounded-lg p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold mb-6 text-center">会社情報</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-4">
+            <div className="mt-16 bg-slate-900 rounded-xl p-8 md:p-12 shadow-2xl border border-slate-800">
+              <h3 className="text-3xl font-bold mb-8 text-center text-white">COMPANY PROFILE</h3>
+              <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
+                <div className="space-y-8">
                   <div>
-                    <h4 className="text-lg font-medium text-cyan-400">名前</h4>
-                    <p className="text-slate-300">Cyber Knock（サイバーノック）</p>
+                    <div className="flex items-center mb-2">
+                      <User className="h-5 w-5 text-cyan-400 mr-3" />
+                      <h4 className="text-lg font-semibold text-slate-200">社名</h4>
+                    </div>
+                    <p className="text-slate-300 pl-8">Cyber Knock（サイバーノック）</p>
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-cyan-400">代表者名</h4>
-                    <p className="text-slate-300">渡辺 晴仁</p>
+                    <div className="flex items-center mb-2">
+                      <Award className="h-5 w-5 text-cyan-400 mr-3" /> {/* 代表者アイコン例 */}
+                      <h4 className="text-lg font-semibold text-slate-200">代表者</h4>
+                    </div>
+                    <p className="text-slate-300 pl-8">渡辺 晴仁</p>
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-lg font-medium text-cyan-400">住所</h4>
-                  <p className="text-slate-300">
-                    〒150-0043
-                    <br />
-                    東京都渋谷区道玄坂1丁目10番8号
-                    <br />
+                  <div className="flex items-center mb-2">
+                    <MapPin className="h-5 w-5 text-cyan-400 mr-3" />
+                    <h4 className="text-lg font-semibold text-slate-200">所在地</h4>
+                  </div>
+                  <p className="text-slate-300 pl-8 leading-relaxed">
+                    〒150-0043<br />
+                    東京都渋谷区道玄坂1丁目10番8号<br />
                     渋谷道玄坂東急ビル2F−C
                   </p>
                 </div>

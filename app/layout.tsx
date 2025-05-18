@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "Cyber Knock - 生成AIシステム開発・Webサービス開発",
   description:
     "最先端の生成AIと確かな開発力で、あなたのビジネスを次のステージへ。Cyber Knockは、お客様の独自の要件に最適化されたAIシステム開発、Webサービス・アプリ開発、そして自社プロダクトで培った知見を活かし、業務効率の飛躍的向上と新しい顧客体験の創出を実現します。",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({

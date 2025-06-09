@@ -142,8 +142,8 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">生成AIシステム開発</h3>
                   <p className="text-slate-300">
-                    生成AI技術やDifyなどのプラットフォームを活用し、業務効率化や新たな価値創出を実現するAIシステムを開発します。<br />
-                    企業データを活用したシステム、業務自動化のためのAIエージェント構築、DifyによるAIアプリの迅速なプロトタイピングや運用支援など、生成AIを核としたソリューションを提供します。<br />
+                    生成AI技術やGoogle Vertex AIなどのプラットフォームを活用し、業務効率化や新たな価値創出を実現するAIシステムを開発します。<br />
+                    企業データを活用したシステム、業務自動化のためのAIエージェント構築、Google Vertex AIによるAIアプリの迅速なプロトタイピングや運用支援など、生成AIを核としたソリューションを提供します。<br />
                   </p>
               </div>
               <div className="bg-gradient-to-b from-slate-800 to-slate-900 rounded-lg p-6 shadow-lg">
@@ -176,7 +176,7 @@ export default function Home() {
                     本気で強くなりたい全てのアスリートへ。MEALIER
                     AIは、AI技術を駆使してあなたのトレーニングと栄養管理を最適化し、パフォーマンス向上を加速させるパーソナルサポートアプリです。
                     <span className="font-semibold text-cyan-400">
-                      AIトレーナーとのチャット機能にはDify APIを活用し、パーソナライズされたアドバイスを提供。
+                      AIトレーナーとのチャット機能にはGoogle Vertex AIを活用し、パーソナライズされたアドバイスを提供。
                     </span>
                   </p>
                   <div className="space-y-4 mb-6">

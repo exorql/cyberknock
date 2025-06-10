@@ -171,7 +171,7 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <h3 className="text-2xl font-semibold mb-4">自社プロダクト: MEALIER AI</h3>
-                  <h4 className="text-xl font-medium mb-3 text-cyan-400">アスリート専用パーソナルトレーナー 17+                  </h4>
+                  <h4 className="text-xl font-medium mb-3 text-cyan-400">アスリート専用パーソナルトレーナー AI           </h4>
                   <p className="text-slate-300 mb-4">
                     本気で強くなりたい全てのアスリートへ。MEALIER
                     AIは、AI技術を駆使してあなたのトレーニングと栄養管理を最適化し、パフォーマンス向上を加速させるパーソナルサポートアプリです。

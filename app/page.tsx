@@ -197,7 +197,7 @@ export default function Home() {
                       target="_blank"
                       className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
-                      MEALIER AIを見る <ExternalLink className="h-4 w-4" />
+                      AIパーソナルトレーナーアプリを見る <ExternalLink className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>

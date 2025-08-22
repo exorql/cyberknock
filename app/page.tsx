@@ -170,13 +170,12 @@ export default function Home() {
             <div className="bg-slate-800/50 rounded-lg p-8 shadow-lg">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト:  AIパーソナルトレーナー</h3>
-                  <h4 className="text-xl font-medium mb-3 text-cyan-400">アスリート専用パーソナルトレーナー AI</h4>
+                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト: AIスポーツトレーナー - 動画分析&練習計画</h3>
+                  <h4 className="text-xl font-medium mb-3 text-cyan-400">フォーム改善×AI専用プランで効率的に上達</h4>
                   <p className="text-slate-300 mb-4">
-                    本気で強くなりたい全てのアスリートへ。AIパーソナルトレーナー
-                    は、AI技術を駆使してあなたのトレーニングと栄養管理を最適化し、パフォーマンス向上を加速させるパーソナルサポートアプリです。
+                    AIが動画からフォームを解析し、技術課題を可視化。競技特性と個人データに基づく練習計画で実戦力を最短強化するスポーツ特化アプリです。
                     <span className="font-semibold text-cyan-400">
-                      AIトレーナーとのチャット機能にはGoogle Vertex AIを活用し、パーソナライズされたアドバイスを提供。
+                      AI動画分析と戦略的トレーニングプランで、部活生からプロ志向アマまで効率的に上達をサポート。
                     </span>
                   </p>
                   <div className="space-y-4 mb-6">
@@ -184,10 +183,11 @@ export default function Home() {
                       <h5 className="font-medium text-white">【主な機能】</h5>
                       <ul className="list-disc pl-5 text-slate-300 space-y-2 mt-2">
                         <li>
-                          いつでも相談できるAIトレーナー - レベル、目標、体格などのデータに基づいたパーソナライズされたアドバイス
+                          戦略的週間トレーニングプラン設計 - 競技特性と個人データに基づく最適化されたプログラム
                         </li>
-                        <li>詳細なトレーニング記録＆分析 - コンディションや成長度合いの可視化</li>
-                        <li>科学に基づいた栄養サポート - 活動量や目標に合わせた最適な食事プランの提案</li>
+                        <li>AI動画分析でフォーム改善 - 30秒の動画から具体的な改善ポイントを提示</li>
+                        <li>科学的栄養設計&リカバリープログラム - BMR計算による精密カロリー設計</li>
+                        <li>進捗可視化&データ分析 - 直感的な進捗リングとデータ分析で成長を実感</li>
                       </ul>
                     </div>
                   </div>
@@ -197,14 +197,14 @@ export default function Home() {
                       target="_blank"
                       className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 transition-colors"
                     >
-                      AIパーソナルトレーナーアプリを見る <ExternalLink className="h-4 w-4" />
+                      AIスポーツトレーナーアプリを見る <ExternalLink className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
                 <div className="relative aspect-[16/9] overflow-hidden rounded-lg shadow-xl">
                   <Image
                     src="/xiantointa.jpg"
-                    alt="MEALIER AI アプリのコンセプトイラスト"
+                    alt="AIスポーツトレーナー アプリのコンセプトイラスト"
                     width={800}
                     height={600}
                     className="object-cover"

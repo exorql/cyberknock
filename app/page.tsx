@@ -170,24 +170,19 @@ export default function Home() {
             <div className="bg-slate-800/50 rounded-lg p-8 shadow-lg">
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト: AIスポーツトレーナー - 動画分析&練習計画</h3>
-                  <h4 className="text-xl font-medium mb-3 text-cyan-400">フォーム改善×AI専用プランで効率的に上達</h4>
+                  <h3 className="text-2xl font-semibold mb-4">自社プロダクト: AIスポーツトレーナー - 動画分析</h3>
+                  <h4 className="text-xl font-medium mb-3 text-cyan-400">フォーム改善に特化したAI動画分析</h4>
                   <p className="text-slate-300 mb-4">
-                    AIが動画からフォームを解析し、技術課題を可視化。競技特性と個人データに基づく練習計画で実戦力を最短強化するスポーツ特化アプリです。
+                    AIが動画からフォームを解析し、改善が必要なポイントを可視化するスポーツ特化アプリです。撮影した短い動画をアップロードするだけで、技術的課題の把握と具体的な改善ヒントが得られます。
                     <span className="font-semibold text-cyan-400">
-                      AI動画分析と戦略的トレーニングプランで、部活生からプロ志向アマまで効率的に上達をサポート。
+                      AI動画分析で、部活生からプロ志向アマまで効率的なフォーム改善をサポート。
                     </span>
                   </p>
                   <div className="space-y-4 mb-6">
                     <div>
                       <h5 className="font-medium text-white">【主な機能】</h5>
                       <ul className="list-disc pl-5 text-slate-300 space-y-2 mt-2">
-                        <li>
-                          戦略的週間トレーニングプラン設計 - 競技特性と個人データに基づく最適化されたプログラム
-                        </li>
                         <li>AI動画分析でフォーム改善 - 30秒の動画から具体的な改善ポイントを提示</li>
-                        <li>科学的栄養設計&リカバリープログラム - BMR計算による精密カロリー設計</li>
-                        <li>進捗可視化&データ分析 - 直感的な進捗リングとデータ分析で成長を実感</li>
                       </ul>
                     </div>
                   </div>

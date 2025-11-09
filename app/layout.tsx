@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin", "latin-ext"] })
 export const metadata: Metadata = {
   title: "Cyber Knock - 生成AIシステム開発・Webサービス開発",
   description:
-    "最先端の生成AIと確かな開発力で、あなたのビジネスを次のステージへ。Cyber Knockは、お客様の独自の要件に最適化されたAIシステム開発、Webサービス・アプリ開発を提供。自社プロダクト「AIスポーツトレーナー - 動画分析&練習計画」で培ったAI技術と開発ノウハウを活かし、業務効率の飛躍的向上と新しい顧客体験の創出を実現します。",
+    "最先端の生成AIと確かな開発力で、あなたのビジネスを次のステージへ。Cyber Knockは、お客様の独自の要件に最適化されたAIシステム開発、Webサービス・アプリ開発を提供。自社プロダクト「AIスポーツトレーナー - 動画分析」で培ったAI技術と開発ノウハウを活かし、業務効率の飛躍的向上と新しい顧客体験の創出を実現します。",
 }
 
 export default function RootLayout({

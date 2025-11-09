@@ -171,7 +171,7 @@ export default function Home() {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <h3 className="text-2xl font-semibold mb-4">自社プロダクト: AIスポーツトレーナー - 動画分析</h3>
-                  <h4 className="text-xl font-medium mb-3 text-cyan-400">フォーム改善に特化したAI動画分析</h4>
+                  <h4 className="text-xl font-medium mb-3 text-cyan-400">30秒でフォーム診断・課題カルテとドリルで即改善</h4>
                   <p className="text-slate-300 mb-4">
                     AIが動画からフォームを解析し、改善が必要なポイントを可視化するスポーツ特化アプリです。撮影した短い動画をアップロードするだけで、技術的課題の把握と具体的な改善ヒントが得られます。
                     <span className="font-semibold text-cyan-400">
@@ -182,7 +182,9 @@ export default function Home() {
                     <div>
                       <h5 className="font-medium text-white">【主な機能】</h5>
                       <ul className="list-disc pl-5 text-slate-300 space-y-2 mt-2">
-                        <li>AI動画分析でフォーム改善 - 30秒の動画から具体的な改善ポイントを提示</li>
+                        <li>AI動画分析でフォーム改善 - 30秒動画から具体的な改善ポイントを提示</li>
+                        <li>課題カルテで強化ポイントを整理 - 新着/優先/完了に自動分類</li>
+                        <li>今日の重点ドリル - 目的・手順・コツを表示してすぐ実践</li>
                       </ul>
                     </div>
                   </div>

@@ -184,7 +184,7 @@ export default function Home() {
                       <ul className="list-disc pl-5 text-slate-300 space-y-2 mt-2">
                         <li>AI動画分析でフォーム改善 - 30秒動画から具体的な改善ポイントを提示</li>
                         <li>課題カルテで強化ポイントを整理 - 新着/優先/完了に自動分類</li>
-                        <li>今日の重点ドリル - 目的・手順・コツを表示してすぐ実践</li>
+                        <li>トレーニングプランカードで日別メニューを一元管理 - 今週のドリルをまとめて確認しAIが効果的なドリルを提案</li>
                       </ul>
                     </div>
                   </div>
@@ -199,13 +199,21 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="relative aspect-[16/9] overflow-hidden rounded-lg shadow-xl">
-                  <Image
-                    src="/xiantointa.jpg"
-                    alt="AIスポーツトレーナー アプリのコンセプトイラスト"
-                    width={800}
-                    height={600}
-                    className="object-cover"
-                  />
+                  <Link
+                    href="https://mealierai.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block h-full"
+                    aria-label="AIスポーツトレーナーアプリのストアページを開く"
+                  >
+                    <Image
+                      src="/feature-graphics.png"
+                      alt="AIスポーツトレーナー アプリのコンセプトイラスト"
+                      fill
+                      sizes="(min-width: 1024px) 560px, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </Link>
                 </div>
               </div>
             </div>

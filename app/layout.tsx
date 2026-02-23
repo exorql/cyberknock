@@ -7,9 +7,16 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin", "latin-ext"] })
 
 export const metadata: Metadata = {
-  title: "Cyber Knock - 生成AIシステム開発・Webサービス開発",
+  title: "Cyber Knock | 生成AIシステム開発・Web/アプリ受託開発・SEO×LLMO支援 | 東京・渋谷",
   description:
-    "最先端の生成AIと確かな開発力で、あなたのビジネスを次のステージへ。Cyber Knockは、お客様の独自要件に最適化したAIシステム/Web・アプリ開発を提供。自社プロダクト「AIスポーツトレーナー - 動画分析」で培ったAI動画解析や課題カルテ・ドリル提示の知見を活かし、業務効率化と新しい顧客体験の創出を実現します。",
+    "生成AI活用のシステム開発、Web・ネイティブアプリ受託開発、SEO×LLMOハイブリッド伴走支援。自社プロダクト（AIスポーツトレーナー・コレステAI）で培った実践力で、企画から運用まで一気通貫サポート。AI活用・新規プロダクト開発のご相談はCyber Knockへ。",
+  keywords: ["生成AI開発", "AIシステム開発", "Web開発", "アプリ開発", "受託開発", "SEO", "LLMO", "AI活用", "東京", "渋谷"],
+  openGraph: {
+    title: "Cyber Knock | 生成AI × 開発で事業成長を加速",
+    description: "AI活用のシステム開発からSEO×LLMO戦略まで。自社プロダクトで磨いた実践力で、お客様のビジネス成果にコミットします。",
+    type: "website",
+    locale: "ja_JP",
+  },
 }
 
 export default function RootLayout({

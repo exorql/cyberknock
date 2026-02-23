@@ -60,3 +60,19 @@
     scroll-behavior: smooth;
   }
 }
+
+/* Gradient animation for hero */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Glow pulse animation */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+.animate-gradient { animation: gradient-shift 8s ease infinite; background-size: 200% 200%; }
+.animate-glow { animation: glow-pulse 3s ease-in-out infinite; }
+

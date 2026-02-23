@@ -246,15 +246,12 @@ export default function Home() {
               </div>
 
               <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl bg-gradient-to-b from-white to-slate-300 bg-clip-text text-transparent leading-[1.15]">
-                生成AI時代に貴社が<br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">真っ先に選ばれる</span>
-                <br />仕組みをつくる
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">AI × 開発力</span>で、事業成長を加速させる。
               </h1>
 
               <p className="mb-10 text-lg text-slate-400 sm:text-xl max-w-2xl mx-auto leading-relaxed">
-                システム開発から生成AIプロダクト、<br className="hidden sm:inline" />
-                SEO×LLMO戦略まで。ビジネスを深く理解し、<br className="hidden sm:inline" />
-                設計から運用まで一気通貫でお客様に伴走します。
+                生成AIシステム・Web/アプリ開発からSEO×LLMO戦略まで。<br className="hidden sm:inline" />
+                企画・設計・開発・運用をワンストップで支援します。
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -238,7 +238,7 @@ export default function Home() {
           />
 
           <div ref={heroRef.ref} className={`container relative z-10 transition-all duration-1000 ${heroRef.isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
-            <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto max-w-6xl text-center">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 mb-8">
                 <Sparkles className="h-4 w-4 text-cyan-400" />

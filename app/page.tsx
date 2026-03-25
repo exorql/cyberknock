@@ -623,7 +623,7 @@ export default function Home() {
                       { label: "社名", value: "Cyber Knock（サイバーノック）", icon: Cpu },
                       { label: "代表者", value: "渡辺 晴仁", icon: User },
                       { label: "所在地", value: "〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C", icon: MapPin },
-                      { label: "事業内容", value: "生成AIシステム開発、Web・アプリ受託開発、SEO×LLMO伴走支援、自社プロダクト開発・運用", icon: Layers },
+                      { label: "事業内容", value: "生成AI・Web・アプリ受託開発 / SEO×LLMO構築・運用 / 自社プロダクト開発", icon: Layers },
                     ].map((row, i) => (
                       <tr key={i} className="border-b border-slate-800 last:border-b-0">
                         <td className="px-6 py-5 text-sm font-medium text-slate-300 w-32 align-top">

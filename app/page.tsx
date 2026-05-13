@@ -347,30 +347,6 @@ export default function Home() {
                 gradient="bg-gradient-to-br from-blue-500/5 to-transparent"
               />
               <ServiceCard
-                icon={Target}
-                title="SEO × LLMO ハイブリッド伴走支援"
-                description="生成AI時代に貴社ブランドが真っ先に選ばれる仕組みづくりと事業成果の創出に貢献します。"
-                features={[
-                  "コンテンツ設計・技術/UX改善・KPI設計",
-                  "LLM最適化（LLMO）による生成AI検索対策",
-                  "SEO戦略とLLMO戦略のハイブリッド施策",
-                  "データ分析に基づくPDCA伴走支援",
-                ]}
-                gradient="bg-gradient-to-br from-purple-500/5 to-transparent"
-              />
-              <ServiceCard
-                icon={Lightbulb}
-                title="新規プロダクト 技術選定・設計"
-                description="新規プロダクトの立ち上げ段階から、最適な技術選定とアーキテクチャ設計を支援します。"
-                features={[
-                  "MVP開発による仮説検証の高速化",
-                  "スケーラブルなアーキテクチャ設計",
-                  "技術的負債を最小化するコードベース構築",
-                  "CI/CD・監視体制の構築",
-                ]}
-                gradient="bg-gradient-to-br from-emerald-500/5 to-transparent"
-              />
-              <ServiceCard
                 icon={Sparkles}
                 title="AIを活用したプロダクト開発相談"
                 description="AIとビジネス両方の視点から、プロダクトにAIをどう活かすか一緒に考えます。"
@@ -380,19 +356,7 @@ export default function Home() {
                   "AI×UXの設計コンサルティング",
                   "コスト最適化とスケーリング戦略",
                 ]}
-                gradient="bg-gradient-to-br from-amber-500/5 to-transparent"
-              />
-              <ServiceCard
-                icon={Zap}
-                title="OpenClaw等を活用したAIシステム開発"
-                description="オープンソースAIフレームワークを活用し、柔軟でコスト効率の高いAIシステムを構築します。"
-                features={[
-                  "OpenClaw / LangChain / CrewAIの活用",
-                  "マルチエージェントシステム設計・構築",
-                  "カスタムAIワークフロー開発",
-                  "自社インフラでのAI運用環境構築",
-                ]}
-                gradient="bg-gradient-to-br from-rose-500/5 to-transparent"
+                gradient="bg-gradient-to-br from-purple-500/5 to-transparent"
               />
             </div>
           </div>

@@ -280,7 +280,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  <AnimatedCounter end={2} suffix="つ+" />
+                  <AnimatedCounter end={1} suffix="つ+" />
                 </div>
                 <p className="text-sm text-slate-400">自社プロダクト運用中</p>
               </div>
@@ -472,57 +472,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Product 2: CholestAI */}
-            <div className="transition-all duration-1000">
-              <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm">
-                <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none" />
-                <div className="grid lg:grid-cols-2 gap-8 p-8 md:p-12 items-center">
-                  <div className="order-2 lg:order-1 relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl shadow-emerald-500/10">
-                    <Image
-                      src="/choleste-ai-mockup.png"
-                      alt="コレステAIアプリのモックアップ"
-                      fill
-                      sizes="(min-width: 1024px) 560px, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="order-1 lg:order-2">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 mb-5">
-                      <span className="text-xs font-medium text-emerald-300">iOS</span>
-                    </div>
-                    <h3 className="text-2xl md:text-3xl font-bold mb-3 text-white">
-                      コレステAI
-                    </h3>
-                    <p className="text-lg text-emerald-400 font-medium mb-4">AIコーチがコレステロール値改善をサポート</p>
-                    <p className="text-slate-400 mb-6 leading-relaxed">
-                      LDLコレステロール・中性脂肪の改善を目指す方のための食事管理アプリ。
-                      AIが毎日の食事内容を分析し、コレステロール値の改善に向けた具体的なアドバイスを提供します。
-                    </p>
-                    <div className="space-y-3 mb-8">
-                      {[
-                        "AIコーチが食事内容を分析し、改善アドバイスを毎日提供",
-                        "LDLコレステロール・LH比のトラッキングとグラフ化",
-                        "検査値の推移を記録して改善の手応えを可視化"
-                      ].map((f, i) => (
-                        <div key={i} className="flex items-start gap-2.5">
-                          <CheckCircle2 className="h-5 w-5 text-emerald-500 mt-0.5 shrink-0" />
-                          <span className="text-sm text-slate-300">{f}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex flex-wrap gap-3">
-                      <Button asChild variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
-                        <Link href="https://apps.apple.com/jp/app/%E3%82%B3%E3%83%AC%E3%82%B9%E3%83%86ai%E3%82%B3%E3%83%BC%E3%83%81-ldl%E3%82%B3%E3%83%AC%E3%82%B9%E3%83%86%E3%83%AD%E3%83%BC%E3%83%AB-%E4%B8%AD%E6%80%A7%E8%84%82%E8%82%AA%E3%82%92%E6%94%B9%E5%96%84/id6756923850" target="_blank">
-                          <svg className="h-4 w-4 mr-1.5" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" /></svg>
-                          App Store
-                          <ExternalLink className="h-3 w-3 ml-1.5" />
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </section>
 

@@ -242,16 +242,16 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 px-4 py-1.5 mb-8">
                 <Sparkles className="h-4 w-4 text-cyan-400" />
-                <span className="text-sm font-medium text-cyan-300">AI × エンジニアリングで事業成長を加速</span>
+                <span className="text-sm font-medium text-cyan-300">企画・開発・収益化まで一気通貫</span>
               </div>
 
               <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl bg-gradient-to-b from-white to-slate-300 bg-clip-text text-transparent leading-[1.15]">
-                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">AI × 開発力</span>で、事業成長を加速させる。
+                つくるだけじゃない。<br className="hidden sm:inline" /><span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">届けて、回る仕組み</span>まで。
               </h1>
 
               <p className="mb-10 text-lg text-slate-400 sm:text-xl max-w-2xl mx-auto leading-relaxed">
-                生成AIシステム・Web/アプリ開発からSEO×LLMO戦略まで。<br className="hidden sm:inline" />
-                企画・設計・開発・運用をワンストップで支援します。
+                自社AIアプリの企画・開発・グロースを一人で完結。<br className="hidden sm:inline" />
+                その実践知をもとに、御社のプロダクト開発を支援します。
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -280,27 +280,27 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  <AnimatedCounter end={1} suffix="つ+" />
+                  自社アプリ
                 </div>
-                <p className="text-sm text-slate-400">自社プロダクト運用中</p>
+                <p className="text-sm text-slate-400">サブスクモデルで継続運用中</p>
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
                   iOS / Android
                 </div>
-                <p className="text-sm text-slate-400">クロスプラットフォーム対応</p>
+                <p className="text-sm text-slate-400">両ストアで公開中</p>
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  <AnimatedCounter end={0} suffix="" />→リリース
+                  企画〜運用
                 </div>
-                <p className="text-sm text-slate-400">個人で0→1のプロダクト開発</p>
+                <p className="text-sm text-slate-400">一人で一気通貫で完結</p>
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  AI特化
+                  <AnimatedCounter end={50} suffix="競技+" />
                 </div>
-                <p className="text-sm text-slate-400">生成AI活用の知見・実績</p>
+                <p className="text-sm text-slate-400">AI分析対応の競技数</p>
               </div>
             </div>
           </div>
@@ -372,8 +372,8 @@ export default function Home() {
               </div>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">自社プロダクト</h2>
               <p className="max-w-2xl mx-auto text-slate-400 leading-relaxed">
-                個人で0からの企画・開発・運用を通じて培った<br className="hidden sm:inline" />
-                実践的な知見をお客様への価値に変えます。
+                自社サービスにて、企画・設計・開発・ストア公開・グロースまでを一貫して実践。<br className="hidden sm:inline" />
+                そのノウハウを活かし、ビジネスの成功を支援します。
               </p>
             </div>
 
@@ -482,18 +482,18 @@ export default function Home() {
               {[
                 {
                   icon: Smartphone,
-                  title: "自社プロダクトで磨いた実践力",
-                  description: "0→1で複数アプリを開発・運用する中で培った、企画からグロースまでの実践的知見。開発だけでなく「売れるプロダクト」を一緒につくります。"
+                  title: "自分で作り、自分で運用している開発者",
+                  description: "企画・設計・開発・ストア公開・グロース施策まですべて一人で実行。受託だけの開発会社とは見える景色が違います。"
                 },
                 {
                   icon: Bot,
-                  title: "AI技術の最前線",
-                  description: "自社プロダクトで生成AI（LLM・画像/動画解析など）を日常的に活用。机上の空論ではなく実運用実績に基づいたAIソリューションをご提案します。"
+                  title: "AIを実サービスで使い倒している",
+                  description: "自社アプリでLLM・動画解析AIをサブスクモデルに組み込み、日々運用中。実ユーザーのフィードバックに基づくAI活用ノウハウをご提供します。"
                 },
                 {
                   icon: BarChart3,
-                  title: "ビジネス成果にコミット",
-                  description: "開発で終わりではなく、KPI設計・データ分析・PDCA伴走まで。お客様のビジネス成果を最大化するパートナーとして事業を加速させます。"
+                  title: "収益化まで見据えたプロダクト設計",
+                  description: "開発して終わりではなく、マネタイズ・ASO・継続率改善まで。『使われて、回る』プロダクトを一緒につくります。"
                 },
               ].map((item, i) => {
                 const { ref, isInView } = useInView();

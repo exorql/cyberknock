@@ -246,7 +246,7 @@ export default function Home() {
               </div>
 
               <h1 className="mb-6 text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl bg-gradient-to-b from-white to-slate-300 bg-clip-text text-transparent leading-[1.15]">
-                つくるだけじゃない。<br className="hidden sm:inline" /><span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">届けて、回る仕組み</span>まで。
+                <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">AIプロダクト開発。</span><br className="hidden sm:inline" />企画から、収益化まで。
               </h1>
 
               <p className="mb-10 text-lg text-slate-400 sm:text-xl max-w-2xl mx-auto leading-relaxed">

@@ -165,7 +165,7 @@ export default function Home() {
   };
 
   const heroRef = useInView();
-  const statsRef = useInView();
+
   const productsRef = useInView();
 
   return (
@@ -274,37 +274,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════════ STATS BAR ═══════════ */}
-        <section className="relative py-12 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-y border-slate-800/60">
-          <div ref={statsRef.ref} className={`container transition-all duration-700 ${statsRef.isInView ? "opacity-100" : "opacity-0"}`}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  自社アプリ
-                </div>
-                <p className="text-sm text-slate-400">サブスクモデルで継続運用中</p>
-              </div>
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  iOS / Android
-                </div>
-                <p className="text-sm text-slate-400">両ストアで公開中</p>
-              </div>
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  企画〜運用
-                </div>
-                <p className="text-sm text-slate-400">一人で一気通貫で完結</p>
-              </div>
-              <div>
-                <div className="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">
-                  <AnimatedCounter end={50} suffix="競技+" />
-                </div>
-                <p className="text-sm text-slate-400">AI分析対応の競技数</p>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ═══════════ SERVICES ═══════════ */}
         <section id="services" className="py-24 md:py-32 bg-slate-950">

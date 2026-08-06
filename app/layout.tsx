@@ -6,16 +6,34 @@ import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] })
 
+const siteUrl = "https://cyberknock.pages.dev"
+const siteTitle = "Cyber Knock | スポーツ領域のAI・プロダクト開発パートナー"
+const siteDescription =
+  "自社でスポーツAI動画分析アプリを開発・運用する知見をもとに、スポーツ領域の新規サービスやAI機能を、要件整理からWeb・モバイル開発、リリース後の改善まで支援します。"
+
 export const metadata: Metadata = {
-  title: "Cyber Knock | AIプロダクト開発。企画から、収益化まで。 | 東京・渋谷",
-  description:
-    "自社AIアプリの企画・開発・収益化を一人で完結した開発者が、御社のプロダクト開発を支援。生成AIシステム・Web/アプリ開発からSEO×LLMO戦略まで、企画・設計・開発・運用をワンストップで。",
-  keywords: ["生成AI開発", "AIシステム開発", "Web開発", "アプリ開発", "受託開発", "SEO", "LLMO", "AI活用", "東京", "渋谷"],
+  title: siteTitle,
+  description: siteDescription,
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
-    title: "Cyber Knock | AIプロダクト開発。企画から、収益化まで。",
-    description: "自社AIアプリを企画から収益化まで一人で完結。その実践知をもとに、生成AIシステム・アプリ開発・SEO×LLMO戦略を支援します。",
+    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    description: siteDescription,
+    url: siteUrl,
+    siteName: "Cyber Knock",
     type: "website",
     locale: "ja_JP",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    description: siteDescription,
   },
   verification: {
     google: "ib75LQ9trTgK_ExlWI9S7ZRaNfGtWg6O_8fJT3PN_d0",

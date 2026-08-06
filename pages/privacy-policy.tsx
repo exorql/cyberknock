@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
 
       <h2 className="text-xl font-semibold mt-10 mb-2">第2条（個人情報を収集・利用する目的）</h2>
       <ol className="list-decimal pl-6 mb-4 space-y-1">
-        <li>当事業のサービス（生成AIシステム開発、Webサービス・アプリ開発支援、自社プロダクト開発等）の提供・運営のため</li>
+        <li>当事業のサービス（スポーツ領域を中心としたAI・Web・モバイルプロダクト開発、開発顧問、自社プロダクト運営等）の提供・運営のため</li>
         <li>お客様からのお問い合わせに回答するため（本人確認を行うことを含む）</li>
         <li>お客様にご自身の登録情報の閲覧や変更、削除、ご利用状況の閲覧を行っていただくため</li>
         <li>メンテナンス、重要なお知らせなど必要に応じたご連絡のため</li>
@@ -104,32 +104,24 @@ export default function PrivacyPolicy() {
         当サイトでは、お客様の利便性向上やサイト改善のため、Cookieを使用することがあります。お客様はブラウザの設定によりCookieの受け取りを拒否することができますが、その場合、当サイトの一部機能がご利用いただけなくなることがあります。
       </p>
 
-      <h2 className="text-xl font-semibold mt-10 mb-2">第9条（アクセス解析ツールについて）</h2>
-      <p className="mb-4">
-        当サイトでは、Googleによるアクセス解析ツール「Googleアナリティクス」を利用しています。Googleアナリティクスはトラフィックデータの収集のためにCookieを使用しています。このトラフィックデータは匿名で収集されており、個人を特定するものではありません。この機能はCookieを無効にすることで収集を拒否することが出来ますので、お使いのブラウザの設定をご確認ください。この規約に関して、詳しくは
-        <Link href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" className="underline text-cyan-400 ml-1">
-          Googleアナリティクス利用規約
-        </Link>
-        をご確認ください。
-      </p>
 
-      <h2 className="text-xl font-semibold mt-10 mb-2">第10条（プライバシーポリシーの変更）</h2>
+      <h2 className="text-xl font-semibold mt-10 mb-2">第9条（プライバシーポリシーの変更）</h2>
       <ol className="list-decimal pl-6 mb-4 space-y-1">
         <li>本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、お客様に通知することなく、変更することができるものとします。</li>
         <li>当事業が別途定める場合を除いて、変更後のプライバシーポリシーは、当サイトに掲載したときから効力を生じるものとします。</li>
       </ol>
 
-      <h2 className="text-xl font-semibold mt-10 mb-2">第11条（免責事項）</h2>
+      <h2 className="text-xl font-semibold mt-10 mb-2">第10条（免責事項）</h2>
       <p className="mb-4">
         当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。当サイトのコンテンツ・情報につきまして、可能な限り正確な情報を掲載するよう努めておりますが、誤情報が入り込んだり、情報が古くなっていることもございます。当サイトに掲載された内容によって生じた損害等の一切の責任を負いかねますのでご了承ください。
       </p>
 
-      <h2 className="text-xl font-semibold mt-10 mb-2">第12条（著作権）</h2>
+      <h2 className="text-xl font-semibold mt-10 mb-2">第11条（著作権）</h2>
       <p className="mb-4">
         当サイトで掲載している文章や画像などにつきましては、無断転載することを禁止します。
       </p>
 
-      <h2 className="text-xl font-semibold mt-10 mb-2">第13条（お問い合わせ窓口）</h2>
+      <h2 className="text-xl font-semibold mt-10 mb-2">第12条（お問い合わせ窓口）</h2>
       <div className="mb-4">
         <p>
           本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。

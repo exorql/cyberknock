@@ -154,24 +154,25 @@ export function CaseStudyContent() {
               開発・運用事例
             </p>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold tracking-tight text-white leading-[1.35] mb-8">
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.4] mb-8">
               スポーツ動画をAIで分析するプロダクトを、
               <br />
-              <span className="text-cyan-400">企画から運用まで。</span>
+              <span className="text-cyan-400 inline-block mt-3">企画から運用まで。</span>
             </h1>
 
             {/* プロダクト概要 */}
-            <div className="max-w-2xl">
-              <p className="text-lg text-slate-400 leading-relaxed mb-6">
+            <div className="max-w-2xl mb-8">
+              <p className="text-lg text-slate-400 leading-relaxed">
                 スマートフォンで撮影したスポーツ動画をもとに、競技や分析内容に応じて姿勢・関節角度・動作情報を解析し、AIによる評価や改善ポイントを提示するスポーツトレーニングアプリ。
                 複数競技を対象とし、iOS / Androidで実ユーザー向けに提供・運用しています。
               </p>
-              <p className="text-base text-slate-300 leading-relaxed mb-10 p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5">
-                企画・開発・リリース後の運用改善まで、自社で継続して取り組んでいるプロダクトです。
-              </p>
+            </div>
+            <p className="w-fit text-sm sm:text-base text-slate-300 leading-relaxed mb-10 p-4 rounded-lg border border-cyan-500/20 bg-cyan-500/5 whitespace-normal sm:whitespace-nowrap">
+              企画・開発・リリース後の運用改善まで、自社で継続して取り組んでいるプロダクトです。
+            </p>
 
-              {/* ストアリンク */}
-              <div className="flex flex-wrap gap-3">
+            {/* ストアリンク */}
+            <div className="flex flex-wrap gap-3">
                 <Button
                   asChild
                   variant="outline"

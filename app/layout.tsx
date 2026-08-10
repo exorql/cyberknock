@@ -40,6 +40,22 @@ export const metadata: Metadata = {
   },
 }
 
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Cyber Knock",
+  url: siteUrl,
+  description: siteDescription,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C",
+    addressLocality: "渋谷区",
+    addressRegion: "東京都",
+    postalCode: "150-0043",
+    addressCountry: "JP",
+  },
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -48,6 +64,10 @@ export default function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
         </ThemeProvider>
@@ -55,3 +75,4 @@ export default function RootLayout({
     </html>
   )
 }
+

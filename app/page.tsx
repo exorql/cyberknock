@@ -362,6 +362,17 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+                {/* スポーツDXへの導線 */}
+                <div className="mt-6 pt-5 border-t border-slate-800">
+                  <p className="text-xs text-slate-500 mb-3">自治体・競技団体・スポーツ事業者の方へ</p>
+                  <Link
+                    href="/sports-dx"
+                    className="inline-flex items-center gap-1.5 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                  >
+                    スポーツDX・AI実証支援について見る
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -498,16 +509,29 @@ export default function Home() {
                   この開発・運用で得た知見を、スポーツ企業の新規プロダクト開発、
                   既存サービスへのAI機能追加、モバイルアプリ開発に活用できます。
                 </p>
-                <Button
-                  asChild
-                  size="sm"
-                  className="mt-4 bg-cyan-600 hover:bg-cyan-500 text-white"
-                >
-                  <Link href="#contact">
-                    開発について相談する
-                    <ArrowRight className="ml-1.5 h-4 w-4" />
-                  </Link>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3 mt-4">
+                  <Button
+                    asChild
+                    size="sm"
+                    className="bg-cyan-600 hover:bg-cyan-500 text-white"
+                  >
+                    <Link href="#contact">
+                      開発について相談する
+                      <ArrowRight className="ml-1.5 h-4 w-4" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="sm"
+                    variant="outline"
+                    className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+                  >
+                    <Link href="/cases/ai-sports-trainer">
+                      開発・運用事例を詳しく見る
+                      <ArrowRight className="ml-1.5 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -799,8 +823,8 @@ export default function Home() {
       {/* ─── Footer ─── */}
       <footer className="py-10 bg-slate-900 border-t border-slate-800">
         <div className="container max-w-6xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <div>
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-6">
+            <div className="shrink-0">
               <Link href="/" className="font-bold text-white text-sm">
                 Cyber Knock
               </Link>
@@ -808,13 +832,16 @@ export default function Home() {
                 スポーツ領域を中心としたAI・プロダクト開発
               </p>
             </div>
-            <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <nav className="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="フッターナビゲーション">
               {[
                 { label: "支援領域", href: "#services" },
                 { label: "開発事例", href: "#case-study" },
                 { label: "進め方", href: "#process" },
                 { label: "プロフィール", href: "#profile" },
                 { label: "お問い合わせ", href: "#contact" },
+                { label: "スポーツDX支援", href: "/sports-dx" },
+                { label: "AIスポーツトレーナー事例", href: "/cases/ai-sports-trainer" },
+                { label: "データ取り扱い", href: "/security" },
                 { label: "プライバシーポリシー", href: "/privacy-policy" },
               ].map((link) => (
                 <Link
@@ -826,7 +853,20 @@ export default function Home() {
                 </Link>
               ))}
             </nav>
+          </div>
+          <div className="border-t border-slate-800 pt-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <p className="text-xs text-slate-500">
+              <Link
+                href="https://ai-sportstrainer.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                AIスポーツトレーナー
+              </Link>
+              {" "}は、Cyber Knockが企画・開発・運営するスポーツ動画分析アプリです。
+            </p>
+            <p className="text-xs text-slate-500 shrink-0">
               &copy; {CURRENT_YEAR} Cyber Knock
             </p>
           </div>

@@ -219,10 +219,11 @@ export function SportsDxContent() {
               自治体・スポーツ団体向け スポーツDX / AI活用支援
             </p>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.4] mb-8">
-              スポーツ現場の課題を、
-              <br />
-              <span className="text-cyan-400 inline-block mt-3">実証からサービス化まで。</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.6] mb-8">
+              <span className="block mb-3 sm:mb-4">
+                スポーツ現場の課題を、
+              </span>
+              <span className="text-cyan-400 block">実証からサービス化まで。</span>
             </h1>
 
             <p className="text-lg text-slate-400 leading-relaxed max-w-2xl mb-10">

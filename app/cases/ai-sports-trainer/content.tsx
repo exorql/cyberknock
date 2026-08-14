@@ -154,10 +154,11 @@ export function CaseStudyContent() {
               開発・運用事例
             </p>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.4] mb-8">
-              スポーツ動画をAIで分析するプロダクトを、
-              <br />
-              <span className="text-cyan-400 inline-block mt-3">企画から運用まで。</span>
+            <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.6] mb-8">
+              <span className="block mb-3 sm:mb-4">
+                スポーツ動画をAIで分析するプロダクトを、
+              </span>
+              <span className="text-cyan-400 block">企画から運用まで。</span>
             </h1>
 
             {/* プロダクト概要 */}
@@ -225,7 +226,6 @@ export function CaseStudyContent() {
                   </Link>
                 </Button>
               </div>
-            </div>
           </div>
         </section>
 

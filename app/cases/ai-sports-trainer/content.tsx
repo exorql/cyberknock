@@ -156,9 +156,9 @@ export function CaseStudyContent() {
 
             <h1 className="text-3xl sm:text-4xl lg:text-[44px] font-bold text-white leading-[1.6] mb-8">
               <span className="block mb-3 sm:mb-4">
-                スポーツ動画をAIで分析するプロダクトを、
+                スポーツAIプロダクトを、
               </span>
-              <span className="text-cyan-400 block">企画から運用まで。</span>
+              <span className="text-cyan-400 block">企画・開発から運用改善まで。</span>
             </h1>
 
             {/* プロダクト概要 */}

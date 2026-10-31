@@ -48,10 +48,8 @@ const organizationJsonLd = {
   description: siteDescription,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C",
-    addressLocality: "渋谷区",
+    addressLocality: "三鷹市",
     addressRegion: "東京都",
-    postalCode: "150-0043",
     addressCountry: "JP",
   },
 }

@@ -291,7 +291,7 @@ export default function SecurityPage() {
               </p>
               <p className="text-slate-400 leading-relaxed">
                 Cyber Knock（代表者：渡辺 晴仁）<br />
-                所在地：〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C
+                所在地：東京都三鷹市
               </p>
             </div>
 

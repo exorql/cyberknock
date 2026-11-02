@@ -290,8 +290,7 @@ export default function SecurityPage() {
                 データ取り扱いに関するご質問、データ削除のご依頼、問題が発生した場合のご連絡は、お問い合わせフォームよりご連絡ください。代表者が直接確認し、速やかに対応します。
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Cyber Knock（代表者：渡辺 晴仁）<br />
-                所在地：〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C
+                Cyber Knock（代表者：渡辺 晴仁）
               </p>
             </div>
 

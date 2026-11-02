@@ -1,0 +1,92 @@
+[
+  {
+    "file": "after/mobile-lighthouse-full-case-study.webp",
+    "report": "after/case-study.report.json",
+    "capture": "Lighthouse fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 8531
+    },
+    "fetchTime": "2026-11-02T08:44:43.615Z",
+    "fontLimitation": "This run lacked Japanese fonts. Preserve as harness diagnostic evidence; Japanese UI acceptance requires a font-corrected run."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-home.webp",
+    "report": "after/home.report.json",
+    "capture": "Lighthouse fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 10846
+    },
+    "fetchTime": "2026-11-02T08:44:17.921Z",
+    "fontLimitation": "This run lacked Japanese fonts. Preserve as harness diagnostic evidence; Japanese UI acceptance requires a font-corrected run."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-privacy-policy.webp",
+    "report": "after/privacy-policy.report.json",
+    "capture": "Lighthouse fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 6380
+    },
+    "fetchTime": "2026-11-02T08:45:07.471Z",
+    "fontLimitation": "This run lacked Japanese fonts. Preserve as harness diagnostic evidence; Japanese UI acceptance requires a font-corrected run."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-security.webp",
+    "report": "after/security.report.json",
+    "capture": "Lighthouse fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 5140
+    },
+    "fetchTime": "2026-11-02T08:44:55.668Z",
+    "fontLimitation": "This run lacked Japanese fonts. Preserve as harness diagnostic evidence; Japanese UI acceptance requires a font-corrected run."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-sports-dx.webp",
+    "report": "after/sports-dx.report.json",
+    "capture": "Lighthouse fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 7358
+    },
+    "fetchTime": "2026-11-02T08:44:31.766Z",
+    "fontLimitation": "This run lacked Japanese fonts. Preserve as harness diagnostic evidence; Japanese UI acceptance requires a font-corrected run."
+  }
+]

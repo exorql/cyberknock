@@ -1,0 +1,202 @@
+[
+  {
+    "file": "before/mobile-lighthouse-case-study.jpg",
+    "report": "before/case-study.report.json",
+    "requestedUrl": "https://cyberknock.pages.dev/cases/ai-sports-trainer",
+    "fetchTime": "2026-11-02T08:34:03.307Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 1390,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "before/mobile-lighthouse-home.jpg",
+    "report": "before/home.report.json",
+    "requestedUrl": "https://cyberknock.pages.dev/",
+    "fetchTime": "2026-11-02T08:33:11.107Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 1501,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "before/mobile-lighthouse-privacy-policy.jpg",
+    "report": "before/privacy-policy.report.json",
+    "requestedUrl": "https://cyberknock.pages.dev/privacy-policy",
+    "fetchTime": "2026-11-02T08:34:54.083Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 748,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "before/mobile-lighthouse-security.jpg",
+    "report": "before/security.report.json",
+    "requestedUrl": "https://cyberknock.pages.dev/security",
+    "fetchTime": "2026-11-02T08:34:29.274Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 756,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "before/mobile-lighthouse-sports-dx.jpg",
+    "report": "before/sports-dx.report.json",
+    "requestedUrl": "https://cyberknock.pages.dev/sports-dx",
+    "fetchTime": "2026-11-02T08:33:37.966Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 1369,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "after/mobile-lighthouse-case-study.jpg",
+    "report": "after/case-study.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/cases/ai-sports-trainer",
+    "fetchTime": "2026-11-02T08:34:16.176Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 723,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "after/mobile-lighthouse-home.jpg",
+    "report": "after/home.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/",
+    "fetchTime": "2026-11-02T08:33:24.083Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 776,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "after/mobile-lighthouse-privacy-policy.jpg",
+    "report": "after/privacy-policy.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/privacy-policy",
+    "fetchTime": "2026-11-02T08:35:06.129Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 710,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "after/mobile-lighthouse-security.jpg",
+    "report": "after/security.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/security",
+    "fetchTime": "2026-11-02T08:34:41.499Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 696,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  },
+  {
+    "file": "after/mobile-lighthouse-sports-dx.jpg",
+    "report": "after/sports-dx.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/sports-dx",
+    "fetchTime": "2026-11-02T08:33:50.603Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 732,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual responsive viewport screenshot. Japanese glyph coverage must be verified; this runner did not install a Japanese font."
+  }
+]

@@ -1,0 +1,194 @@
+- banner:
+  - link "Cyber Knock":
+    - /url: /
+  - navigation:
+    - link "スポーツDX":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "セキュリティ":
+      - /url: /security
+    - link "会社について":
+      - /url: /
+    - link "相談する":
+      - /url: /#contact
+      - text: 相談する
+- main:
+  - paragraph: 自治体・スポーツ団体向け スポーツDX / AI活用支援
+  - heading "スポーツ現場の課題を、 実証からサービス化まで。" [level=1]:
+    - generic: スポーツ現場の課題を、
+    - generic: 実証からサービス化まで。
+  - paragraph:
+    - text: 自社スポーツAIプロダクトの開発・運用で得た知見をもとに、自治体・競技団体・スポーツ事業者のDX・AI活用を支援します。
+    - text: 課題整理、実証設計、Web・モバイル・AI開発、データ分析、効果検証まで一貫して対応します。
+  - link "スポーツDX・実証について相談する":
+    - /url: /#contact
+    - text: スポーツDX・実証について相談する
+  - link "AIスポーツプロダクトの開発事例を見る":
+    - /url: /cases/ai-sports-trainer
+  - region "自治体・スポーツ団体の、こんなテーマに":
+    - paragraph: 対象・テーマ
+    - heading "自治体・スポーツ団体の、こんなテーマに" [level=2]
+    - heading "自治体" [level=3]
+    - list:
+      - listitem: 地域スポーツDX
+      - listitem: スポーツ参加機会の拡大
+      - listitem: 指導環境のデジタル化
+      - listitem: 部活動の地域展開におけるデジタル活用
+    - heading "競技団体" [level=3]
+    - list:
+      - listitem: 指導DX
+      - listitem: データ活用
+      - listitem: 競技普及
+      - listitem: 会員向けデジタルサービス
+    - heading "スポーツクラブ" [level=3]
+    - list:
+      - listitem: 指導支援
+      - listitem: 会員向け付加価値
+      - listitem: オンライン指導
+      - listitem: 新規デジタルサービス
+    - heading "スクール" [level=3]
+    - list:
+      - listitem: AI動画分析
+      - listitem: 選手の振り返り
+      - listitem: 指導者との情報共有
+    - heading "スポーツ事業会社" [level=3]
+    - list:
+      - listitem: スポーツ領域の新規サービス
+      - listitem: AI機能開発
+      - listitem: PoC / MVP
+    - heading "公的事業の受託企業" [level=3]
+    - list:
+      - listitem: スポーツ領域の技術パートナー
+      - listitem: AI部分の開発
+      - listitem: モバイル / Web開発
+      - listitem: 再委託
+  - region "構想だけでも、既存サービスがあっても対応できます":
+    - paragraph: 提供サービス
+    - heading "構想だけでも、既存サービスがあっても対応できます" [level=2]
+    - paragraph: 段階に応じた関わり方が可能です。企画段階からでも、技術パートナーとしての部分参加でも対応します。
+    - heading "課題整理・実証企画" [level=3]
+    - paragraph: 現場ヒアリングをもとに、対象者、仮説、KPI、実証方法を整理します。
+    - heading "PoC・MVP開発" [level=3]
+    - paragraph: 必要最小限のWeb・モバイルアプリ・AI機能を短期間で構築します。
+    - heading "AI・データ活用" [level=3]
+    - paragraph: 動画分析、姿勢・動作推定、関節角度の可視化、生成AIなどをサービスへ組み込みます。
+    - heading "効果検証・改善" [level=3]
+    - paragraph: 利用データ、アンケート、現場ヒアリングをもとに結果を整理し、次の施策につなげます。
+  - region "例えば、このような実証が想定できます":
+    - paragraph: 実証テーマ例
+    - heading "例えば、このような実証が想定できます" [level=2]
+    - heading "AI動画分析による指導支援" [level=3]
+    - paragraph: スマートフォンで撮影した練習動画から、姿勢・関節角度・動作などを分析・可視化し、AIによる競技別フィードバックと組み合わせて、競技者の振り返りや指導者とのコミュニケーションを支援します。
+    - heading "地域スポーツのデジタル指導" [level=3]
+    - paragraph: 対面指導だけでは届きにくい時間・地域でも、動画・AIを活用した継続的なフィードバック環境を検証。
+    - heading "部活動・地域クラブの指導DX" [level=3]
+    - paragraph: 選手の記録、分析結果、課題を蓄積し、指導者と選手間の情報共有方法を検証。
+    - heading "スポーツ団体の新規デジタルサービス" [level=3]
+    - paragraph: 競技団体が保有する専門知識とWeb・アプリ・AIを組み合わせ、会員・競技者向けサービスを検証。
+  - region "小さく試し、効果を確認してから広げる":
+    - paragraph: 実証モデルの一例
+    - heading "小さく試し、効果を確認してから広げる" [level=2]
+    - paragraph: 以下は初期実証を想定したモデルの一例です。対象人数や期間、検証内容は、課題や目的に応じて設計します。
+    - paragraph: 競技数
+    - paragraph: 1競技
+    - paragraph: 参加規模
+    - paragraph: 10〜30人程度
+    - paragraph: 期間
+    - paragraph: 1〜3か月程度
+    - list:
+      - generic: "1"
+      - paragraph: STEP 1
+      - heading "現場課題・仮説整理" [level=3]
+      - generic: "2"
+      - paragraph: STEP 2
+      - heading "既存プロダクトまたはMVPを使って実証" [level=3]
+      - generic: "3"
+      - paragraph: STEP 3
+      - heading "利用状況・アンケート・現場ヒアリング" [level=3]
+      - generic: "4"
+      - paragraph: STEP 4
+      - heading "成果整理・改善案・次の展開" [level=3]
+    - paragraph: 対象人数、期間、競技、検証項目、開発範囲は事業内容に応じて調整します。
+  - region "「作って終わり」にしない効果検証":
+    - paragraph: 効果検証
+    - heading "「作って終わり」にしない効果検証" [level=2]
+    - paragraph: 以下はKPIの設計例です。実証内容に応じて指標を選定します。
+    - heading "利用" [level=3]
+    - list:
+      - listitem: 利用開始率
+      - listitem: 継続利用率
+      - listitem: 利用回数
+    - heading "指導" [level=3]
+    - list:
+      - listitem: 指導者の確認時間
+      - listitem: フィードバック負担
+      - listitem: 選手とのコミュニケーション
+    - heading "参加者" [level=3]
+    - list:
+      - listitem: 満足度
+      - listitem: 継続意向
+      - listitem: 利用しやすさ
+    - heading "AI品質" [level=3]
+    - list:
+      - listitem: 分析完了率
+      - listitem: 分析不能率
+      - listitem: ユーザー評価
+    - heading "事業" [level=3]
+    - list:
+      - listitem: 継続導入意向
+      - listitem: 有料化可能性
+      - listitem: 他競技・他地域への展開可能性
+  - region "実際のスポーツ現場で使われるAIプロダクトを自社運営":
+    - paragraph: 自社プロダクト
+    - heading "実際のスポーツ現場で使われるAIプロダクトを自社運営" [level=2]
+    - paragraph: スマートフォンで撮影したスポーツ動画から、競技や分析内容に応じて姿勢・関節角度・動作を解析し、AIによる競技別フィードバックを提示するiOS / Androidアプリを企画・開発・運営しています。
+    - generic: "01"
+    - heading "企画から運用まで" [level=3]
+    - paragraph: 要件定義、React Nativeアプリ、Firebase / GCP、AI分析、サブスクリプション、ストア公開、利用データ分析まで一貫して担当。
+    - generic: "02"
+    - heading "AI品質設計" [level=3]
+    - paragraph: 映像から判断できない内容を無理に評価しない、分析不能動画を適切に扱うなど、実運用を前提に品質を設計。
+    - generic: "03"
+    - heading "継続改善" [level=3]
+    - paragraph: 利用データ、ユーザー評価、処理時間、AIコストなどを確認しながら継続的に改善。
+    - link "開発・運用事例を詳しく見る":
+      - /url: /cases/ai-sports-trainer
+      - text: 開発・運用事例を詳しく見る
+  - region "こんなご相談に対応できます":
+    - paragraph: ご相談
+    - heading "こんなご相談に対応できます" [level=2]
+    - paragraph: 構想段階でも、既に進行中の案件でも対応可能です。まずはご相談ください。
+    - list:
+      - generic: 自治体・団体でAIを活用した実証を検討したい
+      - generic: スポーツDXの企画段階から相談したい
+      - generic: 公募に共同提案できる技術パートナーを探している
+      - generic: スポーツ案件のAI・アプリ部分を再委託したい
+      - generic: 既存サービスへAI機能を追加したい
+    - link "スポーツDX・実証について相談する":
+      - /url: /#contact
+      - text: スポーツDX・実証について相談する
+    - link "データ取り扱いを確認する":
+      - /url: /security
+- contentinfo:
+  - link "Cyber Knock":
+    - /url: /
+  - paragraph: スポーツ領域を中心としたAI・プロダクト開発
+  - navigation "フッターナビゲーション":
+    - link "スポーツDX支援":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "データ取り扱い":
+      - /url: /security
+    - link "プライバシーポリシー":
+      - /url: /privacy-policy
+    - link "お問い合わせ":
+      - /url: /#contact
+  - paragraph:
+    - link "AIスポーツトレーナー":
+      - /url: https://ai-sportstrainer.com
+      - text: AIスポーツトレーナー
+    - text: は、Cyber Knockが企画・開発・運営するスポーツ動画分析アプリです。
+  - paragraph: © 2026 Cyber Knock
+- alert

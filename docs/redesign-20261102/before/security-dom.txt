@@ -1,0 +1,99 @@
+- banner:
+  - link "Cyber Knock":
+    - /url: /
+  - navigation:
+    - link "スポーツDX":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "セキュリティ":
+      - /url: /security
+    - link "会社について":
+      - /url: /
+    - link "相談する":
+      - /url: /#contact
+      - text: 相談する
+- main:
+  - paragraph: データ取り扱い
+  - heading "AI・スポーツ動画データの取り扱いについて" [level=1]
+  - paragraph: Cyber Knockでは、スポーツ動画やAIを扱うサービスにおいて、データの利用目的、アクセス管理、AIの利用範囲などを明確にすることを重視しています。
+  - paragraph: 本ページでは、AIスポーツトレーナーを中心に、データの取り扱い方針やAIを利用する際の基本的な考え方を説明します。
+  - heading "データの利用目的" [level=2]
+  - paragraph: 収集するデータは、以下の目的でのみ利用します。
+  - list:
+    - listitem: サービスの提供・機能の実現
+    - listitem: AI分析結果の生成・ユーザーへの提示
+    - listitem: サービス品質の確認・改善
+    - listitem: ユーザーからの問い合わせへの対応
+  - paragraph: 上記以外の目的（広告配信・第三者への販売等）でのデータ利用は行いません。
+  - heading "動画データの取り扱い" [level=2]
+  - paragraph: ユーザーがアップロードした動画は、AI分析の目的でのみ処理します。 動画データは第三者に提供・販売しません。
+  - paragraph: 動画はGoogle Cloud上のストレージ（Firebase Cloud Storage）に保存されます。
+  - list:
+    - listitem: 無料プランのユーザー：アップロードから一定期間（約1か月）経過後に、動画ファイルは自動的に削除されます
+    - listitem: 有料プランのユーザー：動画ファイルは自動削除の対象外となり、サービス利用期間中は保存されます
+  - paragraph: 動画ファイルが削除された場合も、AI分析結果のテキストデータはサービス上で引き続き閲覧できます。
+  - heading "外部AIサービスへの送信" [level=2]
+  - paragraph: AI分析にはGoogle Cloud（Vertex AI）のAPIを利用しています。 分析時に以下のデータがGoogle Cloudのサーバーに送信されます。
+  - list:
+    - listitem: ユーザーがアップロードした動画ファイル
+    - listitem: 分析に必要なコンテキスト情報（年齢層、競技種目、分析の目的など）
+  - paragraph: ※ 利用するAIサービスは、サービスの改善に伴い変更される場合があります。変更時には本ページを更新します。
+  - heading "AIモデルの学習利用" [level=2]
+  - paragraph: ユーザーがアップロードしたデータを、Cyber Knock独自のAIモデルの学習に利用することはありません。
+  - paragraph: 現在利用しているGoogle Cloud（Vertex AI）のAPIでは、APIを通じて送信されたデータがGoogleのモデル学習に使用されることはありません（Google Cloud の利用規約に基づく）。
+  - heading "アクセス管理" [level=2]
+  - paragraph: ユーザーデータへのアクセスは、サービス運営に必要な範囲に限定しています。
+  - list:
+    - listitem: ユーザーの動画・分析結果には、本人のアカウントからのみアクセスできます
+    - listitem: 運営側のデータアクセスは、障害対応やユーザーサポートなど業務上必要な場合に限定しています
+    - listitem: 不正なアクセスやAPIの異常利用は、検知・通知の仕組みを設けています
+  - heading "データの削除" [level=2]
+  - paragraph: ユーザーのデータ削除については、以下の方法で対応しています。
+  - list:
+    - listitem: 動画データ：無料プランでは一定期間後に自動削除されます
+    - listitem: アカウントおよび関連データの削除を希望される場合は、お問い合わせフォームよりご連絡ください。運営側で対応します
+  - heading "未成年者について" [level=2]
+  - paragraph: 本サービスは、スポーツ動画の分析を目的としており、ジュニア選手など未成年者が利用する場合があります。
+  - paragraph: 未成年者がサービスを利用する際は、保護者の関与・同意のもとで利用することを推奨しています。
+  - heading "AIによる分析の限界" [level=2]
+  - paragraph: AIによる動画分析は、映像から確認できる範囲に限定した評価を提供するものです。 以下の点をご理解ください。
+  - list:
+    - listitem: 映像から確認できない情報（体の内側の状態、感覚、痛みなど）はAIでは判断できません
+    - listitem: 撮影角度・画質・動画の長さによっては、正確な分析ができない場合があります
+    - listitem: AIの評価は参考情報として提供するものであり、絶対的な判断を示すものではありません
+    - listitem: 競技の指導・トレーニングについては、必要に応じて指導者や専門家に相談することを推奨します
+  - heading "お問い合わせ" [level=2]
+  - paragraph: データ取り扱いに関するご質問、データ削除のご依頼、問題が発生した場合のご連絡は、お問い合わせフォームよりご連絡ください。代表者が直接確認し、速やかに対応します。
+  - paragraph:
+    - text: Cyber Knock（代表者：渡辺 晴仁）
+    - text: 所在地：〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C
+  - paragraph: 関連ページ
+  - link "プライバシーポリシー →":
+    - /url: /privacy-policy
+  - link "スポーツDX・実証支援 →":
+    - /url: /sports-dx
+  - link "AIスポーツトレーナー 開発事例 →":
+    - /url: /cases/ai-sports-trainer
+- contentinfo:
+  - link "Cyber Knock":
+    - /url: /
+  - paragraph: スポーツ領域を中心としたAI・プロダクト開発
+  - navigation "フッターナビゲーション":
+    - link "スポーツDX支援":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "データ取り扱い":
+      - /url: /security
+    - link "プライバシーポリシー":
+      - /url: /privacy-policy
+    - link "お問い合わせ":
+      - /url: /#contact
+  - paragraph:
+    - link "AIスポーツトレーナー":
+      - /url: https://ai-sportstrainer.com
+      - text: AIスポーツトレーナー
+    - text: は、Cyber Knockが企画・開発・運営するスポーツ動画分析アプリです。
+  - paragraph: © 2026 Cyber Knock
+- alert

@@ -14,12 +14,12 @@ const decisions = [
   {
     phase: "利用者の体験",
     title: "次の行動へ、届ける。",
-    description: "評価・フィードバック・練習メニューをつなぐ。",
+    description: "評価から、次の練習までつなぐ。",
   },
   {
     phase: "継続する運用",
     title: "使われ方から、見直す。",
-    description: "品質・待ち時間・費用を、体験と一緒に改善。",
+    description: "品質・待ち時間・費用を見直す。",
   },
 ] as const
 

@@ -1,6 +1,7 @@
 // Local browser QA only. This server never calls an external delivery service.
 // Build first, then: node scripts/serve-qa.mjs --port=4173 --contact=success
 // Contact modes: success | failure | slow (two-second success for pending-state QA).
+// Optional --analytics=mock adds a local-only gtag inspector; the default is none.
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
@@ -11,12 +12,81 @@ const root = resolve(options.root || 'out');
 const port = Number(options.port || 4173);
 const mode = options.contact || 'failure';
 const compression = options.compress || 'none';
+const analytics = options.analytics || 'none';
 if (!['success', 'failure', 'slow'].includes(mode)) throw new Error('Use contact=success, failure, or slow');
 if (!['none', 'gzip'].includes(compression)) throw new Error('Use compress=none or gzip');
+if (!['none', 'mock'].includes(analytics)) throw new Error('Use analytics=none or mock');
 const functionSource = await readFile(new URL('../functions/contact.js', import.meta.url), 'utf8');
 const { handleContact } = await import(`data:text/javascript;base64,${Buffer.from(functionSource).toString('base64')}`);
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
 const compressible = new Set(['.html', '.js', '.css', '.json', '.txt', '.xml', '.svg']);
+
+// Serialized into QA HTML only. It records the exact gtag arguments as text,
+// without filtering away mistakes, making requests, or persisting any data.
+function installMockAnalytics() {
+  const events = [];
+  let inspector;
+  let log;
+  let count;
+
+  function appendEntry(entry, index) {
+    const item = document.createElement('li');
+    item.dataset.eventIndex = String(index + 1);
+    item.dataset.eventName = entry.name;
+    const content = document.createElement('pre');
+    content.style.cssText = 'white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 16px';
+    content.textContent = entry.json;
+    item.append(content);
+    log.append(item);
+    inspector.dataset.eventCount = String(events.length);
+    count.textContent = String(events.length);
+  }
+
+  function mountInspector() {
+    if (inspector?.isConnected || !document.body) return;
+    inspector = document.createElement('details');
+    inspector.id = 'qa-analytics';
+    inspector.open = true;
+    inspector.dataset.analyticsMode = 'mock';
+    inspector.dataset.eventCount = String(events.length);
+    inspector.style.cssText = 'box-sizing:border-box;margin:24px;padding:16px;border:1px solid #82948c;background:#fffefa;color:#192b2b;font:13px/1.6 ui-monospace,monospace;overflow-wrap:anywhere';
+    const heading = document.createElement('summary');
+    heading.style.cssText = 'cursor:pointer;font-weight:700';
+    heading.textContent = 'ローカル検証用イベント（外部送信なし）';
+    count = document.createElement('output');
+    count.id = 'qa-analytics-count';
+    count.textContent = String(events.length);
+    count.setAttribute('aria-live', 'polite');
+    heading.append(' / ', count, '件');
+    const note = document.createElement('p');
+    note.textContent = 'このページ内のメモリにだけ記録します。再読み込みで消去されます。合成テストデータのみを使用してください。';
+    log = document.createElement('ol');
+    log.id = 'qa-analytics-log';
+    log.style.cssText = 'padding-left:24px;margin:12px 0 0';
+    log.setAttribute('aria-label', '計測イベント引数');
+    inspector.append(heading, note, log);
+    events.forEach(appendEntry);
+    document.body.append(inspector);
+  }
+
+  window.gtag = (...args) => {
+    const entry = { name: typeof args[1] === 'string' ? args[1] : 'unknown', json: JSON.stringify(args, null, 2) };
+    events.push(entry);
+    if (log?.isConnected) appendEntry(entry, events.length - 1);
+    else if (document.readyState === 'complete') mountInspector();
+  };
+
+  // Collect early effects immediately, but add the inspector after document load
+  // so the initial application markup is left intact during normal hydration.
+  function afterDomReady() {
+    if (document.readyState === 'complete') window.setTimeout(mountInspector, 0);
+    else window.addEventListener('load', () => window.setTimeout(mountInspector, 0), { once: true });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', afterDomReady, { once: true });
+  else afterDomReady();
+}
+
+const analyticsMockScript = `<script data-qa-analytics="mock">(${installMockAnalytics.toString()})();</script>`;
 
 function acceptsGzip(value = '') {
   const encodings = String(value).toLowerCase().split(',').map(part => {
@@ -61,8 +131,11 @@ createServer(async (request, response) => {
       if (await stat(candidate).then(info => info.isFile()).catch(() => false)) { file = candidate; break; }
     }
     if (!file) { response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); response.end('Not found'); return; }
-    const bytes = await readFile(file);
+    let bytes = await readFile(file);
     const extension = extname(file);
+    if (analytics === 'mock' && extension === '.html') {
+      bytes = Buffer.from(bytes.toString('utf8').replace(/<head(?:\s[^>]*)?>/i, head => head + analyticsMockScript));
+    }
     const canCompress = compression === 'gzip' && compressible.has(extension) && bytes.length >= 1024;
     const compressed = canCompress && acceptsGzip(request.headers['accept-encoding']);
     const body = compressed ? gzipSync(bytes) : bytes;
@@ -75,4 +148,4 @@ createServer(async (request, response) => {
     });
     response.end(request.method === 'HEAD' ? undefined : body);
   } catch { response.writeHead(500); response.end('Local QA server error'); }
-}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | compression=${compression} | external delivery disabled`));
+}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | compression=${compression} | analytics=${analytics} | external delivery disabled`));

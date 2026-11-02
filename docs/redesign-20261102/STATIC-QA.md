@@ -138,7 +138,7 @@ GA4のプロパティ接続・DebugViewでの受信確認・KPIの変更前数�
 
 | 項目 | 状態・必要な確認 |
 | --- | --- |
-| Lighthouse Mobile | 初回Before/After各5ページを取得。A/BP/SEOはAfter全100、CLS全0。Performance/LCPは圧縮配信で再検証、詳細は別記録 |
+| Lighthouse Mobile | cycle2/3を取得。After A/BP/SEO全100・CLS全0。ただしCI画像から日本語フォント欠落を発見したため、正しい日本語描画でBefore/Afterを再測定する。詳細は各DIAGNOSIS.md |
 | 実ユーザーCWV | LCP/INP/CLSの75pは未取得 |
 | VoiceOver/NVDA/TalkBack | 実際の読み上げ順、エラー通知、menu操作は未確認 |
 | iOS Safari / Android Chrome実機 | 未確認。Desktop Chrome emulationと区別 |
@@ -149,3 +149,9 @@ GA4のプロパティ接続・DebugViewでの受信確認・KPIの変更前数�
 | 分析・事業成果 | 既存GA4受信、有効問い合わせ、商談化、受注の実測なし |
 
 静的確認のみを根拠に総合90点、受賞相当、WCAG完全適合、CVR改善済みとは評価しません。
+
+## その後の検証結果（追記）
+
+上の表は静的レビュー時点の状態を保存したもの。2026-11-02の有効なcycle4では正しい日本語フォントを確認した上でBefore/After各5ページを再測定し、After P99 / A100 / BP100 / SEO100、LCP1.78〜2.17秒、CLS0を確認した。[DIAGNOSIS](lighthouse-cycle4/DIAGNOSIS.md)を参照。
+
+さらに同じ改善版フォームを外部送信なしの専用previewで操作し、入力検証、送信中、成功、失敗と入力保持、キーボード同意、状態focusを確認した。[contact-qa/RESULTS.md](contact-qa/RESULTS.md)を参照。実通知・実機・支援技術・fieldデータは引き続き未確認。

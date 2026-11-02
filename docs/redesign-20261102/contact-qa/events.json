@@ -1,0 +1,84 @@
+{
+  "url": "https://944221fb.cyberknock.pages.dev/?service=sports-ai#contact",
+  "method": "DOM-visible in-memory gtag mock; no external analytics",
+  "events": [
+    {
+      "arguments": [
+        "event",
+        "contact_form_start",
+        {
+          "page": "home",
+          "page_location": "https://cyberknock.pages.dev/",
+          "page_referrer": "",
+          "source": "home"
+        }
+      ],
+      "event": "contact_form_start"
+    },
+    {
+      "arguments": [
+        "event",
+        "contact_form_submit",
+        {
+          "page": "home",
+          "page_location": "https://cyberknock.pages.dev/",
+          "page_referrer": "",
+          "source": "home"
+        }
+      ],
+      "event": "contact_form_submit"
+    },
+    {
+      "arguments": [
+        "event",
+        "contact_form_success",
+        {
+          "page": "home",
+          "page_location": "https://cyberknock.pages.dev/",
+          "page_referrer": "",
+          "source": "home"
+        }
+      ],
+      "event": "contact_form_success"
+    },
+    {
+      "arguments": [
+        "event",
+        "case_study_click",
+        {
+          "location": "contact",
+          "page": "home",
+          "page_location": "https://cyberknock.pages.dev/",
+          "page_referrer": ""
+        }
+      ],
+      "event": "case_study_click"
+    },
+    {
+      "arguments": [
+        "event",
+        "case_study_view",
+        {
+          "page": "case_study",
+          "page_location": "https://cyberknock.pages.dev/cases/ai-sports-trainer",
+          "page_referrer": ""
+        }
+      ],
+      "event": "case_study_view"
+    },
+    {
+      "arguments": [
+        "event",
+        "cta_click",
+        {
+          "location": "case",
+          "page": "case_study",
+          "page_location": "https://cyberknock.pages.dev/cases/ai-sports-trainer",
+          "page_referrer": "",
+          "service": "sports-ai"
+        }
+      ],
+      "event": "cta_click"
+    }
+  ]
+}

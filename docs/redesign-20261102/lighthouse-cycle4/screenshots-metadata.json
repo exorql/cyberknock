@@ -1,0 +1,382 @@
+[
+  {
+    "file": "after/mobile-lighthouse-case-study.jpg",
+    "report": "after/case-study.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:53:16.630Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-case-study.webp",
+    "report": "after/case-study.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 9059
+    },
+    "fetchTime": "2026-11-02T08:53:16.630Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-home.jpg",
+    "report": "after/home.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:52:25.769Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-home.webp",
+    "report": "after/home.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 11310
+    },
+    "fetchTime": "2026-11-02T08:52:25.769Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-privacy-policy.jpg",
+    "report": "after/privacy-policy.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:54:05.944Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-privacy-policy.webp",
+    "report": "after/privacy-policy.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 7283
+    },
+    "fetchTime": "2026-11-02T08:54:05.944Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-security.jpg",
+    "report": "after/security.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:53:41.660Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-security.webp",
+    "report": "after/security.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 5423
+    },
+    "fetchTime": "2026-11-02T08:53:41.660Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-sports-dx.jpg",
+    "report": "after/sports-dx.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:52:51.396Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "after/mobile-lighthouse-full-sports-dx.webp",
+    "report": "after/sports-dx.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 8489
+    },
+    "fetchTime": "2026-11-02T08:52:51.396Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-case-study.jpg",
+    "report": "before/case-study.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:53:03.850Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-full-case-study.webp",
+    "report": "before/case-study.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 10401
+    },
+    "fetchTime": "2026-11-02T08:53:03.850Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-home.jpg",
+    "report": "before/home.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:52:12.895Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-full-home.webp",
+    "report": "before/home.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 7661
+    },
+    "fetchTime": "2026-11-02T08:52:12.895Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-privacy-policy.jpg",
+    "report": "before/privacy-policy.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:53:54.010Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-full-privacy-policy.webp",
+    "report": "before/privacy-policy.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 4564
+    },
+    "fetchTime": "2026-11-02T08:53:54.010Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-security.jpg",
+    "report": "before/security.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:53:29.412Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-full-security.webp",
+    "report": "before/security.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 4212
+    },
+    "fetchTime": "2026-11-02T08:53:29.412Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-sports-dx.jpg",
+    "report": "before/sports-dx.report.json",
+    "capture": "final-screenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "fetchTime": "2026-11-02T08:52:38.935Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  },
+  {
+    "file": "before/mobile-lighthouse-full-sports-dx.webp",
+    "report": "before/sports-dx.report.json",
+    "capture": "fullPageScreenshot; exact embedded bytes, no image modification",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 412,
+      "height": 8068
+    },
+    "fetchTime": "2026-11-02T08:52:38.935Z",
+    "fontEnvironmentFile": "font-environment.txt",
+    "limitation": "Automated Lighthouse capture at 412px; not a manual responsive-width interaction test."
+  }
+]

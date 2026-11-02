@@ -53,6 +53,22 @@ jobs:
         run: npm ci --legacy-peer-deps
       - name: Typecheck, tests, and production static build
         run: npm run check
+      - name: Install and verify Japanese system fonts for representative rendering
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends fonts-noto-cjk fontconfig
+          fc-cache -f
+          mkdir -p docs/redesign-20261102/lighthouse
+          dpkg-query -W -f='${Package} ${Version}\n' fonts-noto-cjk fontconfig > docs/redesign-20261102/lighthouse/font-environment.txt
+          fc-match 'sans-serif:lang=ja' >> docs/redesign-20261102/lighthouse/font-environment.txt
+          fc-match -f '%{file}\n' 'sans-serif:lang=ja:charset=65e5' >> docs/redesign-20261102/lighthouse/font-environment.txt
+          CJK_FONT_FAMILY="$(fc-match -f '%{family}' 'sans-serif:lang=ja')"
+          if [[ "$CJK_FONT_FAMILY" != *"Noto Sans CJK JP"* ]]; then
+            echo "::error::Japanese system font did not resolve to Noto Sans CJK JP"
+            exit 1
+          fi
+          echo "LIGHTHOUSE_CJK_FONT=$CJK_FONT_FAMILY" >> "$GITHUB_ENV"
+          cat docs/redesign-20261102/lighthouse/font-environment.txt
       - name: Locate installed Chrome and prepare pinned Lighthouse CLI
         run: |
           CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
@@ -62,7 +78,9 @@ jobs:
           npx --yes lighthouse@12.8.2 --version
       - name: Audit requested pages and preserve the existing baseline
         env:
-          AUDIT_STAGE: ${{ inputs.audit_stage || 'after' }}
+          # Refresh the baseline once after fixing missing Japanese glyphs.
+          # Restore the PR default to 'after' once the font-corrected artifact is preserved.
+          AUDIT_STAGE: ${{ inputs.audit_stage || 'all' }}
           PREVIEW_ORIGIN: ${{ inputs.preview_origin || '' }}
         run: node scripts/audit-lighthouse.mjs --enforce --stage="$AUDIT_STAGE" --preview-origin="$PREVIEW_ORIGIN"
       - name: Preserve Lighthouse reports and measurement conditions

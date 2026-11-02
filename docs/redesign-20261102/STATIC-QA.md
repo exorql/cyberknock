@@ -6,7 +6,7 @@
 
 今回調べたソース構造・配色ペア・フォームの意味づけ・SEO設定では、追加のP0修正を要する問題は検出しませんでした。これはソースコードと数式に基づく部分検証です。WCAG 2.2 AAへの完全適合、実ブラウザ全組み合わせでの動作、Core Web Vitals達成を意味しません。
 
-実際のスクリーンショット・レスポンシブ・ブラウザ操作・Lighthouse結果は、それぞれの検証記録で扱います。この担当ではRemote Desktop Commanderの応答停止により、Lighthouseの実測値を取得していません。CI用の監査処理は別途 `.github/workflows/quality.yml` と `scripts/audit-lighthouse.mjs` に実装済みです。
+実際のスクリーンショット・レスポンシブ・ブラウザ操作・Lighthouse結果は、それぞれの検証記録で扱います。Remote Desktop Commanderの応答停止後、GitHub ActionsでBefore/After各5ページのLighthouse実測を取得しました。初回の改善後はA/BP/SEOが全ページ100、CLSは全ページ0ですが、非圧縮QAサーバーでのPerformance/LCP未達があり、再測定対象です。条件・生レポート・個別監査エラーは`lighthouse-cycle2/DIAGNOSIS.md`を参照してください。
 
 対象ファイル：`app/globals.css`、`app/layout.tsx`、各主要ページ、`components/site-header.tsx`、`components/site-footer.tsx`、`components/product-visual.tsx`、`components/trajectory.tsx`、`components/contact-form.tsx`、`components/site-analytics.tsx`、`lib/site.ts`、`lib/analytics.ts`、`app/robots.ts`、`app/sitemap.ts`、`next.config.mjs`。
 
@@ -96,7 +96,7 @@ CSSで指定された不透明な文字色と背景色について、sRGBを線�
 - `prefers-reduced-motion: reduce`でanimation/transitionを無効にし、smooth scrollも無効化。
 - `forced-colors: active`でボタン、タグ等の境界をCanvasTextへ切り替え。
 - 通常ボタンはmin-height 54px、フォームinput/selectは48px。モバイルのメニューは38〜40px×40px、ヘッダーCTAは40px高で、24pxのAA最低サイズを上回る設計。
-- 同意checkbox本体は22pxです。関連labelと周囲の間隔を含む有効クリック領域・隣接ターゲットの位置はブラウザで確認する必要があります。22pxを単独で「24px達成」とは扱っていません。[W3C: Target Size Minimum](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
+- 同意checkbox本体は再レビューで24×24pxに変更されました。ソースの`width: 24px; height: 24px`を確認済みです。関連labelと周囲の間隔を含む有効クリック領域・隣接リンクの位置は、引き続きブラウザで確認する対象です。[W3C: Target Size Minimum](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html)
 - 320px幅、文字拡大、400%ズーム、Text Spacing変更での重なりはソースだけでは判断せず、別途ブラウザの検証対象とします。
 
 Root担当からはChromeでスキップリンク、Tab移動、メニューのEscape、相談テーマ連動、空欄時validationを確認済みと報告されています。この担当が独立して再実測した結果とは区別します。
@@ -138,7 +138,7 @@ GA4のプロパティ接続・DebugViewでの受信確認・KPIの変更前数�
 
 | 項目 | 状態・必要な確認 |
 | --- | --- |
-| Lighthouse Mobile | 本担当では実測0件。CI artifactの結果で評価する |
+| Lighthouse Mobile | 初回Before/After各5ページを取得。A/BP/SEOはAfter全100、CLS全0。Performance/LCPは圧縮配信で再検証、詳細は別記録 |
 | 実ユーザーCWV | LCP/INP/CLSの75pは未取得 |
 | VoiceOver/NVDA/TalkBack | 実際の読み上げ順、エラー通知、menu操作は未確認 |
 | iOS Safari / Android Chrome実機 | 未確認。Desktop Chrome emulationと区別 |

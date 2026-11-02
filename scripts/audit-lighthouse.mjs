@@ -57,6 +57,8 @@ const summary = {
     formFactor: 'mobile',
     throttlingMethod: 'simulate',
     settings: 'Lighthouse pinned-version default mobile CPU, network, screen emulation, and storage reset',
+    japaneseSystemFont: process.env.LIGHTHOUSE_CJK_FONT ?? 'Not recorded by this runner; inspect final screenshot before accepting Japanese UI measurements',
+    fontEnvironmentFile: process.env.LIGHTHOUSE_CJK_FONT ? 'font-environment.txt' : null,
     beforeOrigin: publicOrigin,
     afterOrigin: localOrigin,
     beforeDelivery: 'Public Cloudflare Pages deployment at audit time',

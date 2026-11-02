@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
+import { PilotBlueprint } from "@/components/pilot-blueprint"
 
 const contactHref = "/?service=sports-dx#contact"
 
@@ -80,7 +81,8 @@ export function SportsDxContent() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main id="main-content">
         <section className="page-hero">
-          <div className="wrap">
+          <div className="wrap dx-hero-grid">
+            <div>
             <p className="eyebrow">スポーツDX・AI実証支援</p>
             <h1 className="page-title">現場で役立つかを、<br />小さな実証から。</h1>
             <p className="lead">自治体・競技団体・クラブの、指導支援や新しいサービスづくりに。自社スポーツAIアプリの開発・運用経験をもとに、課題整理から実証・効果検証まで支援します。</p>
@@ -88,6 +90,8 @@ export function SportsDxContent() {
               <Link href={contactHref} className="button button-primary" data-track="cta_click" data-location="hero" data-service="sports-dx">実証について相談する <ArrowUpRight size={20} aria-hidden="true" /></Link>
               <Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="hero">開発・運用事例を見る <ArrowUpRight size={18} aria-hidden="true" /></Link>
             </div>
+            </div>
+            <PilotBlueprint />
           </div>
         </section>
 

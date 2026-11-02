@@ -4,12 +4,12 @@ const decisions = [
   {
     phase: "映像の条件",
     title: "見えるものを、確かめる。",
-    description: "撮影条件や動きから、分析に使える情報を整理。",
+    description: "撮影条件と動きから、使える情報を整理。",
   },
   {
     phase: "AIの判断範囲",
     title: "言える範囲を、決める。",
-    description: "評価の基準と、根拠が足りないときの扱いを設計。",
+    description: "評価基準と、不確かな出力への対応を設計。",
   },
   {
     phase: "利用者の体験",

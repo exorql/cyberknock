@@ -245,6 +245,9 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
 .cta-panel .button { margin-top: 28px; }
 .case-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 70px; align-items: center; }
 .case-hero-grid .page-title { font-size: clamp(34px,3.5vw,51px); }
+.dx-hero-grid { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: 64px; align-items: center; }
+.dx-hero-grid .page-title { font-size: clamp(36px,3.75vw,54px); }
+.dx-hero-grid .lead { font-size: 16px; }
 .case-summary { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); margin-top: 40px; }
 .case-summary > div { padding: 22px 24px 0 0; font-size: 13px; }
 .case-summary dt { font-size: 11px; margin-bottom: 7px; }
@@ -303,6 +306,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .visual-platform { font-size: 10px; }
   .editorial-grid { grid-template-columns: 190px minmax(0,1fr); gap: 40px; }
   .case-feature-grid, .case-hero-grid { gap: 40px; }
+  .dx-hero-grid { gap: 35px; }
   .case-feature-grid { grid-template-columns: 1fr; }
   .case-copy h2 { font-size: 38px; }
   .service-row { gap: 40px; }
@@ -320,6 +324,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .screen-gallery { gap: 20px; }
 }
 @media (max-width:800px) {
+  .dx-hero-grid { grid-template-columns: 1fr; gap: 36px; }
   .section { padding-block: 76px; }
   .hero { padding-top: 42px; }
   .hero-grid { gap: 30px; }
@@ -369,6 +374,8 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .footer-nav { gap: 0 25px; }
 }
 @media (max-width:600px) {
+  .dx-hero-grid .page-title { font-size: clamp(29px,8.7vw,36px); }
+  .dx-hero-grid .lead { font-size: 15px; }
   .wrap { width: calc(100% - 40px); }
   .header-inner { height: 68px; gap: 10px; }
   .brand { font-size: 20px; gap: 5px; letter-spacing: -.8px; }
@@ -420,7 +427,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .service-name h3 { font-size: 21px; }
   .service-audience { font-size: 12px; margin-top: 7px; }
   .service-detail h4 { font-size: 15px; }
-  .service-detail > p { font-size: 13px; }
+  .service-detail > p { font-size: 14px; }
   .service-detail dl { font-size: 12px; }
   .service-detail dl > div { grid-template-columns: 70px 1fr; }
   .service-actions { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 15px; }
@@ -435,6 +442,8 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .step-number { margin-bottom: 15px; padding-top: 10px; }
   .process-grid h3 { font-size: 20px; margin-bottom: 10px; }
   .process-output { padding-top: 12px; }
+  .process-grid p { font-size: 14px; }
+  .process-grid .process-output { font-size: 12px; }
   .process-note { margin-top: 30px; padding-top: 25px; }
   .profile-grid { grid-template-columns: 1fr; gap: 25px; margin-top: 25px; }
   .founder-card { padding: 27px; min-height: 230px; }
@@ -443,10 +452,10 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .profile-content > .text-link { font-size: 12px; }
   .faq-section .section-title { font-size: 27px; margin-top: 10px; }
   .faq-list summary { font-size: 14px; gap: 12px; padding-block: 22px; }
-  .faq-list details > p { font-size: 13px; padding-right: 12px; }
+  .faq-list details > p { font-size: 14px; padding-right: 12px; }
   .contact-grid { gap: 28px; }
   .contact-copy .section-title { font-size: 32px; }
-  .contact-copy > p:not(.eyebrow) { font-size: 13px; }
+  .contact-copy > p:not(.eyebrow) { font-size: 14px; }
   .contact-form { padding: 23px 20px; }
   .form-grid { grid-template-columns: 1fr; gap: 0; }
   .form-meta, .field-hint { font-size: 12px; }
@@ -470,34 +479,34 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .body-copy { font-size: 14px; }
   .info-card { padding: 24px; }
   .info-card h3 { font-size: 21px; }
-  .info-card p, .info-card li { font-size: 13px; }
-  .deliverable-table { font-size: 12px; }
+  .info-card p, .info-card li { font-size: 14px; }
+  .deliverable-table { font-size: 13px; }
   .deliverable-table th, .deliverable-table td { padding: 13px 10px; }
   .cta-panel { padding: 30px 24px; }
   .cta-panel h2 { font-size: 28px; }
-  .cta-panel p { font-size: 13px; }
+  .cta-panel p { font-size: 14px; }
   .cta-panel .button { width: 100%; gap: 12px; justify-content: space-between; font-size: 13px; padding-inline: 14px; }
   .case-hero-grid .page-title { font-size: 35px; }
   .case-summary { grid-template-columns: 1fr; margin-top: 28px; }
-  .case-summary > div { display: grid; grid-template-columns: 85px 1fr; gap: 15px; border-bottom: 1px solid var(--line); padding-block: 15px; font-size: 12px; }
-  .case-summary dt { margin: 0; }
+  .case-summary > div { display: grid; grid-template-columns: 85px 1fr; gap: 15px; border-bottom: 1px solid var(--line); padding-block: 15px; font-size: 13px; }
+  .case-summary dt { margin: 0; font-size: 12px; }
   .screen-gallery { grid-template-columns: 1fr; gap: 35px; }
   .screen-stage { aspect-ratio: auto; height: 520px; padding: 28px; }
   .screen-stage img { max-width: 80%; }
   .screen-gallery figcaption { padding-top: 17px; }
   .screen-gallery h3 { font-size: 19px; }
-  .screen-gallery p { font-size: 13px; }
+  .screen-gallery p { font-size: 14px; }
   .media-note { font-size: 12px; }
   .architecture { padding: 25px; }
   .architecture ol { grid-template-columns: 1fr; gap: 25px; }
   .quality-row { grid-template-columns: 1fr; gap: 13px; padding-block: 25px; }
   .quality-row h3 { font-size: 19px; }
-  .quality-row p { font-size: 13px; }
+  .quality-row p { font-size: 14px; }
   .footer-top { flex-direction: column; gap: 35px; }
-  .footer-nav { gap: 0 25px; font-size: 11px; }
+  .footer-nav { gap: 0 25px; font-size: 12px; }
   .site-footer { padding-top: 45px; }
   .footer-statement { font-size: 26px; margin-top: 18px; }
-  .footer-description { font-size: 11px; }
+  .footer-description { font-size: 12px; }
   .footer-wordmark { margin: 35px 0 20px; padding-top: 25px; font-size: 12vw; gap: 12px; }
   .footer-bottom { flex-direction: column; gap: 5px; font-size: 10px; padding-block: 20px; }
   .desktop-break { display: none; }

@@ -1,0 +1,76 @@
+.figure {
+  container: decision-loop / inline-size;
+  position: relative;
+  margin: 0;
+  padding: 22px;
+  background: var(--paper, #f5f3ed);
+  border: 1px solid #afc3b5;
+  color: var(--ink, #192b2b);
+}
+
+.figure::before,
+.figure::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  border-color: var(--teal, #006d65);
+}
+
+.figure::before { inset: -1px auto auto -1px; border-top: 2px solid var(--teal, #006d65); border-left: 2px solid var(--teal, #006d65); }
+.figure::after { inset: auto -1px -1px auto; border-right: 2px solid var(--teal, #006d65); border-bottom: 2px solid var(--teal, #006d65); }
+
+.heading { padding-bottom: 20px; border-bottom: 1px solid #c4d0c5; }
+.kicker { margin: 0; color: var(--teal, #006d65); font-size: 12px; font-weight: 700; line-height: 1.7; }
+.title { margin: 12px 0 0; font-size: 25px; font-weight: 700; line-height: 1.5; letter-spacing: -.04em; }
+.board { display: grid; gap: 25px; padding-top: 25px; }
+.evidence { display: grid; grid-template-columns: minmax(80px, 110px) minmax(0, 1fr); gap: 20px; align-items: center; min-width: 0; }
+.capture { overflow: hidden; background: #101918; border: 1px solid #718c7e; border-radius: 3px; }
+.capture img { display: block; width: 100%; height: auto; }
+.captureNote { min-width: 0; }
+.screenLabel { display: block; font-size: 12px; color: var(--teal-dark, #004f49); font-weight: 700; line-height: 1.7; }
+.captureNote p { margin: 12px 0; font-size: 15px; line-height: 1.9; }
+.productName { display: block; font-size: 12px; color: var(--muted, #526662); line-height: 1.8; }
+.decisions { position: relative; min-width: 0; }
+.loop { position: absolute; inset: 0 auto 0 -9px; height: 100%; width: 46px; overflow: visible; pointer-events: none; fill: none; stroke: #7d9b8c; stroke-width: 1.2; }
+.loop path { vector-effect: non-scaling-stroke; }
+.loop .echo { stroke: #bfcec3; stroke-width: 1; }
+.loop .arrow { stroke: var(--teal, #006d65); stroke-width: 1.5; }
+.steps { position: relative; display: grid; gap: 24px; list-style: none; padding: 0; margin: 0; }
+.step { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 13px; align-items: start; }
+.number { position: relative; display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: var(--paper, #f5f3ed); border: 1px solid var(--teal, #006d65); border-radius: 50%; color: var(--teal-dark, #004f49); font: 12px/1 "Courier New", monospace; }
+.phase { margin: 0 0 4px; color: var(--teal-dark, #004f49); font-size: 12px; line-height: 1.7; font-weight: 700; }
+.stepTitle { margin: 0; font-size: 17px; font-weight: 700; line-height: 1.65; letter-spacing: -.025em; }
+.description { margin: 7px 0 0; color: var(--muted, #526662); font-size: 14px; line-height: 1.85; }
+.returnLabel { position: relative; margin: 22px 0 0 45px; padding-top: 14px; border-top: 1px solid #c4d0c5; color: var(--teal-dark, #004f49); font-size: 12px; font-weight: 700; line-height: 1.7; }
+.returnLabel span { padding-left: 7px; }
+.note { margin: 25px 0 0; padding-top: 17px; border-top: 1px solid #c4d0c5; font-size: 12px; line-height: 1.9; color: var(--muted, #526662); }
+
+@container decision-loop (min-width: 470px) {
+  .title { font-size: 27px; }
+  .title br { display: none; }
+  .board { grid-template-columns: minmax(150px, .72fr) minmax(0, 1.28fr); gap: 26px; }
+  .evidence { display: block; align-self: start; }
+  .captureNote { margin-top: 17px; }
+  .captureNote p { margin: 10px 0; font-size: 14px; }
+  .steps { gap: 23px; }
+  .step { gap: 12px; }
+  .stepTitle { font-size: 16px; }
+  .description { font-size: 13px; }
+}
+
+@media (max-width: 360px) {
+  .figure { padding: 18px; }
+  .title { font-size: 23px; }
+  .evidence { grid-template-columns: 85px minmax(0, 1fr); gap: 16px; }
+  .captureNote p { font-size: 14px; }
+  .step { gap: 10px; }
+  .stepTitle { font-size: 16px; }
+  .description { font-size: 13px; }
+}
+
+@media (forced-colors: active) {
+  .figure, .capture, .number { border-color: CanvasText; }
+  .loop, .loop .echo, .loop .arrow { stroke: CanvasText; }
+}

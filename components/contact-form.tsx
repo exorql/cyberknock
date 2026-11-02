@@ -65,16 +65,16 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
   }, [])
 
   useEffect(() => {
-    function abandon() { if (started.current && !completed.current) trackEvent("contact_form_abandon", { source: normalizedSource }) }
+    function abandon() { if (started.current && !completed.current) trackEvent("contact_form_abandon", { source: normalizedSource, service: form.service }) }
     window.addEventListener("pagehide", abandon)
     return () => window.removeEventListener("pagehide", abandon)
-  }, [normalizedSource])
+  }, [normalizedSource, form.service])
   useEffect(() => { if (done) successRef.current?.focus() }, [done])
 
   function start() {
     if (started.current) return
     started.current = true
-    trackEvent("contact_form_start", { source: normalizedSource })
+    trackEvent("contact_form_start", { source: normalizedSource, service: form.service })
   }
 
   function change(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {

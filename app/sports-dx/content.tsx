@@ -147,7 +147,7 @@ export function SportsDxContent() {
         </section>
 
         <section className="section" aria-labelledby="quality-heading">
-          <div className="wrap editorial-grid">
+          <div className="wrap editorial-grid wide-editorial">
             <div>
               <p className="section-label">04 / 品質と運用</p>
               <h2 id="quality-heading" className="section-title">AIの結果と、<br />現場の使いやすさ。</h2>
@@ -171,9 +171,9 @@ export function SportsDxContent() {
               <h2 id="evidence-heading" className="section-title">公開後の課題にも、向き合っています。</h2>
             </div>
             <div className="editorial-grid">
-              <figure>
+              <figure className="dx-case-visual">
                 <img src="/images/product/pitching-score.webp" width={280} height={606} loading="lazy" decoding="async" alt="AIスポーツトレーナーの実画面。動作の評価と競技者向けのフィードバックを表示。" />
-                <figcaption className="info-note">自社アプリの実画面（表示例）</figcaption>
+                <figcaption className="media-note">自社アプリの実画面（表示例）</figcaption>
               </figure>
               <div className="body-copy">
                 <p className="tag">自社プロダクト / iOS・Android</p>
@@ -188,7 +188,7 @@ export function SportsDxContent() {
         </section>
 
         <section className="section" aria-labelledby="planning-heading">
-          <div className="wrap editorial-grid">
+          <div className="wrap editorial-grid wide-editorial">
             <div>
               <p className="section-label">06 / ご相談にあたって</p>
               <h2 id="planning-heading" className="section-title">予算や仕様は、<br />これからでも。</h2>

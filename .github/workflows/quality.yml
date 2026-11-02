@@ -1,0 +1,62 @@
+name: Website quality
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'pages/**'
+      - 'components/**'
+      - 'functions/**'
+      - 'lib/**'
+      - 'public/**'
+      - 'styles/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - '*config*'
+      - 'package*.json'
+      - '.github/workflows/quality.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      # No analytics ID or contact-delivery credentials are passed to this job.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked application dependencies
+        run: npm ci --legacy-peer-deps
+      - name: Typecheck, tests, and production static build
+        run: npm run check
+      - name: Locate installed Chrome and prepare pinned Lighthouse CLI
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+          npx --yes lighthouse@12.8.2 --version
+      - name: Audit five public and five local pages
+        run: node scripts/audit-lighthouse.mjs --enforce
+      - name: Preserve Lighthouse reports and measurement conditions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cyberknock-quality-${{ github.run_id }}-${{ github.run_attempt }}
+          path: docs/redesign-20261102/lighthouse/
+          if-no-files-found: warn
+          retention-days: 30

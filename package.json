@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "check": "npm run typecheck && npm test && npm run build",
+    "qa": "node scripts/serve-qa.mjs --port=4173 --contact=success"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",

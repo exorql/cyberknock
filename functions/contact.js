@@ -1,3 +1,5 @@
+// QA ONLY — qa/contact-validation-20261102. NEVER MERGE INTO MAIN OR A PRODUCTION BRANCH.
+// Base: f1b4d4e59a6665d0f593b541e16c9bc49e2ea00b. Synthetic input only; no real notification or analytics delivery.
 // Cloudflare Pages Function. The existing Slack destination stays in the environment.
 // No submission data or webhook errors are written to logs or returned to callers.
 const MAX_BODY_BYTES = 24_000;
@@ -114,10 +116,44 @@ export async function handleContact(request, env, fetchImpl = fetch) {
   } finally { clearTimeout(timeout); }
 }
 
-export function onRequest(context) {
-  if (context.request.method === "POST") return handleContact(context.request, context.env);
-  const response = json({ ok: false, error: "POSTを使用してください。" }, 405);
-  response.headers.set("Allow", "POST");
-  return response;
+
+/**
+ * QA-only entry point. The production handleContact above remains unchanged.
+ * Always inject a dummy environment and a local responder. Never read context.env
+ * or call external fetch. Missing/foreign/invalid Referer modes fail closed.
+ */
+function contactQaMode(request) {
+  try {
+    const referer = new URL(request.headers.get("referer") || "");
+    if (referer.origin === new URL(request.url).origin) {
+      const mode = referer.searchParams.get("qa");
+      if (["success", "failure", "slow"].includes(mode)) return mode;
+    }
+  } catch { /* Missing or invalid Referer uses the failure mode. */ }
+  return "failure";
 }
 
+export async function onRequest(context) {
+  const mode = contactQaMode(context.request);
+  let response;
+  if (context.request.method === "POST") {
+    const mockDelivery = async () => {
+      if (mode === "slow") await new Promise(resolve => setTimeout(resolve, 2_000));
+      return new Response(mode === "failure" ? "QA simulated failure" : "QA simulated success", {
+        status: mode === "failure" ? 500 : 200,
+      });
+    };
+    response = await handleContact(
+      context.request,
+      { SLACK_WEBHOOK_URL: "https://qa.invalid/no-delivery" },
+      mockDelivery,
+    );
+  } else {
+    response = json({ ok: false, error: "POSTを使用してください。" }, 405);
+    response.headers.set("Allow", "POST");
+  }
+  response.headers.set("X-CyberKnock-QA", "contact-validation-no-delivery");
+  response.headers.set("X-QA-Contact-Mode", mode);
+  response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+  return response;
+}

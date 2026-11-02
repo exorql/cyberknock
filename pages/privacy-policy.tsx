@@ -130,9 +130,6 @@ export default function PrivacyPolicy() {
           <li>屋号：Cyber Knock（サイバーノック）</li>
           <li>代表者名：渡辺 晴仁</li>
           <li>
-            住所：〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C
-          </li>
-          <li>
             お問い合わせフォーム：<Link href="/#contact" className="underline text-cyan-400">こちら</Link>
           </li>
         </ul>

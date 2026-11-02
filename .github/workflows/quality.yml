@@ -2,6 +2,16 @@ name: Website quality
 
 on:
   workflow_dispatch:
+    inputs:
+      audit_stage:
+        description: 'Reuse the saved baseline unless intentionally refreshing it'
+        type: choice
+        options: [after, after-preview, preview, all, before]
+        default: after
+      preview_origin:
+        description: 'Immutable https://<deployment>.cyberknock.pages.dev origin (required for preview stages)'
+        type: string
+        default: ''
   pull_request:
     paths:
       - 'app/**'
@@ -50,8 +60,11 @@ jobs:
           echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
           "$CHROME_BIN" --version
           npx --yes lighthouse@12.8.2 --version
-      - name: Audit five public and five local pages
-        run: node scripts/audit-lighthouse.mjs --enforce
+      - name: Audit requested pages and preserve the existing baseline
+        env:
+          AUDIT_STAGE: ${{ inputs.audit_stage || 'after' }}
+          PREVIEW_ORIGIN: ${{ inputs.preview_origin || '' }}
+        run: node scripts/audit-lighthouse.mjs --enforce --stage="$AUDIT_STAGE" --preview-origin="$PREVIEW_ORIGIN"
       - name: Preserve Lighthouse reports and measurement conditions
         if: always()
         uses: actions/upload-artifact@v4

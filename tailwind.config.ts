@@ -4,7 +4,10 @@ const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
+    // Public pages use the shared components at this level. The retained,
+    // unused components/ui library must not add styles to every page.
+    // Add an individual UI file here if a future page starts importing it.
+    "./components/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
     "*.{js,ts,jsx,tsx,mdx}",
@@ -92,3 +95,4 @@ const config = {
 } satisfies Config
 
 export default config
+

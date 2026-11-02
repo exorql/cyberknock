@@ -4,15 +4,29 @@
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
+import { gzipSync } from 'node:zlib';
 
 const options = Object.fromEntries(process.argv.slice(2).map(value => value.replace(/^--/, '').split('=')));
 const root = resolve(options.root || 'out');
 const port = Number(options.port || 4173);
 const mode = options.contact || 'failure';
+const compression = options.compress || 'none';
 if (!['success', 'failure', 'slow'].includes(mode)) throw new Error('Use contact=success, failure, or slow');
+if (!['none', 'gzip'].includes(compression)) throw new Error('Use compress=none or gzip');
 const functionSource = await readFile(new URL('../functions/contact.js', import.meta.url), 'utf8');
 const { handleContact } = await import(`data:text/javascript;base64,${Buffer.from(functionSource).toString('base64')}`);
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
+const compressible = new Set(['.html', '.js', '.css', '.json', '.txt', '.xml', '.svg']);
+
+function acceptsGzip(value = '') {
+  const encodings = String(value).toLowerCase().split(',').map(part => {
+    const [name, ...parameters] = part.trim().split(';');
+    const quality = parameters.map(item => item.trim()).find(item => item.startsWith('q='));
+    return { name: name.trim(), quality: quality ? Number(quality.slice(2)) : 1 };
+  });
+  const encoding = encodings.find(item => item.name === 'gzip') ?? encodings.find(item => item.name === '*');
+  return !!encoding && Number.isFinite(encoding.quality) && encoding.quality > 0;
+}
 
 createServer(async (request, response) => {
   const url = new URL(request.url, `http://127.0.0.1:${port}`);
@@ -48,7 +62,17 @@ createServer(async (request, response) => {
     }
     if (!file) { response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); response.end('Not found'); return; }
     const bytes = await readFile(file);
-    response.writeHead(200, { 'Content-Type': types[extname(file)] || 'application/octet-stream', 'Cache-Control': 'no-store', 'Content-Length': bytes.length });
-    response.end(request.method === 'HEAD' ? undefined : bytes);
+    const extension = extname(file);
+    const canCompress = compression === 'gzip' && compressible.has(extension) && bytes.length >= 1024;
+    const compressed = canCompress && acceptsGzip(request.headers['accept-encoding']);
+    const body = compressed ? gzipSync(bytes) : bytes;
+    response.writeHead(200, {
+      'Content-Type': types[extension] || 'application/octet-stream',
+      'Cache-Control': 'no-store',
+      'Content-Length': body.length,
+      ...(canCompress ? { Vary: 'Accept-Encoding' } : {}),
+      ...(compressed ? { 'Content-Encoding': 'gzip' } : {}),
+    });
+    response.end(request.method === 'HEAD' ? undefined : body);
   } catch { response.writeHead(500); response.end('Local QA server error'); }
-}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | external delivery disabled`));
+}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | compression=${compression} | external delivery disabled`));

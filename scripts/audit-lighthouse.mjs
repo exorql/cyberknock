@@ -1,6 +1,7 @@
 // Navigation-only Lighthouse audits. No form submission, GA API, or external delivery.
 // Pinned official CLI: https://github.com/GoogleChrome/lighthouse/releases/tag/v12.8.2
-// Build first: npm run check; then: node scripts/audit-lighthouse.mjs [--enforce]
+// Build first: npm run check; then: node scripts/audit-lighthouse.mjs [--enforce] [--stage=all|before|after|preview|after-preview]
+// Preview runs also require --preview-origin=https://<deployment>.cyberknock.pages.dev
 import { spawn, execFile } from 'node:child_process';
 import { mkdir, readFile, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -13,6 +14,21 @@ const output = resolve('docs/redesign-20261102/lighthouse');
 const localOrigin = 'http://127.0.0.1:4173';
 const publicOrigin = 'https://cyberknock.pages.dev';
 const enforce = process.argv.includes('--enforce');
+const options = Object.fromEntries(process.argv.slice(2).filter(value => value.includes('=')).map(value => {
+  const delimiter = value.indexOf('=');
+  return [value.slice(2, delimiter), value.slice(delimiter + 1)];
+}));
+const stageOptions = { all: ['before', 'after'], before: ['before'], after: ['after'], preview: ['preview'], 'after-preview': ['after', 'preview'] };
+const stages = stageOptions[options.stage || 'all'];
+if (!stages) throw new Error('Use --stage=all, before, after, preview, or after-preview.');
+let previewOrigin = null;
+if (stages.includes('preview')) {
+  const preview = new URL(options['preview-origin'] || 'missing-preview-origin');
+  if (preview.protocol !== 'https:' || !/^[a-z0-9-]+\.cyberknock\.pages\.dev$/.test(preview.hostname) || preview.port || preview.username || preview.password || preview.pathname !== '/' || preview.search || preview.hash) {
+    throw new Error('Preview origin must be an HTTPS Cyber Knock Cloudflare Pages deployment origin.');
+  }
+  previewOrigin = preview.origin;
+}
 const pages = [
   ['home', '/'],
   ['sports-dx', '/sports-dx'],
@@ -36,6 +52,7 @@ const summary = {
   nodeVersion: process.version,
   platform: process.platform,
   runsPerPage: 1,
+  requestedStages: stages,
   conditions: {
     formFactor: 'mobile',
     throttlingMethod: 'simulate',
@@ -43,7 +60,10 @@ const summary = {
     beforeOrigin: publicOrigin,
     afterOrigin: localOrigin,
     beforeDelivery: 'Public Cloudflare Pages deployment at audit time',
-    afterDelivery: 'Production static export served locally with no-store response headers',
+    afterDelivery: 'Production static export served locally over HTTP/1.1 with gzip text compression and no-store response headers',
+    previewOrigin,
+    previewDelivery: previewOrigin ? 'Observed Cloudflare Pages preview; record this immutable deployment URL with its commit separately' : null,
+    previewSeo: 'Preview SEO scores are reported but excluded from threshold gates because Cloudflare preview deployments may intentionally return X-Robots-Tag: noindex.',
     deliveryComparable: false,
     limitation: 'Same runner, Chrome, Lighthouse, and emulation; CDN/HTTPS/network/cache conditions differ. This is not a controlled production speed experiment.',
     blockedUrlPatterns: blocked,
@@ -68,6 +88,7 @@ function targetFailures(result) {
   if (result.status !== 'measured') return ['measurement unavailable'];
   const failures = [];
   for (const [key, value] of Object.entries(targets)) {
+    if (result.stage === 'preview' && key === 'seo') continue;
     const actual = key === 'lcpMs' || key === 'cls' ? result.metrics[key] : result.scores[key];
     if (actual === null || actual === undefined) failures.push(`${key}: not measured`);
     else if (key === 'lcpMs' || key === 'cls' ? actual > value : actual < value) failures.push(`${key}: ${actual} (target ${value})`);
@@ -136,6 +157,7 @@ async function audit(stage, name, pathname, origin) {
         inpMs: null,
       },
       warnings: report.runWarnings ?? [],
+      auditErrors: Object.values(report.audits ?? {}).filter(item => item.scoreDisplayMode === 'error' || item.errorMessage).map(item => ({ id: item.id, title: item.title, errorMessage: item.errorMessage, explanation: item.explanation })),
       failedAudits: Object.values(report.audits ?? {}).filter(item => item.score !== null && item.score < 1 && !['manual', 'notApplicable', 'informative'].includes(item.scoreDisplayMode)).map(item => ({ id: item.id, title: item.title, score: item.score, displayValue: item.displayValue, explanation: item.explanation })),
       files: { json: `${stage}/${name}.report.json`, html: `${stage}/${name}.report.html`, log: `${stage}/${name}.log` },
     });
@@ -144,22 +166,25 @@ async function audit(stage, name, pathname, origin) {
   result.meetsLabTargets = result.targetFailures.length === 0;
   summary.results.push(result);
   await writeFile(resolve(output, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
-  console.log(JSON.stringify({ stage, page: name, status: result.status, scores: result.scores, metrics: result.metrics, targetFailures: result.targetFailures, error: result.error }));
+  console.log(JSON.stringify({ stage, page: name, status: result.status, scores: result.scores, metrics: result.metrics, auditErrors: result.auditErrors, targetFailures: result.targetFailures, error: result.error }));
 }
 
 try {
-  // Fail rather than accidentally auditing an unrelated service on the selected port.
-  let occupied = false;
-  try { await fetch(localOrigin, { signal: AbortSignal.timeout(1000) }); occupied = true; } catch { /* Free port expected. */ }
-  if (occupied) throw new Error('Port 4173 is already serving a site; stop it before running this audit.');
-  server = spawn(process.execPath, ['scripts/serve-qa.mjs', '--port=4173', '--contact=failure'], { stdio: ['ignore', 'pipe', 'pipe'] });
-  server.stdout.on('data', chunk => { serverLog += chunk; });
-  server.stderr.on('data', chunk => { serverLog += chunk; });
-  await waitForServer();
+  if (stages.includes('after')) {
+    // Fail rather than accidentally auditing an unrelated service on the selected port.
+    let occupied = false;
+    try { await fetch(localOrigin, { signal: AbortSignal.timeout(1000) }); occupied = true; } catch { /* Free port expected. */ }
+    if (occupied) throw new Error('Port 4173 is already serving a site; stop it before running this audit.');
+    server = spawn(process.execPath, ['scripts/serve-qa.mjs', '--port=4173', '--contact=failure', '--compress=gzip'], { stdio: ['ignore', 'pipe', 'pipe'] });
+    server.stdout.on('data', chunk => { serverLog += chunk; });
+    server.stderr.on('data', chunk => { serverLog += chunk; });
+    await waitForServer();
+  }
   // Sequential measurements avoid competition between Lighthouse Chrome processes.
   for (const [name, pathname] of pages) {
-    await audit('before', name, pathname, publicOrigin);
-    await audit('after', name, pathname, localOrigin);
+    for (const stage of stages) {
+      await audit(stage, name, pathname, stage === 'before' ? publicOrigin : stage === 'after' ? localOrigin : previewOrigin);
+    }
   }
 } catch (error) {
   summary.setupError = error.message;
@@ -168,20 +193,25 @@ try {
   if (server && server.exitCode === null) server.kill('SIGTERM');
   await writeFile(resolve(output, 'server.log'), serverLog);
   summary.completedAt = new Date().toISOString();
-  summary.afterLabTargetsMet = summary.results.filter(item => item.stage === 'after').length === pages.length && summary.results.filter(item => item.stage === 'after').every(item => item.meetsLabTargets);
+  summary.stageLabTargetsMet = Object.fromEntries(stages.map(stage => {
+    const results = summary.results.filter(item => item.stage === stage);
+    return [stage, results.length === pages.length && results.every(item => item.meetsLabTargets)];
+  }));
+  summary.afterLabTargetsMet = summary.stageLabTargetsMet.after ?? null;
   await writeFile(resolve(output, 'summary.json'), JSON.stringify(summary, null, 2) + '\n');
   const cell = value => value === null || value === undefined ? '—' : String(value);
-  const rows = summary.results.map(item => `| ${item.stage} | ${item.pathname} | ${cell(item.scores?.performance)} | ${cell(item.scores?.accessibility)} | ${cell(item.scores?.['best-practices'])} | ${cell(item.scores?.seo)} | ${item.metrics?.lcpMs == null ? '—' : (item.metrics.lcpMs / 1000).toFixed(2)} | ${item.metrics?.cls == null ? '—' : item.metrics.cls.toFixed(3)} | ${item.status === 'measured' ? item.meetsLabTargets ? 'Pass' : 'Below target' : 'Unavailable'} |`);
+  const rows = summary.results.map(item => `| ${item.stage} | ${item.pathname} | ${cell(item.scores?.performance)} | ${cell(item.scores?.accessibility)} | ${cell(item.scores?.['best-practices'])} | ${cell(item.scores?.seo)} | ${item.metrics?.lcpMs == null ? '—' : (item.metrics.lcpMs / 1000).toFixed(2)} | ${item.metrics?.cls == null ? '—' : item.metrics.cls.toFixed(3)} | ${cell(item.auditErrors?.length)} | ${item.status === 'measured' ? item.meetsLabTargets ? 'Pass' : 'Below target' : 'Unavailable'} |`);
   const markdown = [
     '## Cyber Knock — Lighthouse mobile lab audit',
     '',
     `Lighthouse ${version}; Node ${process.version}; one navigation per page. See artifact summary.json for exact Chrome/emulation settings.`,
     '',
-    '| Stage | Page | Performance | Accessibility | Best Practices | SEO | LCP (s, lab) | CLS (lab) | Lab targets |',
-    '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | --- |',
+    '| Stage | Page | Performance | Accessibility | Best Practices | SEO | LCP (s, lab) | CLS (lab) | Audit errors | Lab targets |',
+    '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |',
     ...rows,
     '',
     '**Measurement limits:** Before is the public Cloudflare site; after is the local production export. Same runner/tool/emulation, different delivery and caching. These are single-run lab results, not field Core Web Vitals or proof of conversion improvement. INP and field 75th percentiles are unmeasured. Automated accessibility scores do not establish WCAG conformance.',
+    'After uses gzip for compressible text. Preview runs use the recorded Cloudflare deployment origin; preview SEO is reported but not gated because noindex is expected for preview deployments. Any individual audit errors are listed in summary.json; a numeric category score does not mean every audit completed.',
     '',
     'No form submission is performed. Contact delivery and analytics endpoints are blocked; no GA API is called. The local server uses an injected failure response and never delivers to Slack.',
     summary.setupError ? `\nSetup error: ${summary.setupError}\n` : '',
@@ -189,5 +219,6 @@ try {
   await writeFile(resolve(output, 'summary.md'), markdown + '\n');
   if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, markdown + '\n');
   console.log(markdown);
-  if (summary.results.some(item => item.status !== 'measured') || summary.results.length !== pages.length * 2 || (enforce && !summary.afterLabTargetsMet)) process.exitCode = 1;
+  const gatedStages = stages.filter(stage => stage !== 'before');
+  if (summary.results.some(item => item.status !== 'measured') || summary.results.length !== pages.length * stages.length || (enforce && gatedStages.some(stage => !summary.stageLabTargetsMet[stage]))) process.exitCode = 1;
 }

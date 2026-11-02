@@ -83,7 +83,7 @@ export default function SecurityPage() {
         <section className="document-hero">
           <div className="wrap">
             <p className="eyebrow">データの取り扱い</p>
-            <h1 className="page-title">AI・スポーツ動画データの<br />取り扱いについて。</h1>
+            <h1 className="page-title">AI・スポーツ動画<span className="keep-phrase">データの</span><br />取り扱いについて。</h1>
             <p className="lead">
               データの利用目的、アクセス管理、AIの利用範囲を明確にしながら、
               サービスを設計・運用することを重視しています。

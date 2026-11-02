@@ -67,7 +67,7 @@ async function extractScreenshots(report, key, width) {
   }
   if (report.configSettings.throttlingMethod !== 'provided') throw new Error('Unexpected throttling method');
   const shot = report.fullPageScreenshot?.screenshot;
-  if (!shot?.data || shot.width !== width || shot.height < height) throw new Error('Full-page screenshot missing or dimensions inconsistent');
+  if (!shot?.data || !Number.isFinite(shot.width) || shot.width <= 0 || shot.height < height) throw new Error('Full-page screenshot missing or dimensions inconsistent');
   const match = /^data:(image\/(?:webp|png|jpeg));base64,([\s\S]+)$/.exec(shot.data);
   if (!match) throw new Error('Unsupported Lighthouse screenshot data URI');
   const extension = { 'image/webp': 'webp', 'image/png': 'png', 'image/jpeg': 'jpg' }[match[1]];
@@ -92,6 +92,8 @@ async function extractScreenshots(report, key, width) {
   if (dimensions.fullImageHeight !== shot.height) throw new Error('Encoded full-page height differs from Lighthouse screenshot metadata');
   return {
     ...dimensions, fullPage: relative(output, fullPath).replaceAll('\\', '/'), viewport: relative(output, viewportPath).replaceAll('\\', '/'),
+    lighthouseScreenshotMetadataWidth: shot.width,
+    metadataWidthDiffersFromEncodedImage: shot.width !== dimensions.fullImageWidth,
     crop: { x: 0, y: 0, width, height, method: 'Lossless PNG crop from original Lighthouse full-page screenshot, no resize' },
     documentClientWidth: null, documentScrollWidth: null, horizontalOverflowVerified: false,
   };

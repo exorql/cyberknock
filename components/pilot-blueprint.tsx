@@ -6,7 +6,7 @@ export function PilotBlueprint() {
     <figure className={styles.figure}>
       <figcaption className={styles.heading}>
         <p className={styles.kicker}><span>実証の設計図</span><span className={styles.concept}>概念図</span></p>
-        <p className={styles.title}>実証のあとに、判断が残る。</p>
+        <p className={styles.title}>実証のあとに、<span>判断が残る。</span></p>
       </figcaption>
 
       <div className={styles.diagram}>

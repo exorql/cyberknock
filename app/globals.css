@@ -43,6 +43,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .accent-text { color: var(--teal); }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: 28px; min-height: 54px; padding: 14px 22px; border-radius: 4px; border: 1px solid transparent; font-size: 14px; font-weight: 700; line-height: 1.7; transition: background-color .2s,color .2s,border-color .2s; }
 .button svg, .text-link svg, .subtle-link svg { flex: none; transition: transform .2s ease; }
+.keep-phrase { display: inline-block; }
 .button-primary { background: var(--ink); color: var(--white); }
 .button-primary:hover { background: var(--teal); }
 .button:hover svg, .text-link:hover svg { transform: translate(2px,-2px); }
@@ -525,6 +526,7 @@ button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: wa
   .visual-topline .mono { font-size: 8px; }
   .contact-form { padding-inline: 16px; }
   .page-title { font-size: 29px; }
+  .case-hero-grid .page-title { font-size: 30px; }
 }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior: auto; }

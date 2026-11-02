@@ -23,6 +23,7 @@
 .kicker { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; color: var(--teal-dark, #004f49); font-size: 12px; line-height: 1.5; font-weight: 700; }
 .concept { padding: 1px 7px; border: 1px solid #9eb8a6; font-weight: 400; }
 .title { margin: 8px 0 0; font-size: 22px; line-height: 1.45; font-weight: 700; letter-spacing: -.04em; }
+.title > span { display: inline-block; }
 .diagram { position: relative; margin-top: 16px; }
 .trace { position: absolute; inset: 0 auto 0 -2px; width: 34px; height: 100%; overflow: visible; fill: none; stroke: #789786; stroke-width: 1.2; pointer-events: none; }
 .trace path { vector-effect: non-scaling-stroke; }

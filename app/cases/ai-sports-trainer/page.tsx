@@ -31,10 +31,11 @@ export const metadata: Metadata = {
 
 export default function CaseStudyPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="site-shell">
       <SiteHeader />
       <CaseStudyContent />
       <SiteFooter />
     </div>
   )
 }
+

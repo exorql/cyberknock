@@ -1,15 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import { SiteAnalytics } from "@/components/site-analytics"
 
-const inter = Inter({ subsets: ["latin", "latin-ext"] })
 
 const siteUrl = "https://cyberknock.pages.dev"
-const siteTitle = "Cyber Knock | スポーツ領域のAI・プロダクト開発パートナー"
+const siteTitle = "Cyber Knock | スポーツAI・Web・モバイルの開発パートナー"
 const siteDescription =
-  "自社でスポーツAI動画分析アプリを開発・運用する知見をもとに、スポーツ領域の新規サービスやAI機能を、要件整理からWeb・モバイル開発、リリース後の改善まで支援します。"
+  "自社プロダクトを開発・運用する経験を、あなたの事業へ。スポーツAI・動画分析、Web・モバイルの新規開発、AI品質改善、自治体・競技団体の実証を、企画から運用まで支援します。"
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -23,7 +21,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    title: "Cyber Knock | 構想を、使われるプロダクトへ。",
     description: siteDescription,
     url: siteUrl,
     siteName: "Cyber Knock",
@@ -32,7 +30,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    title: "Cyber Knock | 構想を、使われるプロダクトへ。",
     description: siteDescription,
   },
   verification: {
@@ -48,10 +46,8 @@ const organizationJsonLd = {
   description: siteDescription,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C",
-    addressLocality: "渋谷区",
+    addressLocality: "三鷹市",
     addressRegion: "東京都",
-    postalCode: "150-0043",
     addressCountry: "JP",
   },
 }
@@ -62,17 +58,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="ja">
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        {children}
+        <SiteAnalytics />
       </body>
     </html>
   )
 }
+
 

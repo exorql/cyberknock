@@ -8,7 +8,7 @@ const siteUrl = "https://cyberknock.pages.dev"
 export const metadata: Metadata = {
   title: "AI・スポーツ動画データの取り扱いについて | Cyber Knock",
   description:
-    "Cyber Knockが運営するスポーツAIサービスにおける、データの利用目的・アクセス管理・AIの利用範囲・未成年者対応などの考え方を説明します。",
+    "Cyber Knockの実証・受託開発で整理するデータ要件と、AIスポーツトレーナーにおける動画の保存・外部AIの利用・アクセス管理・削除の方針を説明します。",
   alternates: {
     canonical: "/security",
   },
@@ -76,254 +76,211 @@ const jsonLd = {
 
 export default function SecurityPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="site-shell">
       <SiteHeader />
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <main>
-        {/* ─── HERO ─── */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 pointer-events-none" />
-
-          <div className="relative container max-w-3xl mx-auto px-6">
-            <p className="text-xs font-semibold text-cyan-500 tracking-widest uppercase mb-4">
-              データ取り扱い
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <main id="main-content">
+        <section className="document-hero">
+          <div className="wrap">
+            <p className="eyebrow">データの取り扱い</p>
+            <h1 className="page-title">AI・スポーツ動画データの<br />取り扱いについて。</h1>
+            <p className="lead">
+              データの利用目的、アクセス管理、AIの利用範囲を明確にしながら、
+              サービスを設計・運用することを重視しています。
             </p>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-[1.35] mb-8">
-              AI・スポーツ動画データの取り扱いについて
-            </h1>
-            <p className="text-slate-400 leading-relaxed">
-              Cyber Knockでは、スポーツ動画やAIを扱うサービスにおいて、データの利用目的、アクセス管理、AIの利用範囲などを明確にすることを重視しています。
-            </p>
-            <p className="text-slate-400 leading-relaxed mt-4">
-              本ページでは、AIスポーツトレーナーを中心に、データの取り扱い方針やAIを利用する際の基本的な考え方を説明します。
-            </p>
+            <div className="info-note">
+              <p className="section-label">実証・受託開発をご検討の方へ</p>
+              <p>実証・受託開発では、目的・閲覧権限・保存期間・外部AIへ送る範囲を開始前に整理します。</p>
+              <p>以下は、自社サービス「AIスポーツトレーナー」を中心とした現在の取り扱い方針です。ご依頼いただく開発では、対象データや運用に合わせて要件を確認します。</p>
+              <Link href="/?service=sports-ai#contact" className="text-link">開発時のデータ要件について相談する <span aria-hidden="true">↗</span></Link>
+            </div>
           </div>
         </section>
 
-        {/* ─── コンテンツ ─── */}
-        <section className="pb-24 md:pb-32">
-          <div className="container max-w-3xl mx-auto px-6 space-y-16">
-
-            {/* 1. データの利用目的 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                データの利用目的
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+        <div className="wrap document-layout">
+          <aside className="document-nav">
+            <nav aria-label="データの取り扱いの目次">
+              <p className="section-label">このページの内容</p>
+              <ol>
+                <li><a href="#purpose">データの利用目的</a></li>
+                <li><a href="#video">動画データの取り扱い</a></li>
+                <li><a href="#external-ai">外部AIサービスへの送信</a></li>
+                <li><a href="#model-training">AIモデルの学習利用</a></li>
+                <li><a href="#access">アクセス管理</a></li>
+                <li><a href="#deletion">データの削除</a></li>
+                <li><a href="#minors">未成年者について</a></li>
+                <li><a href="#limitations">AIによる分析の限界</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+              </ol>
+            </nav>
+          </aside>
+          <article className="prose" aria-label="AIスポーツトレーナーのデータ取り扱い方針">
+            <section aria-labelledby="purpose">
+              <h2 id="purpose">データの利用目的</h2>
+              <p>
                 収集するデータは、以下の目的でのみ利用します。
               </p>
-              <ul className="space-y-2">
+              <ul>
                 {[
                   "サービスの提供・機能の実現",
                   "AI分析結果の生成・ユーザーへの提示",
                   "サービス品質の確認・改善",
                   "ユーザーからの問い合わせへの対応",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="text-sm text-slate-500 mt-4">
+              <p>
                 上記以外の目的（広告配信・第三者への販売等）でのデータ利用は行いません。
               </p>
-            </div>
+            </section>
 
-            {/* 2. 動画データの取り扱い */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                動画データの取り扱い
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="video">
+              <h2 id="video">動画データの取り扱い</h2>
+              <p>
                 ユーザーがアップロードした動画は、AI分析の目的でのみ処理します。
                 動画データは第三者に提供・販売しません。
               </p>
-              <p className="text-slate-400 leading-relaxed mb-4">
+              <p>
                 動画はGoogle Cloud上のストレージ（Firebase Cloud Storage）に保存されます。
               </p>
-              <ul className="space-y-2 mb-4">
+              <ul>
                 {[
                   "無料プランのユーザー：アップロードから一定期間（約1か月）経過後に、動画ファイルは自動的に削除されます",
                   "有料プランのユーザー：動画ファイルは自動削除の対象外となり、サービス利用期間中は保存されます",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="text-sm text-slate-500">
+              <p>
                 動画ファイルが削除された場合も、AI分析結果のテキストデータはサービス上で引き続き閲覧できます。
               </p>
-            </div>
+            </section>
 
-            {/* 3. 外部AIサービスへの送信 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                外部AIサービスへの送信
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="external-ai">
+              <h2 id="external-ai">外部AIサービスへの送信</h2>
+              <p>
                 AI分析にはGoogle Cloud（Vertex AI）のAPIを利用しています。
                 分析時に以下のデータがGoogle Cloudのサーバーに送信されます。
               </p>
-              <ul className="space-y-2">
+              <ul>
                 {[
                   "ユーザーがアップロードした動画ファイル",
                   "分析に必要なコンテキスト情報（年齢層、競技種目、分析の目的など）",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-              <p className="text-sm text-slate-500 mt-4">
+              <p>
                 ※ 利用するAIサービスは、サービスの改善に伴い変更される場合があります。変更時には本ページを更新します。
               </p>
-            </div>
+            </section>
 
-            {/* 4. AIモデルの学習利用 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                AIモデルの学習利用
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="model-training">
+              <h2 id="model-training">AIモデルの学習利用</h2>
+              <p>
                 ユーザーがアップロードしたデータを、Cyber Knock独自のAIモデルの学習に利用することはありません。
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p>
                 現在利用しているGoogle Cloud（Vertex AI）のAPIでは、APIを通じて送信されたデータがGoogleのモデル学習に使用されることはありません（Google Cloud の利用規約に基づく）。
               </p>
-            </div>
+            </section>
 
-            {/* 5. アクセス管理 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                アクセス管理
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="access">
+              <h2 id="access">アクセス管理</h2>
+              <p>
                 ユーザーデータへのアクセスは、サービス運営に必要な範囲に限定しています。
               </p>
-              <ul className="space-y-2">
+              <ul>
                 {[
                   "ユーザーの動画・分析結果には、本人のアカウントからのみアクセスできます",
                   "運営側のデータアクセスは、障害対応やユーザーサポートなど業務上必要な場合に限定しています",
                   "不正なアクセスやAPIの異常利用は、検知・通知の仕組みを設けています",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
 
-            {/* 6. データの削除 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                データの削除
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="deletion">
+              <h2 id="deletion">データの削除</h2>
+              <p>
                 ユーザーのデータ削除については、以下の方法で対応しています。
               </p>
-              <ul className="space-y-2">
+              <ul>
                 {[
                   "動画データ：無料プランでは一定期間後に自動削除されます",
                   "アカウントおよび関連データの削除を希望される場合は、お問い合わせフォームよりご連絡ください。運営側で対応します",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
 
-            {/* 7. 未成年者について */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                未成年者について
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="minors">
+              <h2 id="minors">未成年者について</h2>
+              <p>
                 本サービスは、スポーツ動画の分析を目的としており、ジュニア選手など未成年者が利用する場合があります。
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p>
                 未成年者がサービスを利用する際は、保護者の関与・同意のもとで利用することを推奨しています。
               </p>
-            </div>
+            </section>
 
-            {/* 8. AIの限界 */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                AIによる分析の限界
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="limitations">
+              <h2 id="limitations">AIによる分析の限界</h2>
+              <p>
                 AIによる動画分析は、映像から確認できる範囲に限定した評価を提供するものです。
                 以下の点をご理解ください。
               </p>
-              <ul className="space-y-3">
+              <ul>
                 {[
                   "映像から確認できない情報（体の内側の状態、感覚、痛みなど）はAIでは判断できません",
                   "撮影角度・画質・動画の長さによっては、正確な分析ができない場合があります",
                   "AIの評価は参考情報として提供するものであり、絶対的な判断を示すものではありません",
                   "競技の指導・トレーニングについては、必要に応じて指導者や専門家に相談することを推奨します",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-slate-600 shrink-0 mt-2" />
+                ].map((item) => (
+                  <li key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
-            </div>
+            </section>
 
-            {/* 9. お問い合わせ */}
-            <div>
-              <h2 className="text-xl font-bold text-white mb-4 pb-3 border-b border-slate-800">
-                お問い合わせ
-              </h2>
-              <p className="text-slate-400 leading-relaxed mb-4">
+            <section aria-labelledby="contact">
+              <h2 id="contact">お問い合わせ</h2>
+              <p>
                 データ取り扱いに関するご質問、データ削除のご依頼、問題が発生した場合のご連絡は、お問い合わせフォームよりご連絡ください。代表者が直接確認し、速やかに対応します。
               </p>
-              <p className="text-slate-400 leading-relaxed">
+              <p>
                 Cyber Knock（代表者：渡辺 晴仁）<br />
-                所在地：〒150-0043 東京都渋谷区道玄坂1丁目10番8号 渋谷道玄坂東急ビル2F−C
+                所在地：東京都三鷹市
               </p>
-            </div>
 
-            {/* ─── 関連リンク ─── */}
-            <div className="border-t border-slate-800 pt-10">
-              <p className="text-xs text-slate-500 uppercase tracking-widest mb-4">関連ページ</p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link
-                  href="/privacy-policy"
-                  className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  プライバシーポリシー →
-                </Link>
-                <Link
-                  href="/sports-dx"
-                  className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  スポーツDX・実証支援 →
-                </Link>
-                <Link
-                  href="/cases/ai-sports-trainer"
-                  className="text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
-                >
-                  AIスポーツトレーナー 開発事例 →
-                </Link>
-              </div>
-            </div>
+              <p><Link href="/?service=sports-ai#contact" className="button button-primary">データの取り扱いについて相談する <span aria-hidden="true">↗</span></Link></p>
+            </section>
 
-          </div>
-        </section>
+            <div className="info-note">
+              <p className="section-label">関連ページ</p>
+              <ul>
+                <li><Link href="/privacy-policy" className="text-link">プライバシーポリシー</Link></li>
+                <li><Link href="/sports-dx" className="text-link">スポーツDX・AI実証支援</Link></li>
+                <li><Link href="/cases/ai-sports-trainer" className="text-link">AIスポーツトレーナーの開発・運用事例</Link></li>
+              </ul>
+            </div>
+          </article>
+        </div>
       </main>
-
       <SiteFooter />
     </div>
   )

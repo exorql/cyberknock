@@ -85,7 +85,7 @@ export function SportsDxContent() {
           <div className="wrap dx-hero-grid">
             <div>
             <p className="eyebrow">スポーツDX・AI実証支援</p>
-            <h1 className="page-title">現場で役立つかを、<br />小さな実証から。</h1>
+            <h1 className="page-title">現場で役立つかを、小さな実証から。</h1>
             <p className="lead">自治体・競技団体・クラブの、指導支援や新しいサービスづくりに。自社スポーツAIアプリの開発・運用経験をもとに、課題整理から実証・効果検証まで支援します。</p>
             <div className="hero-actions">
               <Link href={contactHref} className="button button-primary" data-track="cta_click" data-location="hero" data-service="sports-dx">実証について相談する <ArrowUpRight size={20} aria-hidden="true" /></Link>
@@ -163,7 +163,7 @@ export function SportsDxContent() {
           <div className="wrap editorial-grid wide-editorial">
             <div>
               <p className="section-label">04 / 品質と運用</p>
-              <h2 id="quality-heading" className="section-title">AIの結果と、<br />現場の使いやすさ。</h2>
+              <h2 id="quality-heading" className="section-title">AIの結果と、現場の使いやすさ。</h2>
             </div>
             <div className="body-copy">
               <h3>役に立つか。</h3>
@@ -177,34 +177,11 @@ export function SportsDxContent() {
           </div>
         </section>
 
-        <section className="section" aria-labelledby="evidence-heading">
-          <div className="wrap">
-            <div className="section-heading">
-              <p className="section-label">05 / 開発・運用の経験</p>
-              <h2 id="evidence-heading" className="section-title">公開後の課題にも、向き合っています。</h2>
-            </div>
-            <div className="editorial-grid">
-              <figure className="dx-case-visual">
-                <img src="/images/product/pitching-score.webp" width={280} height={606} loading="lazy" decoding="async" alt="AIスポーツトレーナーの実画面。動作の評価と競技者向けのフィードバックを表示。" />
-                <figcaption className="media-note">自社アプリの実画面（表示例）</figcaption>
-              </figure>
-              <div className="body-copy">
-                <p className="tag">自社プロダクト / iOS・Android</p>
-                <h3>AIスポーツトレーナー</h3>
-                <p>撮影したスポーツ動画をAIで分析し、練習の振り返りに役立つフィードバックを届けるアプリです。企画、Web・モバイルとバックエンドの開発、課金、ストア公開、継続運用まで自社で担当しています。</p>
-                <p>実際の動画のばらつき、AIが判断できる範囲、説明の分かりやすさ、待ち時間と処理費用。利用者に提供してから生まれる課題を、品質と体験の両面から改善してきました。</p>
-                <p>この経験を、実証で確認すべきポイントや、運用を見据えた開発範囲の整理に活用します。</p>
-                <Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="sports_dx">開発の判断と実画面を見る <ArrowUpRight size={18} aria-hidden="true" /></Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <section className="section" aria-labelledby="planning-heading">
           <div className="wrap editorial-grid wide-editorial">
             <div>
-              <p className="section-label">06 / ご相談にあたって</p>
-              <h2 id="planning-heading" className="section-title">予算や仕様は、<br />これからでも。</h2>
+              <p className="section-label">05 / ご相談にあたって</p>
+              <h2 id="planning-heading" className="section-title">予算や仕様は、これからでも。</h2>
             </div>
             <div className="body-copy">
               <h3>分かっている課題から、お聞かせください。</h3>

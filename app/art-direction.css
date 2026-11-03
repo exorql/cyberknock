@@ -532,3 +532,25 @@
   .chapter-nav-top .chapter-nav-caption { width: auto; flex: 1 1 auto; min-width: 0; white-space: nowrap; }
   .chapter-nav-top .chapter-swipe-hint { flex: 0 0 auto; white-space: nowrap; }
 }
+
+/* Let headlines wrap on semantic, visually balanced lines instead of orphaned tails. */
+.section-title, .page-title, .method-statement h2, .case-copy h2, .footer-statement, .inquiry-heading h2 {
+  text-wrap: balance;
+}
+@media (max-width: 600px) {
+  .featured-case .case-copy h2 { font-size: clamp(27px, 8vw, 34px); }
+}
+
+/* Preserve phrase boundaries without editorially forced line breaks. */
+.method-statement h2 { font-size: clamp(35px,3.55vw,50px); text-wrap: normal; }
+.method-statement h2 .method-phrase { display: inline-block; white-space: nowrap; }
+.services-section .section-heading .section-title { text-wrap: normal; }
+@media (max-width: 800px) {
+  .method-statement h2 { font-size: clamp(32px,5.5vw,44px); }
+}
+@media (max-width: 600px) {
+  .method-statement h2 { font-size: clamp(27px,8.2vw,34px); }
+}
+@media (max-width: 360px) {
+  .method-statement h2 { font-size: 27px; }
+}

@@ -8,7 +8,7 @@ import { analyticsEvents, pageCategory, trackEvent, type AnalyticsEvent } from "
 export function SiteAnalytics() {
   const pathname = usePathname()
   useEffect(() => {
-    if (pageCategory(pathname || "/") === "case_study") trackEvent("case_study_view")
+    if (["case_study", "soccer_poc", "kyudo_poc"].includes(pageCategory(pathname || "/"))) trackEvent("case_study_view")
   }, [pathname])
 
   useEffect(() => {

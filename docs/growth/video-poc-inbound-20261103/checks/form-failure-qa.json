@@ -1,0 +1,25 @@
+{
+  "type": "localhost mock upstream 500, no external calls",
+  "tests": [
+    {
+      "source": "video_poc",
+      "status": "PASS",
+      "requests": 1,
+      "preserved": true
+    },
+    {
+      "source": "soccer_poc",
+      "status": "PASS",
+      "requests": 1,
+      "preserved": true
+    },
+    {
+      "source": "kyudo_poc",
+      "status": "PASS",
+      "requests": 1,
+      "preserved": true
+    }
+  ],
+  "errors": [],
+  "status": "PASS"
+}

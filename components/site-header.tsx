@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 const links = [
   { href: "/#services", label: "支援内容" },
+  { href: "/ai-video-analysis", label: "AI動画解析・PoC" },
   { href: "/cases/ai-sports-trainer", label: "開発事例" },
   { href: "/sports-dx", label: "スポーツDX" },
   { href: "/#profile", label: "Cyber Knockについて" },

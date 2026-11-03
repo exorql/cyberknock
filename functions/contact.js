@@ -4,8 +4,9 @@ const MAX_BODY_BYTES = 24_000;
 const LIMITS = { name: 100, email: 254, company: 200, message: 5_000 };
 const BUDGETS = new Set(["", "undecided", "under_50", "50_100", "100_300", "300_500", "over_500"]);
 const SERVICES = new Set(["", "sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"]);
-const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "other"]);
+const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "soccer_poc", "kyudo_poc", "other"]);
 const BUDGET_LABELS = { undecided: "相談して決めたい", under_50: "50万円未満", "50_100": "50〜100万円", "100_300": "100〜300万円", "300_500": "300〜500万円", over_500: "500万円以上" };
+const SOURCE_LABELS = { home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", video_poc: "AI動画解析・PoC受託開発", soccer_poc: "サッカー選手追跡の検証", kyudo_poc: "弓道動作解析の検証", other: "その他" };
 const SERVICE_LABELS = { "sports-ai": "スポーツAI・動画分析", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
 
 function json(body, status = 200) {
@@ -63,7 +64,7 @@ export function validateContact(input) {
 }
 
 export function buildSlackPayload(data) {
-  const details = `氏名: ${data.name}\nメール: ${data.email}\n会社名・組織名: ${data.company || "未入力"}\n相談テーマ: ${SERVICE_LABELS[data.service] || "未選択"}\nご予算: ${BUDGET_LABELS[data.budget] || "未選択"}\n相談元: ${data.source}`;
+  const details = `氏名: ${data.name}\nメール: ${data.email}\n会社名・組織名: ${data.company || "未入力"}\n相談テーマ: ${SERVICE_LABELS[data.service] || "未選択"}\nご予算: ${BUDGET_LABELS[data.budget] || "未選択"}\n相談元: ${SOURCE_LABELS[data.source] || "その他"} (${data.source})`;
   const characters = Array.from(data.message);
   const sections = [details];
   for (let index = 0; index < characters.length; index += 2_500) {

@@ -1,0 +1,164 @@
+{
+  "when": "2026-11-03T08:14:29.997Z",
+  "site": "local static export QA, webhook intercepted, no external delivery",
+  "checks": [
+    {
+      "page": "/ai-video-analysis",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI動画解析の受託開発。\n使える条件を、PoCで確かめる。",
+      "documentWidth": 320,
+      "faqCount": 5,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI動画解析の受託開発。\n使える条件を、PoCで確かめる。",
+      "documentWidth": 390,
+      "faqCount": 5,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI動画解析の受託開発。\n使える条件を、PoCで確かめる。",
+      "documentWidth": 768,
+      "faqCount": 5,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI動画解析の受託開発。\n使える条件を、PoCで確かめる。",
+      "documentWidth": 1440,
+      "faqCount": 5,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/soccer-player-tracking",
+      "width": 320,
+      "status": "PASS",
+      "h1": "指定した選手のプレーを、映像から探せるか。",
+      "documentWidth": 320,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/soccer-player-tracking",
+      "width": 390,
+      "status": "PASS",
+      "h1": "指定した選手のプレーを、映像から探せるか。",
+      "documentWidth": 390,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/soccer-player-tracking",
+      "width": 768,
+      "status": "PASS",
+      "h1": "指定した選手のプレーを、映像から探せるか。",
+      "documentWidth": 768,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/soccer-player-tracking",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "指定した選手のプレーを、映像から探せるか。",
+      "documentWidth": 1440,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/kyudo-motion-analysis",
+      "width": 320,
+      "status": "PASS",
+      "h1": "一射の動きを、指導で確認できる情報へ。",
+      "documentWidth": 320,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/kyudo-motion-analysis",
+      "width": 390,
+      "status": "PASS",
+      "h1": "一射の動きを、指導で確認できる情報へ。",
+      "documentWidth": 390,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/kyudo-motion-analysis",
+      "width": 768,
+      "status": "PASS",
+      "h1": "一射の動きを、指導で確認できる情報へ。",
+      "documentWidth": 768,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis/kyudo-motion-analysis",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "一射の動きを、指導で確認できる情報へ。",
+      "documentWidth": 1440,
+      "faqCount": 0,
+      "invalidFields": 4,
+      "jsErrors": []
+    },
+    {
+      "page": "/ai-video-analysis",
+      "test": "local mocked form success",
+      "status": "PASS",
+      "source": "video_poc",
+      "requests": 1,
+      "analyticsSuccess": true
+    },
+    {
+      "page": "/ai-video-analysis/soccer-player-tracking",
+      "test": "local mocked form success",
+      "status": "PASS",
+      "source": "soccer_poc",
+      "requests": 1,
+      "analyticsSuccess": true
+    },
+    {
+      "page": "/ai-video-analysis/kyudo-motion-analysis",
+      "test": "local mocked form success",
+      "status": "PASS",
+      "source": "kyudo_poc",
+      "requests": 1,
+      "analyticsSuccess": true
+    },
+    {
+      "test": "sitemap three paths",
+      "status": "PASS"
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "screenshots/after-video_poc-390.png",
+    "screenshots/after-video_poc-1440.png",
+    "screenshots/after-soccer_poc-390.png",
+    "screenshots/after-soccer_poc-1440.png",
+    "screenshots/after-kyudo_poc-390.png",
+    "screenshots/after-kyudo_poc-1440.png"
+  ],
+  "status": "PASS"
+}

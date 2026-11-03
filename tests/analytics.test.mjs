@@ -10,6 +10,9 @@ test('analytics discards form contents, emails, raw URLs, arbitrary values and p
 test('path categories discard query/hash data and reject unknown paths', () => {
   assert.equal(pageCategory('/sports-dx?email=qa@example.com#contact'), 'sports_dx');
   assert.equal(pageCategory('/cases/ai-sports-trainer/'), 'case_study');
+  assert.equal(pageCategory('/ai-video-analysis?client=private'), 'video_poc');
+  assert.equal(pageCategory('/ai-video-analysis/soccer-player-tracking?email=qa@example.com'), 'soccer_poc');
+  assert.equal(pageCategory('/ai-video-analysis/kyudo-motion-analysis#private'), 'kyudo_poc');
   assert.equal(pageCategory('/private-user-name'), 'other');
   assert.equal(pageCategory('sports-dx'), 'sports_dx');
 });

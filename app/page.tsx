@@ -25,7 +25,7 @@ export default function Home() {
   return <div className="site-shell"><SiteHeader /><main id="main-content">
     <section className="hero hero-editorial" aria-labelledby="hero-title"><div className="hero-gridlines" aria-hidden="true" /><div className="wrap hero-grid">
       <div className="hero-copy"><div className="hero-kickerline" aria-hidden="true"><span className="mono">CYBER KNOCK / INDEPENDENT DEVELOPMENT STUDIO</span><span className="mono">TOKYO · JAPAN</span></div><p className="eyebrow"><span className="signal-dot" /> AI・Web・モバイルの開発パートナー</p>
-        <h1 id="hero-title"><span>構想を、</span><span className="hero-keyword">使われる</span><span className="accent-text">プロダクトへ。</span></h1>
+        <h1 id="hero-title"><span className="hero-keyword">つくる。育てる。</span><span className="accent-text">事業を、動かす。</span></h1>
         <p className="hero-description">自社アプリ「AIスポーツトレーナー」を企画・開発・運用。<br className="desktop-break" />その実践知を、AI・Web・モバイルの開発へ。</p>
         <div className="hero-actions"><Link href="#contact" className="button button-primary" data-track="cta_click" data-location="hero">開発・AI活用を相談する <ArrowUpRight size={20} aria-hidden="true" /></Link><Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="hero">開発・運用事例を見る <ArrowRight size={18} aria-hidden="true" /></Link></div>
         <p className="hero-audience"><span className="mono">WHO WE WORK WITH</span>スポーツ企業・自治体・競技団体・新規事業チームへ</p>

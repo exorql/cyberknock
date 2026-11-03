@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Cyber Knock | 構想を、使われるプロダクトへ。",
+    title: "Cyber Knock | つくる。育てる。事業を、動かす。",
     description: siteDescription,
     url: siteUrl,
     siteName: "Cyber Knock",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber Knock | 構想を、使われるプロダクトへ。",
+    title: "Cyber Knock | つくる。育てる。事業を、動かす。",
     description: siteDescription,
   },
   verification: {

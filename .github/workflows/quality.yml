@@ -1,0 +1,111 @@
+name: Website quality
+
+on:
+  workflow_dispatch:
+    inputs:
+      audit_stage:
+        description: 'Reuse the saved baseline unless intentionally refreshing it'
+        type: choice
+        options: [after, after-preview, preview, all, before]
+        default: after
+      preview_origin:
+        description: 'Immutable https://<deployment>.cyberknock.pages.dev origin (required for preview stages)'
+        type: string
+        default: ''
+  pull_request:
+    paths:
+      - 'app/**'
+      - 'pages/**'
+      - 'components/**'
+      - 'functions/**'
+      - 'lib/**'
+      - 'public/**'
+      - 'styles/**'
+      - 'tests/**'
+      - 'scripts/**'
+      - '*config*'
+      - 'package*.json'
+      - '.github/workflows/quality.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: website-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      # No analytics ID or contact-delivery credentials are passed to this job.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked application dependencies
+        run: npm ci --legacy-peer-deps
+      - name: Audit production dependency vulnerabilities
+        run: npm audit --omit=dev --audit-level=high
+      - name: Typecheck, tests, and production static build
+        run: npm run check
+      - name: Install and verify Japanese system fonts for representative rendering
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends fonts-noto-cjk fontconfig python3-pil
+          fc-cache -f
+          mkdir -p docs/redesign-20261102/lighthouse
+          dpkg-query -W -f='${Package} ${Version}\n' fonts-noto-cjk fontconfig > docs/redesign-20261102/lighthouse/font-environment.txt
+          fc-match 'sans-serif:lang=ja' >> docs/redesign-20261102/lighthouse/font-environment.txt
+          fc-match -f '%{file}\n' 'sans-serif:lang=ja:charset=65e5' >> docs/redesign-20261102/lighthouse/font-environment.txt
+          CJK_FONT_FAMILY="$(fc-match -f '%{family}' 'sans-serif:lang=ja')"
+          if [[ "$CJK_FONT_FAMILY" != *"Noto Sans CJK JP"* ]]; then
+            echo "::error::Japanese system font did not resolve to Noto Sans CJK JP"
+            exit 1
+          fi
+          echo "LIGHTHOUSE_CJK_FONT=$CJK_FONT_FAMILY" >> "$GITHUB_ENV"
+          cat docs/redesign-20261102/lighthouse/font-environment.txt
+      - name: Locate installed Chrome and prepare pinned Lighthouse CLI
+        id: prepare_lighthouse
+        run: |
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME_BIN"
+          echo "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"
+          "$CHROME_BIN" --version
+          npx --yes lighthouse@12.8.2 --version
+      - name: Audit requested pages and preserve the existing baseline
+        env:
+          # Font-corrected public baseline preserved in run 41416034210 (lighthouse-cycle4).
+          AUDIT_STAGE: ${{ inputs.audit_stage || 'after' }}
+          PREVIEW_ORIGIN: ${{ inputs.preview_origin || '' }}
+        run: node scripts/audit-lighthouse.mjs --enforce --stage="$AUDIT_STAGE" --preview-origin="$PREVIEW_ORIGIN"
+      - name: Guard the first 375px responsive Lighthouse capture
+        id: responsive_probe
+        if: ${{ !cancelled() && steps.prepare_lighthouse.outcome == 'success' }}
+        run: node scripts/audit-responsive.mjs --probe
+      - name: Publish the first validated responsive viewport for early review
+        if: ${{ !cancelled() && steps.responsive_probe.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: cyberknock-responsive-probe-${{ github.run_id }}
+          path: docs/redesign-20261102/responsive-lighthouse/
+          retention-days: 30
+      - name: Capture remaining responsive Lighthouse layouts
+        if: ${{ !cancelled() && steps.responsive_probe.outcome == 'success' }}
+        run: node scripts/audit-responsive.mjs --resume-probe
+      - name: Preserve Lighthouse reports and measurement conditions
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cyberknock-quality-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            docs/redesign-20261102/lighthouse/
+            docs/redesign-20261102/responsive-lighthouse/
+          if-no-files-found: warn
+          retention-days: 30

@@ -1,0 +1,64 @@
+.figure {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: 20px 24px;
+  background: #e3ebe2;
+  border: 1px solid #adc3b4;
+  color: var(--ink, #192b2b);
+}
+
+.figure::before,
+.figure::after {
+  content: "";
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  pointer-events: none;
+}
+
+.figure::before { inset: -1px auto auto -1px; border-top: 2px solid var(--teal, #006d65); border-left: 2px solid var(--teal, #006d65); }
+.figure::after { inset: auto -1px -1px auto; border-right: 2px solid var(--teal, #006d65); border-bottom: 2px solid var(--teal, #006d65); }
+.heading { padding-bottom: 14px; border-bottom: 1px solid #b8c9ba; }
+.kicker { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0; color: var(--teal-dark, #004f49); font-size: 12px; line-height: 1.5; font-weight: 700; }
+.concept { padding: 1px 7px; border: 1px solid #9eb8a6; font-weight: 400; }
+.title { margin: 8px 0 0; font-size: 22px; line-height: 1.45; font-weight: 700; letter-spacing: -.04em; }
+.title > span { display: inline-block; }
+.diagram { position: relative; margin-top: 16px; }
+.trace { position: absolute; inset: 0 auto 0 -2px; width: 34px; height: 100%; overflow: visible; fill: none; stroke: #789786; stroke-width: 1.2; pointer-events: none; }
+.trace path { vector-effect: non-scaling-stroke; }
+.trace .echo { stroke: #afc4b4; stroke-width: 1; }
+.steps { position: relative; display: grid; gap: 14px; padding: 0; margin: 0; list-style: none; }
+.step { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 13px; align-items: start; }
+.number { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #e3ebe2; border: 1px solid var(--teal, #006d65); border-radius: 50%; color: var(--teal-dark, #004f49); font: 12px/1 "Courier New", monospace; }
+.stepTitle { margin: 0; font-size: 17px; line-height: 1.55; font-weight: 700; letter-spacing: -.025em; }
+.question { margin: 3px 0 0; color: #40594e; font-size: 13px; line-height: 1.7; }
+.output { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px 8px; margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: var(--teal-dark, #004f49); }
+.output > span { font-size: 11px; color: #40594e; }
+.findings { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; font-size: 12px; line-height: 1.5; }
+.findings > span { display: inline-block; padding: 2px 7px; border: 1px solid #99b3a1; background: #eef3eb; }
+.findings > span:last-child { border-style: dashed; }
+.note { margin: 16px 0 0; padding-top: 11px; border-top: 1px solid #b8c9ba; font-size: 12px; line-height: 1.7; color: #40594e; }
+
+@media (max-width: 600px) {
+  .figure { padding: 20px 18px; }
+  .title { font-size: 22px; }
+  .steps { gap: 21px; }
+  .step { gap: 11px; }
+  .stepTitle { font-size: 17px; }
+  .question { font-size: 14px; }
+  .output { font-size: 12px; }
+}
+
+@media (max-width: 360px) {
+  .figure { padding-inline: 16px; }
+  .title { font-size: 21px; }
+  .step { gap: 10px; }
+  .stepTitle { font-size: 16px; }
+  .question { font-size: 13px; }
+}
+
+@media (forced-colors: active) {
+  .figure, .number, .concept, .findings > span { border-color: CanvasText; }
+  .trace, .trace .echo { stroke: CanvasText; }
+}

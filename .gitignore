@@ -25,3 +25,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local generated website QA captures (CI publishes as artifacts)
+/docs/redesign-20261102/lighthouse/
+/docs/redesign-20261102/responsive-lighthouse/

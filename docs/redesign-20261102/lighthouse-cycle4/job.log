@@ -1,0 +1,553 @@
+﻿2026-11-02T08:50:58.8919478Z Current runner version: '2.338.2'
+2026-11-02T08:50:58.8956533Z ##[group]Runner Image Provisioner
+2026-11-02T08:50:58.8957901Z Hosted Compute Agent
+2026-11-02T08:50:58.8958878Z Version: 20261021.618
+2026-11-02T08:50:58.8960115Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+2026-11-02T08:50:58.8961362Z Build Date: 2026-10-21T00:45:21Z
+2026-11-02T08:50:58.8962642Z Worker ID: {55441741-73b8-4995-a9b0-4819a1ee5be3}
+2026-11-02T08:50:58.8963854Z Region: eastus
+2026-11-02T08:50:58.8965221Z Cloud: Azure
+2026-11-02T08:50:58.8966193Z ##[endgroup]
+2026-11-02T08:50:58.8968721Z ##[group]Operating System
+2026-11-02T08:50:58.8969862Z Ubuntu
+2026-11-02T08:50:58.8970765Z 26.04.1
+2026-11-02T08:50:58.8971733Z LTS
+2026-11-02T08:50:58.8972625Z ##[endgroup]
+2026-11-02T08:50:58.8973646Z ##[group]Runner Image
+2026-11-02T08:50:58.8975175Z Image: ubuntu-26.04
+2026-11-02T08:50:58.8976132Z Version: 20261025.179.1
+2026-11-02T08:50:58.8978371Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261025.179/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-02T08:50:58.8981272Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261025.179
+2026-11-02T08:50:58.8983111Z ##[endgroup]
+2026-11-02T08:50:58.8985425Z ##[group]GITHUB_TOKEN Permissions
+2026-11-02T08:50:58.8988172Z Contents: read
+2026-11-02T08:50:58.8989188Z Metadata: read
+2026-11-02T08:50:58.8990162Z ##[endgroup]
+2026-11-02T08:50:58.8993735Z Secret source: Actions
+2026-11-02T08:50:58.8995854Z Cache mode: write
+2026-11-02T08:50:58.8997508Z Prepare workflow directory
+2026-11-02T08:50:58.9595708Z Prepare all required actions
+2026-11-02T08:50:58.9674677Z Getting action download info
+2026-11-02T08:50:59.1406492Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-02T08:50:59.3046583Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-02T08:50:59.4179071Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-02T08:50:59.6508501Z Complete job name: quality
+2026-11-02T08:50:59.7445173Z ##[group]Run actions/checkout@v4
+2026-11-02T08:50:59.7446154Z with:
+2026-11-02T08:50:59.7446630Z   persist-credentials: false
+2026-11-02T08:50:59.7447182Z   repository: exorql/cyberknock
+2026-11-02T08:50:59.7450959Z   token: ***
+2026-11-02T08:50:59.7451409Z   ssh-strict: true
+2026-11-02T08:50:59.7451871Z   ssh-user: git
+2026-11-02T08:50:59.7452308Z   clean: true
+2026-11-02T08:50:59.7452762Z   sparse-checkout-cone-mode: true
+2026-11-02T08:50:59.7453312Z   fetch-depth: 1
+2026-11-02T08:50:59.7453757Z   fetch-tags: false
+2026-11-02T08:50:59.7454447Z   show-progress: true
+2026-11-02T08:50:59.7454922Z   lfs: false
+2026-11-02T08:50:59.7455380Z   submodules: false
+2026-11-02T08:50:59.7455854Z   set-safe-directory: true
+2026-11-02T08:50:59.7456391Z   allow-unsafe-pr-checkout: false
+2026-11-02T08:50:59.7457192Z env:
+2026-11-02T08:50:59.7457646Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:50:59.7458161Z ##[endgroup]
+2026-11-02T08:51:00.3506508Z Syncing repository: exorql/cyberknock
+2026-11-02T08:51:00.3510060Z ##[group]Getting Git version info
+2026-11-02T08:51:00.3511716Z Working directory is '/home/runner/work/cyberknock/cyberknock'
+2026-11-02T08:51:00.3514231Z [command]/usr/bin/git version
+2026-11-02T08:51:00.3515481Z git version 2.56.0
+2026-11-02T08:51:00.3519254Z ##[endgroup]
+2026-11-02T08:51:00.3536389Z Temporarily overriding HOME='/home/runner/work/_temp/9ea90d00-7857-4e21-8b6a-efa9a562ed28' before making global git config changes
+2026-11-02T08:51:00.3539368Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T08:51:00.3542453Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cyberknock/cyberknock
+2026-11-02T08:51:00.3614953Z Deleting the contents of '/home/runner/work/cyberknock/cyberknock'
+2026-11-02T08:51:00.3619452Z ##[group]Initializing the repository
+2026-11-02T08:51:00.3625436Z [command]/usr/bin/git init /home/runner/work/cyberknock/cyberknock
+2026-11-02T08:51:00.3736208Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-02T08:51:00.3739133Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-02T08:51:00.3741667Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-02T08:51:00.3743478Z hint: call:
+2026-11-02T08:51:00.3744706Z hint:
+2026-11-02T08:51:00.3745870Z hint: 	git config --global init.defaultBranch <name>
+2026-11-02T08:51:00.3747198Z hint:
+2026-11-02T08:51:00.3748448Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-02T08:51:00.3750361Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-02T08:51:00.3751944Z hint:
+2026-11-02T08:51:00.3752892Z hint: 	git branch -m <name>
+2026-11-02T08:51:00.3754182Z hint:
+2026-11-02T08:51:00.3755601Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-02T08:51:00.3757883Z Initialized empty Git repository in /home/runner/work/cyberknock/cyberknock/.git/
+2026-11-02T08:51:00.3761862Z [command]/usr/bin/git remote add origin https://github.com/exorql/cyberknock
+2026-11-02T08:51:00.3820277Z ##[endgroup]
+2026-11-02T08:51:00.3821956Z ##[group]Disabling automatic garbage collection
+2026-11-02T08:51:00.3824639Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-02T08:51:00.3864639Z ##[endgroup]
+2026-11-02T08:51:00.3866260Z ##[group]Setting up auth
+2026-11-02T08:51:00.3873235Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:51:00.3918535Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:51:00.4386116Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:51:00.4430667Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:51:00.4728497Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:51:00.4767393Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:51:00.5052563Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-02T08:51:00.5095782Z ##[endgroup]
+2026-11-02T08:51:00.5096913Z ##[group]Fetching the repository
+2026-11-02T08:51:00.5108052Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ae65cd4dd14d255c923b31fa350f33c8f4d05739:refs/remotes/pull/2/merge
+2026-11-02T08:51:01.2721441Z From https://github.com/exorql/cyberknock
+2026-11-02T08:51:01.2733336Z  * [new ref]         ae65cd4dd14d255c923b31fa350f33c8f4d05739 -> pull/2/merge
+2026-11-02T08:51:01.2736305Z ##[endgroup]
+2026-11-02T08:51:01.2737274Z ##[group]Determining the checkout info
+2026-11-02T08:51:01.2738136Z ##[endgroup]
+2026-11-02T08:51:01.2738579Z [command]/usr/bin/git sparse-checkout disable
+2026-11-02T08:51:01.2789007Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-02T08:51:01.2819961Z ##[group]Checking out the ref
+2026-11-02T08:51:01.2823630Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2/merge
+2026-11-02T08:51:01.3825008Z Note: switching to 'refs/remotes/pull/2/merge'.
+2026-11-02T08:51:01.3825691Z 
+2026-11-02T08:51:01.3826181Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-02T08:51:01.3827173Z changes and commit them, and you can discard any commits you make in this
+2026-11-02T08:51:01.3827849Z state without impacting any branches by switching back to a branch.
+2026-11-02T08:51:01.3828316Z 
+2026-11-02T08:51:01.3828613Z If you want to create a new branch to retain commits you create, you may
+2026-11-02T08:51:01.3829580Z do so (now or later) by using -c with the switch command. Example:
+2026-11-02T08:51:01.3829950Z 
+2026-11-02T08:51:01.3830112Z   git switch -c <new-branch-name>
+2026-11-02T08:51:01.3830387Z 
+2026-11-02T08:51:01.3830545Z Or undo this operation with:
+2026-11-02T08:51:01.3830811Z 
+2026-11-02T08:51:01.3830943Z   git switch -
+2026-11-02T08:51:01.3831179Z 
+2026-11-02T08:51:01.3831462Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-02T08:51:01.3831898Z 
+2026-11-02T08:51:01.3832338Z HEAD is now at ae65cd4 Merge f1b4d4e59a6665d0f593b541e16c9bc49e2ea00b into 5d86802c2a7655da221f0f624a4479d509cc4acc
+2026-11-02T08:51:01.3920208Z ##[endgroup]
+2026-11-02T08:51:01.3921772Z [command]/usr/bin/git log -1 --format=%H
+2026-11-02T08:51:01.3937308Z ae65cd4dd14d255c923b31fa350f33c8f4d05739
+2026-11-02T08:51:01.3948965Z ##[group]Removing auth
+2026-11-02T08:51:01.3952876Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:51:01.4019952Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:51:01.4308482Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:51:01.4334356Z http.https://github.com/.extraheader
+2026-11-02T08:51:01.4342211Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-02T08:51:01.4376722Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:51:01.4660104Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:51:01.4695353Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:51:01.4976091Z ##[endgroup]
+2026-11-02T08:51:01.5267544Z ##[group]Run actions/setup-node@v4
+2026-11-02T08:51:01.5267975Z with:
+2026-11-02T08:51:01.5268269Z   node-version: 22
+2026-11-02T08:51:01.5268579Z   cache: npm
+2026-11-02T08:51:01.5268868Z   always-auth: false
+2026-11-02T08:51:01.5269186Z   check-latest: false
+2026-11-02T08:51:01.5271991Z   token: ***
+2026-11-02T08:51:01.5272285Z env:
+2026-11-02T08:51:01.5272579Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:51:01.5272917Z ##[endgroup]
+2026-11-02T08:51:01.6800779Z (node:2425) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-02T08:51:01.6802673Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-02T08:51:01.6803749Z Found in cache @ /opt/hostedtoolcache/node/22.23.4/x64
+2026-11-02T08:51:01.6805153Z ##[group]Environment details
+2026-11-02T08:51:02.0809504Z node: v22.23.4
+2026-11-02T08:51:02.0810002Z npm: 10.9.9
+2026-11-02T08:51:02.0810433Z yarn: 1.22.22
+2026-11-02T08:51:02.0812048Z ##[endgroup]
+2026-11-02T08:51:02.0831664Z [command]/opt/hostedtoolcache/node/22.23.4/x64/bin/npm config get cache
+2026-11-02T08:51:02.2009818Z /home/runner/.npm
+2026-11-02T08:51:02.2794394Z npm cache is not found
+2026-11-02T08:51:02.2951086Z ##[group]Run npm ci --legacy-peer-deps
+2026-11-02T08:51:02.2951475Z [36;1mnpm ci --legacy-peer-deps[0m
+2026-11-02T08:51:02.2995802Z shell: /usr/bin/bash -e {0}
+2026-11-02T08:51:02.2996084Z env:
+2026-11-02T08:51:02.2996306Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:51:02.2996565Z ##[endgroup]
+2026-11-02T08:51:17.7149551Z 
+2026-11-02T08:51:17.7158688Z added 276 packages, and audited 277 packages in 15s
+2026-11-02T08:51:17.7159177Z 
+2026-11-02T08:51:17.7159523Z 46 packages are looking for funding
+2026-11-02T08:51:17.7160121Z   run `npm fund` for details
+2026-11-02T08:51:17.8993588Z 
+2026-11-02T08:51:17.8995205Z 14 vulnerabilities (2 moderate, 11 high, 1 critical)
+2026-11-02T08:51:17.8995676Z 
+2026-11-02T08:51:17.8996109Z To address issues that do not require attention, run:
+2026-11-02T08:51:17.8997303Z   npm audit fix
+2026-11-02T08:51:17.8997528Z 
+2026-11-02T08:51:17.8997906Z To address all issues (including breaking changes), run:
+2026-11-02T08:51:17.8998445Z   npm audit fix --force
+2026-11-02T08:51:17.8998658Z 
+2026-11-02T08:51:17.8998832Z Run `npm audit` for details.
+2026-11-02T08:51:17.9463152Z ##[group]Run npm run check
+2026-11-02T08:51:17.9463450Z [36;1mnpm run check[0m
+2026-11-02T08:51:17.9494547Z shell: /usr/bin/bash -e {0}
+2026-11-02T08:51:17.9494801Z env:
+2026-11-02T08:51:17.9495002Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:51:17.9495242Z ##[endgroup]
+2026-11-02T08:51:18.0645434Z 
+2026-11-02T08:51:18.0646061Z > cyberknock@0.1.0 check
+2026-11-02T08:51:18.0646907Z > npm run typecheck && npm test && npm run build
+2026-11-02T08:51:18.0647410Z 
+2026-11-02T08:51:18.1716237Z 
+2026-11-02T08:51:18.1716946Z > cyberknock@0.1.0 typecheck
+2026-11-02T08:51:18.1717562Z > tsc --noEmit
+2026-11-02T08:51:18.1717816Z 
+2026-11-02T08:51:23.5170250Z 
+2026-11-02T08:51:23.5170917Z > cyberknock@0.1.0 test
+2026-11-02T08:51:23.5171756Z > node --experimental-strip-types --test tests/*.test.mjs
+2026-11-02T08:51:23.5172107Z 
+2026-11-02T08:51:23.5685679Z TAP version 13
+2026-11-02T08:51:23.6718540Z # (node:2582) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///home/runner/work/cyberknock/cyberknock/lib/analytics.ts is not specified and it doesn't parse as CommonJS.
+2026-11-02T08:51:23.6725114Z # Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+2026-11-02T08:51:23.6777225Z # To eliminate this warning, add "type": "module" to /home/runner/work/cyberknock/cyberknock/package.json.
+2026-11-02T08:51:23.6805024Z # (Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-02T08:51:23.6806273Z # Subtest: analytics discards form contents, emails, raw URLs, arbitrary values and parameter names
+2026-11-02T08:51:23.6807607Z ok 1 - analytics discards form contents, emails, raw URLs, arbitrary values and parameter names
+2026-11-02T08:51:23.6830846Z   ---
+2026-11-02T08:51:23.6852014Z   duration_ms: 2.116196
+2026-11-02T08:51:23.6853419Z   type: 'test'
+2026-11-02T08:51:23.6854248Z   ...
+2026-11-02T08:51:23.6855139Z # Subtest: path categories discard query/hash data and reject unknown paths
+2026-11-02T08:51:23.6856335Z ok 2 - path categories discard query/hash data and reject unknown paths
+2026-11-02T08:51:23.6857103Z   ---
+2026-11-02T08:51:23.6857604Z   duration_ms: 0.48547
+2026-11-02T08:51:23.6858144Z   type: 'test'
+2026-11-02T08:51:23.6858600Z   ...
+2026-11-02T08:51:23.6859456Z # Subtest: no gtag configuration means no request, error or tracking fallback
+2026-11-02T08:51:23.6860603Z ok 3 - no gtag configuration means no request, error or tracking fallback
+2026-11-02T08:51:23.6861322Z   ---
+2026-11-02T08:51:23.6861760Z   duration_ms: 0.381104
+2026-11-02T08:51:23.6862178Z   type: 'test'
+2026-11-02T08:51:23.6862547Z   ...
+2026-11-02T08:51:23.6863273Z # Subtest: existing gtag receives only allowlisted event and safe page category
+2026-11-02T08:51:23.6864670Z ok 4 - existing gtag receives only allowlisted event and safe page category
+2026-11-02T08:51:23.6865417Z   ---
+2026-11-02T08:51:23.6865824Z   duration_ms: 0.525294
+2026-11-02T08:51:23.6866375Z   type: 'test'
+2026-11-02T08:51:23.6866822Z   ...
+2026-11-02T08:51:23.6867761Z # Subtest: custom events override implicit gtag location/referrer defaults and never include URL PII
+2026-11-02T08:51:23.6869153Z ok 5 - custom events override implicit gtag location/referrer defaults and never include URL PII
+2026-11-02T08:51:23.6870003Z   ---
+2026-11-02T08:51:23.6870420Z   duration_ms: 0.612648
+2026-11-02T08:51:23.6871032Z   type: 'test'
+2026-11-02T08:51:23.6871652Z   ...
+2026-11-02T08:51:23.6872498Z # Subtest: store events retain only the two supported store categories
+2026-11-02T08:51:23.6873518Z ok 6 - store events retain only the two supported store categories
+2026-11-02T08:51:23.6874536Z   ---
+2026-11-02T08:51:23.6875011Z   duration_ms: 0.430827
+2026-11-02T08:51:23.6876103Z   type: 'test'
+2026-11-02T08:51:23.6876599Z   ...
+2026-11-02T08:51:23.7000761Z # Subtest: valid minimum submission sends once to the existing environment destination
+2026-11-02T08:51:23.7002013Z ok 7 - valid minimum submission sends once to the existing environment destination
+2026-11-02T08:51:23.7002730Z   ---
+2026-11-02T08:51:23.7003569Z   duration_ms: 37.18599
+2026-11-02T08:51:23.7004113Z   type: 'test'
+2026-11-02T08:51:23.7004344Z   ...
+2026-11-02T08:51:23.7004844Z # Subtest: optional budget can be undecided; email whitespace/fullwidth/domain are normalized
+2026-11-02T08:51:23.7005576Z ok 8 - optional budget can be undecided; email whitespace/fullwidth/domain are normalized
+2026-11-02T08:51:23.7006346Z   ---
+2026-11-02T08:51:23.7006666Z   duration_ms: 0.301084
+2026-11-02T08:51:23.7007038Z   type: 'test'
+2026-11-02T08:51:23.7007348Z   ...
+2026-11-02T08:51:23.7008080Z # Subtest: blank mandatory values and missing consent cannot reach Slack
+2026-11-02T08:51:23.7008778Z ok 9 - blank mandatory values and missing consent cannot reach Slack
+2026-11-02T08:51:23.7009151Z   ---
+2026-11-02T08:51:23.7009341Z   duration_ms: 1.281231
+2026-11-02T08:51:23.7009565Z   type: 'test'
+2026-11-02T08:51:23.7009747Z   ...
+2026-11-02T08:51:23.7010215Z # Subtest: server rejects invalid optional values, objects, arrays, and field length violations
+2026-11-02T08:51:23.7013224Z ok 10 - server rejects invalid optional values, objects, arrays, and field length violations
+2026-11-02T08:51:23.7014195Z   ---
+2026-11-02T08:51:23.7014522Z   duration_ms: 5.899386
+2026-11-02T08:51:23.7014859Z   type: 'test'
+2026-11-02T08:51:23.7015054Z   ...
+2026-11-02T08:51:23.7015524Z # Subtest: malformed JSON is a controlled response without exception or outbound request
+2026-11-02T08:51:23.7016229Z ok 11 - malformed JSON is a controlled response without exception or outbound request
+2026-11-02T08:51:23.7016721Z   ---
+2026-11-02T08:51:23.7017096Z   duration_ms: 0.591919
+2026-11-02T08:51:23.7017520Z   type: 'test'
+2026-11-02T08:51:23.7017973Z   ...
+2026-11-02T08:51:23.7018976Z # Subtest: unexpected origin or cross-site browser request is rejected; preview same origin works
+2026-11-02T08:51:23.7020461Z ok 12 - unexpected origin or cross-site browser request is rejected; preview same origin works
+2026-11-02T08:51:23.7021291Z   ---
+2026-11-02T08:51:23.7021635Z   duration_ms: 1.204347
+2026-11-02T08:51:23.7022059Z   type: 'test'
+2026-11-02T08:51:23.7022407Z   ...
+2026-11-02T08:51:23.7025136Z # Subtest: content type and streamed body limit are enforced before delivery
+2026-11-02T08:51:23.7026403Z ok 13 - content type and streamed body limit are enforced before delivery
+2026-11-02T08:51:23.7027202Z   ---
+2026-11-02T08:51:23.7027672Z   duration_ms: 1.429148
+2026-11-02T08:51:23.7028211Z   type: 'test'
+2026-11-02T08:51:23.7028664Z   ...
+2026-11-02T08:51:23.7029431Z # Subtest: filled honeypot is discarded without notifying anyone
+2026-11-02T08:51:23.7030508Z ok 14 - filled honeypot is discarded without notifying anyone
+2026-11-02T08:51:23.7031558Z   ---
+2026-11-02T08:51:23.7032102Z   duration_ms: 0.575829
+2026-11-02T08:51:23.7032663Z   type: 'test'
+2026-11-02T08:51:23.7033150Z   ...
+2026-11-02T08:51:23.7034495Z # Subtest: long Japanese messages remain under Slack block limits and literal mentions stay plain text
+2026-11-02T08:51:23.7036379Z ok 15 - long Japanese messages remain under Slack block limits and literal mentions stay plain text
+2026-11-02T08:51:23.7037557Z   ---
+2026-11-02T08:51:23.7038145Z   duration_ms: 1.193988
+2026-11-02T08:51:23.7038605Z   type: 'test'
+2026-11-02T08:51:23.7038967Z   ...
+2026-11-02T08:51:23.7039812Z # Subtest: missing delivery configuration is visible as failure, never a fake success
+2026-11-02T08:51:23.7041131Z ok 16 - missing delivery configuration is visible as failure, never a fake success
+2026-11-02T08:51:23.7041912Z   ---
+2026-11-02T08:51:23.7042269Z   duration_ms: 2.302906
+2026-11-02T08:51:23.7042667Z   type: 'test'
+2026-11-02T08:51:23.7043009Z   ...
+2026-11-02T08:51:23.7044205Z # Subtest: upstream failure and network exception do not expose service errors or secrets
+2026-11-02T08:51:23.7045971Z ok 17 - upstream failure and network exception do not expose service errors or secrets
+2026-11-02T08:51:23.7046768Z   ---
+2026-11-02T08:51:23.7047119Z   duration_ms: 1.434058
+2026-11-02T08:51:23.7047519Z   type: 'test'
+2026-11-02T08:51:23.7047880Z   ...
+2026-11-02T08:51:23.7048884Z # Subtest: non-POST method is rejected by the Cloudflare entry point
+2026-11-02T08:51:23.7049809Z ok 18 - non-POST method is rejected by the Cloudflare entry point
+2026-11-02T08:51:23.7050371Z   ---
+2026-11-02T08:51:23.7050679Z   duration_ms: 0.535724
+2026-11-02T08:51:23.7051030Z   type: 'test'
+2026-11-02T08:51:23.7051320Z   ...
+2026-11-02T08:51:23.7051598Z 1..18
+2026-11-02T08:51:23.7051969Z # tests 18
+2026-11-02T08:51:23.7052295Z # suites 0
+2026-11-02T08:51:23.7052591Z # pass 18
+2026-11-02T08:51:23.7052905Z # fail 0
+2026-11-02T08:51:23.7053197Z # cancelled 0
+2026-11-02T08:51:23.7053543Z # skipped 0
+2026-11-02T08:51:23.7054139Z # todo 0
+2026-11-02T08:51:23.7054556Z # duration_ms 149.985621
+2026-11-02T08:51:23.8158742Z 
+2026-11-02T08:51:23.8159331Z > cyberknock@0.1.0 build
+2026-11-02T08:51:23.8159687Z > next build
+2026-11-02T08:51:23.8159849Z 
+2026-11-02T08:51:24.3786352Z ⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+2026-11-02T08:51:24.4365532Z    ▲ Next.js 15.2.4
+2026-11-02T08:51:24.4366105Z 
+2026-11-02T08:51:24.4675262Z    Creating an optimized production build ...
+2026-11-02T08:51:33.5719620Z  ✓ Compiled successfully
+2026-11-02T08:51:33.5742318Z    Skipping linting
+2026-11-02T08:51:33.5744419Z    Checking validity of types ...
+2026-11-02T08:51:39.0361455Z    Collecting page data ...
+2026-11-02T08:51:40.3950169Z    Generating static pages (0/11) ...
+2026-11-02T08:51:41.0683002Z    Generating static pages (2/11) 
+2026-11-02T08:51:41.0691625Z    Generating static pages (5/11) 
+2026-11-02T08:51:41.0692445Z    Generating static pages (8/11) 
+2026-11-02T08:51:41.1161169Z  ✓ Generating static pages (11/11)
+2026-11-02T08:51:41.4057616Z    Finalizing page optimization ...
+2026-11-02T08:51:41.4058258Z    Collecting build traces ...
+2026-11-02T08:51:47.1545782Z    Exporting (0/3) ...
+2026-11-02T08:51:47.5301511Z  ✓ Exporting (3/3)
+2026-11-02T08:51:47.5422870Z 
+2026-11-02T08:51:47.5443202Z Route (app)                                 Size  First Load JS
+2026-11-02T08:51:47.5445749Z ┌ ○ /                                    6.03 kB         110 kB
+2026-11-02T08:51:47.5447121Z ├ ○ /_not-found                            977 B         102 kB
+2026-11-02T08:51:47.5448383Z ├ ○ /cases/ai-sports-trainer             1.36 kB         106 kB
+2026-11-02T08:51:47.5449599Z ├ ○ /icon.svg                                0 B            0 B
+2026-11-02T08:51:47.5451079Z ├ ○ /privacy-policy                      1.36 kB         106 kB
+2026-11-02T08:51:47.5458594Z ├ ○ /robots.txt                            138 B         101 kB
+2026-11-02T08:51:47.5460025Z ├ ○ /security                            1.36 kB         106 kB
+2026-11-02T08:51:47.5461425Z ├ ○ /sitemap.xml                           138 B         101 kB
+2026-11-02T08:51:47.5462681Z └ ○ /sports-dx                           1.64 kB         106 kB
+2026-11-02T08:51:47.5463706Z + First Load JS shared by all             101 kB
+2026-11-02T08:51:47.5465410Z   ├ chunks/4bd1b696-fba042d4cb63855a.js  53.2 kB
+2026-11-02T08:51:47.5466304Z   ├ chunks/684-68074d9ed0a368d7.js       45.4 kB
+2026-11-02T08:51:47.5467140Z   └ other shared chunks (total)          1.93 kB
+2026-11-02T08:51:47.5467707Z 
+2026-11-02T08:51:47.5467946Z 
+2026-11-02T08:51:47.5468502Z ○  (Static)  prerendered as static content
+2026-11-02T08:51:47.5469034Z 
+2026-11-02T08:51:47.5977353Z ##[group]Run sudo apt-get update -qq
+2026-11-02T08:51:47.5977713Z [36;1msudo apt-get update -qq[0m
+2026-11-02T08:51:47.5978135Z [36;1msudo apt-get install --yes --no-install-recommends fonts-noto-cjk fontconfig[0m
+2026-11-02T08:51:47.5978582Z [36;1mfc-cache -f[0m
+2026-11-02T08:51:47.5978847Z [36;1mmkdir -p docs/redesign-20261102/lighthouse[0m
+2026-11-02T08:51:47.5979670Z [36;1mdpkg-query -W -f='${Package} ${Version}\n' fonts-noto-cjk fontconfig > docs/redesign-20261102/lighthouse/font-environment.txt[0m
+2026-11-02T08:51:47.5980414Z [36;1mfc-match 'sans-serif:lang=ja' >> docs/redesign-20261102/lighthouse/font-environment.txt[0m
+2026-11-02T08:51:47.5981096Z [36;1mfc-match -f '%{file}\n' 'sans-serif:lang=ja:charset=65e5' >> docs/redesign-20261102/lighthouse/font-environment.txt[0m
+2026-11-02T08:51:47.5981708Z [36;1mCJK_FONT_FAMILY="$(fc-match -f '%{family}' 'sans-serif:lang=ja')"[0m
+2026-11-02T08:51:47.5982183Z [36;1mif [[ "$CJK_FONT_FAMILY" != *"Noto Sans CJK JP"* ]]; then[0m
+2026-11-02T08:51:47.5982631Z [36;1m  echo "::error::Japanese system font did not resolve to Noto Sans CJK JP"[0m
+2026-11-02T08:51:47.5983010Z [36;1m  exit 1[0m
+2026-11-02T08:51:47.5983204Z [36;1mfi[0m
+2026-11-02T08:51:47.5983487Z [36;1mecho "LIGHTHOUSE_CJK_FONT=$CJK_FONT_FAMILY" >> "$GITHUB_ENV"[0m
+2026-11-02T08:51:47.5984202Z [36;1mcat docs/redesign-20261102/lighthouse/font-environment.txt[0m
+2026-11-02T08:51:47.6035168Z shell: /usr/bin/bash -e {0}
+2026-11-02T08:51:47.6035580Z env:
+2026-11-02T08:51:47.6035898Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:51:47.6036204Z ##[endgroup]
+2026-11-02T08:51:50.6887234Z Reading package lists...
+2026-11-02T08:51:50.8674554Z Building dependency tree...
+2026-11-02T08:51:50.8683285Z Reading state information...
+2026-11-02T08:51:50.9118902Z fontconfig is already the newest version (2.17.1-3ubuntu1).
+2026-11-02T08:51:50.9119690Z fontconfig set to manually installed.
+2026-11-02T08:51:50.9791884Z Solving dependencies...
+2026-11-02T08:51:51.0731741Z Suggested packages:
+2026-11-02T08:51:51.0732366Z   fonts-noto-cjk-extra
+2026-11-02T08:51:51.0934803Z The following NEW packages will be installed:
+2026-11-02T08:51:51.0945089Z   fonts-noto-cjk
+2026-11-02T08:51:51.1169568Z 0 upgraded, 1 newly installed, 0 to remove and 16 not upgraded.
+2026-11-02T08:51:51.1170345Z Need to get 61.2 MB of archives.
+2026-11-02T08:51:51.1171144Z After this operation, 93.4 MB of additional disk space will be used.
+2026-11-02T08:51:51.1172011Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-02T08:51:51.1506366Z Get:2 http://azure.archive.ubuntu.com/ubuntu resolute/main amd64v3 fonts-noto-cjk all 1:20240730+repack1-1build1 [61.2 MB]
+2026-11-02T08:51:51.8008015Z Fetched 61.2 MB in 0s (165 MB/s)
+2026-11-02T08:51:51.8251510Z Selecting previously unselected package fonts-noto-cjk.
+2026-11-02T08:51:51.8551293Z (Reading database ... 
+2026-11-02T08:51:51.8552011Z (Reading database ... 5%
+2026-11-02T08:51:51.8552466Z (Reading database ... 10%
+2026-11-02T08:51:51.8552805Z (Reading database ... 15%
+2026-11-02T08:51:51.8553081Z (Reading database ... 20%
+2026-11-02T08:51:51.8553432Z (Reading database ... 25%
+2026-11-02T08:51:51.8554115Z (Reading database ... 30%
+2026-11-02T08:51:51.8554557Z (Reading database ... 35%
+2026-11-02T08:51:51.8554984Z (Reading database ... 40%
+2026-11-02T08:51:51.8555358Z (Reading database ... 45%
+2026-11-02T08:51:51.8555629Z (Reading database ... 50%
+2026-11-02T08:51:51.9474162Z (Reading database ... 55%
+2026-11-02T08:51:52.1432073Z (Reading database ... 60%
+2026-11-02T08:51:52.2865500Z (Reading database ... 65%
+2026-11-02T08:51:52.4461566Z (Reading database ... 70%
+2026-11-02T08:51:52.5877401Z (Reading database ... 75%
+2026-11-02T08:51:52.7470662Z (Reading database ... 80%
+2026-11-02T08:51:52.9916843Z (Reading database ... 85%
+2026-11-02T08:51:53.1600200Z (Reading database ... 90%
+2026-11-02T08:51:53.3048217Z (Reading database ... 95%
+2026-11-02T08:51:53.3048879Z (Reading database ... 100%
+2026-11-02T08:51:53.3049948Z (Reading database ... 212715 files and directories currently installed.)
+2026-11-02T08:51:53.3088908Z Preparing to unpack .../fonts-noto-cjk_1%3a20240730+repack1-1build1_all.deb ...
+2026-11-02T08:51:53.3204915Z Unpacking fonts-noto-cjk (1:20240730+repack1-1build1) ...
+2026-11-02T08:51:53.7800008Z Setting up fonts-noto-cjk (1:20240730+repack1-1build1) ...
+2026-11-02T08:51:53.7887592Z Processing triggers for fontconfig (2.17.1-3ubuntu1) ...
+2026-11-02T08:51:54.5247156Z 
+2026-11-02T08:51:54.5247796Z Running kernel seems to be up-to-date.
+2026-11-02T08:51:54.5248242Z 
+2026-11-02T08:51:54.5248470Z Restarting services...
+2026-11-02T08:51:54.5345141Z 
+2026-11-02T08:51:54.5345808Z Service restarts being deferred:
+2026-11-02T08:51:54.5349331Z  systemctl restart hosted-compute-agent.service
+2026-11-02T08:51:54.5349592Z 
+2026-11-02T08:51:54.5350415Z No containers need to be restarted.
+2026-11-02T08:51:54.5350713Z 
+2026-11-02T08:51:54.5350907Z No user sessions are running outdated binaries.
+2026-11-02T08:51:54.5351132Z 
+2026-11-02T08:51:54.5351466Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-02T08:51:57.6946554Z fontconfig 2.17.1-3ubuntu1
+2026-11-02T08:51:57.6947073Z fonts-noto-cjk 1:20240730+repack1-1build1
+2026-11-02T08:51:57.6947583Z NotoSansCJK-Regular.ttc: "Noto Sans CJK JP" "Regular"
+2026-11-02T08:51:57.6948129Z /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc
+2026-11-02T08:51:57.6989675Z ##[group]Run CHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"
+2026-11-02T08:51:57.6990459Z [36;1mCHROME_BIN="$(command -v google-chrome || command -v chromium || command -v chromium-browser)"[0m
+2026-11-02T08:51:57.6990946Z [36;1mtest -n "$CHROME_BIN"[0m
+2026-11-02T08:51:57.6991249Z [36;1mecho "CHROME_PATH=$CHROME_BIN" >> "$GITHUB_ENV"[0m
+2026-11-02T08:51:57.6991569Z [36;1m"$CHROME_BIN" --version[0m
+2026-11-02T08:51:57.6991855Z [36;1mnpx --yes lighthouse@12.8.2 --version[0m
+2026-11-02T08:51:57.7023281Z shell: /usr/bin/bash -e {0}
+2026-11-02T08:51:57.7023535Z env:
+2026-11-02T08:51:57.7023729Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:51:57.7024224Z   LIGHTHOUSE_CJK_FONT: Noto Sans CJK JP
+2026-11-02T08:51:57.7024483Z ##[endgroup]
+2026-11-02T08:51:57.8577646Z Google Chrome 156.0.8078.47 
+2026-11-02T08:52:06.2715473Z npm warn deprecated @opentelemetry/sdk-trace-base@1.30.1: Use @opentelemetry/sdk-trace package
+2026-11-02T08:52:08.3905336Z 12.8.2
+2026-11-02T08:52:08.4348055Z ##[group]Run node scripts/audit-lighthouse.mjs --enforce --stage="$AUDIT_STAGE" --preview-origin="$PREVIEW_ORIGIN"
+2026-11-02T08:52:08.4348909Z [36;1mnode scripts/audit-lighthouse.mjs --enforce --stage="$AUDIT_STAGE" --preview-origin="$PREVIEW_ORIGIN"[0m
+2026-11-02T08:52:08.4379278Z shell: /usr/bin/bash -e {0}
+2026-11-02T08:52:08.4379542Z env:
+2026-11-02T08:52:08.4379741Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:52:08.4380001Z   LIGHTHOUSE_CJK_FONT: Noto Sans CJK JP
+2026-11-02T08:52:08.4380287Z   CHROME_PATH: /usr/bin/google-chrome
+2026-11-02T08:52:08.4380556Z   AUDIT_STAGE: all
+2026-11-02T08:52:08.4380761Z   PREVIEW_ORIGIN: 
+2026-11-02T08:52:08.4380960Z ##[endgroup]
+2026-11-02T08:52:08.7767451Z Lighthouse before: https://cyberknock.pages.dev/
+2026-11-02T08:52:22.0770104Z {"stage":"before","page":"home","status":"measured","scores":{"performance":93,"accessibility":93,"best-practices":100,"seo":100},"metrics":{"lcpMs":3123.966,"cls":0,"tbtMs":111.5,"fcpMs":948.9659999999999,"inpMs":null},"auditErrors":[],"targetFailures":["accessibility: 93 (target 95)","lcpMs: 3123.966 (target 2500)"]}
+2026-11-02T08:52:22.0772577Z Lighthouse after: http://127.0.0.1:4173/
+2026-11-02T08:52:35.2040864Z {"stage":"after","page":"home","status":"measured","scores":{"performance":99,"accessibility":100,"best-practices":100,"seo":100},"metrics":{"lcpMs":2120.9413750000003,"cls":0,"tbtMs":42,"fcpMs":1063.1531,"inpMs":null},"auditErrors":[],"targetFailures":[]}
+2026-11-02T08:52:35.2043494Z Lighthouse before: https://cyberknock.pages.dev/sports-dx
+2026-11-02T08:52:47.7501985Z {"stage":"before","page":"sports-dx","status":"measured","scores":{"performance":95,"accessibility":96,"best-practices":100,"seo":100},"metrics":{"lcpMs":2921.064,"cls":0,"tbtMs":88,"fcpMs":971.0640000000001,"inpMs":null},"auditErrors":[],"targetFailures":["lcpMs: 2921.064 (target 2500)"]}
+2026-11-02T08:52:47.7503451Z Lighthouse after: http://127.0.0.1:4173/sports-dx
+2026-11-02T08:53:00.1687061Z {"stage":"after","page":"sports-dx","status":"measured","scores":{"performance":99,"accessibility":100,"best-practices":100,"seo":100},"metrics":{"lcpMs":1814.2242,"cls":0,"tbtMs":68,"fcpMs":905.2242000000001,"inpMs":null},"auditErrors":[],"targetFailures":[]}
+2026-11-02T08:53:00.1689579Z Lighthouse before: https://cyberknock.pages.dev/cases/ai-sports-trainer
+2026-11-02T08:53:12.9296412Z {"stage":"before","page":"case-study","status":"measured","scores":{"performance":95,"accessibility":96,"best-practices":100,"seo":100},"metrics":{"lcpMs":2904.94,"cls":0,"tbtMs":54.5,"fcpMs":954.94,"inpMs":null},"auditErrors":[],"targetFailures":["lcpMs: 2904.94 (target 2500)"]}
+2026-11-02T08:53:12.9298366Z Lighthouse after: http://127.0.0.1:4173/cases/ai-sports-trainer
+2026-11-02T08:53:25.7721929Z {"stage":"after","page":"case-study","status":"measured","scores":{"performance":99,"accessibility":100,"best-practices":100,"seo":100},"metrics":{"lcpMs":2172.7404,"cls":0,"tbtMs":44.5,"fcpMs":758.7403999999999,"inpMs":null},"auditErrors":[],"targetFailures":[]}
+2026-11-02T08:53:25.7723259Z Lighthouse before: https://cyberknock.pages.dev/security
+2026-11-02T08:53:37.9876332Z {"stage":"before","page":"security","status":"measured","scores":{"performance":95,"accessibility":95,"best-practices":100,"seo":100},"metrics":{"lcpMs":2906.574,"cls":0,"tbtMs":88,"fcpMs":956.5740000000001,"inpMs":null},"auditErrors":[],"targetFailures":["lcpMs: 2906.574 (target 2500)"]}
+2026-11-02T08:53:37.9878520Z Lighthouse after: http://127.0.0.1:4173/security
+2026-11-02T08:53:50.3813635Z {"stage":"after","page":"security","status":"measured","scores":{"performance":99,"accessibility":100,"best-practices":100,"seo":100},"metrics":{"lcpMs":1785.9276999999997,"cls":0,"tbtMs":76,"fcpMs":759.9277,"inpMs":null},"auditErrors":[],"targetFailures":[]}
+2026-11-02T08:53:50.3819556Z Lighthouse before: https://cyberknock.pages.dev/privacy-policy
+2026-11-02T08:54:02.3058991Z {"stage":"before","page":"privacy-policy","status":"measured","scores":{"performance":100,"accessibility":90,"best-practices":96,"seo":82},"metrics":{"lcpMs":1013.1890000000001,"cls":0,"tbtMs":14.5,"fcpMs":905.5945,"inpMs":null},"auditErrors":[],"targetFailures":["accessibility: 90 (target 95)","seo: 82 (target 95)"]}
+2026-11-02T08:54:02.3062434Z Lighthouse after: http://127.0.0.1:4173/privacy-policy
+2026-11-02T08:54:14.6720665Z {"stage":"after","page":"privacy-policy","status":"measured","scores":{"performance":99,"accessibility":100,"best-practices":100,"seo":100},"metrics":{"lcpMs":1784.3557,"cls":0,"tbtMs":78,"fcpMs":756.3557000000001,"inpMs":null},"auditErrors":[],"targetFailures":[]}
+2026-11-02T08:54:14.6737096Z ## Cyber Knock — Lighthouse mobile lab audit
+2026-11-02T08:54:14.6737397Z 
+2026-11-02T08:54:14.6738167Z Lighthouse 12.8.2; Node v22.23.4; one navigation per page. See artifact summary.json for exact Chrome/emulation settings.
+2026-11-02T08:54:14.6739041Z 
+2026-11-02T08:54:14.6739633Z | Stage | Page | Performance | Accessibility | Best Practices | SEO | LCP (s, lab) | CLS (lab) | Audit errors | Lab targets |
+2026-11-02T08:54:14.6740389Z | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |
+2026-11-02T08:54:14.6740860Z | before | / | 93 | 93 | 100 | 100 | 3.12 | 0.000 | 0 | Below target |
+2026-11-02T08:54:14.6741290Z | after | / | 99 | 100 | 100 | 100 | 2.12 | 0.000 | 0 | Pass |
+2026-11-02T08:54:14.6741797Z | before | /sports-dx | 95 | 96 | 100 | 100 | 2.92 | 0.000 | 0 | Below target |
+2026-11-02T08:54:14.6742305Z | after | /sports-dx | 99 | 100 | 100 | 100 | 1.81 | 0.000 | 0 | Pass |
+2026-11-02T08:54:14.6742902Z | before | /cases/ai-sports-trainer | 95 | 96 | 100 | 100 | 2.90 | 0.000 | 0 | Below target |
+2026-11-02T08:54:14.6743529Z | after | /cases/ai-sports-trainer | 99 | 100 | 100 | 100 | 2.17 | 0.000 | 0 | Pass |
+2026-11-02T08:54:14.6744436Z | before | /security | 95 | 95 | 100 | 100 | 2.91 | 0.000 | 0 | Below target |
+2026-11-02T08:54:14.6744942Z | after | /security | 99 | 100 | 100 | 100 | 1.79 | 0.000 | 0 | Pass |
+2026-11-02T08:54:14.6745485Z | before | /privacy-policy | 100 | 90 | 96 | 82 | 1.01 | 0.000 | 0 | Below target |
+2026-11-02T08:54:14.6746331Z | after | /privacy-policy | 99 | 100 | 100 | 100 | 1.78 | 0.000 | 0 | Pass |
+2026-11-02T08:54:14.6746615Z 
+2026-11-02T08:54:14.6748194Z **Measurement limits:** Before is the public Cloudflare site; after is the local production export. Same runner/tool/emulation, different delivery and caching. These are single-run lab results, not field Core Web Vitals or proof of conversion improvement. INP and field 75th percentiles are unmeasured. Automated accessibility scores do not establish WCAG conformance.
+2026-11-02T08:54:14.6750768Z After uses gzip for compressible text. Preview runs use the recorded Cloudflare deployment origin; preview SEO is reported but not gated because noindex is expected for preview deployments. Any individual audit errors are listed in summary.json; a numeric category score does not mean every audit completed.
+2026-11-02T08:54:14.6751845Z 
+2026-11-02T08:54:14.6752607Z No form submission is performed. Contact delivery and analytics endpoints are blocked; no GA API is called. The local server uses an injected failure response and never delivers to Slack.
+2026-11-02T08:54:14.6753278Z 
+2026-11-02T08:54:14.6928291Z ##[group]Run actions/upload-artifact@v4
+2026-11-02T08:54:14.6928590Z with:
+2026-11-02T08:54:14.6928804Z   name: cyberknock-quality-41416034210-1
+2026-11-02T08:54:14.6929103Z   path: docs/redesign-20261102/lighthouse/
+2026-11-02T08:54:14.6929383Z   if-no-files-found: warn
+2026-11-02T08:54:14.6929612Z   retention-days: 30
+2026-11-02T08:54:14.6929826Z   compression-level: 6
+2026-11-02T08:54:14.6930048Z   overwrite: false
+2026-11-02T08:54:14.6930257Z   include-hidden-files: false
+2026-11-02T08:54:14.6930485Z env:
+2026-11-02T08:54:14.6930667Z   NEXT_TELEMETRY_DISABLED: 1
+2026-11-02T08:54:14.6930929Z   LIGHTHOUSE_CJK_FONT: Noto Sans CJK JP
+2026-11-02T08:54:14.6931205Z   CHROME_PATH: /usr/bin/google-chrome
+2026-11-02T08:54:14.6931458Z ##[endgroup]
+2026-11-02T08:54:14.8738722Z (node:5412) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-02T08:54:14.8739729Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-02T08:54:14.8899060Z With the provided path, there will be 34 files uploaded
+2026-11-02T08:54:14.8905427Z Artifact name is valid!
+2026-11-02T08:54:14.8906112Z Root directory input is valid!
+2026-11-02T08:54:15.0967467Z Beginning upload of artifact content to blob storage
+2026-11-02T08:54:15.5305680Z (node:5412) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-02T08:54:15.7461816Z Uploaded bytes 5818374
+2026-11-02T08:54:15.7639645Z Finished uploading artifact content to blob storage!
+2026-11-02T08:54:15.7641252Z SHA256 digest of uploaded artifact zip is 2353f7a3f3710e2fd15bcb03e0e3bb7a572b8726d899c7641f9cafa0e27b627b
+2026-11-02T08:54:15.7645444Z Finalizing artifact upload
+2026-11-02T08:54:16.1729154Z Artifact cyberknock-quality-41416034210-1.zip successfully finalized. Artifact ID 13128071071
+2026-11-02T08:54:16.1731354Z Artifact cyberknock-quality-41416034210-1 has been successfully uploaded! Final size is 5818374 bytes. Artifact ID is 13128071071
+2026-11-02T08:54:16.1738674Z Artifact download URL: https://github.com/exorql/cyberknock/actions/runs/41416034210/artifacts/13128071071
+2026-11-02T08:54:16.1993224Z Post job cleanup.
+2026-11-02T08:54:16.3343809Z (node:5425) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-02T08:54:16.3345605Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-02T08:54:16.3610562Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/cyberknock/cyberknock --files-from manifest.txt --use-compress-program zstdmt
+2026-11-02T08:54:17.6675669Z (node:5425) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-02T08:54:18.6504721Z Sent 25075838 of 226402430 (11.1%), 23.9 MBs/sec
+2026-11-02T08:54:18.8591991Z Sent 226402430 of 226402430 (100.0%), 178.4 MBs/sec
+2026-11-02T08:54:19.0127439Z Cache saved with the key: node-cache-Linux-x64-npm-5eacbad86d99a2429afb7cfdcf51c11da4fb3672c16e0c7fc2db893d795b024e
+2026-11-02T08:54:19.0347084Z Post job cleanup.
+2026-11-02T08:54:19.1284652Z [command]/usr/bin/git version
+2026-11-02T08:54:19.1334269Z git version 2.56.0
+2026-11-02T08:54:19.1376821Z Temporarily overriding HOME='/home/runner/work/_temp/7004b611-e2d9-468c-bb64-4615d56588a6' before making global git config changes
+2026-11-02T08:54:19.1378486Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-02T08:54:19.1382061Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/cyberknock/cyberknock
+2026-11-02T08:54:19.1425081Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-02T08:54:19.1478760Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-02T08:54:19.1805840Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-02T08:54:19.1851748Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-02T08:54:19.2170189Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-02T08:54:19.2206102Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-02T08:54:19.2638850Z Cleaning up orphan processes
+2026-11-02T08:54:19.3192180Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

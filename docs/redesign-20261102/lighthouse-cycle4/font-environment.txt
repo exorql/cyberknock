@@ -1,0 +1,4 @@
+fontconfig 2.17.1-3ubuntu1
+fonts-noto-cjk 1:20240730+repack1-1build1
+NotoSansCJK-Regular.ttc: "Noto Sans CJK JP" "Regular"
+/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc

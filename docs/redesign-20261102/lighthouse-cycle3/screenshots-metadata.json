@@ -1,0 +1,107 @@
+[
+  {
+    "file": "after/mobile-lighthouse-case-study.jpg",
+    "report": "after/case-study.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/cases/ai-sports-trainer",
+    "fetchTime": "2026-11-02T08:44:43.615Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 705,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual 375px or 390px viewport screenshot.",
+    "fontLimitation": "Visual inspection found Japanese glyphs rendered as missing-glyph boxes in this Ubuntu runner. These thumbnails are evidence of the harness issue, not valid Japanese UI visual acceptance evidence."
+  },
+  {
+    "file": "after/mobile-lighthouse-home.jpg",
+    "report": "after/home.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/",
+    "fetchTime": "2026-11-02T08:44:17.921Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 1639,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual 375px or 390px viewport screenshot.",
+    "fontLimitation": "Visual inspection found Japanese glyphs rendered as missing-glyph boxes in this Ubuntu runner. These thumbnails are evidence of the harness issue, not valid Japanese UI visual acceptance evidence."
+  },
+  {
+    "file": "after/mobile-lighthouse-privacy-policy.jpg",
+    "report": "after/privacy-policy.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/privacy-policy",
+    "fetchTime": "2026-11-02T08:45:07.471Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 700,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual 375px or 390px viewport screenshot.",
+    "fontLimitation": "Visual inspection found Japanese glyphs rendered as missing-glyph boxes in this Ubuntu runner. These thumbnails are evidence of the harness issue, not valid Japanese UI visual acceptance evidence."
+  },
+  {
+    "file": "after/mobile-lighthouse-security.jpg",
+    "report": "after/security.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/security",
+    "fetchTime": "2026-11-02T08:44:55.668Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 681,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual 375px or 390px viewport screenshot.",
+    "fontLimitation": "Visual inspection found Japanese glyphs rendered as missing-glyph boxes in this Ubuntu runner. These thumbnails are evidence of the harness issue, not valid Japanese UI visual acceptance evidence."
+  },
+  {
+    "file": "after/mobile-lighthouse-sports-dx.jpg",
+    "report": "after/sports-dx.report.json",
+    "requestedUrl": "http://127.0.0.1:4173/sports-dx",
+    "fetchTime": "2026-11-02T08:44:31.766Z",
+    "capture": "Lighthouse final-screenshot audit; exact embedded JPEG, no re-encoding",
+    "viewport": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "imagePixels": {
+      "width": 250,
+      "height": 498
+    },
+    "captureTimingMs": 701,
+    "limitation": "Downscaled Lighthouse screenshot; not a manual 375px or 390px viewport screenshot.",
+    "fontLimitation": "Visual inspection found Japanese glyphs rendered as missing-glyph boxes in this Ubuntu runner. These thumbnails are evidence of the harness issue, not valid Japanese UI visual acceptance evidence."
+  }
+]

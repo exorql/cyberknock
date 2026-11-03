@@ -32,10 +32,11 @@ export const metadata: Metadata = {
 
 export default function SportsDxPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="site-shell">
       <SiteHeader />
       <SportsDxContent />
       <SiteFooter />
     </div>
   )
 }
+

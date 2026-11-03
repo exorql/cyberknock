@@ -1,0 +1,157 @@
+- banner:
+  - link "Cyber Knock":
+    - /url: /
+  - navigation:
+    - link "スポーツDX":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "セキュリティ":
+      - /url: /security
+    - link "会社について":
+      - /url: /
+    - link "相談する":
+      - /url: /#contact
+      - text: 相談する
+- main:
+  - paragraph: 開発・運用事例
+  - heading "スポーツAIプロダクトを、 企画・開発から運用改善まで。" [level=1]:
+    - generic: スポーツAIプロダクトを、
+    - generic: 企画・開発から運用改善まで。
+  - paragraph: スマートフォンで撮影したスポーツ動画をもとに、競技や分析内容に応じて姿勢・関節角度・動作情報を解析し、AIによる評価や改善ポイントを提示するスポーツトレーニングアプリ。 複数競技を対象とし、iOS / Androidで実ユーザー向けに提供・運用しています。
+  - paragraph: 企画・開発・リリース後の運用改善まで、自社で継続して取り組んでいるプロダクトです。
+  - link "App Store":
+    - /url: https://apps.apple.com/jp/app/ai%E3%82%B9%E3%83%9D%E3%83%BC%E3%83%84%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8A%E3%83%BC-%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E5%8B%95%E7%94%BB%E5%88%86%E6%9E%90-%E7%B7%B4%E7%BF%92%E3%83%A1%E3%83%8B%E3%83%A5%E3%83%BC/id6742685461
+    - text: App Store
+  - link "Google Play":
+    - /url: https://play.google.com/store/apps/details?id=com.harutowatanabe.mealier
+    - text: Google Play
+  - link "AIスポーツトレーナー公式サイト":
+    - /url: https://ai-sportstrainer.com
+    - text: AIスポーツトレーナー公式サイト
+  - region "企画から開発・運用改善まで一貫して担当":
+    - paragraph: 担当範囲
+    - heading "企画から開発・運用改善まで一貫して担当" [level=2]
+    - paragraph: 企画・プロダクト設計
+    - paragraph: UI / UX、機能設計
+    - paragraph: アプリ・クラウド開発
+    - paragraph: React Native / TypeScript / Node.js / Firebase / GCP
+    - paragraph: AI動画分析
+    - paragraph: 姿勢推定 / 関節角度 / 動作解析 / LLM
+    - paragraph: リリース・運用改善
+    - paragraph: サブスクリプション / iOS・Android公開 / 利用データ分析 / 継続改善
+    - paragraph: リリース後も実ユーザー環境で運用し、利用データをもとに継続的に改善しています。
+  - region "動画撮影からフィードバックまでの流れ":
+    - paragraph: システム概要
+    - heading "動画撮影からフィードバックまでの流れ" [level=2]
+    - paragraph: スマートフォンで撮影した動画から、姿勢・動作情報の解析、競技別AI評価、結果の検証を経て、改善ポイントをユーザーへ提示します。
+    - paragraph: "01"
+    - heading "動画を撮影" [level=3]
+    - paragraph: スマートフォンで練習動画を撮影し、アプリからアップロードします。
+    - img "野球の練習動画をスマートフォンで撮影するイメージ"
+    - img "投球動画から姿勢と関節角度を解析している画面"
+    - paragraph: "02"
+    - heading "動きを解析" [level=3]
+    - paragraph: 競技や分析内容に応じて、姿勢・関節角度・動作情報を映像から解析します。
+    - generic: 姿勢推定
+    - generic: 関節角度
+    - generic: 動作解析
+    - paragraph: "03"
+    - heading "AIが競技別に評価" [level=3]
+    - paragraph: 動画・動作情報と競技ごとの評価設計を組み合わせ、競技に応じた評価軸で分析します。
+    - img "AIスポーツトレーナーの野球分析スコア画面"
+    - img "AIスポーツトレーナーの分析フィードバック画面"
+    - paragraph: "04"
+    - heading "改善ポイントをフィードバック" [level=3]
+    - paragraph: 分析結果を構造化・検証し、競技者が理解しやすい改善ポイントとして提示します。映像から判断できない内容は無理に評価しない設計です。
+    - paragraph: 動作解析
+    - paragraph: 姿勢推定 / 関節角度 / 動作情報
+    - paragraph: AI評価
+    - paragraph: 動画・動作情報 / 競技別評価 / LLM
+    - paragraph: 品質管理
+    - paragraph: 構造化出力 / 検証 / 分析不能判定
+  - region "分析結果を、次の練習へ":
+    - paragraph: 分析のその先
+    - heading "分析結果を、次の練習へ" [level=2]
+    - paragraph: 分析で見つかった課題に応じて、改善につながる練習ドリルも提案します。課題の把握から、次に取り組む内容までつなげます。
+    - img "分析結果に応じたAIドリル提案画面"
+  - region "実運用で難しかったこと":
+    - paragraph: 実運用の知見
+    - heading "実運用で難しかったこと" [level=2]
+    - paragraph: デモやプロトタイプではなく、実ユーザー環境で継続的に運用するからこそ直面した課題です。
+    - generic: "01"
+    - heading "AIに評価させすぎない" [level=3]
+    - paragraph: 姿勢推定や映像から取得できる情報にも限界があるため、確認できない動作や身体状態を推測して評価しないよう設計しています。カメラアングルや画質の制約上、判断できない項目は「評価できない」と返す設計です。
+    - generic: "02"
+    - heading "入力動画のばらつき" [level=3]
+    - paragraph: 撮影角度、カメラ距離、全身が映っているか、遮蔽、動作速度など、実ユーザーの動画には大きなばらつきがあります。これらは姿勢推定・動作解析の結果にも影響するため、実ユーザー動画を前提とした入力検証と例外処理の設計が必要でした。
+    - generic: "03"
+    - heading "競技ごとの評価軸" [level=3]
+    - paragraph: 同じ関節角度や動作でも、競技・局面によって意味が異なります。共通の姿勢推定処理だけでは対応できないため、競技特性を考慮した評価設計が必要です。
+    - generic: "04"
+    - heading "年齢に応じたフィードバック" [level=3]
+    - paragraph: 子ども向け・保護者向け・成人向けでは、適切な説明の粒度や言葉が変わります。同じ分析結果でも伝え方を調整する仕組みが必要でした。
+    - generic: "05"
+    - heading "AI出力の安定化" [level=3]
+    - paragraph: JSON等の構造化出力、検証ロジック、異常値の処理、分析不能ケースのハンドリングなど、AI出力を安定してサービスに組み込むための処理が必要です。
+    - generic: "06"
+    - heading "コストと待ち時間" [level=3]
+    - paragraph: 精度だけでなく、AI APIのコストや動画処理時間もプロダクトの品質に直結します。実運用の中でバランスを調整し続けています。
+  - region "得られた知見":
+    - paragraph: 知見
+    - heading "得られた知見" [level=2]
+    - list:
+      - generic: "01"
+      - paragraph: AIモデルの精度だけではプロダクト品質は決まらない
+      - generic: "02"
+      - paragraph: 実際のユーザー入力を前提に例外処理を設計する必要がある
+      - generic: "03"
+      - paragraph: AIを評価する仕組みそのものが必要
+      - generic: "04"
+      - paragraph: AI分析とUXは一体で改善する必要がある
+      - generic: "05"
+      - paragraph: モデルやプロンプト変更時には継続的な品質検証が必要
+      - generic: "06"
+      - paragraph: AIが判断できないことを適切に「判断しない」設計も重要
+      - generic: "07"
+      - paragraph: 姿勢推定や関節角度は、それだけで良し悪しを決めるものではなく、競技・局面・映像条件と組み合わせて解釈する必要がある
+      - generic: "08"
+      - paragraph: 動作データを取得することと、それを競技上意味のあるフィードバックへ変換することは別の課題
+  - region "公共・団体案件への応用":
+    - paragraph: 応用
+    - heading "公共・団体案件への応用" [level=2]
+    - paragraph: AIスポーツプロダクトの運用経験を、以下のような実証事業・スポーツDXへ応用できます。
+    - list:
+      - generic: スポーツ団体のAI動画分析
+      - generic: 地域スポーツのデジタル指導
+      - generic: ジュニア選手の振り返り支援
+      - generic: 指導者支援
+      - generic: 新規スポーツDXサービス
+      - generic: 実証用MVP
+    - link "スポーツDX・実証支援について見る":
+      - /url: /sports-dx
+      - text: スポーツDX・実証支援について見る
+    - link "データ取り扱いを確認する":
+      - /url: /security
+- contentinfo:
+  - link "Cyber Knock":
+    - /url: /
+  - paragraph: スポーツ領域を中心としたAI・プロダクト開発
+  - navigation "フッターナビゲーション":
+    - link "スポーツDX支援":
+      - /url: /sports-dx
+    - link "開発事例":
+      - /url: /cases/ai-sports-trainer
+    - link "データ取り扱い":
+      - /url: /security
+    - link "プライバシーポリシー":
+      - /url: /privacy-policy
+    - link "お問い合わせ":
+      - /url: /#contact
+  - paragraph:
+    - link "AIスポーツトレーナー":
+      - /url: https://ai-sportstrainer.com
+      - text: AIスポーツトレーナー
+    - text: は、Cyber Knockが企画・開発・運営するスポーツ動画分析アプリです。
+  - paragraph: © 2026 Cyber Knock
+- alert

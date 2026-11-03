@@ -1,15 +1,14 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import "./art-direction.css"
+import { SiteAnalytics } from "@/components/site-analytics"
 
-const inter = Inter({ subsets: ["latin", "latin-ext"] })
 
 const siteUrl = "https://cyberknock.pages.dev"
-const siteTitle = "Cyber Knock | スポーツ領域のAI・プロダクト開発パートナー"
+const siteTitle = "Cyber Knock | スポーツAI・動画解析・アプリ開発"
 const siteDescription =
-  "自社でスポーツAI動画分析アプリを開発・運用する知見をもとに、スポーツ領域の新規サービスやAI機能を、要件整理からWeb・モバイル開発、リリース後の改善まで支援します。"
+  "スポーツAI・動画解析・選手追跡・フォーム解析のPoCから、Web・モバイルアプリ開発と改善まで。自社プロダクトの企画・開発・運用経験を活かし、スポーツ事業者・競技団体・自治体の新規サービス開発を支援します。"
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -23,7 +22,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
     description: siteDescription,
     url: siteUrl,
     siteName: "Cyber Knock",
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber Knock | スポーツ領域の新しいサービスを、企画から開発・改善まで。",
+    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
     description: siteDescription,
   },
   verification: {
@@ -46,6 +45,12 @@ const organizationJsonLd = {
   name: "Cyber Knock",
   url: siteUrl,
   description: siteDescription,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "三鷹市",
+    addressRegion: "東京都",
+    addressCountry: "JP",
+  },
 }
 
 export default function RootLayout({
@@ -54,17 +59,17 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="ja">
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          {children}
-        </ThemeProvider>
+        {children}
+        <SiteAnalytics />
       </body>
     </html>
   )
 }
+
 

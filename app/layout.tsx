@@ -6,9 +6,9 @@ import { SiteAnalytics } from "@/components/site-analytics"
 
 
 const siteUrl = "https://cyberknock.pages.dev"
-const siteTitle = "Cyber Knock | スポーツAI・動画解析・アプリ開発"
+const siteTitle = "Cyber Knock | AI・システム開発・PoC・アプリ開発"
 const siteDescription =
-  "スポーツAI・動画解析・選手追跡・フォーム解析のPoCから、Web・モバイルアプリ開発と改善まで。自社プロダクトの企画・開発・運用経験を活かし、スポーツ事業者・競技団体・自治体の新規サービス開発を支援します。"
+  "AI機能の技術検証（PoC）、動画解析、Web・モバイルアプリ開発から公開後の改善まで。自社アプリの開発・運用経験を活かし、業種を問わず新規サービス開発とAI活用を支援します。"
 
 export const metadata: Metadata = {
   title: siteTitle,

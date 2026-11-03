@@ -24,13 +24,28 @@ const faqs = [
 export default function Home() {
   return <div className="site-shell"><SiteHeader /><main id="main-content">
     <section className="hero hero-editorial" aria-labelledby="hero-title"><div className="hero-gridlines" aria-hidden="true" /><div className="wrap hero-grid">
-      <div className="hero-copy"><div className="hero-kickerline" aria-hidden="true"><span className="mono">CYBER KNOCK / INDEPENDENT DEVELOPMENT STUDIO</span><span className="mono">TOKYO · JAPAN</span></div><p className="eyebrow"><span className="signal-dot" /> AI・Web・モバイルの開発パートナー</p>
-        <h1 id="hero-title"><span className="hero-keyword">つくる。育てる。</span><span className="accent-text">事業を、動かす。</span></h1>
-        <p className="hero-description">自社アプリ「AIスポーツトレーナー」を企画・開発・運用。<br className="desktop-break" />その実践知を、AI・Web・モバイルの開発へ。</p>
-        <div className="hero-actions"><Link href="#contact" className="button button-primary" data-track="cta_click" data-location="hero">開発・AI活用を相談する <ArrowUpRight size={20} aria-hidden="true" /></Link><Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="hero">開発・運用事例を見る <ArrowRight size={18} aria-hidden="true" /></Link></div>
-        <p className="hero-audience"><span className="mono">WHO WE WORK WITH</span>スポーツ企業・自治体・競技団体・新規事業チームへ</p>
+      <div className="hero-copy"><div className="hero-kickerline" aria-hidden="true"><span className="mono">CYBER KNOCK / INDEPENDENT DEVELOPMENT STUDIO</span><span className="mono">TOKYO · JAPAN</span></div><p className="eyebrow"><span className="signal-dot" /> スポーツAI・動画解析・Web / アプリ開発</p>
+        <h1 id="hero-title" className="hero-lead-title"><span className="hero-lead-context">スポーツ領域の新しいサービスを、</span><span className="accent-text hero-lead-action">企画から開発・改善まで。</span></h1>
+        <p className="hero-description">選手追跡・プレー抽出・フォーム解析などのAI動画分析から、Web・モバイルの新規開発まで。自社アプリの開発・運用経験をもとに、PoCからリリース後の改善まで支援します。</p>
+        <div className="hero-actions"><Link href="/?service=sports-ai#contact" className="button button-primary" data-track="cta_click" data-location="hero" data-service="sports-ai">スポーツAI・開発を相談する <ArrowUpRight size={20} aria-hidden="true" /></Link><Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="hero">開発・運用事例を見る <ArrowRight size={18} aria-hidden="true" /></Link></div>
+        <p className="hero-audience"><span className="mono">WHO WE WORK WITH</span>スポーツ事業者・競技団体・自治体・開発パートナー企業へ</p>
       </div><div className="hero-visual-frame"><ProductVisual /><span className="hero-visual-index mono" aria-hidden="true">MADE / SHIPPED / IMPROVED</span></div>
     </div><div className="wrap proof-strip"><p><Check size={17} aria-hidden="true" />自社プロダクトを公開・運用</p><p><Check size={17} aria-hidden="true" />AIの品質・UX・コストを継続改善</p><p><Check size={17} aria-hidden="true" />企画から実装まで、代表が直接対応</p></div></section>
+
+    <section className="inquiry-section" aria-labelledby="inquiry-title">
+      <div className="wrap inquiry-inner">
+        <div className="inquiry-heading">
+          <p className="section-label"><span className="mono">相談テーマ /</span> 技術検証から開発まで</p>
+          <h2 id="inquiry-title">こんな相談から、<br />始められます。</h2>
+          <p>完成した仕様書は不要です。実現できる範囲や最初の検証方法から整理します。</p>
+        </div>
+        <div className="inquiry-list">
+          <article><span className="mono">01 / GAME VIDEO</span><h3>試合映像から、特定選手のプレーを抽出したい</h3><p>選手の追跡・再識別、プレー場面の抽出などを、実映像で検証します。</p></article>
+          <article><span className="mono">02 / MOTION ANALYSIS</span><h3>競技動作を可視化し、指導に活かしたい</h3><p>フォーム・関節角度・動作軌跡など、撮影条件と計測可能な範囲を確かめます。</p></article>
+          <article><span className="mono">03 / PRODUCT DEVELOPMENT</span><h3>スポーツ向けの新しいアプリやAI機能を作りたい</h3><p>PoC・MVPの企画から、Web・モバイル開発、公開後の改善まで対応します。</p></article>
+        </div>
+      </div>
+    </section>
 
     <section className="section approach-section" aria-labelledby="approach-title">
       <div className="wrap method-grid">

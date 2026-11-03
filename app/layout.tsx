@@ -6,9 +6,9 @@ import { SiteAnalytics } from "@/components/site-analytics"
 
 
 const siteUrl = "https://cyberknock.pages.dev"
-const siteTitle = "Cyber Knock | スポーツAI・Web・モバイルの開発パートナー"
+const siteTitle = "Cyber Knock | スポーツAI・動画解析・アプリ開発"
 const siteDescription =
-  "自社プロダクトを開発・運用する経験を、あなたの事業へ。スポーツAI・動画分析、Web・モバイルの新規開発、AI品質改善、自治体・競技団体の実証を、企画から運用まで支援します。"
+  "スポーツAI・動画解析・選手追跡・フォーム解析のPoCから、Web・モバイルアプリ開発と改善まで。自社プロダクトの企画・開発・運用経験を活かし、スポーツ事業者・競技団体・自治体の新規サービス開発を支援します。"
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Cyber Knock | つくる。育てる。事業を、動かす。",
+    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
     description: siteDescription,
     url: siteUrl,
     siteName: "Cyber Knock",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber Knock | つくる。育てる。事業を、動かす。",
+    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
     description: siteDescription,
   },
   verification: {

@@ -50,7 +50,7 @@
 
 ## 4. コードと依存
 
-Next.js 15.2.4、React 19、TypeScript、Tailwind、静的export、Cloudflare Pages Functionsという既存構成を維持。新しい本番用ライブラリは追加していない。
+Next.js 15.5.28、React 19.2.6、TypeScript、Tailwind、静的export、Cloudflare Pages Functionsという既存構成を維持。新しい本番用ライブラリは追加していない。
 
 - 本文はServer Component主体。メニュー、フォーム、イベント計測だけをclientへ限定。
 - `functions/contact.js`は既存の`SLACK_WEBHOOK_URL`を使う構造を維持し、未設定・上流失敗時に成功を偽装しない。
@@ -77,3 +77,7 @@ Next.js 15.2.4、React 19、TypeScript、Tailwind、静的export、Cloudflare Pa
 イベント定義、CRMの有効相談／商談／案件化／受注、分母、重複排除、観測期間、5名の理解度テストは[MEASUREMENT-PLAN.md](MEASUREMENT-PLAN.md)にまとめた。
 
 本番リリース前に残る確認は、通知先への実到達、実機・支援技術、ユーザーの公開承認。公開後に確認する項目はGA4接続、実ユーザーCWV、理解度、有効問い合わせと営業成果である。90点の主観評価や受賞を、これらの実績の代わりにしない。
+
+## 2026-11-03 dependency hardening
+
+Next.js 15.2.4 / React 19.1.0から、修正済みのNext.js 15.5.28 / React 19.2.6へ更新。実装から参照されていないzod直接依存を削除し、Next内部PostCSSを8.5.23へ固定override。lockfileに反映し、found 0 vulnerabilitiesをCIの必須検証に追加した。Nextの将来更新時はoverrideの必要性を再評価する。静的exportおよびCloudflare Pages Functionの送信契約は維持する。本番公開は行わない。

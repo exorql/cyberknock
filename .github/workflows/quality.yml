@@ -51,6 +51,8 @@ jobs:
           cache: npm
       - name: Install locked application dependencies
         run: npm ci --legacy-peer-deps
+      - name: Audit production dependency vulnerabilities
+        run: npm audit --omit=dev --audit-level=high
       - name: Typecheck, tests, and production static build
         run: npm run check
       - name: Install and verify Japanese system fonts for representative rendering

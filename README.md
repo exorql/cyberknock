@@ -12,7 +12,7 @@ Next.jsの静的出力をCloudflare Pagesへ配信し、問い合わせだけを
 
 | 項目 | 現行構成 |
 |---|---|
-| フロントエンド | Next.js 15.2.4、React 19、TypeScript、App Router |
+| フロントエンド | Next.js 15.5.28、React 19.2.6、TypeScript、App Router |
 | 配信 | `output: 'export'` による `out/` の静的ファイル |
 | URL | `trailingSlash: false`。既存の5つの主要URLを維持 |
 | 画像 | `images.unoptimized: true`。実アプリ素材を静的配信 |

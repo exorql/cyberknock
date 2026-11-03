@@ -1,0 +1,179 @@
+{
+  "origin": "http://127.0.0.1:45361",
+  "checks": [
+    {
+      "path": "/insights",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": "https://cyberknock.pages.dev/insights",
+      "documentWidth": 320,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": "https://cyberknock.pages.dev/insights",
+      "documentWidth": 390,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": "https://cyberknock.pages.dev/insights",
+      "documentWidth": 768,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": "https://cyberknock.pages.dev/insights",
+      "documentWidth": 1440,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-development-outsourcing-guide",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI開発を外注する前に｜要件整理・費用・開発会社の選び方",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-development-outsourcing-guide",
+      "documentWidth": 320,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-development-outsourcing-guide",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI開発を外注する前に｜要件整理・費用・開発会社の選び方",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-development-outsourcing-guide",
+      "documentWidth": 390,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-development-outsourcing-guide",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI開発を外注する前に｜要件整理・費用・開発会社の選び方",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-development-outsourcing-guide",
+      "documentWidth": 768,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-development-outsourcing-guide",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI開発を外注する前に｜要件整理・費用・開発会社の選び方",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-development-outsourcing-guide",
+      "documentWidth": 1440,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-poc-process-evaluation",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI PoCの進め方｜評価基準・検証項目・本番移行の判断方法",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-poc-process-evaluation",
+      "documentWidth": 320,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-poc-process-evaluation",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI PoCの進め方｜評価基準・検証項目・本番移行の判断方法",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-poc-process-evaluation",
+      "documentWidth": 390,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-poc-process-evaluation",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI PoCの進め方｜評価基準・検証項目・本番移行の判断方法",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-poc-process-evaluation",
+      "documentWidth": 768,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-poc-process-evaluation",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI PoCの進め方｜評価基準・検証項目・本番移行の判断方法",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-poc-process-evaluation",
+      "documentWidth": 1440,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-video-analysis-poc-cost",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用はどう決まる？PoCの見積前に整理する7項目",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-video-analysis-poc-cost",
+      "documentWidth": 320,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-video-analysis-poc-cost",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用はどう決まる？PoCの見積前に整理する7項目",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-video-analysis-poc-cost",
+      "documentWidth": 390,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-video-analysis-poc-cost",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用はどう決まる？PoCの見積前に整理する7項目",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-video-analysis-poc-cost",
+      "documentWidth": 768,
+      "jsErrors": 0,
+      "contactPosts": 0
+    },
+    {
+      "path": "/insights/ai-video-analysis-poc-cost",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用はどう決まる？PoCの見積前に整理する7項目",
+      "canonical": "https://cyberknock.pages.dev/insights/ai-video-analysis-poc-cost",
+      "documentWidth": 1440,
+      "jsErrors": 0,
+      "contactPosts": 0
+    }
+  ],
+  "screenshots": [
+    "screenshots/index-390.png",
+    "screenshots/index-1440.png",
+    "screenshots/ai-development-outsourcing-guide-390.png",
+    "screenshots/ai-development-outsourcing-guide-1440.png",
+    "screenshots/ai-poc-process-evaluation-390.png",
+    "screenshots/ai-poc-process-evaluation-1440.png",
+    "screenshots/ai-video-analysis-poc-cost-390.png",
+    "screenshots/ai-video-analysis-poc-cost-1440.png"
+  ],
+  "errors": [],
+  "scope": "Static production export served locally; no external delivery",
+  "sitemap": "PASS (4 current URLs, 2 retired routes absent)",
+  "status": "PASS"
+}

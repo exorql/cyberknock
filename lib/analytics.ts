@@ -7,7 +7,7 @@ const allowedValues: Record<string, readonly string[]> = {
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
+  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
 }
 
@@ -19,12 +19,22 @@ const safePagePaths: Record<string, string> = {
   security: "/security",
   privacy: "/privacy-policy",
   ai_development: "/ai-development",
+  insights: "/insights",
+  insight_cost: "/insights/ai-video-analysis-poc-cost",
+  insight_poc: "/insights/ai-poc-process-evaluation",
+  insight_outsourcing: "/insights/ai-development-outsourcing-guide",
   other: "/",
 }
 
 export function pageCategory(path: string): string {
   const cleanPath = path.split(/[?#]/)[0].replace(/\/$/, "")
-  const pages: Record<string, string> = { "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study", "/security": "security", "/privacy-policy": "privacy", "/ai-development": "ai_development" }
+  const pages: Record<string, string> = {
+    "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study",
+    "/security": "security", "/privacy-policy": "privacy", "/ai-development": "ai_development",
+    "/insights": "insights", "/insights/ai-video-analysis-poc-cost": "insight_cost",
+    "/insights/ai-poc-process-evaluation": "insight_poc",
+    "/insights/ai-development-outsourcing-guide": "insight_outsourcing",
+  }
   const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "ai-development": "ai_development" }
   return (Object.hasOwn(pages, cleanPath) ? pages[cleanPath] : undefined) || (Object.hasOwn(aliases, cleanPath) ? aliases[cleanPath] : undefined) || (allowedValues.page.includes(cleanPath) ? cleanPath : "other")
 }
@@ -45,8 +55,6 @@ export function trackEvent(event: AnalyticsEvent, params: Record<string, unknown
     const page = pageCategory(window.location.pathname)
     analyticsWindow.gtag("event", event, {
       ...safeAnalyticsParams({ ...params, page }),
-      // gtag otherwise defaults these to document.location and document.referrer.
-      // Build from constants only; callers cannot override either reserved field.
       page_location: siteOrigin + safePagePaths[page],
       page_referrer: "",
     })

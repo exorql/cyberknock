@@ -13,6 +13,7 @@
 - `/ai-video-analysis/kyudo-motion-analysis`：一射の姿勢推定・軌跡・動作候補時刻の検証内容。正確な関節中心・正式な会の長さ・重心などの未評価を明記。
 - トップのサービス導線、サイトヘッダー・フッター・スポーツDXの内部リンク、sitemap.xmlに追加。
 - 既存問い合わせフォームを再利用。送信元は固定語 `video_poc` `soccer_poc` `kyudo_poc` に分離。Cloudflare Pages Functionで許可し、既存Slack宛先へ固定日本語ラベルで通知する設計。新しい外部宛先は追加しない。
+- GA4は任意の実測定IDがビルド環境へ設定された場合だけ読み込む。固定URLによるページビューを追加し、初回・SPA遷移をダミーIDで検証。IDは未設定、本番受信も未検証。[設定手順](./GA4-SETUP.md)。
 - GA4カスタムイベントは従来の `cta_click`、`case_study_click`、`case_study_view`、`contact_form_*` を再利用し、3つの固定ページカテゴリを追加。メール・名前・本文・検索パラメータ等のPIIは送信しない。
 
 ## 技術検証の根拠と公開の境界

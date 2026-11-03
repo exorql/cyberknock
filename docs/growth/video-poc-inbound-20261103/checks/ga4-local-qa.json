@@ -1,0 +1,24 @@
+{
+  "origin": "http://127.0.0.1:45327",
+  "measurementId": "G-TEST123456 (TEST ONLY)",
+  "checks": [
+    {
+      "type": "initial page",
+      "status": "PASS",
+      "canonical": "https://cyberknock.pages.dev/",
+      "configuredOnce": true
+    },
+    {
+      "type": "SPA navigation",
+      "status": "PASS",
+      "canonical": "https://cyberknock.pages.dev/ai-video-analysis",
+      "configuredOnce": true,
+      "googleScriptIntercepted": true
+    }
+  ],
+  "externalRequestsBlocked": [
+    "https://www.googletagmanager.com/gtag/js"
+  ],
+  "errors": [],
+  "status": "PASS"
+}

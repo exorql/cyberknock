@@ -7,7 +7,7 @@
 **ローカル検証：PASS。公開判定：HOLD（Draft PRでレビュー待ち）。**
 
 - TypeScript：`npm run typecheck` PASS
-- Node unit tests：`npm test` 28/28 PASS。Cloudflare Pages Functionの送信元別通知（`video_poc`/`soccer_poc`/`kyudo_poc`）・入力検証・エラー応答を含む
+- Node unit tests：`npm test` 29/29 PASS。Cloudflare Pages Functionの送信元別通知（`video_poc`/`soccer_poc`/`kyudo_poc`）・入力検証・エラー応答を含む
 - Static build：`npm run build` PASS。Next.js 15.5.28で全14ページ生成、`out/` に新ページ3件・sitemap生成
 - 実Chrome（静的ビルドをローカルで配信）：**3ページ × 320/390/768/1440px = 12条件 PASS**。各H1 1件、横はみ出し0、CTAからフォームへのアンカー、必須エラー（名前・メール・内容・同意）、FAQ、ページエラーの検証
 - ローカルモック送信成功：**3 source PASS**。実Slack宛ての外部送信なし、正しいsourceとスポーツAIのサービス値でフォームを受付。GA4イベントはローカルメモリで確認
@@ -41,3 +41,12 @@
 - 公開T0後に7日・28日で有効問い合わせ→商談→有償PoCのファネルを確認する。自動化の登録済みとは扱わない。
 
 **マージ、デプロイ、広告出稿、価格の確約、顧客へのメール・連絡は本作業では行わない。**
+
+## 2026-11-03 追加検証：GA4の初期化とページビュー
+
+- 従来のサイトソースには`gtag`の初期化コードがなく、公開HTMLにもGoogleタグの読み込みが見当たりませんでした。そのためイベント実装だけでは本番計測成立と判断できません。
+- 実測定IDは埋め込まず、`NEXT_PUBLIC_GA4_MEASUREMENT_ID`が正しい形式で設定された場合だけGoogleタグを初期化するよう変更。未設定時はタグを読み込まない。
+- 自動`page_view`を抑止し、固定パスで手動送信する。URLのクエリ・氏名・メール・参照元はイベントに含めない。
+- TypeScript、Nodeテスト**29/29**、Next.js静的ビルドがPASS。
+- ダミーID`G-TEST123456`のChrome試験：ホーム初回表示と`/ai-video-analysis`へのSPA遷移、各1回の固定URL`page_view`、設定1回のみ、個人情報を含むクエリ除外を確認。Googleへのリクエストをブラウザテスト内で遮断、外部へテストデータを送らない。**2検証PASS**。[証跡](./checks/ga4-local-qa.json)／[設定手順](./GA4-SETUP.md)。
+- **本番GA4の測定ID・Cloudflare Pagesビルド環境変数は未設定／未確認**。本番のGA4受信、実Slack通知、実問い合わせ成功・商談成果は未検証。

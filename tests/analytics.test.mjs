@@ -61,6 +61,23 @@ test('custom events override implicit gtag location/referrer defaults and never 
   } finally { delete global.window; delete global.document; }
 });
 
+test('manual page views use only canonical paths without raw query strings or referrers', () => {
+  const calls = [];
+  global.window = {
+    location: new URL('https://cyberknock.pages.dev/ai-video-analysis/soccer-player-tracking?name=private&email=qa@example.com'),
+    gtag: (...args) => calls.push(args),
+  };
+  try {
+    trackEvent('page_view', { email: 'qa@example.com', page_location: global.window.location.href });
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0][1], 'page_view');
+    assert.equal(calls[0][2].page, 'soccer_poc');
+    assert.equal(calls[0][2].page_location, 'https://cyberknock.pages.dev/ai-video-analysis/soccer-player-tracking');
+    assert.equal(calls[0][2].page_referrer, '');
+    assert.ok(!JSON.stringify(calls).includes('qa@example.com'));
+  } finally { delete global.window; }
+});
+
 test('store events retain only the two supported store categories', () => {
   const calls = [];
   global.window = { location: { pathname: '/' }, gtag: (...args) => calls.push(args) };

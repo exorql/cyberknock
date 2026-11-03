@@ -1,5 +1,5 @@
 /** Only fixed vocabulary can leave the page. Never add contact fields or raw URLs. */
-export const analyticsEvents = ["cta_click", "case_study_click", "case_study_view", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
+export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 const allowedValues: Record<string, readonly string[]> = {

@@ -10,9 +10,9 @@ test('analytics discards form contents, emails, raw URLs, arbitrary values and p
 test('path categories discard query/hash data and reject unknown paths', () => {
   assert.equal(pageCategory('/sports-dx?email=qa@example.com#contact'), 'sports_dx');
   assert.equal(pageCategory('/cases/ai-sports-trainer/'), 'case_study');
-  assert.equal(pageCategory('/ai-video-analysis?client=private'), 'video_poc');
-  assert.equal(pageCategory('/ai-video-analysis/soccer-player-tracking?email=qa@example.com'), 'other');
-  assert.equal(pageCategory('/ai-video-analysis/kyudo-motion-analysis#private'), 'other');
+  assert.equal(pageCategory('/ai-development?client=private'), 'ai_development');
+  assert.equal(pageCategory('/ai-development/soccer-player-tracking?email=qa@example.com'), 'other');
+  assert.equal(pageCategory('/ai-development/kyudo-motion-analysis#private'), 'other');
   assert.equal(pageCategory('/private-user-name'), 'other');
   assert.equal(pageCategory('sports-dx'), 'sports_dx');
 });
@@ -64,15 +64,15 @@ test('custom events override implicit gtag location/referrer defaults and never 
 test('manual page views use only canonical paths without raw query strings or referrers', () => {
   const calls = [];
   global.window = {
-    location: new URL('https://cyberknock.pages.dev/ai-video-analysis?name=private&email=qa@example.com'),
+    location: new URL('https://cyberknock.pages.dev/ai-development?name=private&email=qa@example.com'),
     gtag: (...args) => calls.push(args),
   };
   try {
     trackEvent('page_view', { email: 'qa@example.com', page_location: global.window.location.href });
     assert.equal(calls.length, 1);
     assert.equal(calls[0][1], 'page_view');
-    assert.equal(calls[0][2].page, 'video_poc');
-    assert.equal(calls[0][2].page_location, 'https://cyberknock.pages.dev/ai-video-analysis');
+    assert.equal(calls[0][2].page, 'ai_development');
+    assert.equal(calls[0][2].page_location, 'https://cyberknock.pages.dev/ai-development');
     assert.equal(calls[0][2].page_referrer, '');
     assert.ok(!JSON.stringify(calls).includes('qa@example.com'));
   } finally { delete global.window; }

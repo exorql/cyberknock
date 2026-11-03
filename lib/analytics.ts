@@ -3,11 +3,11 @@ export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "c
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 const allowedValues: Record<string, readonly string[]> = {
-  location: ["header", "hero", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "video_poc", "video_case", "unknown"],
+  location: ["header", "hero", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
-  source: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "other"],
+  source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
+  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
 }
 
@@ -18,14 +18,14 @@ const safePagePaths: Record<string, string> = {
   case_study: "/cases/ai-sports-trainer",
   security: "/security",
   privacy: "/privacy-policy",
-  video_poc: "/ai-video-analysis",
+  ai_development: "/ai-development",
   other: "/",
 }
 
 export function pageCategory(path: string): string {
   const cleanPath = path.split(/[?#]/)[0].replace(/\/$/, "")
-  const pages: Record<string, string> = { "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study", "/security": "security", "/privacy-policy": "privacy", "/ai-video-analysis": "video_poc" }
-  const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "video-poc": "video_poc" }
+  const pages: Record<string, string> = { "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study", "/security": "security", "/privacy-policy": "privacy", "/ai-development": "ai_development" }
+  const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "ai-development": "ai_development" }
   return (Object.hasOwn(pages, cleanPath) ? pages[cleanPath] : undefined) || (Object.hasOwn(aliases, cleanPath) ? aliases[cleanPath] : undefined) || (allowedValues.page.includes(cleanPath) ? cleanPath : "other")
 }
 

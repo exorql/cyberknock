@@ -4,9 +4,9 @@ const MAX_BODY_BYTES = 24_000;
 const LIMITS = { name: 100, email: 254, company: 200, message: 5_000 };
 const BUDGETS = new Set(["", "undecided", "under_50", "50_100", "100_300", "300_500", "over_500"]);
 const SERVICES = new Set(["", "sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"]);
-const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "other"]);
+const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"]);
 const BUDGET_LABELS = { undecided: "相談して決めたい", under_50: "50万円未満", "50_100": "50〜100万円", "100_300": "100〜300万円", "300_500": "300〜500万円", over_500: "500万円以上" };
-const SOURCE_LABELS = { home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", video_poc: "AI動画解析・PoC受託開発", other: "その他" };
+const SOURCE_LABELS = { home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", ai_development: "AI・プロダクト開発の受託相談", other: "その他" };
 const SERVICE_LABELS = { "sports-ai": "スポーツAI・動画分析", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
 
 function json(body, status = 200) {

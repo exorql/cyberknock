@@ -121,7 +121,7 @@ export function SportsDxContent() {
               ))}
             </div>
             <p className="info-note">上記は実証テーマの例です。導入実績を示すものではありません。対象競技・現場の条件を伺い、検証内容を一緒に絞り込みます。</p>
-            <Link href="/ai-video-analysis" className="text-link" data-track="cta_click" data-location="content">AI動画解析・PoC受託開発の相談内容を見る <ArrowUpRight size={17} aria-hidden="true" /></Link>
+            <Link href="/ai-development" className="text-link" data-track="cta_click" data-location="content">AI・プロダクト開発の相談内容を見る <ArrowUpRight size={17} aria-hidden="true" /></Link>
           </div>
         </section>
 

@@ -33,9 +33,9 @@ test('optional budget can be undecided; email whitespace/fullwidth/domain are no
   assert.equal(result.data.budget, 'undecided');
 });
 
-test('AI動画解析PoCの公開相談元だけを固定語で通知する', async () => {
+test('AI・プロダクト開発の公開相談元だけを固定語で通知する', async () => {
   const upstream = stub();
-  for (const source of ['video_poc']) {
+  for (const source of ['ai_development']) {
     const response = await handleContact(request({ ...valid, source, service: 'sports-ai' }), env, upstream.fetch);
     assert.equal(response.status, 200);
     const payload = JSON.parse(upstream.calls.at(-1)[1].body);

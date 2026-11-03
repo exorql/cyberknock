@@ -1,0 +1,158 @@
+{
+  "site": "localhost static export",
+  "reviewDate": "2026-11-04",
+  "checks": [
+    {
+      "route": "/insights",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI開発を、\n判断できる計画に。",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-development-outsourcing-guide",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI開発会社の選び方と費用",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-development-outsourcing-guide",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI開発会社の選び方と費用",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-development-outsourcing-guide",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI開発会社の選び方と費用",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-development-outsourcing-guide",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI開発会社の選び方と費用",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-poc-process-evaluation",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI PoCの進め方と評価基準",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-poc-process-evaluation",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI PoCの進め方と評価基準",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-poc-process-evaluation",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI PoCの進め方と評価基準",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-poc-process-evaluation",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI PoCの進め方と評価基準",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-video-analysis-poc-cost",
+      "width": 320,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用とPoCの見積ポイント",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-video-analysis-poc-cost",
+      "width": 390,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用とPoCの見積ポイント",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-video-analysis-poc-cost",
+      "width": 768,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用とPoCの見積ポイント",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    },
+    {
+      "route": "/insights/ai-video-analysis-poc-cost",
+      "width": 1440,
+      "status": "PASS",
+      "h1": "AI動画解析の開発費用とPoCの見積ポイント",
+      "canonical": true,
+      "overflow": 0,
+      "jsErrors": 0
+    }
+  ],
+  "screenshots": [
+    "screenshots/keyword-targeting-ai-development-outsourcing-guide-390.png",
+    "screenshots/keyword-targeting-ai-poc-process-evaluation-390.png"
+  ],
+  "errors": [],
+  "externalContactPosts": 0,
+  "sitemap": "PASS 4 current URLs",
+  "status": "PASS"
+}

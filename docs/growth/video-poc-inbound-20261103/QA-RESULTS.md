@@ -25,7 +25,7 @@
 
 ## 今回の検証結果
 
-- TypeScript、Nodeテスト **31件PASS**、Next.js 15のProduction静的ビルド **PASS**（出力12ページ）。[実行ログ](./checks/npm-check.log)
+- TypeScript、Nodeテスト **32件PASS**、Next.js 15のProduction静的ビルド **PASS**（出力12ページ）。[実行ログ](./checks/npm-check.log)
 - 実Chromeの静的出力表示：`/ai-video-analysis`を320・390・768・1440pxで確認し、**4条件PASS**。H1、内容、自社実績リンク、フォームCTA、横はみ出しなし、JavaScriptエラー0件。[結果JSON](./checks/browser-qa.json)
 - 個別案件の旧URLは**両方404**。サイトマップに含まれず、公開LPにもリンクが残っていないことを確認。
 - 問い合わせ：`video_poc`のローカルモック送信成功を確認。外部Slackへの送信は行っていない。
@@ -33,4 +33,9 @@
 - [390px](./screenshots/after-video_poc-390.png)・[1440px](./screenshots/after-video_poc-1440.png)の画面証跡と[失敗時390px](./screenshots/after-video_poc-failure-390.png)を保存。
 - 過去の個別案件用4枚のスクリーンショットは削除。以前の旧内容を含むブラウザQAデータは**今回の実行結果で上書き**した。
 
-**公開判断：Draft PRでレビュー待ち。** GitHub CIとプレビュー結果は更新コミット後に別途確認する。本番へのマージ・デプロイ・実顧客への送信は行っていない。
+## ファーストビューの見出し短縮（最新）
+
+- H1を「映像AIの開発を、PoCから実装まで。」へ変更。サイト全体の事業範囲は限定せず、映像AI専門LPの検索意図はtitleと本文で維持する。
+- Chrome実測で**320・360・390・768・1440px、5条件すべてH1が2行**。横はみ出し0、JavaScriptエラー0。[ブラウザ結果](./checks/hero-copy-qa.json)／[320px](./screenshots/hero-copy-320.png)／[390px](./screenshots/hero-copy-390.png)／[1440px](./screenshots/hero-copy-1440.png)。
+
+**公開判断：Open PR（未マージ）で最終レビュー待ち。** GitHub CIとプレビュー結果は更新コミット後に別途確認する。本番へのマージ・デプロイ・実顧客への送信は行っていない。

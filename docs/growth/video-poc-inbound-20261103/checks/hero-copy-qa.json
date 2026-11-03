@@ -1,0 +1,73 @@
+{
+  "origin": "http://127.0.0.1:45349",
+  "kind": "Production export / local QA",
+  "checks": [
+    {
+      "width": 320,
+      "title": "映像AIの開発を、PoCから実装まで。",
+      "lines": 2,
+      "fontsize": "32px",
+      "lineHeight": "43.52px",
+      "titleHeight": 87.03125,
+      "documentWidth": 320,
+      "viewport": 320,
+      "status": "PASS",
+      "errors": 0
+    },
+    {
+      "width": 360,
+      "title": "映像AIの開発を、PoCから実装まで。",
+      "lines": 2,
+      "fontsize": "33.12px",
+      "lineHeight": "45.0432px",
+      "titleHeight": 90.09375,
+      "documentWidth": 360,
+      "viewport": 360,
+      "status": "PASS",
+      "errors": 0
+    },
+    {
+      "width": 390,
+      "title": "映像AIの開発を、PoCから実装まで。",
+      "lines": 2,
+      "fontsize": "35.88px",
+      "lineHeight": "48.7968px",
+      "titleHeight": 97.5625,
+      "documentWidth": 390,
+      "viewport": 390,
+      "status": "PASS",
+      "errors": 0
+    },
+    {
+      "width": 768,
+      "title": "映像AIの開発を、PoCから実装まで。",
+      "lines": 2,
+      "fontsize": "52px",
+      "lineHeight": "67.6px",
+      "titleHeight": 135.1875,
+      "documentWidth": 768,
+      "viewport": 768,
+      "status": "PASS",
+      "errors": 0
+    },
+    {
+      "width": 1440,
+      "title": "映像AIの開発を、PoCから実装まで。",
+      "lines": 2,
+      "fontsize": "64.8px",
+      "lineHeight": "84.24px",
+      "titleHeight": 168.46875,
+      "documentWidth": 1440,
+      "viewport": 1440,
+      "status": "PASS",
+      "errors": 0
+    }
+  ],
+  "screenshots": [
+    "screenshots/hero-copy-320.png",
+    "screenshots/hero-copy-390.png",
+    "screenshots/hero-copy-1440.png"
+  ],
+  "errors": [],
+  "status": "PASS"
+}

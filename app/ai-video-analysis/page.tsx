@@ -47,7 +47,7 @@ export default function VideoAnalysisDevelopmentPage() {
           <div className={`wrap ${styles.heroLayout}`}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>AI VIDEO ANALYSIS / POC DEVELOPMENT</p>
-              <h1 id="video-poc-title" className={styles.heroTitle}>AI動画解析の受託開発。<span>使える条件を、<strong>PoCで確かめる。</strong></span></h1>
+              <h1 id="video-poc-title" className={styles.heroTitle}>映像AIの開発を、<span><strong>PoCから実装まで。</strong></span></h1>
               <p className={styles.heroLead}>選手追跡・プレー抽出・フォーム解析・姿勢推定。技術的に動くことと、事業で使えることを分け、映像の条件から評価方法・試作・次の開発判断まで整理します。</p>
               <div className={styles.heroActions}>
                 <Link href="#contact" className={`button ${styles.primary}`} data-track="cta_click" data-location="video_poc" data-service="sports-ai">手元の動画でPoCを相談する <ArrowUpRight size={19} aria-hidden="true" /></Link>

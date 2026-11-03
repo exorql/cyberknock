@@ -4,7 +4,7 @@
   "checks": [
     {
       "width": 320,
-      "title": "映像AIの開発を、PoCから実装まで。",
+      "title": "AI動画解析を、PoCから実装まで。",
       "lines": 2,
       "fontsize": "32px",
       "lineHeight": "43.52px",
@@ -16,7 +16,7 @@
     },
     {
       "width": 360,
-      "title": "映像AIの開発を、PoCから実装まで。",
+      "title": "AI動画解析を、PoCから実装まで。",
       "lines": 2,
       "fontsize": "33.12px",
       "lineHeight": "45.0432px",
@@ -28,7 +28,7 @@
     },
     {
       "width": 390,
-      "title": "映像AIの開発を、PoCから実装まで。",
+      "title": "AI動画解析を、PoCから実装まで。",
       "lines": 2,
       "fontsize": "35.88px",
       "lineHeight": "48.7968px",
@@ -40,7 +40,7 @@
     },
     {
       "width": 768,
-      "title": "映像AIの開発を、PoCから実装まで。",
+      "title": "AI動画解析を、PoCから実装まで。",
       "lines": 2,
       "fontsize": "52px",
       "lineHeight": "67.6px",
@@ -52,7 +52,7 @@
     },
     {
       "width": 1440,
-      "title": "映像AIの開発を、PoCから実装まで。",
+      "title": "AI動画解析を、PoCから実装まで。",
       "lines": 2,
       "fontsize": "64.8px",
       "lineHeight": "84.24px",

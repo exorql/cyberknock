@@ -47,13 +47,13 @@ export default function VideoAnalysisDevelopmentPage() {
           <div className={`wrap ${styles.heroLayout}`}>
             <div className={styles.heroCopy}>
               <p className={styles.eyebrow}>AI VIDEO ANALYSIS / POC DEVELOPMENT</p>
-              <h1 id="video-poc-title" className={styles.heroTitle}>映像AIの開発を、<span><strong>PoCから実装まで。</strong></span></h1>
+              <h1 id="video-poc-title" className={styles.heroTitle}>AI動画解析を、<span><strong>PoCから実装まで。</strong></span></h1>
               <p className={styles.heroLead}>選手追跡・プレー抽出・フォーム解析・姿勢推定。技術的に動くことと、事業で使えることを分け、映像の条件から評価方法・試作・次の開発判断まで整理します。</p>
               <div className={styles.heroActions}>
                 <Link href="#contact" className={`button ${styles.primary}`} data-track="cta_click" data-location="video_poc" data-service="sports-ai">手元の動画でPoCを相談する <ArrowUpRight size={19} aria-hidden="true" /></Link>
                 <Link href="#product-proof" className={`text-link ${styles.secondary}`} data-track="case_study_click" data-location="video_poc">自社アプリの開発実績を見る <ArrowDownRight size={18} aria-hidden="true" /></Link>
               </div>
-              <p className={styles.heroMicro}>初回相談では動画の添付不要。スポーツ以外の映像AIやWeb・モバイル開発もご相談いただけます。</p>
+              <p className={styles.heroMicro}>初回相談では動画の添付不要。スポーツ以外の動画解析やAI・Web・モバイル開発もご相談いただけます。</p>
             </div>
             <div className={styles.flowBoard} aria-label="AI動画解析PoCの流れ">
               <div className={styles.boardTop}><span>FEASIBILITY / WORKFLOW</span><span className={styles.boardStatus}>SCOPE FIRST</span></div>

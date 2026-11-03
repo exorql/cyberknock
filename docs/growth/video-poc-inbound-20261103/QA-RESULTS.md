@@ -35,7 +35,7 @@
 
 ## ファーストビューの見出し短縮（最新）
 
-- H1を「映像AIの開発を、PoCから実装まで。」へ変更。サイト全体の事業範囲は限定せず、映像AI専門LPの検索意図はtitleと本文で維持する。
+- H1を「AI動画解析を、PoCから実装まで。」へ変更。サイト全体の事業範囲は限定せず、映像AI専門LPの検索意図はtitleと本文で維持する。
 - Chrome実測で**320・360・390・768・1440px、5条件すべてH1が2行**。横はみ出し0、JavaScriptエラー0。[ブラウザ結果](./checks/hero-copy-qa.json)／[320px](./screenshots/hero-copy-320.png)／[390px](./screenshots/hero-copy-390.png)／[1440px](./screenshots/hero-copy-1440.png)。
 
 **公開判断：Open PR（未マージ）で最終レビュー待ち。** GitHub CIとプレビュー結果は更新コミット後に別途確認する。本番へのマージ・デプロイ・実顧客への送信は行っていない。

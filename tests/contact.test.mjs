@@ -33,6 +33,20 @@ test('optional budget can be undecided; email whitespace/fullwidth/domain are no
   assert.equal(result.data.budget, 'undecided');
 });
 
+test('AI・プロダクト開発の公開相談元だけを固定語で通知する', async () => {
+  const upstream = stub();
+  for (const source of ['ai_development']) {
+    const response = await handleContact(request({ ...valid, source, service: 'sports-ai' }), env, upstream.fetch);
+    assert.equal(response.status, 200);
+    const payload = JSON.parse(upstream.calls.at(-1)[1].body);
+    assert.match(payload.blocks[0].text.text, new RegExp(source));
+  }
+  assert.equal(upstream.calls.length, 1);
+  assert.equal(validateContact({ ...valid, source: 'private-client-name' }).data.source, 'other');
+  assert.equal(validateContact({ ...valid, source: 'soccer_poc' }).data.source, 'other');
+  assert.equal(validateContact({ ...valid, source: 'kyudo_poc' }).data.source, 'other');
+});
+
 test('blank mandatory values and missing consent cannot reach Slack', async () => {
   const upstream = stub();
   const response = await handleContact(request({ ...valid, name: ' ', email: 'bad', message: '', privacy: false }), env, upstream.fetch);

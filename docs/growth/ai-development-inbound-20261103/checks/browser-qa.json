@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-03",
+  "origin": "http://127.0.0.1:45355",
+  "tests": [
+    {
+      "path": "/ai-development",
+      "width": 320,
+      "status": "PASS",
+      "title": "AI・プロダクト開発を、構想から実装まで。",
+      "documentWidth": 320,
+      "titleLines": 2,
+      "fontSize": 25,
+      "lineHeight": 32.5,
+      "canonical": "https://cyberknock.pages.dev/ai-development",
+      "jsErrors": 0
+    },
+    {
+      "path": "/ai-development",
+      "width": 360,
+      "status": "PASS",
+      "title": "AI・プロダクト開発を、構想から実装まで。",
+      "documentWidth": 360,
+      "titleLines": 2,
+      "fontSize": 26.28,
+      "lineHeight": 34.164,
+      "canonical": "https://cyberknock.pages.dev/ai-development",
+      "jsErrors": 0
+    },
+    {
+      "path": "/ai-development",
+      "width": 390,
+      "status": "PASS",
+      "title": "AI・プロダクト開発を、構想から実装まで。",
+      "documentWidth": 390,
+      "titleLines": 2,
+      "fontSize": 28.47,
+      "lineHeight": 37.011,
+      "canonical": "https://cyberknock.pages.dev/ai-development",
+      "jsErrors": 0
+    },
+    {
+      "path": "/ai-development",
+      "width": 768,
+      "status": "PASS",
+      "title": "AI・プロダクト開発を、構想から実装まで。",
+      "documentWidth": 768,
+      "titleLines": 2,
+      "fontSize": 46,
+      "lineHeight": 58.88,
+      "canonical": "https://cyberknock.pages.dev/ai-development",
+      "jsErrors": 0
+    },
+    {
+      "path": "/ai-development",
+      "width": 1440,
+      "status": "PASS",
+      "title": "AI・プロダクト開発を、構想から実装まで。",
+      "documentWidth": 1440,
+      "titleLines": 2,
+      "fontSize": 52,
+      "lineHeight": 66.56,
+      "canonical": "https://cyberknock.pages.dev/ai-development",
+      "jsErrors": 0
+    }
+  ],
+  "screenshots": [
+    "screenshots/ai-development-320.png",
+    "screenshots/ai-development-390.png",
+    "screenshots/ai-development-1440.png"
+  ],
+  "errors": [],
+  "source": "read-only export, mocked local /contact, no real Slack",
+  "form": {
+    "status": "PASS",
+    "source": "ai_development",
+    "service": "",
+    "postsToLocalMock": 1
+  },
+  "routing": {
+    "status": "PASS",
+    "oldRoute": 404,
+    "sitemap": true,
+    "homepage": true,
+    "sportsDx": true
+  },
+  "status": "PASS"
+}

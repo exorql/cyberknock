@@ -1,0 +1,9 @@
+{
+  "mode": "local 500 mock",
+  "status": "PASS",
+  "errors": [],
+  "source": "ai_development",
+  "externalSlackPosts": 0,
+  "valuesPreserved": true,
+  "incorrectSuccess": false
+}

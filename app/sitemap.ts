@@ -24,18 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.95,
     },
     {
-      url: `${baseUrl}/ai-video-analysis/soccer-player-tracking`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.75,
-    },
-    {
-      url: `${baseUrl}/ai-video-analysis/kyudo-motion-analysis`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.75,
-    },
-    {
       url: `${baseUrl}/cases/ai-sports-trainer`,
       lastModified: new Date(),
       changeFrequency: "monthly",

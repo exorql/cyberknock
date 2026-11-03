@@ -6,8 +6,8 @@ const allowedValues: Record<string, readonly string[]> = {
   location: ["header", "hero", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "video_poc", "video_case", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
-  source: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "soccer_poc", "kyudo_poc", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "soccer_poc", "kyudo_poc", "other"],
+  source: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "other"],
+  page: ["home", "sports_dx", "case_study", "security", "privacy", "video_poc", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
 }
 
@@ -19,15 +19,13 @@ const safePagePaths: Record<string, string> = {
   security: "/security",
   privacy: "/privacy-policy",
   video_poc: "/ai-video-analysis",
-  soccer_poc: "/ai-video-analysis/soccer-player-tracking",
-  kyudo_poc: "/ai-video-analysis/kyudo-motion-analysis",
   other: "/",
 }
 
 export function pageCategory(path: string): string {
   const cleanPath = path.split(/[?#]/)[0].replace(/\/$/, "")
-  const pages: Record<string, string> = { "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study", "/security": "security", "/privacy-policy": "privacy", "/ai-video-analysis": "video_poc", "/ai-video-analysis/soccer-player-tracking": "soccer_poc", "/ai-video-analysis/kyudo-motion-analysis": "kyudo_poc" }
-  const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "video-poc": "video_poc", "soccer-poc": "soccer_poc", "kyudo-poc": "kyudo_poc" }
+  const pages: Record<string, string> = { "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study", "/security": "security", "/privacy-policy": "privacy", "/ai-video-analysis": "video_poc" }
+  const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "video-poc": "video_poc" }
   return (Object.hasOwn(pages, cleanPath) ? pages[cleanPath] : undefined) || (Object.hasOwn(aliases, cleanPath) ? aliases[cleanPath] : undefined) || (allowedValues.page.includes(cleanPath) ? cleanPath : "other")
 }
 

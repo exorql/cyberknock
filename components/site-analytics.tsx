@@ -52,7 +52,7 @@ export function SiteAnalytics() {
     lastPath.current = currentPath
 
     if (ensureSiteGa4()) trackEvent("page_view")
-    if (["case_study", "soccer_poc", "kyudo_poc"].includes(pageCategory(currentPath))) {
+    if (["case_study"].includes(pageCategory(currentPath))) {
       trackEvent("case_study_view")
     }
   }, [pathname])

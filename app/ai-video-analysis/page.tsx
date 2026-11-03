@@ -4,8 +4,7 @@ import { ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react"
 import { ContactForm } from "@/components/contact-form"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { CaseIllustration } from "@/components/video-poc/case-illustration"
-import { pocSteps, videoPocCases } from "@/components/video-poc/case-data"
+import { pocSteps } from "@/components/video-poc/poc-steps"
 import styles from "./video-poc.module.css"
 
 const title = "AI動画解析の受託開発・PoC｜選手追跡・姿勢推定 | Cyber Knock"
@@ -20,17 +19,17 @@ export const metadata: Metadata = {
 }
 
 const topics = [
-  { number: "01", title: "試合映像から特定選手を追いたい", description: "対象選手の指定・追跡・再識別・プレー候補抽出。遮蔽や人物の入れ替わりをどう扱うかも検証します。" },
+  { number: "01", title: "動画から対象や区間を探したい", description: "人物などの対象を追跡し、関係する場面の候補を抽出する仕組みを検討します。取り違えや見落としも評価対象にします。" },
   { number: "02", title: "競技動作を数値・軌跡で見たい", description: "姿勢推定、関節角度、手首・肘の軌跡、動作境界の候補。撮影条件に対する推定の限界を確認します。" },
   { number: "03", title: "AI動画機能をサービスにしたい", description: "処理API・レビュー画面・動画書き出し・Web／モバイル連携。品質・費用・利用導線を含めて設計します。" },
 ]
 
 const faqs = [
   { q: "動画だけあれば、自動抽出や姿勢計測は実現できますか？", a: "撮影条件、画角、対象人数、評価したい項目により異なります。まず代表動画と正解の確認方法を決め、PoCで精度と欠測・誤判定の条件を調べます。自動化の成立は事前に保証しません。" },
-  { q: "スポーツ以外の映像AI案件も相談できますか？", a: "はい。現在の具体的な検証例はスポーツ映像ですが、姿勢推定や動画処理、AIを組み込むWeb・モバイル開発など、用途を伺って技術的な適合性を判断できます。" },
+  { q: "スポーツ以外の映像AI案件も相談できますか？", a: "はい。自社アプリで培った動画処理・AI連携・Webやモバイル開発の経験を土台に、用途と素材条件を確認して技術的な適合性を判断します。" },
   { q: "初回問い合わせで動画や個人情報を送る必要がありますか？", a: "不要です。まず目的、撮影方法、動画の長さなど概要をお知らせください。素材の受け渡しが必要な場合は、権利・同意・保存方法・閲覧範囲を先に確認します。" },
   { q: "PoCの費用や期間は決まっていますか？", a: "一律の価格や期間は設けていません。手元の映像、必要な精度、レビューの方法、納品するものを確認し、着手前に範囲・受入条件・見積を提示します。" },
-  { q: "実際のクライアントの成功事例ですか？", a: "このページの2件は技術検証の記録であり、顧客への商用導入・精度保証を表すものではありません。動画そのものは公開許諾を確認できていないため掲載していません。" },
+  { q: "公開されている実績は何ですか？", a: "公開しているのは自社プロダクト「AIスポーツトレーナー」の開発・運用経験です。契約前の案件や顧客の非公開情報は掲載していません。個別案件のAI精度・納期は事前に保証せず、必要に応じてPoCで検証します。" },
 ]
 
 const schema = [
@@ -52,7 +51,7 @@ export default function VideoAnalysisDevelopmentPage() {
               <p className={styles.heroLead}>選手追跡・プレー抽出・フォーム解析・姿勢推定。技術的に動くことと、事業で使えることを分け、映像の条件から評価方法・試作・次の開発判断まで整理します。</p>
               <div className={styles.heroActions}>
                 <Link href="#contact" className={`button ${styles.primary}`} data-track="cta_click" data-location="video_poc" data-service="sports-ai">手元の動画でPoCを相談する <ArrowUpRight size={19} aria-hidden="true" /></Link>
-                <Link href="#technical-studies" className={`text-link ${styles.secondary}`} data-track="case_study_click" data-location="video_poc">技術検証の内容を見る <ArrowDownRight size={18} aria-hidden="true" /></Link>
+                <Link href="#product-proof" className={`text-link ${styles.secondary}`} data-track="case_study_click" data-location="video_poc">自社アプリの開発実績を見る <ArrowDownRight size={18} aria-hidden="true" /></Link>
               </div>
               <p className={styles.heroMicro}>初回相談では動画の添付不要。スポーツ以外の映像AIやWeb・モバイル開発もご相談いただけます。</p>
             </div>
@@ -79,25 +78,35 @@ export default function VideoAnalysisDevelopmentPage() {
           </div>
         </section>
 
-        <section id="technical-studies" className={`${styles.chapter} ${styles.chapterToned}`} aria-labelledby="studies-title">
+
+        <section id="product-proof" className={[styles.chapter, styles.chapterToned].join(" ")} aria-labelledby="product-proof-title">
           <div className="wrap">
             <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>02 / TECHNICAL STUDIES</p>
-              <div><h2 id="studies-title" className={styles.chapterTitle}>検証したことも、<br />未達のことも。</h2><p className={styles.chapterLead}>実際の技術検証に基づく2テーマ。顧客への導入事例ではなく、実現性を判断するための検証ノートとして公開します。</p></div>
+              <p className={styles.sectionCode}>02 / PRODUCT EXPERIENCE</p>
+              <div>
+                <h2 id="product-proof-title" className={styles.chapterTitle}>自社プロダクトをつくり、<br />運用してきた経験から。</h2>
+                <p className={styles.chapterLead}>発注前に確認できる実例として、自社で提供するアプリの開発・運用経験を紹介します。受託先の未公開案件や、精度未検証の技術デモを実績とは扱いません。</p>
+              </div>
             </div>
             <div className={styles.proofGrid}>
-              {(["soccer", "kyudo"] as const).map((kind) => {
-                const item = videoPocCases[kind]
-                return <article key={kind} className={styles.proofCard}>
-                  <div className={styles.proofCardTop}><span>{item.overline}</span><small>技術検証 / 商用精度は未保証</small></div>
-                  <CaseIllustration kind={kind} />
-                  <h3>{item.headline}</h3>
-                  <p>{item.introduction}</p>
-                  <Link className={`text-link ${styles.proofAction}`} href={`/ai-video-analysis/${item.slug}`} data-track="case_study_click" data-location="video_poc">{item.label}の検証内容 <ArrowUpRight size={18} aria-hidden="true" /></Link>
-                </article>
-              })}
+              <article className={styles.proofCard}>
+                <div className={styles.proofCardTop}><span>FIRST-PARTY PRODUCT</span><small>自社プロダクト</small></div>
+                <h3>AIスポーツトレーナー</h3>
+                <p>スマートフォンの動画から身体フォームを分析し、改善ポイントや練習提案を表示する自社アプリを開発・運用しています。実際の開発・運用範囲をご覧いただけます。</p>
+                <Link className={[styles.proofAction, "text-link"].join(" ")} href="/cases/ai-sports-trainer" data-track="case_study_click" data-location="video_poc">
+                  自社アプリの開発・運用事例を見る <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+              </article>
+              <article className={styles.proofCard}>
+                <div className={styles.proofCardTop}><span>POC DESIGN</span><small>案件ごとに要件を整理</small></div>
+                <h3>検証から本番開発までを見据える</h3>
+                <p>AIによる検出精度と利用者が確認する手間を切り分け、対象映像・評価項目・試作範囲を合意してから進めます。動画の追跡や抽出、数値化の実現性は素材ごとに検証します。</p>
+                <Link className={[styles.proofAction, "text-link"].join(" ")} href="#poc-method-title">
+                  PoCの進め方を確認する <ArrowDownRight size={18} aria-hidden="true" />
+                </Link>
+              </article>
             </div>
-            <p className={styles.disclosure}>上の図は工程を説明するための模式図です。実映像や実際のAI出力ではありません。映像の公開権限を確認できていないため、実写の動画デモは掲載していません。</p>
+            <p className={styles.disclosure}>掲載している実績は自社プロダクトの開発・運用です。未契約の個別相談、顧客の非公開案件、技術検証中の映像や結果は掲載していません。</p>
           </div>
         </section>
 

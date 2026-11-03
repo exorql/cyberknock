@@ -1,25 +1,10 @@
 {
-  "type": "localhost mock upstream 500, no external calls",
-  "tests": [
-    {
-      "source": "video_poc",
-      "status": "PASS",
-      "requests": 1,
-      "preserved": true
-    },
-    {
-      "source": "soccer_poc",
-      "status": "PASS",
-      "requests": 1,
-      "preserved": true
-    },
-    {
-      "source": "kyudo_poc",
-      "status": "PASS",
-      "requests": 1,
-      "preserved": true
-    }
-  ],
+  "origin": "http://127.0.0.1:45343",
+  "mode": "local 500 stub",
+  "status": "PASS",
   "errors": [],
-  "status": "PASS"
+  "retained": true,
+  "successDisplay": false,
+  "source": "video_poc",
+  "requestsToRealSlack": 0
 }

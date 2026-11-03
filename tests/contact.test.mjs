@@ -33,16 +33,18 @@ test('optional budget can be undecided; email whitespace/fullwidth/domain are no
   assert.equal(result.data.budget, 'undecided');
 });
 
-test('AI動画解析PoCの3導線からの相談元は固定語で通知される', async () => {
+test('AI動画解析PoCの公開相談元だけを固定語で通知する', async () => {
   const upstream = stub();
-  for (const source of ['video_poc', 'soccer_poc', 'kyudo_poc']) {
+  for (const source of ['video_poc']) {
     const response = await handleContact(request({ ...valid, source, service: 'sports-ai' }), env, upstream.fetch);
     assert.equal(response.status, 200);
     const payload = JSON.parse(upstream.calls.at(-1)[1].body);
     assert.match(payload.blocks[0].text.text, new RegExp(source));
   }
-  assert.equal(upstream.calls.length, 3);
+  assert.equal(upstream.calls.length, 1);
   assert.equal(validateContact({ ...valid, source: 'private-client-name' }).data.source, 'other');
+  assert.equal(validateContact({ ...valid, source: 'soccer_poc' }).data.source, 'other');
+  assert.equal(validateContact({ ...valid, source: 'kyudo_poc' }).data.source, 'other');
 });
 
 test('blank mandatory values and missing consent cannot reach Slack', async () => {

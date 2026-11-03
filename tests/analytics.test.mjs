@@ -70,3 +70,7 @@ test('store events retain only the two supported store categories', () => {
     assert.ok(!('store' in calls[2][2]));
   } finally { delete global.window; }
 });
+
+test('method-level case study click is measured without raw URLs or PII', () => {
+  assert.deepEqual(safeAnalyticsParams({ location: 'method', page: 'home', email: 'private@example.com' }), { location: 'method', page: 'home' });
+});

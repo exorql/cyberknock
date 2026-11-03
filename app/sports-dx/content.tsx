@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { PilotBlueprint } from "@/components/pilot-blueprint"
+import { ChapterNav } from "@/components/chapter-nav"
 
 const contactHref = "/?service=sports-dx#contact"
 
@@ -80,7 +81,7 @@ export function SportsDxContent() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <main id="main-content">
-        <section className="page-hero">
+        <section className="page-hero dx-page-hero">
           <div className="wrap dx-hero-grid">
             <div>
             <p className="eyebrow">スポーツDX・AI実証支援</p>
@@ -95,6 +96,13 @@ export function SportsDxContent() {
           </div>
         </section>
 
+        <ChapterNav note="EXPLORE / PILOT WORK" location="sports_dx" chapters={[
+          { href: "#themes-heading", label: "実証テーマ" },
+          { href: "#process-heading", label: "進め方" },
+          { href: "#deliverables-heading", label: "成果物" },
+          { href: "/?service=sports-dx#contact", label: "相談窓口", service: "sports-dx" },
+        ]} />
+
         <section className="section" aria-labelledby="themes-heading">
           <div className="wrap">
             <div className="section-heading">
@@ -102,8 +110,9 @@ export function SportsDxContent() {
               <h2 id="themes-heading" className="section-title">まず、何を確かめますか。</h2>
             </div>
             <div className="three-grid">
-              {themes.map((theme) => (
-                <article className="info-card" key={theme.title}>
+              {themes.map((theme, index) => (
+                <article className="info-card theme-card" key={theme.title}>
+                  <p className="mono theme-index">PILOT / 0{index + 1}</p>
                   <p className="tag">{theme.audience}</p>
                   <h3>{theme.title}</h3>
                   <p>{theme.body}</p>

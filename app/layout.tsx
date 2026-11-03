@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import "./art-direction.css"
 import { SiteAnalytics } from "@/components/site-analytics"
 
 

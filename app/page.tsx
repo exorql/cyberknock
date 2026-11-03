@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { ContactForm } from "@/components/contact-form"
 import { ProductVisual } from "@/components/product-visual"
 import { DecisionLoop } from "@/components/decision-loop"
+import { MethodNotes } from "@/components/method-notes"
 import { Trajectory } from "@/components/trajectory"
 import { services, site } from "@/lib/site"
 
@@ -22,16 +23,27 @@ const faqs = [
 ]
 export default function Home() {
   return <div className="site-shell"><SiteHeader /><main id="main-content">
-    <section className="hero" aria-labelledby="hero-title"><div className="wrap hero-grid">
-      <div className="hero-copy"><p className="eyebrow"><span className="signal-dot" /> AI・Web・モバイルの開発パートナー</p>
-        <h1 id="hero-title"><span>構想を、</span><span>使われる</span><span className="accent-text">プロダクトへ。</span></h1>
-        <p className="hero-description">自社アプリ「AIスポーツトレーナー」を企画・開発・運用。<br className="desktop-break" />その経験を、スポーツAI・Web・モバイルの開発へ。</p>
+    <section className="hero hero-editorial" aria-labelledby="hero-title"><div className="hero-gridlines" aria-hidden="true" /><div className="wrap hero-grid">
+      <div className="hero-copy"><div className="hero-kickerline" aria-hidden="true"><span className="mono">CYBER KNOCK / INDEPENDENT DEVELOPMENT STUDIO</span><span className="mono">TOKYO · JAPAN</span></div><p className="eyebrow"><span className="signal-dot" /> AI・Web・モバイルの開発パートナー</p>
+        <h1 id="hero-title"><span>構想を、</span><span className="hero-keyword">使われる</span><span className="accent-text">プロダクトへ。</span></h1>
+        <p className="hero-description">自社アプリ「AIスポーツトレーナー」を企画・開発・運用。<br className="desktop-break" />その実践知を、AI・Web・モバイルの開発へ。</p>
         <div className="hero-actions"><Link href="#contact" className="button button-primary" data-track="cta_click" data-location="hero">開発・AI活用を相談する <ArrowUpRight size={20} aria-hidden="true" /></Link><Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="hero">開発・運用事例を見る <ArrowRight size={18} aria-hidden="true" /></Link></div>
-        <p className="hero-audience">スポーツ企業・自治体・競技団体・新規事業チームへ</p>
-      </div><ProductVisual />
+        <p className="hero-audience"><span className="mono">WHO WE WORK WITH</span>スポーツ企業・自治体・競技団体・新規事業チームへ</p>
+      </div><div className="hero-visual-frame"><ProductVisual /><span className="hero-visual-index mono" aria-hidden="true">MADE / SHIPPED / IMPROVED</span></div>
     </div><div className="wrap proof-strip"><p><Check size={17} aria-hidden="true" />自社プロダクトを公開・運用</p><p><Check size={17} aria-hidden="true" />AIの品質・UX・コストを継続改善</p><p><Check size={17} aria-hidden="true" />企画から実装まで、代表が直接対応</p></div></section>
 
-    <section className="section approach-section" aria-labelledby="approach-title"><div className="wrap editorial-grid"><p className="section-label"><span className="mono">01 /</span> 私たちの強み</p><div><h2 id="approach-title" className="section-title">つくった先の課題まで、<br />一緒に考えられる。</h2><div className="approach-body"><p>AIが答えを返すだけでは、使い続けられるサービスにはなりません。結果への納得感、待ち時間、課金の導線、運用コスト。Cyber Knockは、自ら事業を動かす中で、その一つひとつに向き合ってきました。</p><p>この経験を、要件を決める段階から開発に生かします。実装と事業の両方を見ながら、最初に確かめるべきことを一緒に絞り込みます。</p></div></div></div></section>
+    <section className="section approach-section" aria-labelledby="approach-title">
+      <div className="wrap method-grid">
+        <div className="method-statement">
+          <p className="section-label"><span className="mono">01 /</span> Cyber Knockの開発姿勢</p>
+          <p className="method-overline mono">BUILD IT. RUN IT. LEARN FROM IT.</p>
+          <h2 id="approach-title">動かして、<br />確かめて、<br /><em>次をつくる。</em></h2>
+          <p className="method-intro">「作れるか」だけではなく、<strong>「使われ続けるか」まで。</strong> 自社アプリを企画・公開・運用する中で得た判断を、開発の最初から組み込みます。</p>
+          <div className="method-mark" aria-hidden="true"><Trajectory className="method-mark-line" /><span className="mono">OBSERVE <span>↗</span> REFINE</span></div>
+        </div>
+        <MethodNotes />
+      </div>
+    </section>
 
     <section id="case-study" className="section featured-case" aria-labelledby="case-title"><div className="wrap"><div className="section-heading"><p className="section-label"><span className="mono">02 /</span> 自社プロダクトの実績</p><p className="quiet">運用の経験が、開発の判断を変える。</p></div><div className="case-feature-grid"><DecisionLoop /><div className="case-copy"><span className="tag">企画・開発・運用を一貫して担当</span><h2 id="case-title">AIスポーツ<br />トレーナー</h2><p className="case-lead">撮影した動画から、<br />次の練習につながるフィードバックへ。</p><p>スポーツ動画をAIで分析するiOS・Androidアプリ。競技者や保護者、指導者に向けて、自社で企画・開発し、継続して運用しています。</p><dl className="project-facts"><div><dt>担当領域</dt><dd>UX / アプリ / クラウド / AI / 課金 / 運用</dd></div><div><dt>改善テーマ</dt><dd>AI品質・分析完了率・利用導線・処理コスト</dd></div></dl><Link href="/cases/ai-sports-trainer" className="button button-primary" data-track="case_study_click" data-location="case_study">開発の工夫と運用を見る <ArrowUpRight size={20} aria-hidden="true" /></Link><div className="store-links"><span>公開アプリを確認</span><a href={site.appStore} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case_study" data-store="app_store">App Store <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.googlePlay} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case_study" data-store="google_play">Google Play <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a></div></div></div></div></section>
 

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowUpRight, ArrowRight } from "lucide-react"
 import { ProductVisual } from "@/components/product-visual"
+import { ChapterNav } from "@/components/chapter-nav"
 import { site } from "@/lib/site"
 
 const quality = [
@@ -15,7 +16,14 @@ const jsonLd = { "@context": "https://schema.org", "@graph": [
 ] }
 export function CaseStudyContent() {
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{__html:JSON.stringify(jsonLd)}} /><main id="main-content">
-    <section className="page-hero"><div className="wrap"><div className="case-hero-grid"><div><p className="eyebrow">自社プロダクト / 開発・運用事例</p><h1 className="page-title">AIを、<br />次の練習につながる<br /><span className="accent-text">体験へ。</span></h1><p className="lead">AIスポーツトレーナーは、スポーツ動画の分析を、利用者が理解して練習に生かせるフィードバックへつなぐiOS・Androidアプリです。</p><p className="body-copy" style={{marginTop:16}}>企画、開発、公開。その先の品質・課金・利用導線の改善まで、自社で取り組んでいます。</p><div className="hero-actions"><Link href="/?service=sports-ai#contact" className="button button-primary" data-track="cta_click" data-location="case" data-service="sports-ai"><span>この経験を活かした<span className="keep-phrase">開発を相談する</span></span> <ArrowUpRight size={20} aria-hidden="true" /></Link></div><div className="store-links"><a href={site.appStore} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case" data-store="app_store">App Store <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.googlePlay} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case" data-store="google_play">Google Play <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.appUrl} target="_blank" rel="noopener noreferrer">プロダクトサイト <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a></div></div><ProductVisual /></div><dl className="case-summary"><div><dt>プロジェクト</dt><dd>自社企画・自社開発・自社運用</dd></div><div><dt>提供先</dt><dd>競技者・保護者・指導者 / iOS・Android</dd></div><div><dt>担当範囲</dt><dd>企画・UX・アプリ・クラウド・AI・課金・運用</dd></div></dl></div></section>
+    <section className="page-hero case-page-hero"><div className="wrap"><div className="case-hero-grid"><div><p className="eyebrow">自社プロダクト / 開発・運用事例</p><h1 className="page-title">AIを、<br />次の練習につながる<br /><span className="accent-text">体験へ。</span></h1><p className="lead">AIスポーツトレーナーは、スポーツ動画の分析を、利用者が理解して練習に生かせるフィードバックへつなぐiOS・Androidアプリです。</p><p className="body-copy" style={{marginTop:16}}>企画、開発、公開。その先の品質・課金・利用導線の改善まで、自社で取り組んでいます。</p><div className="hero-actions"><Link href="/?service=sports-ai#contact" className="button button-primary" data-track="cta_click" data-location="case" data-service="sports-ai"><span>この経験を活かした<span className="keep-phrase">開発を相談する</span></span> <ArrowUpRight size={20} aria-hidden="true" /></Link></div><div className="store-links"><a href={site.appStore} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case" data-store="app_store">App Store <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.googlePlay} target="_blank" rel="noopener noreferrer" data-track="store_click" data-location="case" data-store="google_play">Google Play <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.appUrl} target="_blank" rel="noopener noreferrer">プロダクトサイト <ArrowUpRight size={14} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a></div></div><ProductVisual /></div><dl className="case-summary"><div><dt>プロジェクト</dt><dd>自社企画・自社開発・自社運用</dd></div><div><dt>提供先</dt><dd>競技者・保護者・指導者 / iOS・Android</dd></div><div><dt>担当範囲</dt><dd>企画・UX・アプリ・クラウド・AI・課金・運用</dd></div></dl></div></section>
+
+    <ChapterNav note="EXPLORE / PRODUCT STORY" location="case" chapters={[
+      { href: "#screens-title", label: "実画面" },
+      { href: "#ownership", label: "担当範囲" },
+      { href: "#quality", label: "AI品質と運用" },
+      { href: "/?service=sports-ai#contact", label: "相談窓口", service: "sports-ai" },
+    ]} />
 
     <section className="section"><div className="wrap editorial-grid"><p className="section-label"><span className="mono">01 /</span> 解決したかった課題</p><div><h2 className="section-title">動画を見返した、その先に。<br />次に取り組むことが分かる。</h2><div className="approach-body"><p>練習を撮影しても、自分の動きのどこに注目すればよいか、次に何を変えればよいかは分かりにくい。映像から得られる情報を、競技者や保護者、指導者に伝わる形にすることを目指しました。</p><p>必要なのは、分析結果を並べるだけの画面ではありません。動画、評価、改善ポイント、練習メニュー、振り返りをつなぎ、次の行動を考えやすくする体験を設計しています。</p></div></div></div></section>
 

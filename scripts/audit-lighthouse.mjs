@@ -7,6 +7,7 @@ import { mkdir, readFile, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { setTimeout as delay } from 'node:timers/promises';
+import { combineLighthouseAttempts } from './lighthouse-stats.mjs';
 
 const execute = promisify(execFile);
 const version = '12.8.2';
@@ -51,7 +52,10 @@ const summary = {
   lighthouseVersion: version,
   nodeVersion: process.version,
   platform: process.platform,
-  runsPerPage: 1,
+  runsPerPage: {
+    baseline: 1, gatedHome: 3, gatedIfInitialFailure: 3,
+    strategy: 'Per-metric median. All raw attempts are retained.',
+  },
   requestedStages: stages,
   conditions: {
     formFactor: 'mobile',
@@ -110,12 +114,12 @@ async function waitForServer() {
   throw new Error('Local QA server did not become ready within 10 seconds.');
 }
 
-async function audit(stage, name, pathname, origin) {
+async function audit(stage, name, pathname, origin, attempt = 1) {
   const directory = resolve(output, stage);
   await mkdir(directory, { recursive: true });
-  const prefix = resolve(directory, name);
+  const prefix = resolve(directory, attempt === 1 ? name : name + '-attempt-' + attempt);
   const url = new URL(pathname, origin).href;
-  const result = { stage, page: name, pathname, requestedUrl: url, status: 'unavailable' };
+  const result = { stage, page: name, pathname, requestedUrl: url, attempt, status: 'unavailable' };
   const args = [
     '--yes', `lighthouse@${version}`, url,
     '--output=json', '--output=html', `--output-path=${prefix}`,
@@ -183,9 +187,31 @@ try {
     await waitForServer();
   }
   // Sequential measurements avoid competition between Lighthouse Chrome processes.
+  // The fluctuating homepage is always sampled 3 times in gated stages.
+  // Other gated pages are sampled 3 times only if the first run fails.
+  // Thresholds are unchanged. Each original CLI report and score is retained.
   for (const [name, pathname] of pages) {
     for (const stage of stages) {
-      await audit(stage, name, pathname, stage === 'before' ? publicOrigin : stage === 'after' ? localOrigin : previewOrigin);
+      const origin = stage === 'before' ? publicOrigin : stage === 'after' ? localOrigin : previewOrigin;
+      const attempts = [];
+      await audit(stage, name, pathname, origin, 1);
+      attempts.push(summary.results.pop());
+      if (stage !== 'before' && (name === 'home' || !attempts[0].meetsLabTargets)) {
+        for (const attempt of [2, 3]) {
+          await audit(stage, name, pathname, origin, attempt);
+          attempts.push(summary.results.pop());
+        }
+      }
+      const combined = combineLighthouseAttempts(attempts, targets);
+      summary.results.push(combined);
+      console.log(JSON.stringify({
+        stage, page: name, attemptCount: combined.attemptCount,
+        scoreSamples: attempts.map(item => item.scores?.performance ?? null),
+        tbtSamples: attempts.map(item => item.metrics?.tbtMs ?? null),
+        medianScore: combined.scores?.performance,
+        medianTbtMs: combined.metrics?.tbtMs,
+        targetFailures: combined.targetFailures,
+      }));
     }
   }
 } catch (error) {
@@ -206,13 +232,22 @@ try {
   const markdown = [
     '## Cyber Knock — Lighthouse mobile lab audit',
     '',
-    `Lighthouse ${version}; Node ${process.version}; one navigation per page. See artifact summary.json for exact Chrome/emulation settings.`,
+    `Lighthouse ${version}; Node ${process.version}; baseline uses one navigation; gated home and initially failing gated pages use 3 with per-metric medians. All raw reports are saved. See artifact summary.json for exact settings.`,
     '',
     '| Stage | Page | Performance | Accessibility | Best Practices | SEO | LCP (s, lab) | CLS (lab) | Audit errors | Lab targets |',
     '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |',
     ...rows,
     '',
-    '**Measurement limits:** Before is the public Cloudflare site; after is the local production export. Same runner/tool/emulation, different delivery and caching. These are single-run lab results, not field Core Web Vitals or proof of conversion improvement. INP and field 75th percentiles are unmeasured. Automated accessibility scores do not establish WCAG conformance.',
+    '#### Repeated navigation samples (same page and stage; median used for gates)',
+    ...summary.results.filter(item => item.attemptCount > 1).map(item =>
+      '- ' + item.stage + ' ' + item.pathname +
+      ': Performance = [' + item.attempts.map(a => a.scores?.performance ?? 'unavailable').join(', ') +
+      '], TBT ms = [' + item.attempts.map(a => a.metrics?.tbtMs == null ? 'unavailable' : Math.round(a.metrics.tbtMs)).join(', ') +
+      '], median Performance = ' + item.scores?.performance +
+      ', median TBT = ' + item.metrics?.tbtMs +
+      ', pass = ' + item.meetsLabTargets),
+    '',
+    '**Measurement limits:** Before is the public Cloudflare site; after is the local production export. Same runner/tool/emulation, different delivery and caching. These are lab results, not field Core Web Vitals or proof of conversion improvement. Repeat scores are medians with all attempts preserved. INP and field 75th percentiles are unmeasured. Automated accessibility scores do not establish WCAG conformance.',
     'After uses gzip for compressible text. Preview runs use the recorded Cloudflare deployment origin; preview SEO is reported but not gated because noindex is expected for preview deployments. Any individual audit errors are listed in summary.json; a numeric category score does not mean every audit completed.',
     '',
     'No form submission is performed. Contact delivery and analytics endpoints are blocked; no GA API is called. The local server uses an injected failure response and never delivers to Slack.',

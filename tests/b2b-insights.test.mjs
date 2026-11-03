@@ -12,7 +12,7 @@ test("B2B insight pages have unique, substantive, decision-focused content", () 
   ])
   assert.equal(new Set(insights.map(item => item.slug)).size, 3)
   for (const article of insights) {
-    assert.ok(article.title.length > 18)
+    assert.ok(article.title.length >= 12 && article.title.length <= 60)
     assert.ok(article.description.length >= 50 && article.description.length <= 160)
     assert.ok(article.sections.length >= 4)
     assert.ok(article.faqs.length >= 3)

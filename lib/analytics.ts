@@ -3,7 +3,7 @@ export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "c
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 const allowedValues: Record<string, readonly string[]> = {
-  location: ["header", "hero", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "unknown"],
+  location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],

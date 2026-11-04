@@ -1,0 +1,93 @@
+.section {
+  background: #f0f2eb;
+  border-block: 1px solid #cbd5ca;
+  padding-block: clamp(52px, 6vw, 86px);
+  color: #1a312c;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: clamp(35px, 6vw, 98px);
+  align-items: center;
+}
+.intro, .links { min-width: 0; }
+.eyebrow {
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  font-weight: 700;
+  letter-spacing: .055em;
+  color: #286d54;
+}
+.heading {
+  font-size: clamp(26px, 2.75vw, 38px);
+  line-height: 1.47;
+  letter-spacing: -.055em;
+  margin: 14px 0 17px;
+  max-width: 525px;
+  text-wrap: pretty;
+}
+.secondLine { display: block; }
+.description {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #476359;
+  max-width: 510px;
+}
+.indexLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 44px;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #175d49;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.indexLink:hover { color: #083c31; }
+.indexLink svg { flex: none; }
+.links {
+  display: grid;
+  border-top: 1px solid #a7b9aa;
+}
+.articleLink {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) 23px;
+  align-items: center;
+  gap: 17px;
+  min-height: 80px;
+  padding: 18px 8px;
+  border-bottom: 1px solid #a7b9aa;
+  transition: background-color .2s ease;
+}
+.articleLink:hover { background: #e2ebe1; }
+.articleLink:focus-visible,
+.indexLink:focus-visible { outline: 3px solid #006d65; outline-offset: 4px; }
+.number {
+  font: 700 12px/1.4 "Courier New", monospace;
+  color: #4e7566;
+}
+.linkText {
+  font-weight: 700;
+  font-size: clamp(15px, 1.55vw, 19px);
+  line-height: 1.65;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+.linkArrow { justify-self: end; color: #286d54; flex: none; }
+@media (max-width: 800px) {
+  .layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
+  .heading { max-width: 650px; }
+}
+@media (max-width: 600px) {
+  .section { padding-block: 46px 50px; }
+  .heading { font-size: clamp(24px, 6.8vw, 31px); margin-block: 11px 13px; }
+  .description { font-size: 13px; }
+  .articleLink { grid-template-columns: 23px minmax(0,1fr) 20px; gap: 11px; min-height: 70px; padding: 14px 5px; }
+  .linkText { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .articleLink { transition: none; }
+}

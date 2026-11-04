@@ -1,11 +1,12 @@
 /** Only fixed vocabulary can leave the page. Never add contact fields or raw URLs. */
-export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
+export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 const allowedValues: Record<string, readonly string[]> = {
   location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
+  guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
   page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],

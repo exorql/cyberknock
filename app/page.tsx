@@ -8,6 +8,7 @@ import { DecisionLoop } from "@/components/decision-loop"
 import { MethodNotes } from "@/components/method-notes"
 import { Trajectory } from "@/components/trajectory"
 import { services, site } from "@/lib/site"
+import { InsightsEntryPoints } from "@/components/insights-entrypoints"
 
 const process = [
   { title: "話す・整理する", text: "解決したい課題、対象ユーザー、目指す状態を共有。仕様が決まっていなくても構いません。", output: "課題・目的・優先順位" },
@@ -66,6 +67,8 @@ export default function Home() {
     <section id="services" className="section services-section" aria-labelledby="services-title"><div className="wrap"><div className="section-heading"><p className="section-label"><span className="mono">03 /</span> 支援内容</p><h2 id="services-title" className="section-title"><span className="keep-phrase">課題から、</span><span className="keep-phrase">必要な開発を。</span></h2></div><p className="services-intro">スポーツ領域で培った経験を軸に、業種を問わず<br className="desktop-break" />Web・モバイル開発、AI機能の導入・改善をご相談いただけます。</p><div className="service-list">{services.map(service => <article className="service-row" key={service.id}><div className="service-name"><span className="service-number mono">{service.number}</span><h3>{service.title}</h3><p className="service-audience">{service.audience}</p></div><div className="service-detail"><h4>{service.question}</h4><p>{service.description}</p><dl><div><dt>支援範囲</dt><dd>{service.scope}</dd></div><div><dt>想定成果物</dt><dd>{service.deliverable}</dd></div></dl><div className="service-actions"><Link href={`/?service=${service.id}#contact`} className="text-link" data-track="cta_click" data-location="services" data-service={service.id}>このテーマで相談 <ArrowUpRight size={18} aria-hidden="true" /></Link><Link href={service.link} className="subtle-link">{service.linkText} <ArrowRight size={15} aria-hidden="true" /></Link></div></div></article>)}</div>
       <Link href="/sports-dx" className="dx-banner" data-track="cta_click" data-location="services" data-service="sports-dx"><div><p className="section-label">自治体・競技団体・地域スポーツの皆さまへ</p><h3>現場で役立つかを、<br className="mobile-break" />小さな実証から。</h3><p>課題整理・実証設計・開発・効果検証まで。スポーツDX・AI実証支援</p></div><span className="circle-arrow"><ArrowUpRight size={28} aria-hidden="true" /></span></Link>
     </div></section>
+
+    <InsightsEntryPoints placement="home" />
 
     <section id="process" className="section process-section" aria-labelledby="process-title"><div className="wrap"><div className="section-heading"><p className="section-label"><span className="mono">04 /</span> ご相談からの進め方</p><h2 id="process-title" className="section-title">小さく確かめて、次の判断へ。</h2></div><div className="process-grid">{process.map((step,i) => <article key={step.title}><span className="step-number mono">0{i+1}<span aria-hidden="true">↗</span></span><h3>{step.title}</h3><p>{step.text}</p><span className="process-output">{step.output}</span></article>)}</div><div className="process-note"><p><strong>費用と期間は、目的と範囲を整理してから。</strong><br />検証・開発・運用を分け、まず必要な範囲をご提案します。着手前に成果物と条件を確認します。</p><Link href="#contact" className="text-link" data-track="cta_click" data-location="process">構想段階から相談する <ArrowUpRight size={18} aria-hidden="true" /></Link></div></div></section>
 

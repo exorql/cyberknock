@@ -1,0 +1,99 @@
+{
+  "origin": "http://127.0.0.1:45375",
+  "kind": "local optimized static export",
+  "date": "2026-11-04",
+  "checks": [
+    {
+      "route": "/",
+      "width": 320,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 320
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "analytics": "insight_click separate from cta_click",
+      "docWidth": 390
+    },
+    {
+      "route": "/",
+      "width": 768,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 768
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 1440
+    },
+    {
+      "route": "/ai-development",
+      "width": 320,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 320
+    },
+    {
+      "route": "/ai-development",
+      "width": 390,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "analytics": "insight_click separate from cta_click",
+      "docWidth": 390
+    },
+    {
+      "route": "/ai-development",
+      "width": 768,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 768
+    },
+    {
+      "route": "/ai-development",
+      "width": 1440,
+      "status": "PASS",
+      "linkCount": 3,
+      "hub": true,
+      "footer": true,
+      "correctOrder": true,
+      "docWidth": 1440
+    }
+  ],
+  "screenshots": [
+    "screenshots/home-390-insights-entrypoints.png",
+    "screenshots/home-1440-insights-entrypoints.png",
+    "screenshots/development-390-insights-entrypoints.png",
+    "screenshots/development-1440-insights-entrypoints.png"
+  ],
+  "errors": [],
+  "networkPosts": 0,
+  "sitemap": "PASS",
+  "status": "PASS"
+}

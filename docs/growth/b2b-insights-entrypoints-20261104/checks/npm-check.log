@@ -1,0 +1,133 @@
+
+> cyberknock@0.1.0 check
+> npm run typecheck && npm test && npm run build
+
+
+> cyberknock@0.1.0 typecheck
+> tsc --noEmit
+
+
+> cyberknock@0.1.0 test
+> node --experimental-strip-types --test tests/*.test.mjs
+
+(node:46124) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/timu/develop/cyberknock-insights-entrypoints-20261104/lib/analytics.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/timu/develop/cyberknock-insights-entrypoints-20261104/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ analytics discards form contents, emails, raw URLs, arbitrary values and parameter names (1.23ms)
+✔ path categories discard query/hash data and reject unknown paths (0.153ms)
+✔ no gtag configuration means no request, error or tracking fallback (0.094583ms)
+✔ existing gtag receives only allowlisted event and safe page category (0.116791ms)
+✔ custom events override implicit gtag location/referrer defaults and never include URL PII (0.178959ms)
+✔ manual page views use only canonical paths without raw query strings or referrers (0.077041ms)
+✔ store events retain only the two supported store categories (0.068ms)
+✔ method-level case study click is measured without raw URLs or PII (0.039208ms)
+(node:46125) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/timu/develop/cyberknock-insights-entrypoints-20261104/lib/b2b-insights.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/timu/develop/cyberknock-insights-entrypoints-20261104/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ B2B insight pages have unique, substantive, decision-focused content (1.407667ms)
+✔ new article pages are tracked by fixed GA4-safe URL mapping (0.28475ms)
+(node:46126) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/timu/develop/cyberknock-insights-entrypoints-20261104/lib/b2b-insights.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/timu/develop/cyberknock-insights-entrypoints-20261104/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ high-demand AI development company and contract terms appear naturally in the buyer guide (1.53625ms)
+✔ AI PoC retains its 100-1000 volume main query and includes PoC development (0.193792ms)
+✔ video analysis cost guide retains its specialist intent without misleading SEO claims (0.270833ms)
+✔ native source is described as Japan all-languages search bands, not exact values (0.360167ms)
+✔ valid minimum submission sends once to the existing environment destination (43.123ms)
+✔ optional budget can be undecided; email whitespace/fullwidth/domain are normalized (0.140125ms)
+✔ AI・プロダクト開発の公開相談元だけを固定語で通知する (0.471709ms)
+✔ blank mandatory values and missing consent cannot reach Slack (0.307583ms)
+✔ server rejects invalid optional values, objects, arrays, and field length violations (1.057792ms)
+✔ malformed JSON is a controlled response without exception or outbound request (0.119958ms)
+✔ unexpected origin or cross-site browser request is rejected; preview same origin works (0.253541ms)
+✔ content type and streamed body limit are enforced before delivery (0.264583ms)
+✔ filled honeypot is discarded without notifying anyone (0.122625ms)
+✔ long Japanese messages remain under Slack block limits and literal mentions stay plain text (0.223666ms)
+✔ missing delivery configuration is visible as failure, never a fake success (0.141167ms)
+✔ upstream failure and network exception do not expose service errors or secrets (0.3085ms)
+✔ non-POST method is rejected by the Cloudflare entry point (0.140625ms)
+✔ unnecessary manual line breaks remain absent from specified headings (0.81525ms)
+✔ the profile badge and redundant sports-DX evidence section are removed (0.200584ms)
+✔ B2B development hero remains broad and unambiguous (0.625917ms)
+✔ home hero communicates cross-industry AI and system development in two natural lines (0.772791ms)
+✔ lead CTAs take interested visitors to the contact form without unwanted sport preselection (0.069291ms)
+✔ buyer questions include general AI work and retain sport-specific validation examples (0.058042ms)
+(node:46131) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///Users/timu/develop/cyberknock-insights-entrypoints-20261104/lib/b2b-insights.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to /Users/timu/develop/cyberknock-insights-entrypoints-20261104/package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ homepage places compact insight links after services without replacing the inquiry CTA (0.726958ms)
+✔ general development LP shows buyer guidance after the FAQ and before the form (0.142917ms)
+✔ article links are sourced from the three public, non-client-specific insight URLs (0.150667ms)
+✔ article click is independently measured with allowlisted guide and no URL/PII (0.682791ms)
+✔ median rejects missing or invalid values instead of silently ignoring them (0.635291ms)
+✔ one noisy low performance sample does not fail a passing median (0.23475ms)
+✔ two measured failures still fail at the original 90-point target (0.623ms)
+✔ LCP and SEO are gated independently, while preview noindex SEO is excluded (0.127958ms)
+✔ unavailable navigation is not hidden by other good scores (0.067917ms)
+✔ audit errors remain surfaced even when the sampled median passes (0.069625ms)
+✔ no pre-contract client-specific pages are exposed by the public app or sitemap (0.855959ms)
+✔ only the generic B2B development referral is a recognized contact source (1.1995ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156.11575
+
+> cyberknock@0.1.0 build
+> next build
+
+ ⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/timu/package-lock.json as the root directory.
+ To silence this warning, set `outputFileTracingRoot` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats for more information.
+ Detected additional lockfiles:
+   * /Users/timu/develop/cyberknock-insights-entrypoints-20261104/pnpm-lock.yaml
+
+   ▲ Next.js 15.5.28
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 1321ms
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/16) ...
+   Generating static pages (4/16)
+   Generating static pages (8/16)
+   Generating static pages (12/16)
+ ✓ Generating static pages (16/16)
+   Finalizing page optimization ...
+   Collecting build traces ...
+   Exporting (0/2) ...
+ ✓ Exporting (2/2)
+
+Route (app)                                          Size  First Load JS
+┌ ○ /                                               547 B         113 kB
+├ ○ /_not-found                                     997 B         104 kB
+├ ○ /ai-development                               1.02 kB         114 kB
+├ ○ /cases/ai-sports-trainer                      1.42 kB         108 kB
+├ ○ /icon.svg                                         0 B            0 B
+├ ○ /insights                                     1.89 kB         109 kB
+├ ● /insights/[slug]                              1.89 kB         109 kB
+├   ├ /insights/ai-development-outsourcing-guide
+├   ├ /insights/ai-poc-process-evaluation
+├   └ /insights/ai-video-analysis-poc-cost
+├ ○ /privacy-policy                               1.42 kB         108 kB
+├ ○ /robots.txt                                     124 B         103 kB
+├ ○ /security                                     1.42 kB         108 kB
+├ ○ /sitemap.xml                                    124 B         103 kB
+└ ○ /sports-dx                                     1.7 kB         109 kB
++ First Load JS shared by all                      103 kB
+  ├ chunks/255-2005b055456c798b.js                46.7 kB
+  ├ chunks/4bd1b696-c023c6e3521b1417.js           54.2 kB
+  └ other shared chunks (total)                   1.94 kB
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)

@@ -66,6 +66,7 @@ export function SiteAnalytics() {
         location: target.dataset.location,
         service: target.dataset.service,
         store: target.dataset.store,
+        guide: target.dataset.guide,
       })
     }
     document.addEventListener("click", click)

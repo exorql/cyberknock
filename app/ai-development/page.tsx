@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/contact-form"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { projectSteps } from "@/components/development/project-steps"
+import { InsightsEntryPoints } from "@/components/insights-entrypoints"
 import styles from "./development.module.css"
 
 const title = "AI開発・PoC・Web／モバイルアプリ受託開発 | Cyber Knock"
@@ -218,6 +219,8 @@ export default function AiDevelopmentPage() {
             </div>
           </div>
         </section>
+
+        <InsightsEntryPoints placement="development" />
 
         <section id="contact" className={styles.contactArea} aria-labelledby="development-contact-title">
           <div className={`wrap ${styles.contactLayout}`}>

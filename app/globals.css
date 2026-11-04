@@ -153,6 +153,8 @@ dt { color: var(--muted); }
 .founder-identity .mono { font-size: 10px; margin: 3px 0 20px; }
 .profile-bio { color: var(--muted); font-size: 14px; line-height: 1.95; }
 .profile-bio p + p { margin-top: 15px; }
+.profile-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; margin-top: 23px; }
+.profile-actions .text-link, .profile-actions .subtle-link { font-size: 13px; }
 .business-facts { margin: 34px 0 20px; border-top: 1px solid var(--line); font-size: 13px; }
 .business-facts > div { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding-block: 15px; border-bottom: 1px solid var(--line); }
 .faq-section { border-top: 1px solid var(--line); }

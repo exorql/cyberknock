@@ -96,6 +96,18 @@ export default async function InsightPage({ params }: Props) {
               <h2 id="summary-heading">最初に押さえたいこと</h2>
               <ul>{article.summary.map(value => <li key={value}><CheckCircle2 size={19} aria-hidden="true" />{value}</li>)}</ul>
             </section>
+            {(article.slug === "ai-poc-process-evaluation" || article.slug === "ai-video-analysis-poc-cost") && (
+              <section className={styles.related} aria-labelledby="poc-request-template-heading">
+                <p className={styles.relatedOverline}>FREE RESOURCE / 見積依頼の準備</p>
+                <h2 id="poc-request-template-heading">PoCの検証条件を整理できるシート</h2>
+                <p>対象映像・評価指標・成功条件・納品物を1枚の記入項目にまとめました。
+                  発注前の整理や、複数社への見積依頼にそのまま使えます。機密動画のアップロードは不要です。</p>
+                <a href="/templates/ai-video-poc-request-template.txt" download="cyberknock-ai-video-poc-request-template.txt">
+                  AI動画解析・PoCの要件整理シートを保存（TXT） <ArrowUpRight size={18} aria-hidden="true" />
+                </a>
+              </section>
+            )}
+
             {article.sections.map((section, index) => (
               <section className={styles.bodySection} aria-labelledby={`section-title-${index + 1}`} id={`section-${index + 1}`} key={section.heading}>
                 <h2 id={`section-title-${index + 1}`}>{section.heading}</h2>

@@ -11,6 +11,7 @@ test('path categories discard query/hash data and reject unknown paths', () => {
   assert.equal(pageCategory('/sports-dx?email=qa@example.com#contact'), 'sports_dx');
   assert.equal(pageCategory('/cases/ai-sports-trainer/'), 'case_study');
   assert.equal(pageCategory('/ai-development?client=private'), 'ai_development');
+  assert.equal(pageCategory('/demos/ai-sports-trainer?email=private@example.com'), 'ai_demo');
   assert.equal(pageCategory('/ai-development/soccer-player-tracking?email=qa@example.com'), 'other');
   assert.equal(pageCategory('/ai-development/kyudo-motion-analysis#private'), 'other');
   assert.equal(pageCategory('/private-user-name'), 'other');

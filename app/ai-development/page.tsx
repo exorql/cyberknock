@@ -152,6 +152,9 @@ export default function AiDevelopmentPage() {
                 <Link className={`text-link ${styles.proofAction}`} href="/cases/ai-sports-trainer" data-track="case_study_click" data-location="ai_development">
                   自社プロダクトの開発・運用事例 <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
+                <Link className="text-link" href="/demos/ai-sports-trainer" data-track="demo_click" data-location="ai_development">
+                  動画分析の実画面デモを見る <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
               </article>
               <article className={styles.proofCard}>
                 <div className={styles.proofCardTop}><span>APPROACH</span><small>案件に合わせた開発範囲</small></div>

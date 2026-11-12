@@ -145,7 +145,7 @@ export default async function InsightPage({ params }: Props) {
               <p className={styles.relatedOverline}>FURTHER READING</p>
               <h2 id="related-title">関連するサービスと実績</h2>
               <p>自社アプリの開発・運用実績と、AI・プロダクト開発の相談窓口をご案内します。未契約の個別案件を実績として紹介することはありません。</p>
-              {article.relatedResources.map(item => <Link key={item.href} href={item.href}>{item.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>)}
+              {article.relatedResources.map(item => <Link key={item.href} href={item.href} {...(item.href.startsWith("/demos/") ? { "data-track": "demo_click", "data-location": "content" } : {})}>{item.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>)}
               <Link href="/insights">技術・PoCガイドの一覧へ<ArrowLeft size={18} aria-hidden="true" /></Link>
             </section>
           </article>

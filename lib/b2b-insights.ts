@@ -314,7 +314,7 @@ export const insights: InsightArticle[] = [
       {question:"無料トライアルや固定料金のPoCはありますか？",answer:"このページでは固定料金や無料提供を確約していません。検証内容と必要な成果物を確認してからご案内します。"},
       {question:"スポーツ以外の動画も対象ですか？",answer:"技術的に適合する場合は相談可能です。現在の具体例はスポーツ映像を中心としています。"}
     ],
-    relatedResources:[{label:"AIスポーツトレーナー：自社アプリの開発・運用",href:"/cases/ai-sports-trainer"},{label:"AI・プロダクト開発の受託相談",href:"/ai-development"}],
+    relatedResources:[{label:"AIスポーツトレーナー：自社アプリの開発・運用",href:"/cases/ai-sports-trainer"},{label:"実画面デモ：AI動画解析からフィードバックまで",href:"/demos/ai-sports-trainer"},{label:"AI・プロダクト開発の受託相談",href:"/ai-development"}],
   },
 
 ] as const

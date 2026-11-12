@@ -15,7 +15,7 @@ export function BrandMark() {
 }
 export function SiteHeader() {
   const pathname = usePathname()
-  const contactHref = pathname === "/ai-development" || pathname?.startsWith("/insights") ? "/ai-development#contact" : "/#contact"
+  const contactHref = pathname === "/ai-development" || pathname?.startsWith("/insights") || pathname?.startsWith("/demos") ? "/ai-development#contact" : "/#contact"
   const [open, setOpen] = useState(false)
   const toggle = useRef<HTMLButtonElement>(null)
   useEffect(() => {

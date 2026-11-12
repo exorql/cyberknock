@@ -37,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.68,
     })),
     {
+      url: `${baseUrl}/demos/ai-sports-trainer`,
+      lastModified: new Date("2026-11-12"),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/cases/ai-sports-trainer`,
       lastModified: new Date(),
       changeFrequency: "monthly",

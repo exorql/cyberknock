@@ -1,5 +1,5 @@
 /** Only fixed vocabulary can leave the page. Never add contact fields or raw URLs. */
-export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
+export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "demo_click", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 const allowedValues: Record<string, readonly string[]> = {
@@ -8,7 +8,7 @@ const allowedValues: Record<string, readonly string[]> = {
   store: ["app_store", "google_play"],
   guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "other"],
+  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "ai_demo", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
 }
 
@@ -24,6 +24,7 @@ const safePagePaths: Record<string, string> = {
   insight_cost: "/insights/ai-video-analysis-poc-cost",
   insight_poc: "/insights/ai-poc-process-evaluation",
   insight_outsourcing: "/insights/ai-development-outsourcing-guide",
+  ai_demo: "/demos/ai-sports-trainer",
   other: "/",
 }
 
@@ -35,6 +36,7 @@ export function pageCategory(path: string): string {
     "/insights": "insights", "/insights/ai-video-analysis-poc-cost": "insight_cost",
     "/insights/ai-poc-process-evaluation": "insight_poc",
     "/insights/ai-development-outsourcing-guide": "insight_outsourcing",
+    "/demos/ai-sports-trainer": "ai_demo",
   }
   const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "ai-development": "ai_development" }
   return (Object.hasOwn(pages, cleanPath) ? pages[cleanPath] : undefined) || (Object.hasOwn(aliases, cleanPath) ? aliases[cleanPath] : undefined) || (allowedValues.page.includes(cleanPath) ? cleanPath : "other")

@@ -48,7 +48,7 @@ test("article click is independently measured with allowlisted guide and no URL/
   assert.deepEqual(safeAnalyticsParams({ guide: "private-user-name" }), {})
   const calls = []
   global.window = {
-    location: new URL("https://cyberknock.pages.dev/ai-development?email=private@example.com"),
+    location: new URL("https://harutowatanabe.com/ai-development?email=private@example.com"),
     gtag: (...args) => calls.push(args),
   }
   try {
@@ -58,7 +58,7 @@ test("article click is independently measured with allowlisted guide and no URL/
     assert.equal(calls[0][2].page, "ai_development")
     assert.equal(calls[0][2].guide, "ai-development-outsourcing-guide")
     assert.equal(calls[0][2].location, "content")
-    assert.equal(calls[0][2].page_location, "https://cyberknock.pages.dev/ai-development")
+    assert.equal(calls[0][2].page_location, "https://harutowatanabe.com/ai-development")
     assert.equal(calls[0][2].page_referrer, "")
     assert.ok(!JSON.stringify(calls).includes("private@example.com"))
   } finally {

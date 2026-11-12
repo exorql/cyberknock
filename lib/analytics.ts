@@ -12,7 +12,7 @@ const allowedValues: Record<string, readonly string[]> = {
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
 }
 
-const siteOrigin = "https://cyberknock.pages.dev"
+const siteOrigin = "https://harutowatanabe.com"
 const safePagePaths: Record<string, string> = {
   home: "/",
   sports_dx: "/sports-dx",

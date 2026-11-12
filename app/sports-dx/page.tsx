@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { SportsDxContent } from "./content"
 
 
-const siteUrl = "https://cyberknock.pages.dev"
+const siteUrl = "https://harutowatanabe.com"
 
 export const metadata: Metadata = {
   title: "自治体・スポーツ団体向けスポーツDX・AI実証支援 | Cyber Knock",

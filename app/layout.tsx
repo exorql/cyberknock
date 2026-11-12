@@ -5,7 +5,7 @@ import "./art-direction.css"
 import { SiteAnalytics } from "@/components/site-analytics"
 
 
-const siteUrl = "https://cyberknock.pages.dev"
+const siteUrl = "https://harutowatanabe.com"
 const siteTitle = "Cyber Knock | AI・システム開発・PoC・アプリ開発"
 const siteDescription =
   "AI機能の技術検証（PoC）、動画解析、Web・モバイルアプリ開発から公開後の改善まで。自社アプリの開発・運用経験を活かし、業種を問わず新規サービス開発とAI活用を支援します。"

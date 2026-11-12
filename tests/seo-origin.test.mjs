@@ -16,16 +16,16 @@ test("public metadata, structured data, and analytics use the verified custom do
   for (const path of sourceFiles) {
     const src = read(path)
     assert.doesNotMatch(src, /https:\/\/cyberknock\.pages\.dev/, path + " still points to Pages preview hostname")
-    assert.match(src, /https:\/\/harutowatanabe\.com/, path + " is missing the official origin")
+    assert.match(src, /https:\/\/cyberknock\.jp/, path + " is missing the official origin")
   }
 })
 
 test("root metadata, sitemap and robots agree on the custom domain", () => {
-  assert.match(read("app/layout.tsx"), /const siteUrl = "https:\/\/harutowatanabe\.com"/)
+  assert.match(read("app/layout.tsx"), /const siteUrl = "https:\/\/cyberknock\.jp"/)
   assert.match(read("app/layout.tsx"), /metadataBase: new URL\(siteUrl\)/)
-  assert.match(read("app/robots.ts"), /https:\/\/harutowatanabe\.com\/sitemap\.xml/)
-  assert.match(read("app/sitemap.ts"), /const baseUrl = "https:\/\/harutowatanabe\.com"/)
-  assert.match(read("lib/site.ts"), /url: "https:\/\/harutowatanabe\.com"/)
-  assert.match(read("lib/analytics.ts"), /const siteOrigin = "https:\/\/harutowatanabe\.com"/)
-  assert.match(read("scripts/audit-lighthouse.mjs"), /const publicOrigin = 'https:\/\/harutowatanabe\.com'/)
+  assert.match(read("app/robots.ts"), /https:\/\/cyberknock\.jp\/sitemap\.xml/)
+  assert.match(read("app/sitemap.ts"), /const baseUrl = "https:\/\/cyberknock\.jp"/)
+  assert.match(read("lib/site.ts"), /url: "https:\/\/cyberknock\.jp"/)
+  assert.match(read("lib/analytics.ts"), /const siteOrigin = "https:\/\/cyberknock\.jp"/)
+  assert.match(read("scripts/audit-lighthouse.mjs"), /const publicOrigin = 'https:\/\/cyberknock\.jp'/)
 })

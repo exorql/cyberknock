@@ -1,5 +1,5 @@
 export const site = {
-  name: "Cyber Knock", url: "https://harutowatanabe.com",
+  name: "Cyber Knock", url: "https://cyberknock.jp",
   appUrl: "https://ai-sportstrainer.com",
   appStore: "https://apps.apple.com/jp/app/id6742685461",
   googlePlay: "https://play.google.com/store/apps/details?id=com.harutowatanabe.mealier",

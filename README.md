@@ -2,7 +2,7 @@
 
 Cyber Knock公式サイトのソース。スポーツAI・動画分析、Web／モバイルプロダクト開発、AI品質改善、開発顧問、自治体・競技団体の実証支援を紹介する。
 
-公開サイト（正規ドメイン）: [https://harutowatanabe.com/](https://harutowatanabe.com/)
+公開サイト（正規ドメイン）: [https://cyberknock.jp/](https://cyberknock.jp/)
 
 Cloudflare Pagesのcyberknock.pages.devは配信ホストとして残る場合があります。canonical、構造化データ、サイトマップ、OG URL、GA4ページURLは独自ドメインへ統一します。
 

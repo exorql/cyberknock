@@ -28,7 +28,7 @@ function ensureSiteGa4(): boolean {
   analyticsWindow.gtag("js", new Date())
   analyticsWindow.gtag("config", id, {
     send_page_view: false,
-    page_location: "https://harutowatanabe.com/",
+    page_location: "https://cyberknock.jp/",
     page_referrer: "",
     allow_google_signals: false,
     allow_ad_personalization_signals: false,

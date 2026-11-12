@@ -31,15 +31,15 @@ test("B2B insight pages have unique, substantive, decision-focused content", () 
 
 test("new article pages are tracked by fixed GA4-safe URL mapping", () => {
   const cases = [
-    ["/insights", "insights", "https://cyberknock.pages.dev/insights"],
-    ["/insights/ai-video-analysis-poc-cost", "insight_cost", "https://cyberknock.pages.dev/insights/ai-video-analysis-poc-cost"],
-    ["/insights/ai-poc-process-evaluation", "insight_poc", "https://cyberknock.pages.dev/insights/ai-poc-process-evaluation"],
-    ["/insights/ai-development-outsourcing-guide", "insight_outsourcing", "https://cyberknock.pages.dev/insights/ai-development-outsourcing-guide"],
+    ["/insights", "insights", "https://cyberknock.jp/insights"],
+    ["/insights/ai-video-analysis-poc-cost", "insight_cost", "https://cyberknock.jp/insights/ai-video-analysis-poc-cost"],
+    ["/insights/ai-poc-process-evaluation", "insight_poc", "https://cyberknock.jp/insights/ai-poc-process-evaluation"],
+    ["/insights/ai-development-outsourcing-guide", "insight_outsourcing", "https://cyberknock.jp/insights/ai-development-outsourcing-guide"],
   ]
   for (const [path, category, canonical] of cases) {
     assert.equal(pageCategory(path + "?name=private&email=qa@example.com"), category)
     const calls = []
-    global.window = { location: new URL("https://cyberknock.pages.dev" + path + "?name=private&email=qa@example.com"), gtag: (...args) => calls.push(args) }
+    global.window = { location: new URL("https://cyberknock.jp" + path + "?name=private&email=qa@example.com"), gtag: (...args) => calls.push(args) }
     try {
       trackEvent("page_view")
       assert.equal(calls.length, 1)

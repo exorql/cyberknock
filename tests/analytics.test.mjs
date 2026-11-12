@@ -28,7 +28,7 @@ test('existing gtag receives only allowlisted event and safe page category', () 
   global.window = { location: { pathname: '/sports-dx' }, gtag: (...args) => calls.push(args) };
   trackEvent('cta_click', { location: 'hero', email: 'qa@example.com', page: 'https://private.example' });
   trackEvent('private-event', { location: 'hero' });
-  assert.deepEqual(calls, [['event', 'cta_click', { location: 'hero', page: 'sports_dx', page_location: 'https://cyberknock.pages.dev/sports-dx', page_referrer: '' }]]);
+  assert.deepEqual(calls, [['event', 'cta_click', { location: 'hero', page: 'sports_dx', page_location: 'https://cyberknock.jp/sports-dx', page_referrer: '' }]]);
   global.window.gtag = () => { throw new Error('tracker unavailable'); };
   assert.doesNotThrow(() => trackEvent('contact_form_success'));
   delete global.window;
@@ -49,14 +49,14 @@ test('custom events override implicit gtag location/referrer defaults and never 
   try {
     trackEvent('contact_form_start', { source: 'sports_dx', page_location: global.window.location.href, page_referrer: global.document.referrer });
     assert.equal(calls.length, 1);
-    assert.equal(calls[0].effectiveLocation, 'https://cyberknock.pages.dev/sports-dx');
+    assert.equal(calls[0].effectiveLocation, 'https://cyberknock.jp/sports-dx');
     assert.equal(calls[0].effectiveReferrer, '');
     assert.ok(!/qa|example\.com|private-person|private-message|preview\.|referrer\.example|email=|name=/.test(JSON.stringify(calls)));
 
     global.window.location = new URL('https://preview.example/private-person?email=qa@example.com');
     trackEvent('cta_click');
     assert.equal(calls[1].params.page, 'other');
-    assert.equal(calls[1].effectiveLocation, 'https://cyberknock.pages.dev/');
+    assert.equal(calls[1].effectiveLocation, 'https://cyberknock.jp/');
     assert.equal(calls[1].effectiveReferrer, '');
   } finally { delete global.window; delete global.document; }
 });
@@ -64,7 +64,7 @@ test('custom events override implicit gtag location/referrer defaults and never 
 test('manual page views use only canonical paths without raw query strings or referrers', () => {
   const calls = [];
   global.window = {
-    location: new URL('https://cyberknock.pages.dev/ai-development?name=private&email=qa@example.com'),
+    location: new URL('https://cyberknock.jp/ai-development?name=private&email=qa@example.com'),
     gtag: (...args) => calls.push(args),
   };
   try {
@@ -72,7 +72,7 @@ test('manual page views use only canonical paths without raw query strings or re
     assert.equal(calls.length, 1);
     assert.equal(calls[0][1], 'page_view');
     assert.equal(calls[0][2].page, 'ai_development');
-    assert.equal(calls[0][2].page_location, 'https://cyberknock.pages.dev/ai-development');
+    assert.equal(calls[0][2].page_location, 'https://cyberknock.jp/ai-development');
     assert.equal(calls[0][2].page_referrer, '');
     assert.ok(!JSON.stringify(calls).includes('qa@example.com'));
   } finally { delete global.window; }

@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { findInsight, insights } from "@/lib/b2b-insights"
 import styles from "../insights.module.css"
 
-const origin = "https://cyberknock.pages.dev"
+const origin = "https://cyberknock.jp"
 type Props = { params: Promise<{ slug: string }> }
 
 export function generateStaticParams() {

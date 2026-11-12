@@ -13,7 +13,7 @@ const execute = promisify(execFile);
 const version = '12.8.2';
 const output = resolve('docs/redesign-20261102/lighthouse');
 const localOrigin = 'http://127.0.0.1:4173';
-const publicOrigin = 'https://cyberknock.pages.dev';
+const publicOrigin = 'https://cyberknock.jp';
 const enforce = process.argv.includes('--enforce');
 const options = Object.fromEntries(process.argv.slice(2).filter(value => value.includes('=')).map(value => {
   const delimiter = value.indexOf('=');

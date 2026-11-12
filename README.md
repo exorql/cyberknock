@@ -2,7 +2,9 @@
 
 Cyber Knock公式サイトのソース。スポーツAI・動画分析、Web／モバイルプロダクト開発、AI品質改善、開発顧問、自治体・競技団体の実証支援を紹介する。
 
-公開サイト: [https://cyberknock.pages.dev/](https://cyberknock.pages.dev/)
+公開サイト（正規ドメイン）: [https://cyberknock.jp/](https://cyberknock.jp/)
+
+Cloudflare Pagesのcyberknock.pages.devは配信ホストとして残る場合があります。canonical、構造化データ、サイトマップ、OG URL、GA4ページURLは独自ドメインへ統一します。
 
 Next.jsの静的出力をCloudflare Pagesへ配信し、問い合わせだけをCloudflare Pages Functionで処理する構成。開発・テスト・buildのコマンドに本番公開処理は含まれない。**本番への公開、mainへのマージは明示的な承認を得てから行う。**
 

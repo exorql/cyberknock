@@ -3,7 +3,7 @@ import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
-const siteUrl = "https://cyberknock.pages.dev"
+const siteUrl = "https://cyberknock.jp"
 const title = "プライバシーポリシー | Cyber Knock"
 const description = "Cyber Knockのウェブサイトにおける個人情報の利用目的、第三者提供、開示・訂正・削除、お問い合わせ窓口について定めたプライバシーポリシーです。"
 

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     type: "website",
     title: "AI開発・PoC・外注の技術ガイド | Cyber Knock",
     description: "AI開発の外注・PoC・費用を検討する企業向けのガイド。",
-    url: "https://cyberknock.pages.dev/insights",
+    url: "https://cyberknock.jp/insights",
     locale: "ja_JP",
   },
 }

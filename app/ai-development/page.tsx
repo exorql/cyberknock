@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/ai-development" },
-  openGraph: { title, description, url: "https://cyberknock.pages.dev/ai-development", type: "website", locale: "ja_JP" },
+  openGraph: { title, description, url: "https://cyberknock.jp/ai-development", type: "website", locale: "ja_JP" },
   twitter: { card: "summary_large_image", title, description },
 }
 
@@ -66,9 +66,9 @@ const schema = [
     "@type": "Service",
     name: "AI開発・PoC・Web／モバイルアプリ受託開発",
     serviceType: "AI機能開発、技術検証（PoC）、Webサービス・モバイルアプリ開発",
-    provider: { "@type": "Organization", name: "Cyber Knock", url: "https://cyberknock.pages.dev" },
+    provider: { "@type": "Organization", name: "Cyber Knock", url: "https://cyberknock.jp" },
     areaServed: "JP",
-    url: "https://cyberknock.pages.dev/ai-development",
+    url: "https://cyberknock.jp/ai-development",
     description,
   },
   {

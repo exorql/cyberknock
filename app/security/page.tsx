@@ -3,7 +3,7 @@ import Link from "next/link"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
-const siteUrl = "https://cyberknock.pages.dev"
+const siteUrl = "https://cyberknock.jp"
 
 export const metadata: Metadata = {
   title: "AI・スポーツ動画データの取り扱いについて | Cyber Knock",
@@ -61,13 +61,13 @@ const jsonLd = {
           "@type": "ListItem",
           position: 1,
           name: "Cyber Knock",
-          item: "https://cyberknock.pages.dev/",
+          item: "https://cyberknock.jp/",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "データの取り扱い",
-          item: "https://cyberknock.pages.dev/security",
+          item: "https://cyberknock.jp/security",
         },
       ],
     },

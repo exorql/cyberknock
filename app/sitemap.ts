@@ -4,7 +4,7 @@ import type { MetadataRoute } from "next"
 import { insights } from "@/lib/b2b-insights"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://cyberknock.pages.dev"
+  const baseUrl = "https://harutowatanabe.com"
   return [
     {
       url: baseUrl,

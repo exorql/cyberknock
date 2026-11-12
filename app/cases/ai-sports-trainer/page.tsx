@@ -3,7 +3,7 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { CaseStudyContent } from "./content"
 
-const siteUrl = "https://cyberknock.pages.dev"
+const siteUrl = "https://harutowatanabe.com"
 
 export const metadata: Metadata = {
   title: "AIスポーツトレーナー 開発・運用事例 | スポーツAI・動画分析 | Cyber Knock",

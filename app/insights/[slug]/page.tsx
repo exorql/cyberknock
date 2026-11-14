@@ -19,12 +19,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = findInsight(slug)
   if (!article) return { title: "記事が見つかりません | Cyber Knock", robots: { index: false } }
   const url = `/insights/${slug}`
+  const fullTitle = `${article.title} | Cyber Knock`
   return {
-    title: `${article.title} | Cyber Knock`,
+    title: fullTitle,
     description: article.description,
     alternates: { canonical: url },
-    openGraph: { type: "article", title: article.title, description: article.description, url: origin + url, locale: "ja_JP" },
-    twitter: { card: "summary_large_image", title: article.title, description: article.description },
+    openGraph: {
+      type: "article",
+      title: fullTitle,
+      description: article.description,
+      url: origin + url,
+      siteName: "Cyber Knock",
+      locale: "ja_JP",
+      images: [{ url: "/images/og/cyberknock-b2b.png", width: 1200, height: 630, alt: fullTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: fullTitle,
+      description: article.description,
+      images: ["/images/og/cyberknock-b2b.png"],
+    },
   }
 }
 
@@ -86,7 +100,8 @@ export default async function InsightPage({ params }: Props) {
             </nav>
             <div className={styles.sideContact}>
               <p>開発できるか、まず確かめたい方へ</p>
-              <Link href="/ai-development#contact">開発について相談する <ArrowUpRight size={17} aria-hidden="true" /></Link>
+              <Link href="/ai-development#contact" data-track="cta_click" data-location="content">開発について相談する（無料） <ArrowUpRight size={17} aria-hidden="true" /></Link>
+              <Link href="/ai-development" style={{ marginTop: 8, fontSize: 12 }}>法人向けAI開発LPを見る <ArrowRight size={15} aria-hidden="true" /></Link>
             </div>
           </aside>
 

@@ -137,8 +137,9 @@ export const insights: InsightArticle[] = [
       { question: "PoCなしでWebやモバイルアプリを開発できますか？", answer: "要件や方式が明確ならPoCを独立させずに実装から着手する場合もあります。必要なデータの適合性や品質が不明な場合は先に検証します。" },
     ],
     relatedResources: [
+      { label: "AI・プロダクト開発の受託相談（法人向けLP）", href: "/ai-development" },
+      { label: "実画面デモ：AI動画解析からフィードバックまで", href: "/demos/ai-sports-trainer" },
       { label: "AIスポーツトレーナー：自社アプリの開発・運用", href: "/cases/ai-sports-trainer" },
-      { label: "AI・プロダクト開発の受託相談", href: "/ai-development" },
     ],
   },  {
     slug: "ai-poc-process-evaluation",
@@ -250,8 +251,9 @@ export const insights: InsightArticle[] = [
       { question: "PoCが成功したらすぐ本番で使えますか？", answer: "技術的に成立することと、品質、UI、運用・保守・権限が整っていることは別です。本番開発の受入条件を改めて確認します。" },
     ],
     relatedResources: [
+      { label: "AI・プロダクト開発の受託相談（法人向けLP）", href: "/ai-development" },
+      { label: "実画面デモ：AI動画解析からフィードバックまで", href: "/demos/ai-sports-trainer" },
       { label: "AIスポーツトレーナー：自社アプリの開発・運用", href: "/cases/ai-sports-trainer" },
-      { label: "AI・プロダクト開発の受託相談", href: "/ai-development" },
     ],
   },
   {

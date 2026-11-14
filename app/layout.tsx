@@ -22,17 +22,19 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
+    title: siteTitle,
     description: siteDescription,
     url: siteUrl,
     siteName: "Cyber Knock",
     type: "website",
     locale: "ja_JP",
+    images: [{ url: "/images/og/cyberknock-b2b.png", width: 1200, height: 630, alt: siteTitle }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cyber Knock | スポーツAI・動画解析のPoC・アプリ開発",
+    title: siteTitle,
     description: siteDescription,
+    images: ["/images/og/cyberknock-b2b.png"],
   },
   verification: {
     google: "ib75LQ9trTgK_ExlWI9S7ZRaNfGtWg6O_8fJT3PN_d0",

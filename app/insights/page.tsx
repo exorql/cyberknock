@@ -6,16 +6,27 @@ import { SiteFooter } from "@/components/site-footer"
 import { insights } from "@/lib/b2b-insights"
 import styles from "./insights.module.css"
 
+const title = "AI開発・PoC・外注の判断ガイド｜費用・進め方・会社選び | Cyber Knock"
+const description = "AI・プロダクト開発の発注前に確認したい外注先の選び方、PoCの進め方、動画解析の開発費用を解説。企業の事業担当者向けガイド。"
+
 export const metadata: Metadata = {
-  title: "AI開発・PoC・外注の判断ガイド｜費用・進め方・会社選び | Cyber Knock",
-  description: "AI・プロダクト開発の発注前に確認したい外注先の選び方、PoCの進め方、動画解析の開発費用を解説。企業の事業担当者向けガイド。",
+  title,
+  description,
   alternates: { canonical: "/insights" },
   openGraph: {
     type: "website",
-    title: "AI開発・PoC・外注の技術ガイド | Cyber Knock",
-    description: "AI開発の外注・PoC・費用を検討する企業向けのガイド。",
+    title,
+    description,
     url: "https://cyberknock.jp/insights",
+    siteName: "Cyber Knock",
     locale: "ja_JP",
+    images: [{ url: "/images/og/cyberknock-b2b.png", width: 1200, height: 630, alt: title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/images/og/cyberknock-b2b.png"],
   },
 }
 

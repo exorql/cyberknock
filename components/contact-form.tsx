@@ -148,7 +148,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
     <div className="form-success" role="status">
       <CheckCircle2 size={36} aria-hidden="true" />
       <h3 ref={successRef} tabIndex={-1}>ご相談を受け付けました。</h3>
-      <p>内容を確認し、2営業日以内にご入力のメールアドレスへご連絡します。</p>
+      <p>内容を確認のうえ、ご入力のメールアドレスへ順次ご連絡します。</p>
       <p className="form-meta">返信が届かない場合は、迷惑メールフォルダもご確認ください。</p>
       <Link href="/cases/ai-sports-trainer" className="text-link" data-track="case_study_click" data-location="contact">開発・運用事例を見る <ArrowUpRight size={18} aria-hidden="true" /></Link>
     </div>
@@ -200,7 +200,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
       </div>
       {error && <div className="form-alert" role="alert">{error}</div>}
       <button type="submit" className="button button-primary" disabled={sending}>{sending ? "送信しています…" : "相談内容を送信する"}<ArrowUpRight size={20} aria-hidden="true" /></button>
-      <p className="form-meta" aria-live="polite">{sending ? "このままお待ちください。" : "内容を確認し、2営業日以内にご連絡します。"}</p>
+      <p className="form-meta" aria-live="polite">{sending ? "このままお待ちください。" : "内容を確認のうえ、代表より順次ご連絡します。"}</p>
     </form>
   )
 }

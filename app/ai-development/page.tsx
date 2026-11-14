@@ -1,71 +1,105 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, ArrowUpRight, ArrowDownRight } from "lucide-react"
+import { ArrowRight, ArrowUpRight, ArrowDownRight, Check } from "lucide-react"
 import { ContactForm } from "@/components/contact-form"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { projectSteps } from "@/components/development/project-steps"
+import { DemoVideoPlayer } from "@/components/development/demo-video-player"
 import { InsightsEntryPoints } from "@/components/insights-entrypoints"
+import { site } from "@/lib/site"
 import styles from "./development.module.css"
 
-const title = "AI開発・PoC・Web／モバイルアプリ受託開発 | Cyber Knock"
-const description = "AI機能開発、動画解析、Web・モバイルアプリ開発。課題の整理・構想から、必要に応じた技術検証（PoC）、プロダクト実装・改善まで。Cyber Knockにご相談ください。"
+const title = "AI開発・PoC・Web／モバイルアプリ受託開発｜動画解析・生成AI | Cyber Knock"
+const description =
+  "AI機能開発、動画解析、Web・モバイルアプリ開発。自社アプリ「AIスポーツトレーナー」の開発・運用実績をもとに、課題整理・必要に応じた有償PoCから生成AI組み込み・本番実装まで一貫支援します。"
+const ogImage = "/images/og/cyberknock-b2b.png"
 
 export const metadata: Metadata = {
   title,
   description,
   alternates: { canonical: "/ai-development" },
-  openGraph: { title, description, url: "https://cyberknock.jp/ai-development", type: "website", locale: "ja_JP" },
-  twitter: { card: "summary_large_image", title, description },
+  openGraph: {
+    title,
+    description,
+    url: "https://cyberknock.jp/ai-development",
+    siteName: "Cyber Knock",
+    type: "website",
+    locale: "ja_JP",
+    images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [ogImage],
+  },
 }
 
-const topics = [
+const capabilities = [
   {
     number: "01",
-    title: "AI機能を、事業や既存サービスに組み込みたい",
-    description: "生成AIや動画解析など、目的とデータに応じてAI機能を設計。必要な品質・コスト・利用時の確認方法を整理します。",
+    code: "VIDEO & IMAGE AI",
+    title: "動画・画像解析AI",
+    description:
+      "カメラ映像やスマートフォン撮影動画からの姿勢推定・骨格検出、フォーム・動作解析、特定シーンの検出・切り出しなどを設計・実装します。撮影条件の整理から評価基準の策定まで対応します。",
+    scope: "対応例：スポーツ・フィットネス動作解析、現場作業・トレーニング映像の振り返り支援など",
   },
   {
     number: "02",
-    title: "新しいWeb・モバイルアプリをつくりたい",
-    description: "構想段階の要件整理から、画面設計・API・クラウド・アプリ実装まで。必要最小限の機能から検討します。",
+    code: "GENERATIVE AI",
+    title: "生成AIの既存サービスへの組み込み",
+    description:
+      "LLM・マルチモーダルAIを既存のWebサービスや業務システム、アプリへ統合します。プロンプト設計だけでなく、出力の構造化・検証、例外時の制御、推論コストと応答時間の最適化まで実装します。",
+    scope: "対応例：解析結果の自動レポート生成、業務知識の検索・要約補助、利用者向けフィードバック生成など",
   },
   {
     number: "03",
-    title: "PoCの先も見据えて、改善・運用したい",
-    description: "技術的に動くかだけでなく、使う人の体験と継続運用を確認。計測や改善につながる開発範囲を考えます。",
+    code: "POC & MVP",
+    title: "PoC（技術検証）・MVP開発",
+    description:
+      "「自社の映像やデータでどこまで認識・自動化できるか」を確かめる有償PoCから、実際の業務・顧客体験で価値を検証するMVP（最小実用プロダクト）の開発まで対応。次の投資判断に使える検証結果を残します。",
+    scope: "成果物例：検証用プロトタイプ、評価データに対する達成・未達レポート、本開発の要件・見積前提",
   },
-]
+  {
+    number: "04",
+    code: "WEB & MOBILE APP",
+    title: "Web・iOS・Androidアプリ開発",
+    description:
+      "AIモデルやAPI単体で終わらせず、現場担当者やエンドユーザーが迷わず使える画面（Next.js / React / React Native / TypeScript）とクラウド基盤（Firebase / Google Cloud 等）を一貫して開発・公開します。",
+    scope: "対応範囲：UI/UX設計、フロントエンド・モバイル実装、API・認証・課金基盤、ストア公開・継続改善",
+  },
+] as const
 
 const faqs = [
   {
-    q: "何を開発すべきか決まっていなくても相談できますか？",
-    a: "はい。解決したい業務課題、想定利用者、現在の運用と、次に判断したいことから整理できます。最初から詳細な仕様書は必要ありません。",
+    q: "仕様書や予算が決まっていなくても相談できますか？",
+    a: "はい。解決したい業務課題、想定利用者、現在の運用状況から一緒に整理できます。実現可能性の切り分けや、最初に検証・実装すべき範囲をご案内します。",
   },
   {
-    q: "すべての案件でPoCを実施する必要がありますか？",
-    a: "いいえ。技術的な不確実性が高い機能は小さなPoCを先に行うことがありますが、既存技術で実現方法が明確な場合は要件整理から実装へ進む方法も検討できます。",
+    q: "すべての案件でPoC（技術検証）を実施する必要がありますか？",
+    a: "いいえ。既存技術やAPIで実現方式が明確な場合は、PoCを挟まず要件定義やMVP実装から進める方が合理的です。映像条件やAIの認識品質に不確実性がある場合のみ、対象を絞った有償PoCをご提案します。",
   },
   {
-    q: "動画解析以外のAI開発やWeb・モバイル開発も対象ですか？",
-    a: "はい。AI機能の組み込み、Webサービス、iOS・Android向けアプリなども相談対象です。実際に対応できる範囲は要件や体制を確認してご案内します。",
+    q: "スポーツ以外の業界のAI開発やWeb・モバイル開発も相談できますか？",
+    a: "はい。現在公開している実績は自社アプリ「AIスポーツトレーナー」ですが、そこで培った動画・画像解析、生成AI組み込み、Web・iOS・Androidアプリ開発の技術基盤を活かし、業種を問わずご相談に対応しています。",
   },
   {
-    q: "費用や期間はどのように決まりますか？",
-    a: "利用目的、必要機能、外部連携、評価項目、運用要件に応じて変わります。固定の料金や納期を先に保証せず、見積可能な範囲に整理してからご提案します。",
+    q: "初回の問い合わせフォームで、検証用の動画や機密データを送る必要はありますか？",
+    a: "いいえ、初回フォームでの動画や機密資料の添付は不要です。まずは文章で課題の概要をお知らせください。実データの確認が必要な段階になりましたら、NDA（秘密保持契約）や安全な共有・削除手順を合意したうえでお預かりします。",
   },
   {
-    q: "公開されている実績は何ですか？",
-    a: "自社プロダクト「AIスポーツトレーナー」の開発・運用経験を掲載しています。契約前の案件や顧客の非公開情報を実績として紹介することはありません。",
+    q: "費用や期間、成果物の権利はどのように決まりますか？",
+    a: "対象データの条件、開発範囲（PoCのみ／アプリ・API実装まで）、評価項目、運用要件に応じて個別にお見積もりします。NDA、契約形態（準委任・請負）、成果物および知的財産権の帰属は、着手前に契約書で明確に定めます。",
   },
-]
+] as const
 
 const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Service",
     name: "AI開発・PoC・Web／モバイルアプリ受託開発",
-    serviceType: "AI機能開発、技術検証（PoC）、Webサービス・モバイルアプリ開発",
+    serviceType: "動画・画像解析AI開発、生成AI組み込み、技術検証（PoC）・MVP開発、Web・iOS・Androidアプリ開発",
     provider: { "@type": "Organization", name: "Cyber Knock", url: "https://cyberknock.jp" },
     areaServed: "JP",
     url: "https://cyberknock.jp/ai-development",
@@ -87,138 +121,293 @@ export default function AiDevelopmentPage() {
     <div className={styles.root}>
       <SiteHeader />
       <main id="main-content">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
+        />
 
+        {/* ① ファーストビュー */}
         <section className={styles.hero} aria-labelledby="development-title">
           <div className={`wrap ${styles.heroLayout}`}>
             <div className={styles.heroCopy}>
-              <p className={styles.eyebrow}>AI & PRODUCT DEVELOPMENT</p>
-              <h1 id="development-title" className={styles.heroTitle}>AI・プロダクト開発を、<span><strong>構想から実装まで。</strong></span></h1>
-              <p className={styles.heroLead}>AI機能開発、動画解析、Web・モバイルアプリ開発。課題の整理から、必要に応じた技術検証（PoC）、プロダクト実装まで、事業に必要な開発を支援します。</p>
+              <p className={styles.eyebrow}>B2B AI &amp; PRODUCT DEVELOPMENT</p>
+              <h1 id="development-title" className={styles.heroTitle}>
+                動画解析・生成AIを、<span><strong>現場で使われるプロダクトへ。</strong></span>
+              </h1>
+              <p className={styles.heroLead}>
+                AI機能開発、動画解析、Web・モバイルアプリ開発。動画・画像解析AIや既存サービスへの生成AI組み込み、必要に応じた技術検証（PoC）からWeb・iOS・Androidアプリの実装・運用まで一貫して支援します。
+              </p>
               <div className={styles.heroActions}>
-                <Link href="#contact" className={`button ${styles.primary}`} data-track="cta_click" data-location="ai_development">開発について相談する <ArrowUpRight size={19} aria-hidden="true" /></Link>
-                <Link href="#product-proof" className={`text-link ${styles.secondary}`} data-track="case_study_click" data-location="ai_development">自社プロダクトの実績を見る <ArrowDownRight size={18} aria-hidden="true" /></Link>
+                <Link
+                  href="#contact"
+                  className={`button ${styles.primary}`}
+                  data-track="cta_click"
+                  data-location="ai_development"
+                >
+                  開発について相談する（無料） <ArrowUpRight size={19} aria-hidden="true" />
+                </Link>
+                <Link
+                  href="#product-proof"
+                  className={`text-link ${styles.secondary}`}
+                  data-track="demo_click"
+                  data-location="ai_development"
+                >
+                  実際の技術デモを見る <ArrowDownRight size={18} aria-hidden="true" />
+                </Link>
               </div>
-              <p className={styles.heroMicro}>初回相談は課題の概要だけで構いません。仕様・予算が未定でもご相談いただけます。</p>
+              <p className={styles.heroMicro}>
+                仕様・予算が未定でも相談可能 ／ 初回フォームで機密動画の添付は不要 ／ 代表エンジニアが直接対応
+              </p>
             </div>
-            <div className={styles.flowBoard} aria-label="構想から実装までの進め方">
-              <div className={styles.boardTop}><span>FROM IDEA TO PRODUCT</span><span className={styles.boardStatus}>SCOPE FIRST</span></div>
-              <div className={styles.boardFlow}>
-                <div className={styles.boardStep}><span>01</span><div><strong>課題・目的を整理</strong><p>利用者、業務、必要な成果を明確にする</p></div></div>
-                <div className={styles.boardStep}><span>02</span><div><strong>必要なら小さく検証</strong><p>AI機能・データ・実現性をPoCで確認</p></div></div>
-                <div className={styles.boardStep}><span>03</span><div><strong>プロダクトを実装</strong><p>UI・API・Web・モバイルを必要な範囲で開発</p></div></div>
-                <div className={styles.boardStep}><span>04</span><div><strong>使って改善を判断</strong><p>品質・利用状況・次の施策を確認</p></div></div>
+
+            <figure className={styles.heroProofStage} aria-label="自社開発・運用アプリの実画面による技術証明">
+              <div className={styles.stageTop}>
+                <span>FIRST-PARTY PRODUCT PROOF</span>
+                <span className={styles.stageStatus}>iOS / Android 自社開発・運用中</span>
               </div>
-              <div className={styles.boardBottom}><span>進め方のイメージです。工程は案件ごとに異なります</span><strong>PLAN → BUILD</strong></div>
-            </div>
+              <div className={styles.stageScreens}>
+                <div className={styles.stagePhoneSecondary}>
+                  <img
+                    src="/images/cases/01-analysis.jpg"
+                    width={333}
+                    height={720}
+                    loading="eager"
+                    decoding="async"
+                    alt="自社アプリ実画面：動画からの骨格・関節角度・動作解析表示"
+                  />
+                  <span>01 動画・姿勢解析</span>
+                </div>
+                <div className={styles.stagePhonePrimary}>
+                  <img
+                    src="/images/product/pitching-feedback.webp"
+                    srcSet="/images/product/pitching-feedback-320.webp 320w, /images/product/pitching-feedback-480.webp 480w, /images/product/pitching-feedback.webp 640w"
+                    sizes="(max-width: 600px) 46vw, (max-width: 900px) 28vw, 220px"
+                    width={640}
+                    height={1385}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="auto"
+                    alt="自社アプリ実画面：動画解析結果に基づく生成AIフィードバックと評価UI"
+                  />
+                  <span>02 生成AIフィードバック・UI</span>
+                </div>
+              </div>
+              <figcaption className={styles.stageCaption}>
+                <strong>代表事例：自社アプリ「AIスポーツトレーナー」実画面</strong>
+                <p>
+                  動画解析・生成AIの出力制御・モバイルUI・クラウド運用まで自社で一貫開発。この技術基盤を、貴社の業務・サービス開発に応用します。
+                </p>
+              </figcaption>
+            </figure>
           </div>
         </section>
 
-        <section className={styles.chapter} aria-labelledby="challenges-title">
+        {/* ② 実運用実績＋技術デモ */}
+        <section
+          id="product-proof"
+          className={`${styles.chapter} ${styles.chapterToned}`}
+          aria-labelledby="product-proof-title"
+        >
           <div className="wrap">
             <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>01 / HOW WE CAN HELP</p>
+              <p className={styles.sectionCode}>01 / OPERATIONAL PROOF &amp; DEMO</p>
               <div>
-                <h2 id="challenges-title" className={styles.chapterTitle}>課題から、<br />必要な開発を。</h2>
-                <p className={styles.chapterLead}>あらかじめ技術を決めるのではなく、達成したい成果と運用条件から作る範囲を整理します。</p>
+                <h2 id="product-proof-title" className={styles.chapterTitle}>
+                  AIを作るだけでなく、実際に運用してきた実績。
+                </h2>
+                <p className={styles.chapterLead}>
+                  試作で終わらず、一般ユーザーが日常的に使うiOS・Androidアプリ「AIスポーツトレーナー」を自社で企画・開発・継続運用しています。受託先の非公開案件や未契約の検証を実績として掲載することはありません。
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.proofSummaryCard}>
+              <div className={styles.proofSummaryMain}>
+                <div className={styles.proofCardTop}>
+                  <span>REPRESENTATIVE PRODUCT / 自社開発・継続運用プロダクト</span>
+                  <small>iOS / Android 公開中</small>
+                </div>
+                <h3>AIスポーツトレーナー（自社企画・開発・運用）</h3>
+                <p>
+                  スマートフォンで撮影した動画から姿勢・動作情報を解析し、生成AIによる構造化フィードバックと練習メニュー提案までを届けるモバイルアプリです。アプリのUI実装、クラウド・AI推論基盤、課金、公開後の品質・処理時間・APIコストの改善まで代表が一貫して担当しています。
+                </p>
+                <ul className={styles.proofPoints}>
+                  <li>
+                    <Check size={16} aria-hidden="true" />
+                    <span>
+                      <strong>本番環境での継続運用：</strong>
+                      多様な撮影角度・端末環境での入力検証、解析不能時のハンドリング、出力の構造化・検証を実装
+                    </span>
+                  </li>
+                  <li>
+                    <Check size={16} aria-hidden="true" />
+                    <span>
+                      <strong>公開ストアで実物を確認可能：</strong>
+                      App Store・Google Playにて公開・運用中のプロダクトとして実際の動作・UIをご確認いただけます
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div className={styles.proofSummaryLinks}>
+                <p className={styles.proofLinksHeading}>実績・ストア詳細</p>
+                <Link className={`button ${styles.proofPrimaryBtn}`} href="/demos/ai-sports-trainer" data-track="demo_click" data-location="ai_development">
+                  動画分析の実画面デモを見る <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+                <Link className={`text-link ${styles.proofAction}`} href="/cases/ai-sports-trainer" data-track="case_study_click" data-location="ai_development">
+                  自社プロダクトの開発・運用事例 <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+                <div className={styles.proofStoreRow}>
+                  <a
+                    href={site.appStore}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="store_click"
+                    data-location="ai_development"
+                    data-store="app_store"
+                  >
+                    App Store <ArrowUpRight size={14} aria-hidden="true" />
+                    <span className="sr-only">（新しいタブ）</span>
+                  </a>
+                  <a
+                    href={site.googlePlay}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-track="store_click"
+                    data-location="ai_development"
+                    data-store="google_play"
+                  >
+                    Google Play <ArrowUpRight size={14} aria-hidden="true" />
+                    <span className="sr-only">（新しいタブ）</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <DemoVideoPlayer />
+          </div>
+        </section>
+
+        {/* ③ 法人向けの開発対応領域 */}
+        <section id="capabilities" className={styles.chapter} aria-labelledby="challenges-title">
+          <div className="wrap">
+            <div className={styles.chapterHead}>
+              <p className={styles.sectionCode}>02 / CAPABILITIES FOR BUSINESS</p>
+              <div>
+                <h2 id="challenges-title" className={styles.chapterTitle}>
+                  法人向けの開発対応領域。
+                </h2>
+                <p className={styles.chapterLead}>
+                  自社プロダクトで構築・運用してきた動画解析・生成AI・アプリ開発の技術基盤をもとに、スポーツ分野に限らず幅広い業界のAI導入・新規プロダクト開発を支援します。
+                </p>
               </div>
             </div>
             <div className={styles.challengeGrid}>
-              {topics.map(item => (
+              {capabilities.map((item) => (
                 <article key={item.number} className={styles.challengeCard}>
-                  <span>{item.number} / SERVICE</span>
+                  <span>
+                    {item.number} / {item.code}
+                  </span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <p className={styles.challengeScope}>{item.scope}</p>
+                </article>
+              ))}
+            </div>
+            <p className={styles.disclosure}>
+              <strong>実績と将来対応領域の明確な区別：</strong>
+              現在公開している開発・運用実績は、自社プロダクト「AIスポーツトレーナー」です。スポーツ以外の業界・業務に関する記述は、同プロダクトで培った技術基盤（動画・画像解析、生成AIの出力制御、Web・モバイル実装）を応用できる開発対応領域の説明であり、未実施または非公開の受託案件を導入実績として表現するものではありません。
+            </p>
+          </div>
+        </section>
+
+        {/* ④ 開発の進め方と体制 */}
+        <section
+          className={`${styles.chapter} ${styles.chapterDark}`}
+          aria-labelledby="development-method-title"
+          id="development-method"
+        >
+          <div className="wrap">
+            <div className={styles.chapterHead}>
+              <p className={styles.sectionCode}>03 / PROCESS &amp; GOVERNANCE</p>
+              <div>
+                <h2 id="development-method-title" className={styles.chapterTitle}>
+                  開発の進め方と体制。
+                </h2>
+                <p className={styles.chapterLead}>
+                  初回のオンライン相談・要件整理（無償）と、実データを用いた技術検証・試作（有償PoC／本開発）の境界を明確にし、段階的にリスクを抑えて進めます。
+                </p>
+              </div>
+            </div>
+            <div className={styles.stepGrid}>
+              {projectSteps.map((item) => (
+                <article className={styles.stepCard} key={item.label}>
+                  <span>{item.label}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                 </article>
               ))}
             </div>
-          </div>
-        </section>
-
-        <section id="product-proof" className={`${styles.chapter} ${styles.chapterToned}`} aria-labelledby="product-proof-title">
-          <div className="wrap">
-            <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>02 / FIRST-PARTY EXPERIENCE</p>
-              <div>
-                <h2 id="product-proof-title" className={styles.chapterTitle}>自社でつくり、<br />運用しているから。</h2>
-                <p className={styles.chapterLead}>構想・実装・運用をつなぐ開発経験は、自社プロダクトの事例でご確認いただけます。受託先の未公開案件を実績とは扱いません。</p>
-              </div>
-            </div>
-            <div className={styles.proofGrid}>
-              <article className={styles.proofCard}>
-                <div className={styles.proofCardTop}><span>FIRST-PARTY PRODUCT</span><small>自社プロダクト</small></div>
-                <h3>AIスポーツトレーナー</h3>
-                <p>動画のAI分析、練習提案、iOS・Androidアプリ、クラウドを組み合わせた自社サービスを開発・運用しています。開発と運用の内容を公開しています。</p>
-                <Link className={`text-link ${styles.proofAction}`} href="/cases/ai-sports-trainer" data-track="case_study_click" data-location="ai_development">
-                  自社プロダクトの開発・運用事例 <ArrowUpRight size={18} aria-hidden="true" />
-                </Link>
-                <Link className="text-link" href="/demos/ai-sports-trainer" data-track="demo_click" data-location="ai_development">
-                  動画分析の実画面デモを見る <ArrowUpRight size={18} aria-hidden="true" />
-                </Link>
-              </article>
-              <article className={styles.proofCard}>
-                <div className={styles.proofCardTop}><span>APPROACH</span><small>案件に合わせた開発範囲</small></div>
-                <h3>PoCも、実装も。必要なところから。</h3>
-                <p>技術上の不確実性が高い場合は検証から。要件が明確なら実装から。成果物・費用・評価方法をすり合わせ、次の判断につなげます。</p>
-                <Link className={`text-link ${styles.proofAction}`} href="#development-method" data-track="cta_click" data-location="ai_development">
-                  開発の進め方を見る <ArrowDownRight size={18} aria-hidden="true" />
-                </Link>
-              </article>
-            </div>
-            <p className={styles.disclosure}>ここに掲載する実績は自社プロダクトの開発・運用です。顧客の未契約案件や非公開の技術検証を、導入事例として掲載していません。</p>
-          </div>
-        </section>
-
-        <section className={styles.chapter} aria-labelledby="development-method-title" id="development-method">
-          <div className="wrap">
-            <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>03 / OUR APPROACH</p>
-              <div>
-                <h2 id="development-method-title" className={styles.chapterTitle}>小さく確かめて、<br />必要なものをつくる。</h2>
-                <p className={styles.chapterLead}>PoCをすべての案件に必須とはしません。目的とリスクに応じて検証・実装・改善の順序を決めます。</p>
-              </div>
-            </div>
-            <div className={styles.stepGrid}>
-              {projectSteps.map(item => (
-                <article className={styles.stepCard} key={item.label}>
-                  <span>{item.label}</span><h3>{item.title}</h3><p>{item.description}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className={`${styles.chapter} ${styles.chapterDark}`} aria-labelledby="deliverable-title">
-          <div className="wrap">
-            <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>04 / PROJECT SCOPE</p>
-              <div>
-                <h2 id="deliverable-title" className={styles.chapterTitle}>最初に揃えることと、<br />次に決めること。</h2>
-                <p className={styles.chapterLead}>実現可能性・費用・納期を一律には保証せず、案件ごとに必要な確認と成果物を整理します。</p>
-              </div>
-            </div>
             <div className={styles.requirements}>
               <div className={styles.requirementBox}>
-                <h3>最初に伺うこと</h3>
-                <ul><li>解決したい課題と、使う人・業務の流れ</li><li>想定するAI機能や画面、既存システム</li><li>必要なデータ・利用権限・セキュリティ</li><li>予算・時期・成功と判断する条件</li></ul>
+                <h3>代表エンジニアが設計・実装を直接担当</h3>
+                <ul>
+                  <li>要件整理・技術選定から、AI機能・Web／モバイル・クラウド実装まで代表（渡辺 晴仁）が一貫して担当します</li>
+                  <li>営業担当と開発者の伝言ゲームがなく、実現可能性・代替案・コストのトレードオフを直接すり合わせられます</li>
+                  <li>既存の社内開発チームと連携し、AI機能や特定モジュールのみを分担する体制にも対応可能です</li>
+                </ul>
+                <p className={styles.requirementLinkRow}>
+                  <Link href="/#profile" className={styles.caseCrosslink}>
+                    代表プロフィール・経歴を見る <ArrowRight size={15} aria-hidden="true" />
+                  </Link>
+                </p>
               </div>
               <div className={styles.requirementBox}>
-                <h3>案件に応じたアウトプット</h3>
-                <ul><li>要件・優先順位・実装範囲の整理</li><li>必要に応じた技術検証と評価結果</li><li>Web・モバイル・API等の試作や実装</li><li>運用に必要な条件と次の改善・開発案</li></ul>
+                <h3>NDA・成果物・知的財産権・契約条件</h3>
+                <ul>
+                  <li>
+                    <strong>秘密保持（NDA）・データ管理：</strong>
+                    実映像や業務データの共有前にNDA締結に対応。保管場所・利用範囲・検証後の削除手順を事前に合意します
+                  </li>
+                  <li>
+                    <strong>無償相談と有償検証の境界：</strong>
+                    初回相談と概算整理は無償です。顧客データをお預かりしての解析検証・試作実装は有償契約にて実施します
+                  </li>
+                  <li>
+                    <strong>成果物・知的財産権：</strong>
+                    検証レポート、評価結果、ソースコード等の納品範囲および知的財産権の帰属は、着手前に契約書で明文化します
+                  </li>
+                </ul>
+                <p className={styles.requirementLinkRow}>
+                  <Link href="/security" className={styles.caseCrosslink}>
+                    AIの限界とデータの取り扱い方針 <ArrowRight size={15} aria-hidden="true" />
+                  </Link>
+                </p>
               </div>
             </div>
-            <p className={styles.caseAside}>すべての案件で同じ工程を行うわけではありません。ご相談後に範囲を確認し、合意した内容に沿って提案します。</p>
+            <p className={styles.caseAside}>
+              ※すべての業界・撮影条件の動画を無条件に解析できることや、一律の認識精度・納期を事前に保証するものではありません。対象データと成功基準を確認したうえで、実現可能な範囲をご提案します。
+            </p>
           </div>
         </section>
 
+        {/* ⑤ FAQ＋お問い合わせ */}
         <section className={styles.chapter} aria-labelledby="faq-title">
           <div className="wrap">
             <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>05 / FAQ</p>
-              <div><h2 id="faq-title" className={styles.chapterTitle}>相談前によくある質問。</h2></div>
+              <p className={styles.sectionCode}>04 / FAQ</p>
+              <div>
+                <h2 id="faq-title" className={styles.chapterTitle}>
+                  相談前によくある質問。
+                </h2>
+              </div>
             </div>
             <div className={styles.faqList}>
-              {faqs.map(({ q, a }) => <details key={q}><summary>{q}</summary><p>{a}</p></details>)}
+              {faqs.map(({ q, a }) => (
+                <details key={q}>
+                  <summary>{q}</summary>
+                  <p>{a}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>
@@ -228,11 +417,36 @@ export default function AiDevelopmentPage() {
         <section id="contact" className={styles.contactArea} aria-labelledby="development-contact-title">
           <div className={`wrap ${styles.contactLayout}`}>
             <div className={styles.contactCopy}>
-              <span className={styles.sectionCode}>06 / CONSULTATION</span>
+              <span className={styles.sectionCode}>05 / CONSULTATION</span>
               <h2 id="development-contact-title">まずは、開発したいことを。</h2>
-              <p>現在の課題と、実現したいサービスや機能を分かる範囲でお聞かせください。詳細な仕様書や見積条件がなくてもご相談いただけます。</p>
-              <p>AI機能開発、動画解析、Web・モバイルアプリなど、用途に合わせて対応範囲を整理します。</p>
-              <div className={styles.contactAside}>初回相談で機密データや動画の添付は不要です。データの受け渡しが必要な場合は、権利と安全な共有方法を先に確認します。<br /><Link href="/security" className="subtle-link">データの取り扱い方針 <ArrowRight size={16} aria-hidden="true" /></Link></div>
+              <p>
+                現在の業務課題や、実現したいサービス・AI機能を分かる範囲でお聞かせください。詳細な仕様書や予算が決まっていなくてもご相談いただけます。
+              </p>
+              <ul className={styles.contactChecklist}>
+                <li>
+                  <Check size={16} aria-hidden="true" />
+                  <span>仕様・予算が未定でも相談可能</span>
+                </li>
+                <li>
+                  <Check size={16} aria-hidden="true" />
+                  <span>PoC不要の直接実装も、小規模な有償PoCも対応</span>
+                </li>
+                <li>
+                  <Check size={16} aria-hidden="true" />
+                  <span>スポーツ以外の業界・業務システムも相談可能</span>
+                </li>
+                <li>
+                  <Check size={16} aria-hidden="true" />
+                  <span>初回フォームでの機密データ・動画の送信は不要</span>
+                </li>
+              </ul>
+              <div className={styles.contactAside}>
+                データの受け渡しが必要な場合は、NDA（秘密保持契約）および安全な共有・削除手順を先に確認します。
+                <br />
+                <Link href="/security" className="subtle-link">
+                  データの取り扱い方針 <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
             <ContactForm source="ai_development" />
           </div>

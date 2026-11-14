@@ -8,7 +8,9 @@ import styles from "./demo.module.css"
 
 const pathname = "/demos/ai-sports-trainer"
 const title = "AI動画解析の実画面デモ｜開発・PoCの相談前に | Cyber Knock"
-const description = "公開・運用中のAIスポーツトレーナーの実画面を使い、動画分析・AIフィードバック・練習提案の体験を紹介。企業のAI動画解析PoC・アプリ開発で評価すべき点も整理します。"
+const description =
+  "公開・運用中のAIスポーツトレーナーの実画面を使い、動画分析・AIフィードバック・練習提案の体験を紹介。企業のAI動画解析PoC・アプリ開発で評価すべき点も整理します。"
+const ogImage = "/images/og/ai-sports-trainer-demo.png"
 
 export const metadata: Metadata = {
   title,
@@ -17,9 +19,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: `https://cyberknock.jp${pathname}`,
+    siteName: "Cyber Knock",
     title,
     description,
     locale: "ja_JP",
+    images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [ogImage],
   },
 }
 
@@ -64,27 +74,31 @@ export default function AiSportsTrainerDemo() {
             <nav className={styles.breadcrumb} aria-label="パンくずリスト">
               <Link href="/">Cyber Knock</Link>
               <span aria-hidden="true">/</span>
+              <Link href="/ai-development">AI開発・PoC</Link>
+              <span aria-hidden="true">/</span>
               <span aria-current="page">実画面デモ</span>
             </nav>
             <div className={styles.heroGrid}>
               <div>
                 <p className={styles.eyebrow}>FIRST-PARTY APP / ACTUAL SCREENS</p>
                 <h1>AI動画解析を、<br /><span>使える体験へ。</span></h1>
-                <p className={styles.lead}>自社で企画・開発・運用している「AIスポーツトレーナー」の実画面を使い、動画からフィードバック、次の練習へつながる体験を紹介します。</p>
+                <p className={styles.lead}>
+                  自社で企画・開発・運用している「AIスポーツトレーナー」の実画面を使い、野球投球映像の姿勢・動作解析からAIフィードバック、次の練習提案へつながる体験を紹介します。
+                </p>
                 <div className={styles.heroActions}>
                   <a className={styles.primaryLink} href="#actual-screens">実画面を見る <ArrowRight size={18} aria-hidden="true" /></a>
-                  <Link className={styles.secondaryLink} href="/ai-development#contact" data-track="cta_click" data-location="hero">AI開発を相談する <ArrowUpRight size={18} aria-hidden="true" /></Link>
+                  <Link className={styles.secondaryLink} href="/ai-development#contact" data-track="cta_click" data-location="hero">開発について相談する（無料） <ArrowUpRight size={18} aria-hidden="true" /></Link>
                 </div>
               </div>
               <div className={styles.heroDetails} aria-label="このデモで確認できること">
                 <p>VIEW / 3 SCREENS</p>
                 <strong>実際の製品画面を使った<br />閲覧型デモ</strong>
                 <ol>
-                  <li><span>01</span> 動画と動作情報</li>
-                  <li><span>02</span> AIフィードバック</li>
-                  <li><span>03</span> 練習への提案</li>
+                  <li><span>01</span> 投球映像と姿勢・動作解析</li>
+                  <li><span>02</span> 生成AIによるフィードバック</li>
+                  <li><span>03</span> アプリでの練習メニュー提案</li>
                 </ol>
-                <small>新しい動画のアップロード・解析は行いません。</small>
+                <small>※掲載画面はすべて実アプリ画面です。このページ上で顧客動画のアップロード・リアルタイム推論は行いません。</small>
               </div>
             </div>
           </div>
@@ -99,7 +113,7 @@ export default function AiSportsTrainerDemo() {
                 <p className={styles.sectionOverline}>02 / FOR PROJECT OWNERS</p>
                 <h2 id="evaluation-title">導入前に、何を検証するか。</h2>
               </div>
-              <p>実画面で分かるのは利用体験の一部です。発注時には対象データと評価基準を揃え、技術PoCで判断します。</p>
+              <p>実画面で分かるのは利用体験の一部です。法人案件では対象データと評価基準を揃え、必要に応じた有償PoCやMVP開発で判断します。</p>
             </div>
             <div className={styles.evaluationGrid}>
               {evaluation.map((item) => (
@@ -126,11 +140,12 @@ export default function AiSportsTrainerDemo() {
           <div className="wrap">
             <p className={styles.eyebrow}>NEXT / YOUR PROJECT</p>
             <h2 id="consultation-title">自社の映像やサービスで、<br />実現できるかを相談する。</h2>
-            <p>動画解析、既存アプリへのAI機能追加、PoCの評価設計。仕様や予算が未定でも、現在の課題から整理できます。</p>
+            <p>動画・画像解析AI、既存サービスへの生成AI組み込み、PoCの評価設計、Web・モバイルアプリ開発。仕様や予算が未定でも、現在の課題から整理できます。</p>
             <Link className={styles.primaryLink} href="/ai-development#contact" data-track="cta_click" data-location="content">
-              AI・プロダクト開発を相談する <ArrowUpRight size={18} aria-hidden="true" />
+              開発について相談する（無料） <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
             <div className={styles.relatedLinks}>
+              <Link href="/ai-development">法人向けAI・プロダクト開発LPを見る</Link>
               <Link href="/cases/ai-sports-trainer">自社アプリの開発・運用事例を見る</Link>
               <Link href="/insights/ai-video-analysis-poc-cost">動画解析PoCの費用・評価条件を読む</Link>
             </div>

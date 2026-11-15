@@ -29,3 +29,15 @@ next-env.d.ts
 # Local generated website QA captures (CI publishes as artifacts)
 /docs/redesign-20261102/lighthouse/
 /docs/redesign-20261102/responsive-lighthouse/
+
+# B2B HyperFrames: generated local copies of existing first-party app assets
+/video/hyperframes/assets/01-analysis.jpg
+/video/hyperframes/assets/03-training.png
+/video/hyperframes/assets/pitching-feedback.webp
+/video/hyperframes/assets/corporate-icon.svg
+# B2B HyperFrames: temporary captures, caches and unpublished renders
+/video/hyperframes/evidence/
+/video/hyperframes/output/
+/video/hyperframes/.hyperframes/
+/video/hyperframes/node_modules/
+/video/hyperframes/dist/

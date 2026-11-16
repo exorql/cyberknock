@@ -16,9 +16,12 @@ const analytics = options.analytics || 'none';
 if (!['success', 'failure', 'slow'].includes(mode)) throw new Error('Use contact=success, failure, or slow');
 if (!['none', 'gzip'].includes(compression)) throw new Error('Use compress=none or gzip');
 if (!['none', 'mock'].includes(analytics)) throw new Error('Use analytics=none or mock');
+// --media=fail answers MP4 requests with 404 to exercise the player's error fallback.
+const media = options.media || 'ok';
+if (!['ok', 'fail'].includes(media)) throw new Error('Use media=ok or fail');
 const functionSource = await readFile(new URL('../functions/contact.js', import.meta.url), 'utf8');
 const { handleContact } = await import(`data:text/javascript;base64,${Buffer.from(functionSource).toString('base64')}`);
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8' };
 const compressible = new Set(['.html', '.js', '.css', '.json', '.txt', '.xml', '.svg']);
 
 // Serialized into QA HTML only. It records the exact gtag arguments as text,
@@ -123,6 +126,7 @@ createServer(async (request, response) => {
     }
     if (request.method !== 'GET' && request.method !== 'HEAD') { response.writeHead(405); response.end(); return; }
     const pathname = decodeURIComponent(url.pathname);
+    if (media === 'fail' && pathname.endsWith('.mp4')) { response.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); response.end('Simulated media failure'); return; }
     const base = resolve(root, `.${pathname}`);
     if (base !== root && !base.startsWith(root + sep)) { response.writeHead(403); response.end(); return; }
     const candidates = pathname.endsWith('/') ? [resolve(base, 'index.html')] : [base, base + '.html', resolve(base, 'index.html')];
@@ -136,6 +140,23 @@ createServer(async (request, response) => {
     if (analytics === 'mock' && extension === '.html') {
       bytes = Buffer.from(bytes.toString('utf8').replace(/<head(?:\s[^>]*)?>/i, head => head + analyticsMockScript));
     }
+    // Byte ranges mirror Cloudflare Pages so media seeking can be tested locally.
+    const range = /^bytes=(\d*)-(\d*)$/.exec(String(request.headers.range || ''));
+    if (range && !compressible.has(extension) && (range[1] || range[2])) {
+      const size = bytes.length;
+      const start = range[1] ? Number(range[1]) : Math.max(0, size - Number(range[2]));
+      const end = range[1] && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+      if (start >= size || start > end) { response.writeHead(416, { 'Content-Range': `bytes */${size}` }); response.end(); return; }
+      response.writeHead(206, {
+        'Content-Type': types[extension] || 'application/octet-stream',
+        'Cache-Control': 'no-store',
+        'Accept-Ranges': 'bytes',
+        'Content-Range': `bytes ${start}-${end}/${size}`,
+        'Content-Length': end - start + 1,
+      });
+      response.end(request.method === 'HEAD' ? undefined : bytes.subarray(start, end + 1));
+      return;
+    }
     const canCompress = compression === 'gzip' && compressible.has(extension) && bytes.length >= 1024;
     const compressed = canCompress && acceptsGzip(request.headers['accept-encoding']);
     const body = compressed ? gzipSync(bytes) : bytes;
@@ -143,9 +164,10 @@ createServer(async (request, response) => {
       'Content-Type': types[extension] || 'application/octet-stream',
       'Cache-Control': 'no-store',
       'Content-Length': body.length,
+      ...(compressible.has(extension) ? {} : { 'Accept-Ranges': 'bytes' }),
       ...(canCompress ? { Vary: 'Accept-Encoding' } : {}),
       ...(compressed ? { 'Content-Encoding': 'gzip' } : {}),
     });
     response.end(request.method === 'HEAD' ? undefined : body);
   } catch { response.writeHead(500); response.end('Local QA server error'); }
-}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | compression=${compression} | analytics=${analytics} | external delivery disabled`));
+}).listen(port, '127.0.0.1', () => console.log(`Local QA: http://127.0.0.1:${port} | contact=${mode} | compression=${compression} | analytics=${analytics} | media=${media} | external delivery disabled`));

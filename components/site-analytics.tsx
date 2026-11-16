@@ -2,16 +2,12 @@
 
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
-import { analyticsEvents, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
+import { analyticsEvents, isProductionAnalyticsHost, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
 
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void
   dataLayer?: unknown[][]
   __cyberknockGa4Bootstrapped?: boolean
-}
-
-function isLocalHost(hostname: string): boolean {
-  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]" || hostname.endsWith(".localhost")
 }
 
 /**
@@ -22,8 +18,8 @@ function isLocalHost(hostname: string): boolean {
 function ensureSiteGa4(): boolean {
   const id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID
   if (!id || !/^G-[A-Z0-9]{6,15}$/.test(id)) return false
-  // Never send development or local-preview traffic to the production property.
-  if (process.env.NODE_ENV !== "production" || isLocalHost(window.location.hostname)) return false
+  // Cloudflare previews are production builds; only the live site may load production GA4.
+  if (process.env.NODE_ENV !== "production" || !isProductionAnalyticsHost(window.location.hostname)) return false
   const analyticsWindow = window as AnalyticsWindow
   if (analyticsWindow.__cyberknockGa4Bootstrapped) return true
   if (typeof analyticsWindow.gtag === "function") return false

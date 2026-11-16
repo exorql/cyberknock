@@ -1,6 +1,6 @@
 # 法人LP 25秒AI技術デモ動画｜組み込み・計測・QA記録（2026-11-16）
 
-**状態：ローカル実装・検証完了／本番公開承認は未取得。** ブランチ`feat/b2b-demo-video-lp`。Push・PR・デプロイは未実施。
+**状態：Draft PR #12でCloudflareプレビュー公開・配信検証済み／本番公開承認は未取得。** ブランチ`feat/b2b-demo-video-lp`。本番`main`へのマージ・本番デプロイは未実施。
 
 ## 1. 実装
 | 項目 | 内容 |
@@ -85,10 +85,21 @@ QA中に見つけて修正した問題：①読み込み失敗でもstartが送�
 **ローカル検証範囲の暫定値：94/100、各項目90以上、未解決の重大問題0件。** 実機・スクリーンリーダー・GA4受信が未検証のため、公開判定の合格としては認定しない。
 
 ## 7. 公開前の残課題
-1. **公開承認**（本番掲載の最終判断）。承認後にPush→PR→Cloudflare Pagesプレビュー。
-2. プレビューで`.mp4`=`video/mp4`、`.vtt`=`text/vtt`、MP4のRange 206を確認（本番は`X-Content-Type-Options: nosniff`のため、VTTの型が違うと字幕が読めない）。本番ドメインの静的ファイルが206を返すことは確認済み。
+1. **本番公開承認：未取得。** [Draft PR #12](https://github.com/exorql/cyberknock/pull/12)は検証用のまま維持し、`main`へはマージしない。
+2. **プレビューの配信検証：完了。** MP4のRange 206、VTTの`text/vtt`、ポスターの`image/webp`、不正Rangeの416、配信ファイルSHA-256一致を2026-11-16に確認。詳細は§8。
 3. iPhone Safari・Android Chromeでタップ再生、インライン再生、CC切替、全画面を確認。VoiceOver／NVDAで読み上げを確認。
 4. GA4：本番の測定ID設定を確認し、カスタムディメンション（`video_id`、`placement`、`page_path`、`video_duration`、`location`、`demo_video`）を登録。DebugViewで4イベントを受信確認。キーイベントは`contact_form_success`のまま、動画イベントをコンバージョンにしない。
 5. レポート：`cta_click`(location=ai_development)の前後比較では`b2b_demo_contact_click`(location=demo_footer)を合算する。
 6. 動画を差し替える時はファイル名を変える（例：`-v2`）。Cloudflareの既定キャッシュは4時間。
 7. ESLint未導入（既存課題）。モバイルLCPは導入前から閾値付近（既存課題）。
+
+## 8. Cloudflare Pagesプレビューの実測（2026-11-16）
+
+- 対象：`https://feat-b2b-demo-video-lp.cyberknock.pages.dev/ai-development`。確認対象コードは`75b095d`（Range配信修正込み）。**プレビューは本番サイトではない。**
+- LP：HTTP `200`、`X-Robots-Tag: noindex`。動画・ポスター・字幕の各公開パスに到達可能。
+- MP4：`Content-Type: video/mp4`、`Accept-Ranges: bytes`。`Range: bytes=0-1`→`206`/`Content-Range: bytes 0-1/3488870`/2B。`Range: bytes=-1024`→`206`/`3487846-3488869/3488870`/1024B。範囲外の`Range: bytes=9999999-`→`416`/`Content-Range: bytes */3488870`。通常のHEADは`200`。
+- MP4全体をCloudflareプレビューからGETしてSHA-256を比較。ローカル配信元・プレビューとも`6E6400B4578075D740A953F811ECD21A8EC341DB1D0E70702AF9593492331669`で完全一致。
+- 字幕HEAD：`200`、`Content-Type: text/vtt; charset=utf-8`。ポスターHEAD：`200`、`Content-Type: image/webp`。
+- Lighthouse 12.8.2／Windows Chrome／mobile simulate／1回ずつ／GA通信ブロック（2026-11-16 JST）。**プレビュー**：Performance `93`、Accessibility `100`、Best Practices `100`、LCP `2,807ms`、CLS `0`、TBT `174ms`。同じ手順での**公開中LP**：Performance `84`、Accessibility `100`、Best Practices `100`、LCP `4,025ms`、CLS `0`、TBT `23ms`。単回の実験室測定のため優劣確定・実ユーザーCWV判定には使わない。ローカル比較とCDN条件も異なる。
+- GA4の安全対策：Cloudflare Pagesのプレビューも`NODE_ENV=production`となり得るため、開発モード/localhost除外だけでは不十分だった。`isProductionAnalyticsHost()`で`cyberknock.jp`と`www.cyberknock.jp`だけを起動許可する修正と回帰テストをこのブランチへ追加。プレビューから本番GA4への自動送信を防止する。GA4 DebugViewの実受信は未確認（別途適切な計測環境で行う）。
+- 未実施：iPhone Safari・Android Chrome実機での再生/CC/全画面、VoiceOver/NVDA、GA4カスタムディメンションの管理画面登録および受信。これらを公開済みと解釈しない。

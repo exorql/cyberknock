@@ -1,7 +1,7 @@
 import test from "node:test"
 import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
-import { analyticsEvents, b2bDemoVideo, markDemoVideoStarted, trackEvent } from "../lib/analytics.ts"
+import { analyticsEvents, b2bDemoVideo, isProductionAnalyticsHost, markDemoVideoStarted, trackEvent } from "../lib/analytics.ts"
 import { dueDemoMilestones } from "../lib/demo-video-progress.ts"
 
 const videoParams = { video_id: b2bDemoVideo.id, video_duration: "25", placement: b2bDemoVideo.placement }
@@ -73,10 +73,16 @@ test("milestones fire once each, in funnel order, and never before a real play",
   assert.deepEqual(dueDemoMilestones(new Set(["start"]), { event: "progress", currentTime: 13, duration: NaN, fallbackDuration: 25 }), ["50"], "unknown duration falls back to 25s")
 })
 
-test("development traffic and local previews never bootstrap the production GA4 property", () => {
+test("only canonical production hostnames can bootstrap the GA4 property", () => {
+  for (const hostname of ["cyberknock.jp", "www.cyberknock.jp"]) {
+    assert.equal(isProductionAnalyticsHost(hostname), true, hostname)
+  }
+  for (const hostname of ["localhost", "127.0.0.1", "[::1]", "cyberknock.jp.localhost", "feat-b2b-demo-video-lp.cyberknock.pages.dev", "cyberknock.jp.attacker.example", "preview.cyberknock.jp"]) {
+    assert.equal(isProductionAnalyticsHost(hostname), false, hostname)
+  }
   const site = readFileSync("components/site-analytics.tsx", "utf8")
   assert.ok(site.includes('process.env.NODE_ENV !== "production"'))
-  assert.ok(site.includes('hostname === "localhost"') && site.includes('hostname === "127.0.0.1"'))
+  assert.ok(site.includes("!isProductionAnalyticsHost(window.location.hostname)"))
 })
 
 test("contact events are segmented by demo engagement without a second conversion", () => {

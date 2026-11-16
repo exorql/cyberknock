@@ -20,6 +20,11 @@ const allowedValues: Record<string, readonly string[]> = {
 }
 
 const siteOrigin = "https://cyberknock.jp"
+
+/** Preview deployments must not initialize the production GA4 property. */
+export function isProductionAnalyticsHost(hostname: string): boolean {
+  return hostname === "cyberknock.jp" || hostname === "www.cyberknock.jp"
+}
 const safePagePaths: Record<string, string> = {
   home: "/",
   sports_dx: "/sports-dx",

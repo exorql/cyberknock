@@ -103,3 +103,12 @@ QA中に見つけて修正した問題：①読み込み失敗でもstartが送�
 - Lighthouse 12.8.2／Windows Chrome／mobile simulate／1回ずつ／GA通信ブロック（2026-11-16 JST）。**プレビュー**：Performance `93`、Accessibility `100`、Best Practices `100`、LCP `2,807ms`、CLS `0`、TBT `174ms`。同じ手順での**公開中LP**：Performance `84`、Accessibility `100`、Best Practices `100`、LCP `4,025ms`、CLS `0`、TBT `23ms`。単回の実験室測定のため優劣確定・実ユーザーCWV判定には使わない。ローカル比較とCDN条件も異なる。
 - GA4の安全対策：Cloudflare Pagesのプレビューも`NODE_ENV=production`となり得るため、開発モード/localhost除外だけでは不十分だった。`isProductionAnalyticsHost()`で`cyberknock.jp`と`www.cyberknock.jp`だけを起動許可する修正と回帰テストをこのブランチへ追加。プレビューから本番GA4への自動送信を防止する。GA4 DebugViewの実受信は未確認（別途適切な計測環境で行う）。
 - 未実施：iPhone Safari・Android Chrome実機での再生/CC/全画面、VoiceOver/NVDA、GA4カスタムディメンションの管理画面登録および受信。これらを公開済みと解釈しない。
+
+## 9. CloudflareプレビューでのChrome操作検証（2026-11-16）
+
+- 方法：Windows Chromeのヘッドレス実ブラウザをDevTools Protocolで操作。スマホ相当375×812pxを設定し、ポスター位置へ移動してCDPのマウスPressed/Releasedで再生ボタンをクリック。ページの滑らかなスクロールが座標取得を妨げたため、スクロール完了後に位置を再取得して操作した。**スクリプト側の座標問題であり、LPのボタン不具合ではなかった。**
+- クリック前：`<video>`未生成、再生ボタンあり、横スクロールなし、代替テキスト`<details>`・問い合わせアンカーあり。`script[data-cyberknock-ga4]`の自動挿入は観測されず（GA実受信の確認ではない）。
+- クリック後：動画要素生成、実再生中（`paused=false`）、`readyState=4`、`videoWidth=1920`、`videoHeight=1080`、`duration=25`、`error=null`。
+- Chromeの実ネットワーク応答：WebP `200/image/webp`、MP4 `206/video/mp4`、VTT `200/text/vtt`。VTTは5キュー読込、約8.14秒時点で有効なキュー1件。コンテンツをシークして字幕の読込・時刻同期を確認。
+- 同セッションでデスクトップ1366×850pxに切り替え：動画幅880px、横スクロールなし。外部フォーム送信・実GA4イベント送信は実施していない。
+- **残る制約**：Chromiumによるスマホ幅の模擬であり、iPhone Safari／Android Chrome実機の再生、全画面、CC UI、VoiceOver/NVDAの代替にはならない。

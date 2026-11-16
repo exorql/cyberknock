@@ -67,6 +67,21 @@ test("DemoVideoPlayer uses only the three web delivery files and a click-to-play
   assert.equal((demoPlayer.match(/step: "0\d"/g) || []).length, 3)
 })
 
+test("B2B LP keeps one secondary detail link below the video and three screens", () => {
+  assert.ok(!page.includes('href="/demos/ai-sports-trainer"'), "do not navigate away before the video")
+  assert.ok(!page.includes("動画分析の実画面デモを見る"), "remove the redundant upper button")
+  assert.equal((demoPlayer.match(/href="\/demos\/ai-sports-trainer"/g) || []).length, 1)
+  const videoIndex = demoPlayer.indexOf("<DemoVideo video={video} />")
+  const stepsIndex = demoPlayer.indexOf("className={styles.demoStepsGrid}")
+  const detailIndex = demoPlayer.indexOf('href="/demos/ai-sports-trainer"')
+  const contactIndex = demoPlayer.indexOf('href="#contact"')
+  assert.ok(videoIndex >= 0 && videoIndex < stepsIndex && stepsIndex < detailIndex && detailIndex < contactIndex)
+  assert.ok(demoPlayer.includes("実画面3点と検証ポイントを詳しく見る"))
+  assert.ok(!demoPlayer.includes("対話型の実画面デモページへ"))
+  assert.match(demoPlayer, /href="#contact"\s+className="button button-primary"/)
+  assert.ok(page.includes('href="/cases/ai-sports-trainer"'), "keep the case study link")
+})
+
 test("Only web delivery files are public; the master, raw media and QA material are not", async () => {
   const { readdirSync } = await import("node:fs")
   const { createHash } = await import("node:crypto")

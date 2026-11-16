@@ -24,7 +24,10 @@ test("自社アプリの実画面だけを使い、動画解析を実行する�
 })
 
 test("発注者向けのLP・開発事例・動画解析記事から実画面デモへ到達できる", () => {
-  assert.ok(read("app/ai-development/page.tsx").includes('href="/demos/ai-sports-trainer" data-track="demo_click"'))
+  assert.ok(read("app/ai-development/page.tsx").includes("<DemoVideoPlayer />"))
+  const lpDemo = read("components/development/demo-video-player.tsx")
+  assert.ok(lpDemo.includes('href="/demos/ai-sports-trainer"'))
+  assert.ok(lpDemo.includes('data-track="demo_click"'))
   assert.ok(read("app/cases/ai-sports-trainer/content.tsx").includes('href="/demos/ai-sports-trainer"'))
   assert.ok(read("lib/b2b-insights.ts").includes('href:"/demos/ai-sports-trainer"'))
   assert.ok(read("app/sitemap.ts").includes("/demos/ai-sports-trainer"))

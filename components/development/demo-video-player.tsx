@@ -95,14 +95,6 @@ export function DemoVideoPlayer({
             映像入力から動作解析・AIフィードバック・画面表示までの一貫実装
           </h3>
         </div>
-        <Link
-          href="/demos/ai-sports-trainer"
-          className={`text-link ${styles.demoHeaderLink}`}
-          data-track="demo_click"
-          data-location="ai_development"
-        >
-          対話型の実画面デモページへ <ArrowUpRight size={17} aria-hidden="true" />
-        </Link>
       </div>
 
       {video ? <DemoVideo video={video} /> : null}
@@ -144,12 +136,12 @@ export function DemoVideoPlayer({
             data-track="demo_click"
             data-location="ai_development"
           >
-            実画面デモを拡大して見る <ArrowUpRight size={17} aria-hidden="true" />
+            実画面3点と検証ポイントを詳しく見る <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
           {/* One click = one event: near the demo this CTA reports b2b_demo_contact_click instead of cta_click. */}
           <Link
             href="#contact"
-            className="text-link"
+            className="button button-primary"
             {...(video
               ? {
                   "data-track": "b2b_demo_contact_click",

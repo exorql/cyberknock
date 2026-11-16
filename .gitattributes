@@ -1,0 +1,2 @@
+# Delivered media must stay byte-identical to the QA-verified files (SHA-256 is tested).
+public/videos/** -text

@@ -1,0 +1,14 @@
+<template><style>#root{position:absolute;inset:0}</style><div id="root" data-composition-id="product" data-width="1920" data-height="1080" data-duration="5"><div class="ground"></div><div class="right-field"></div><div class="copy"><p class="eyebrow">実プロダクト：AIスポーツトレーナー</p><h1 id="product-headline" class="headline" data-var-text="headline-4">AI解析から
+アプリまで、
+一貫して実装。</h1><p class="support">解析・フィードバック・次のアクション</p></div><div class="phone" id="product-report" style="left:1038px;top:188px;width:328px;height:710px"><img id="product-feedback" src="assets/pitching-feedback.webp" alt="法人サイトの実アプリ画面：AIフィードバック" /></div><div class="phone" id="product-training" style="left:1426px;top:188px;width:328px;height:710px"><img id="product-drills" src="assets/03-training.png" alt="法人サイトの実アプリ画面：AIドリル提案" /></div><p class="media-label" style="left:1038px;top:127px;width:328px">フィードバック</p><p class="media-label" style="left:1426px;top:127px;width:328px">練習メニュー</p><p class="fine">アプリ体験の紹介（前の分析例とは別画面）</p><div id="product-arrow" class="product-arrow" aria-hidden="true">&#8594;</div><div class="flow" data-layout-ignore><div class="flow-fill" id="product-bar"></div></div></div><script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo('#product-headline',{y:18},{y:0,duration:0.48,ease:'power3.out'},0);
+tl.fromTo('#product-bar',{scaleX:0},{scaleX:1,duration:4.95,ease:'none'},0);
+tl.fromTo('#product-report',{scale:1,y:0},{scale:1.045,y:-12,duration:2.4,ease:'power1.inOut'},0.1);
+tl.to('#product-report',{scale:1,y:0,duration:1.9,ease:'power1.inOut'},2.5);
+tl.fromTo('#product-training',{y:22,scale:0.97},{y:0,scale:1.045,duration:1.0,ease:'power3.out'},1.9);
+tl.to('#product-training',{scale:1,y:-9,duration:2.05,ease:'power1.inOut'},2.95);
+tl.fromTo('#product-arrow',{opacity:0,x:-15},{opacity:1,x:0,duration:0.42,ease:'power2.out'},1.82);
+window.__timelines=window.__timelines||{};
+window.__timelines['product']=tl;
+</script></template>

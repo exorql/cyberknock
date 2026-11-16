@@ -41,3 +41,10 @@ next-env.d.ts
 /video/hyperframes/.hyperframes/
 /video/hyperframes/node_modules/
 /video/hyperframes/dist/
+# HyperFrames local-only analysis media and regenerated renderer caches
+/video/hyperframes/assets/verified/
+/video/hyperframes/assets/fonts/
+/video/hyperframes/.thumbnails/
+/video/hyperframes/.transcode-cache/
+# Machine-specific tool paths; copy scripts/local-env.example.ps1 instead
+/video/hyperframes/scripts/local-env.ps1

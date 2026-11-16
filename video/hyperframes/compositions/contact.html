@@ -1,0 +1,10 @@
+<template><style>#root{position:absolute;inset:0}.end-brand{position:absolute;left:192px;top:144px;display:flex;align-items:center;gap:22px;font-size:64px;font-weight:700;letter-spacing:-.035em}.end-brand img{width:88px;height:88px}.end-title{position:absolute;left:192px;top:300px;font-size:82px;font-weight:700;letter-spacing:-.05em;line-height:1.35}.end-services{position:absolute;left:192px;top:562px;font-size:34px;color:var(--muted)}.end-cta{position:absolute;left:192px;top:670px;background:var(--teal);color:#fffefa;padding:20px 44px;font-size:50px;font-weight:700;line-height:1.4;border-radius:4px}.end-url{position:absolute;left:192px;top:800px;font-size:40px;letter-spacing:.005em;color:var(--teal)}</style><div id="root" data-composition-id="contact" data-width="1920" data-height="1080" data-duration="5"><div class="ground"></div><div class="end-brand"><img id="corporate-mark" src="assets/corporate-icon.svg" alt="Cyber Knockの正式なマーク"/><span>Cyber Knock</span></div><h1 id="contact-headline" class="end-title">動画解析・生成AIを、<br>現場で使われるプロダクトへ。</h1><p class="end-services">AI開発 / PoC / Web・モバイルアプリ開発</p><p class="end-cta" data-var-text="cta">AI開発を相談する</p><p class="end-url" data-var-text="destination">cyberknock.jp/ai-development#contact</p><div class="flow" data-layout-ignore><div class="flow-fill" id="contact-bar"></div></div></div><script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo('#contact-headline',{y:18},{y:0,duration:0.48,ease:'power3.out'},0);
+tl.fromTo('#contact-bar',{scaleX:0},{scaleX:1,duration:4.95,ease:'none'},0);
+
+tl.fromTo('.end-cta',{opacity:0.7,y:18},{opacity:1,y:0,duration:0.78,ease:'power3.out'},1.18);
+tl.fromTo('.end-url',{opacity:0.45},{opacity:1,duration:1.65,ease:'power2.out'},2.1);
+window.__timelines=window.__timelines||{};
+window.__timelines['contact']=tl;
+</script></template>

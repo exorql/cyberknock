@@ -1,20 +1,46 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import styles from "@/app/ai-development/development.module.css"
+import { b2bDemoVideo } from "@/lib/analytics"
+import { DemoVideo } from "./demo-video"
 
 export type CorporateDemoVideoConfig = {
+  /** Fixed analytics identifier; must be allowlisted in lib/analytics.ts. */
+  videoId: string
+  durationSeconds: number
+  placement: string
   src: string
   poster: string
   captionsSrc: string
-  durationLabel?: string
-  title?: string
+  durationLabel: string
+  title: string
+  /** Text alternative for a video-only (silent) clip, one line per scene. */
+  transcript: readonly string[]
 }
 
 /**
- * 権利確認済みの法人向けデモ動画（20〜25秒・Remotion/AppProofMotionV2）が
- * 本番公開承認されるまでは null を維持し、未確認動画を勝手に公開しない。
+ * 法人向けAI技術デモ（HyperFrames・25秒・無音・同一分析 va_78f6aa6f の実出力）。
+ * 素材の権限はユーザー確認済み（2026-11-16）。Web用MP4・ポスター・字幕の3ファイルのみを
+ * public/videos/ に置く。高品質マスターや素材パッケージは公開しない。
+ * 本番公開はこのリポジトリの公開承認プロセスを経てから行う。
  */
-export const verifiedCorporateDemoVideo: CorporateDemoVideoConfig | null = null
+export const verifiedCorporateDemoVideo: CorporateDemoVideoConfig | null = {
+  videoId: b2bDemoVideo.id,
+  durationSeconds: b2bDemoVideo.durationSeconds,
+  placement: b2bDemoVideo.placement,
+  src: "/videos/cyberknock-b2b-ai-demo-25s-web.mp4",
+  poster: "/videos/cyberknock-b2b-ai-demo-25s-poster.webp",
+  captionsSrc: "/videos/cyberknock-b2b-ai-demo-25s.ja.vtt",
+  durationLabel: "25秒",
+  title: "Cyber Knock 技術デモ動画：投球映像の姿勢解析からAIフィードバック、アプリ表示までの実装（25秒・音声なし）",
+  transcript: [
+    "0〜4秒：動画から、人の動きを解析。（解析元の投球映像）",
+    "4〜9秒：動きを捉え、情報として構造化。（同じ投球映像と、実アプリの姿勢解析出力）",
+    "9〜15秒：解析結果を、分かりやすいフィードバックへ。（実アプリの分析レポート：総合73点・評価B）",
+    "15〜20秒：AI解析からアプリまで、一貫して実装。（フィードバックと練習メニューのアプリ画面）",
+    "20〜25秒：Cyber Knock — AI開発を相談する。cyberknock.jp/ai-development#contact",
+  ],
+}
 
 const demoScreens = [
   {
@@ -79,39 +105,7 @@ export function DemoVideoPlayer({
         </Link>
       </div>
 
-      {video ? (
-        <figure className={styles.videoPlayerFrame}>
-          <video
-            className={styles.videoElement}
-            controls
-            playsInline
-            preload="none"
-            poster={video.poster}
-            aria-label={
-              video.title ??
-              "AIスポーツトレーナーの技術デモ動画（野球投球映像の姿勢解析・AIフィードバック・アプリ表示）"
-            }
-          >
-            <source src={video.src} type="video/mp4" />
-            <track
-              kind="captions"
-              src={video.captionsSrc}
-              srcLang="ja"
-              label="日本語字幕"
-              default
-            />
-            お使いのブラウザは動画再生に対応していません。下の実アプリ画面で体験の流れをご確認いただけます。
-          </video>
-          <figcaption className={styles.videoCaption}>
-            <span>
-              クリック・タップで再生（約{video.durationLabel ?? "20〜25秒"}・自動再生なし・字幕対応）
-            </span>
-            <span>
-              ※映像内のアプリUIは実画面、導入説明パートは法人案内用に再構成した表現です。
-            </span>
-          </figcaption>
-        </figure>
-      ) : null}
+      {video ? <DemoVideo video={video} /> : null}
 
       <div className={styles.demoStepsGrid}>
         {demoScreens.map((item) => (
@@ -152,11 +146,19 @@ export function DemoVideoPlayer({
           >
             実画面デモを拡大して見る <ArrowUpRight size={17} aria-hidden="true" />
           </Link>
+          {/* One click = one event: near the demo this CTA reports b2b_demo_contact_click instead of cta_click. */}
           <Link
             href="#contact"
             className="text-link"
-            data-track="cta_click"
-            data-location="ai_development"
+            {...(video
+              ? {
+                  "data-track": "b2b_demo_contact_click",
+                  "data-location": "demo_footer",
+                  "data-video-id": video.videoId,
+                  "data-video-duration": String(video.durationSeconds),
+                  "data-placement": video.placement,
+                }
+              : { "data-track": "cta_click", "data-location": "ai_development" })}
           >
             自社の映像・業務で相談する <ArrowUpRight size={17} aria-hidden="true" />
           </Link>

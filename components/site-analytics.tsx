@@ -10,6 +10,10 @@ type AnalyticsWindow = Window & {
   __cyberknockGa4Bootstrapped?: boolean
 }
 
+function isLocalHost(hostname: string): boolean {
+  return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]" || hostname.endsWith(".localhost")
+}
+
 /**
  * Optional GA4 setup. Measurement ID comes from deployment settings, never from
  * a placeholder or a hard-coded account value. With no ID, no script is loaded.
@@ -18,6 +22,8 @@ type AnalyticsWindow = Window & {
 function ensureSiteGa4(): boolean {
   const id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID
   if (!id || !/^G-[A-Z0-9]{6,15}$/.test(id)) return false
+  // Never send development or local-preview traffic to the production property.
+  if (process.env.NODE_ENV !== "production" || isLocalHost(window.location.hostname)) return false
   const analyticsWindow = window as AnalyticsWindow
   if (analyticsWindow.__cyberknockGa4Bootstrapped) return true
   if (typeof analyticsWindow.gtag === "function") return false
@@ -67,6 +73,9 @@ export function SiteAnalytics() {
         service: target.dataset.service,
         store: target.dataset.store,
         guide: target.dataset.guide,
+        video_id: target.dataset.videoId,
+        video_duration: target.dataset.videoDuration,
+        placement: target.dataset.placement,
       })
     }
     document.addEventListener("click", click)

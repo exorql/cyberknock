@@ -1,15 +1,22 @@
 /** Only fixed vocabulary can leave the page. Never add contact fields or raw URLs. */
-export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "demo_click", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon"] as const
+export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "demo_click", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon", "b2b_demo_video_start", "b2b_demo_video_50", "b2b_demo_video_complete", "b2b_demo_contact_click"] as const
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
+/** The only first-party B2B demo video whose events may be measured. */
+export const b2bDemoVideo = { id: "cyberknock_b2b_ai_demo_25s", durationSeconds: 25, placement: "ai_development_proof" } as const
+
 const allowedValues: Record<string, readonly string[]> = {
-  location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "unknown"],
+  location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "demo_video", "demo_footer", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
   guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
   page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "ai_demo", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
+  video_id: [b2bDemoVideo.id],
+  video_duration: [String(b2bDemoVideo.durationSeconds)],
+  placement: [b2bDemoVideo.placement],
+  demo_video: ["started"],
 }
 
 const siteOrigin = "https://cyberknock.jp"
@@ -27,6 +34,17 @@ const safePagePaths: Record<string, string> = {
   ai_demo: "/demos/ai-sports-trainer",
   other: "/",
 }
+
+const videoParams = ["video_id", "video_duration", "placement"] as const
+const demoSegmentedEvents: readonly AnalyticsEvent[] = ["contact_form_start", "contact_form_submit", "contact_form_success"]
+let demoVideoStarted = false
+
+/**
+ * Records, in memory only, that the visitor started the B2B demo video in this page session.
+ * Nothing is persisted; a reload resets it. Contact events then carry demo_video=started so
+ * inquiries can be segmented by demo engagement without creating a second conversion event.
+ */
+export function markDemoVideoStarted(): void { demoVideoStarted = true }
 
 export function pageCategory(path: string): string {
   const cleanPath = path.split(/[?#]/)[0].replace(/\/$/, "")
@@ -56,8 +74,16 @@ export function trackEvent(event: AnalyticsEvent, params: Record<string, unknown
   if (typeof analyticsWindow.gtag !== "function") return
   try {
     const page = pageCategory(window.location.pathname)
+    const isDemoEvent = event.startsWith("b2b_demo_")
+    const input: Record<string, unknown> = { ...params, page }
+    // Video identifiers belong only to demo events; engagement flags come only from this module.
+    delete input.demo_video
+    if (!isDemoEvent) for (const key of videoParams) delete input[key]
+    if (demoVideoStarted && demoSegmentedEvents.includes(event)) input.demo_video = "started"
     analyticsWindow.gtag("event", event, {
-      ...safeAnalyticsParams({ ...params, page }),
+      ...safeAnalyticsParams(input),
+      // Canonical path from the fixed page category, never from the raw URL.
+      ...(isDemoEvent ? { page_path: safePagePaths[page] } : {}),
       page_location: siteOrigin + safePagePaths[page],
       page_referrer: "",
     })

@@ -43,12 +43,54 @@ test("B2B LP excludes unverified analysis counts and prohibited guarantees", () 
   }
 })
 
-test("DemoVideoPlayer withholds unverified video by default and supports accessible click-to-play with captions", () => {
-  assert.match(demoPlayer, /export const verifiedCorporateDemoVideo: CorporateDemoVideoConfig \| null = null/)
-  assert.ok(demoPlayer.includes('controls'))
-  assert.ok(demoPlayer.includes('preload="none"'))
-  assert.ok(demoPlayer.includes('kind="captions"'))
-  assert.ok(!demoPlayer.includes("autoPlay"))
+test("DemoVideoPlayer uses only the three web delivery files and a click-to-play, captioned player", () => {
+  const demoVideo = readFileSync(new URL("../components/development/demo-video.tsx", import.meta.url), "utf8")
+  for (const path of [
+    "/videos/cyberknock-b2b-ai-demo-25s-web.mp4",
+    "/videos/cyberknock-b2b-ai-demo-25s-poster.webp",
+    "/videos/cyberknock-b2b-ai-demo-25s.ja.vtt",
+  ]) {
+    assert.ok(demoPlayer.includes(`"${path}"`), `config must reference ${path}`)
+  }
+  // No autoplay; the <video> element only exists after the visitor asks for it.
+  assert.ok(!/\bautoPlay\b|<video[^>]*\sautoplay\b/.test(demoVideo + demoPlayer))
+  assert.match(demoVideo, /stage === "player" \? \(\s*<video/)
+  assert.ok(demoVideo.includes('loading="lazy"'), "poster facade must not compete with initial content")
+  assert.ok(demoVideo.includes("controls"))
+  assert.ok(demoVideo.includes("playsInline"))
+  assert.ok(demoVideo.includes('kind="captions"') && demoVideo.includes('srcLang="ja"'))
+  assert.ok(demoVideo.includes('type="button"'))
+  assert.ok(demoVideo.includes('role="alert"'), "load failures must be announced with a retry path")
+  assert.ok(demoVideo.includes("動画の内容をテキストで読む"), "silent video needs a text alternative")
+  assert.ok(demoVideo.includes("AIの認識精度を示す数値ではありません"), "the 73-point score must not read as model accuracy")
+  // The static three-step explanation stays alongside the video.
+  assert.equal((demoPlayer.match(/step: "0\d"/g) || []).length, 3)
+})
+
+test("Only web delivery files are public; the master, raw media and QA material are not", async () => {
+  const { readdirSync } = await import("node:fs")
+  const { createHash } = await import("node:crypto")
+  const dir = new URL("../public/videos/", import.meta.url)
+  assert.deepEqual(readdirSync(dir).sort(), [
+    "cyberknock-b2b-ai-demo-25s-poster.webp",
+    "cyberknock-b2b-ai-demo-25s-web.mp4",
+    "cyberknock-b2b-ai-demo-25s.ja.vtt",
+  ])
+  const expected = {
+    "cyberknock-b2b-ai-demo-25s-web.mp4": "6e6400b4578075d740a953f811ecd21a8ec341db1d0e70702af9593492331669",
+    "cyberknock-b2b-ai-demo-25s-poster.webp": "4610baa770e4ed9945e2996ebd738e2792dfef42708cc69c231b0e8f9ceedfbb",
+    "cyberknock-b2b-ai-demo-25s.ja.vtt": "6329d4176d5c442d524dea27730fee517419706e01f26d659fbd34ea7181b2bf",
+  }
+  for (const [name, hash] of Object.entries(expected)) {
+    const bytes = readFileSync(new URL(name, dir))
+    assert.equal(createHash("sha256").update(bytes).digest("hex"), hash, `${name} must match the QA-verified delivery file`)
+  }
+  const vtt = readFileSync(new URL("cyberknock-b2b-ai-demo-25s.ja.vtt", dir), "utf8")
+  assert.ok(vtt.startsWith("WEBVTT"))
+  assert.equal((vtt.match(/-->/g) || []).length, 5)
+  assert.ok(!vtt.includes("�"))
+  const publicFiles = readdirSync(new URL("../public/", import.meta.url), { recursive: true }).map(String)
+  assert.ok(!publicFiles.some((file) => /master|pitching\.mp4|pose\.mp4|material-handoff|QA\.md|HANDOFF/i.test(file)))
 })
 
 test("Case study CTAs unify to /ai-development#contact and OGP images exist for B2B pages", () => {

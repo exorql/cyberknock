@@ -1,0 +1,13 @@
+<template><style>#root{position:absolute;inset:0}</style><div id="root" data-composition-id="feedback" data-width="1920" data-height="1080" data-duration="6"><div class="ground"></div><div class="right-field"></div><div class="copy"><p class="eyebrow">実アプリの分析レポート</p><h1 id="feedback-headline" class="headline" data-var-text="headline-3">解析結果を、
+分かりやすい
+フィードバックへ。</h1></div><p class="fine">表示される評価は、この投球の解析結果です。</p><div id="feedback-radar" class="clip" data-start="0" data-duration="3" data-track-index="1"><div class="phone" style="left:1306px;top:116px;width:370px;height:803px"><img id="radar-full" src="assets/verified/radar.png" alt="実アプリの完全な結果画面。B評価とレーダーチャート" /></div><p class="media-label" style="left:1190px;top:940px;width:590px">評価と、動きの特徴を可視化</p></div><div id="feedback-summary" class="clip" data-start="3" data-duration="3" data-track-index="2"><div class="phone" style="left:1306px;top:116px;width:370px;height:803px"><img id="feedback-full" src="assets/verified/feedback.png" alt="実アプリの完全な全体評価と改善ポイント画面" /></div><p class="media-label" style="left:1190px;top:940px;width:590px">改善ポイントを、言葉で提示</p></div><div id="feedback-score-card" class="score-card"><span class="score-card-result">総合73点</span><span class="score-card-grade">評価 B</span></div><div class="flow" data-layout-ignore><div class="flow-fill" id="feedback-bar"></div></div></div><script>
+const tl=gsap.timeline({paused:true});
+tl.fromTo('#feedback-headline',{y:18},{y:0,duration:0.48,ease:'power3.out'},0);
+tl.fromTo('#feedback-bar',{scaleX:0},{scaleX:1,duration:5.95,ease:'none'},0);
+
+tl.fromTo('#feedback-score-card',{opacity:0,y:22},{opacity:1,y:0,duration:0.52,ease:'power3.out'},0.65);
+tl.fromTo('#feedback-radar .phone img',{scale:1,y:0},{scale:1.085,y:-24,duration:2.9,ease:'none'},0.08);
+tl.fromTo('#feedback-summary .phone img',{scale:1.075,y:14},{scale:1.015,y:-20,duration:2.9,ease:'none'},3.05);
+window.__timelines=window.__timelines||{};
+window.__timelines['feedback']=tl;
+</script></template>

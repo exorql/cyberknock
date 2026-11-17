@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
-import { analyticsEvents, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
+import { analyticsEvents, isProductionAnalyticsHost, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
 
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void
@@ -18,6 +18,8 @@ type AnalyticsWindow = Window & {
 function ensureSiteGa4(): boolean {
   const id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID
   if (!id || !/^G-[A-Z0-9]{6,15}$/.test(id)) return false
+  // Cloudflare previews are production builds; only the live site may load production GA4.
+  if (process.env.NODE_ENV !== "production" || !isProductionAnalyticsHost(window.location.hostname)) return false
   const analyticsWindow = window as AnalyticsWindow
   if (analyticsWindow.__cyberknockGa4Bootstrapped) return true
   if (typeof analyticsWindow.gtag === "function") return false
@@ -67,6 +69,9 @@ export function SiteAnalytics() {
         service: target.dataset.service,
         store: target.dataset.store,
         guide: target.dataset.guide,
+        video_id: target.dataset.videoId,
+        video_duration: target.dataset.videoDuration,
+        placement: target.dataset.placement,
       })
     }
     document.addEventListener("click", click)

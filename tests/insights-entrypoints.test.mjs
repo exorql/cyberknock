@@ -23,10 +23,10 @@ test("general development LP shows buyer guidance after the FAQ and before the f
   assert.match(source, /<ContactForm source="ai_development"/)
 })
 
-test("article links are sourced from the three public, non-client-specific insight URLs", () => {
+test("article links are sourced from the four public, non-client-specific insight URLs", () => {
   const source = read("components/insights-entrypoints.tsx")
-  assert.equal(insights.length, 3)
-  assert.equal(new Set(insights.map((article) => article.slug)).size, 3)
+  assert.equal(insights.length, 4)
+  assert.equal(new Set(insights.map((article) => article.slug)).size, 4)
   assert.match(source, /insights\.map/)
   assert.match(source, /href=\{\x60\/insights\/\$\{article\.slug\}\x60\}/)
   assert.match(source, /data-track="insight_click"/)

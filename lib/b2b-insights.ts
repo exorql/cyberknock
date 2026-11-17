@@ -1,3 +1,5 @@
+import { videoAnalysisRequestGuide } from "./b2b-video-analysis-procurement.ts"
+
 export type InsightSection = {
   heading: string
   paragraphs: string[]
@@ -319,6 +321,7 @@ export const insights: InsightArticle[] = [
     relatedResources:[{label:"AIスポーツトレーナー：自社アプリの開発・運用",href:"/cases/ai-sports-trainer"},{label:"実画面デモ：AI動画解析からフィードバックまで",href:"/demos/ai-sports-trainer"},{label:"AI・プロダクト開発の受託相談",href:"/ai-development"}],
   },
 
+  videoAnalysisRequestGuide,
 ] as const
 
 export function findInsight(slug: string): InsightArticle | undefined {

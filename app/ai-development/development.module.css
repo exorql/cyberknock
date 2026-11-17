@@ -108,6 +108,8 @@
 .challengeCard h3 { font-size: clamp(19px, 1.9vw, 23px); line-height: 1.45; letter-spacing: -.03em; margin-top: 14px; }
 .challengeCard p { margin-top: 12px; font-size: 14px; line-height: 1.9; color: #4f655d; }
 .challengeScope { margin-top: auto; padding-top: 14px; border-top: 1px solid #e2ebe3; font-size: 12px !important; color: #36584d !important; font-weight: 700; }
+.challengeGuideLink { display: inline-flex; align-items: center; gap: 8px; color: #216b52; font-size: 13px; font-weight: 700; min-height: 44px; margin-top: 10px; text-decoration: underline; text-underline-offset: 4px; }
+.challengeGuideLink:focus-visible { outline: 3px solid #216b52; outline-offset: 3px; }
 .disclosure { padding: 18px 20px; border-left: 3px solid #3d7966; background: #eef2ea; color: #425950; font-size: 13px; line-height: 1.9; margin-top: 24px; }
 .disclosure strong { color: #18362e; }
 

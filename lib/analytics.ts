@@ -9,9 +9,9 @@ const allowedValues: Record<string, readonly string[]> = {
   location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "demo_video", "demo_footer", "unknown"],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
   store: ["app_store", "google_play"],
-  guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost"],
+  guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost", "ai-video-analysis-development-request"],
   source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "ai_demo", "other"],
+  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "insight_video_request", "ai_demo", "other"],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
   video_id: [b2bDemoVideo.id],
   video_duration: [String(b2bDemoVideo.durationSeconds)],
@@ -36,6 +36,7 @@ const safePagePaths: Record<string, string> = {
   insight_cost: "/insights/ai-video-analysis-poc-cost",
   insight_poc: "/insights/ai-poc-process-evaluation",
   insight_outsourcing: "/insights/ai-development-outsourcing-guide",
+  insight_video_request: "/insights/ai-video-analysis-development-request",
   ai_demo: "/demos/ai-sports-trainer",
   other: "/",
 }
@@ -59,6 +60,7 @@ export function pageCategory(path: string): string {
     "/insights": "insights", "/insights/ai-video-analysis-poc-cost": "insight_cost",
     "/insights/ai-poc-process-evaluation": "insight_poc",
     "/insights/ai-development-outsourcing-guide": "insight_outsourcing",
+    "/insights/ai-video-analysis-development-request": "insight_video_request",
     "/demos/ai-sports-trainer": "ai_demo",
   }
   const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "ai-development": "ai_development" }

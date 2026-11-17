@@ -85,7 +85,7 @@ export default async function InsightPage({ params }: Props) {
             <p className={styles.eyebrow}>{article.eyebrow}</p>
             <h1>{article.title}</h1>
             <p className={styles.lead}>{article.lead}</p>
-            <p className={styles.updated}>対象：AI開発の発注・PoC担当者</p>
+            <p className={styles.updated}>対象：AI開発・動画解析の発注・PoC担当者</p>
           </div>
         </header>
 
@@ -111,7 +111,7 @@ export default async function InsightPage({ params }: Props) {
               <h2 id="summary-heading">最初に押さえたいこと</h2>
               <ul>{article.summary.map(value => <li key={value}><CheckCircle2 size={19} aria-hidden="true" />{value}</li>)}</ul>
             </section>
-            {(article.slug === "ai-poc-process-evaluation" || article.slug === "ai-video-analysis-poc-cost") && (
+            {(article.slug === "ai-poc-process-evaluation" || article.slug === "ai-video-analysis-poc-cost" || article.slug === "ai-video-analysis-development-request") && (
               <section className={styles.related} aria-labelledby="poc-request-template-heading">
                 <p className={styles.relatedOverline}>FREE RESOURCE / 見積依頼の準備</p>
                 <h2 id="poc-request-template-heading">PoCの検証条件を整理できるシート</h2>
@@ -149,7 +149,7 @@ export default async function InsightPage({ params }: Props) {
             <section className={styles.related} aria-labelledby="more-guides-title">
               <p className={styles.relatedOverline}>RELATED GUIDES</p>
               <h2 id="more-guides-title">次に読む発注ガイド</h2>
-              <p>開発の外注・PoCの評価・動画解析の費用を、発注前に整理できます。</p>
+              <p>AI開発の外注・動画解析システムの依頼・PoCの評価・費用を、発注前に整理できます。</p>
               {insights.filter(other => other.slug !== article.slug).map(other => (
                 <Link key={other.slug} href={"/insights/" + other.slug}>
                   {other.title}<ArrowUpRight size={18} aria-hidden="true" />

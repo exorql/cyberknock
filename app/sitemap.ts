@@ -3,24 +3,39 @@ export const dynamic = "force-static"
 import type { MetadataRoute } from "next"
 import { insights } from "@/lib/b2b-insights"
 
+/**
+ * Dates of material changes to each public page (content, canonical, structured
+ * data, or links), verified against Git history on 2026-11-17.
+ * Keep these dates stable across builds. Update the relevant entry only when
+ * the published page materially changes, not merely when deploying.
+ */
+const lastSignificantUpdate = {
+  home: "2026-11-17", // buyer-guide links updated via InsightsEntryPoints
+  sportsDx: "2026-11-12", // canonical domain and linked content updated
+  aiDevelopment: "2026-11-17", // B2B buyer-intent section updated
+  caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
+  security: "2026-11-12", // canonical domain updated
+  privacy: "2026-11-12", // canonical domain updated
+} as const
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://cyberknock.jp"
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.home),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${baseUrl}/sports-dx`,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.sportsDx),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/ai-development`,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.aiDevelopment),
       changeFrequency: "monthly",
       priority: 0.95,
     },
@@ -44,19 +59,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/cases/ai-sports-trainer`,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.caseStudy),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/security`,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.security),
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date(),
+      lastModified: new Date(lastSignificantUpdate.privacy),
       changeFrequency: "yearly",
       priority: 0.3,
     },

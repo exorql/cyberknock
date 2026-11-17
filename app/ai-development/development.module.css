@@ -36,6 +36,10 @@
 .sectionCode { color: #2f705f; font-family: "Courier New", monospace; letter-spacing: .05em; font-size: 12px; font-weight: 700; }
 .chapterDark .sectionCode { color: var(--poc-lime); }
 .chapterTitle { font-size: clamp(28px, 3.2vw, 44px); line-height: 1.38; letter-spacing: -.05em; font-weight: 800; text-wrap: balance; }
+/* Give this long proof heading the full content width, without shrinking other section headings. */
+.productProofHead { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.productProofTitle { font-size: clamp(28px, 2.8vw, 40px); }
+@media (min-width: 851px) { .productProofTitle { white-space: nowrap; } }
 .chapterLead { color: #4e655d; font-size: 15px; line-height: 1.95; max-width: 650px; margin-top: 14px; }
 .chapterDark .chapterLead { color: #c8ded1; }
 

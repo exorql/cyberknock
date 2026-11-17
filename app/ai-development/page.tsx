@@ -209,10 +209,10 @@ export default function AiDevelopmentPage() {
           aria-labelledby="product-proof-title"
         >
           <div className="wrap">
-            <div className={styles.chapterHead}>
+            <div className={`${styles.chapterHead} ${styles.productProofHead}`}>
               <p className={styles.sectionCode}>01 / OPERATIONAL PROOF &amp; DEMO</p>
               <div>
-                <h2 id="product-proof-title" className={styles.chapterTitle}>
+                <h2 id="product-proof-title" className={`${styles.chapterTitle} ${styles.productProofTitle}`}>
                   AIを作るだけでなく、実際に運用してきた実績。
                 </h2>
                 <p className={styles.chapterLead}>

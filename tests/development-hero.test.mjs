@@ -4,6 +4,7 @@ import { readFileSync, existsSync } from "node:fs"
 
 const page = readFileSync(new URL("../app/ai-development/page.tsx", import.meta.url), "utf8")
 const demoPlayer = readFileSync(new URL("../components/development/demo-video-player.tsx", import.meta.url), "utf8")
+const developmentStyles = readFileSync(new URL("../app/ai-development/development.module.css", import.meta.url), "utf8")
 const contactForm = readFileSync(new URL("../components/contact-form.tsx", import.meta.url), "utf8")
 const caseContent = readFileSync(new URL("../app/cases/ai-sports-trainer/content.tsx", import.meta.url), "utf8")
 const casePage = readFileSync(new URL("../app/cases/ai-sports-trainer/page.tsx", import.meta.url), "utf8")
@@ -23,6 +24,15 @@ test("B2B development hero communicates video analysis & generative AI product d
   assert.ok(page.includes("実際の技術デモを見る"))
   assert.ok(page.includes('/images/product/pitching-feedback.webp'))
   assert.ok(page.includes('/images/cases/01-analysis.jpg'))
+})
+
+test("Operational proof heading stays one line on desktop without forcing mobile overflow", () => {
+  assert.match(page, /className=\{\x60\$\{styles\.chapterHead\} \$\{styles\.productProofHead\}\x60\}/)
+  assert.match(page, /id="product-proof-title" className=\{\x60\$\{styles\.chapterTitle\} \$\{styles\.productProofTitle\}\x60\}/)
+  assert.ok(page.includes("AIを作るだけでなく、実際に運用してきた実績。"))
+  assert.match(developmentStyles, /\.productProofHead\s*\{\s*grid-template-columns:\s*minmax\(0,\s*1fr\)/)
+  assert.match(developmentStyles, /@media\s*\(min-width:\s*851px\)\s*\{\s*\.productProofTitle\s*\{\s*white-space:\s*nowrap;/)
+  assert.ok(!/@media\s*\(max-width:\s*\d+px\)[^}]*\.productProofTitle\s*\{\s*white-space:\s*nowrap/.test(developmentStyles))
 })
 
 test("B2B LP excludes unverified analysis counts and prohibited guarantees", () => {

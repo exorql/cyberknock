@@ -307,6 +307,17 @@ export default function AiDevelopmentPage() {
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
                   <p className={styles.challengeScope}>{item.scope}</p>
+                  {item.number === "01" && (
+                    <Link
+                      href="/insights/ai-video-analysis-development-request"
+                      className={styles.challengeGuideLink}
+                      data-track="insight_click"
+                      data-location="content"
+                      data-guide="ai-video-analysis-development-request"
+                    >
+                      動画解析AIの開発依頼で確認する条件 <ArrowUpRight size={16} aria-hidden="true" />
+                    </Link>
+                  )}
                 </article>
               ))}
             </div>

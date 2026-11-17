@@ -25,7 +25,7 @@ export function InsightsEntryPoints({ placement }: Props) {
             {home ? <>開発を依頼する前に、<span className={styles.secondLine}>知っておきたいこと。</span></> : "開発の判断材料を、先に。"}
           </h2>
           <p className={styles.description}>
-            AI開発の費用や外注先の選び方、PoCの評価方法を、発注担当者向けにまとめています。
+            AI開発の外注先の選び方、動画解析AIの発注要件、PoCの評価方法や費用を、発注担当者向けにまとめています。
           </p>
           <Link
             href="/insights"

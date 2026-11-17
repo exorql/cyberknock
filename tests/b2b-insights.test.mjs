@@ -4,13 +4,14 @@ import { insights, findInsight } from "../lib/b2b-insights.ts"
 import { pageCategory, trackEvent } from "../lib/analytics.ts"
 
 test("B2B insight pages have unique, substantive, decision-focused content", () => {
-  assert.equal(insights.length, 3)
+  assert.equal(insights.length, 4)
   assert.deepEqual(insights.map(article => article.slug), [
     "ai-development-outsourcing-guide",
     "ai-poc-process-evaluation",
     "ai-video-analysis-poc-cost",
+    "ai-video-analysis-development-request",
   ])
-  assert.equal(new Set(insights.map(item => item.slug)).size, 3)
+  assert.equal(new Set(insights.map(item => item.slug)).size, 4)
   for (const article of insights) {
     assert.ok(article.title.length >= 12 && article.title.length <= 60)
     assert.ok(article.description.length >= 50 && article.description.length <= 160)
@@ -35,6 +36,7 @@ test("new article pages are tracked by fixed GA4-safe URL mapping", () => {
     ["/insights/ai-video-analysis-poc-cost", "insight_cost", "https://cyberknock.jp/insights/ai-video-analysis-poc-cost"],
     ["/insights/ai-poc-process-evaluation", "insight_poc", "https://cyberknock.jp/insights/ai-poc-process-evaluation"],
     ["/insights/ai-development-outsourcing-guide", "insight_outsourcing", "https://cyberknock.jp/insights/ai-development-outsourcing-guide"],
+    ["/insights/ai-video-analysis-development-request", "insight_video_request", "https://cyberknock.jp/insights/ai-video-analysis-development-request"],
   ]
   for (const [path, category, canonical] of cases) {
     assert.equal(pageCategory(path + "?name=private&email=qa@example.com"), category)

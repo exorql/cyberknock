@@ -40,12 +40,12 @@ export default function InsightsIndex() {
             <nav className={styles.breadcrumb} aria-label="パンくずリスト"><Link href="/">Cyber Knock</Link><span aria-hidden="true">/</span><span aria-current="page">技術・PoCガイド</span></nav>
             <p className={styles.eyebrow}>INSIGHTS / FOR PROJECT OWNERS</p>
             <h1>AI開発を、<br />判断できる計画に。</h1>
-            <p className={styles.lead}>AI機能やWeb・モバイルサービスを検討する企業・団体へ。外注前の要件整理、PoCの評価方法、動画解析の開発費用を、発注担当者の立場でまとめました。自社アプリの開発・運用経験と、一般的な技術上の注意点を区別して説明します。</p>
+            <p className={styles.lead}>AI機能やWeb・モバイルサービスを検討する企業・団体へ。AI開発会社の選び方、動画解析AIの依頼要件、PoCの評価方法や開発費用を、発注担当者の立場でまとめました。自社アプリの開発・運用経験と、一般的な技術上の注意点を区別して説明します。</p>
           </div>
         </header>
         <section className={styles.indexSection} aria-labelledby="articles-title">
           <div className="wrap">
-            <div className={styles.indexSectionHead}><p className={styles.eyebrow}>01 / RESEARCH & DECISION</p><h2 id="articles-title">発注の前に読みたい3つの論点。</h2></div>
+            <div className={styles.indexSectionHead}><p className={styles.eyebrow}>01 / RESEARCH & DECISION</p><h2 id="articles-title">発注前に確認したい4つの論点。</h2></div>
             <div className={styles.cards}>
               {insights.map((article, index) => (
                 <article className={styles.card} key={article.slug}>

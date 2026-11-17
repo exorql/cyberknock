@@ -32,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...insights.map(({ slug }) => ({
       url: `${baseUrl}/insights/${slug}`,
-      lastModified: new Date(slug === "ai-video-analysis-development-request" ? "2026-11-17" : "2026-11-03"),
+      lastModified: new Date(slug === "ai-video-analysis-development-request" || slug === "ai-development-outsourcing-guide" ? "2026-11-17" : "2026-11-03"),
       changeFrequency: "monthly" as const,
       priority: 0.68,
     })),

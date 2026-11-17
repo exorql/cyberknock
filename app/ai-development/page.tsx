@@ -331,7 +331,7 @@ export default function AiDevelopmentPage() {
                   開発の進め方と体制。
                 </h2>
                 <p className={styles.chapterLead}>
-                  初回のオンライン相談・要件整理（無償）と、実データを用いた技術検証・試作（有償PoC／本開発）の境界を明確にし、段階的にリスクを抑えて進めます。
+                  初回相談で課題と実現したいことを整理し、必要に応じて技術検証から実装へ進めます。対象データと評価基準を確認しながら、段階的にリスクを抑えます。
                 </p>
               </div>
             </div>
@@ -359,21 +359,11 @@ export default function AiDevelopmentPage() {
                 </p>
               </div>
               <div className={styles.requirementBox}>
-                <h3>NDA・成果物・知的財産権・契約条件</h3>
-                <ul>
-                  <li>
-                    <strong>秘密保持（NDA）・データ管理：</strong>
-                    実映像や業務データの共有前にNDA締結に対応。保管場所・利用範囲・検証後の削除手順を事前に合意します
-                  </li>
-                  <li>
-                    <strong>無償相談と有償検証の境界：</strong>
-                    初回相談と概算整理は無償です。顧客データをお預かりしての解析検証・試作実装は有償契約にて実施します
-                  </li>
-                  <li>
-                    <strong>成果物・知的財産権：</strong>
-                    検証レポート、評価結果、ソースコード等の納品範囲および知的財産権の帰属は、着手前に契約書で明文化します
-                  </li>
-                </ul>
+                <h3>安心してご相談いただくために</h3>
+                <p className={styles.requirementSummary}>
+                  初回相談・概算見積もりは無料です。機密情報の取り扱いはNDA締結に対応しています。
+                  実データを用いた検証・試作は、内容と費用を事前に合意したうえで有償にて実施します。
+                </p>
                 <p className={styles.requirementLinkRow}>
                   <Link href="/security" className={styles.caseCrosslink}>
                     AIの限界とデータの取り扱い方針 <ArrowRight size={15} aria-hidden="true" />

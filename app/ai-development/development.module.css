@@ -120,6 +120,7 @@
 .requirements { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
 .requirementBox { border-top: 1px solid #6b917e; padding-top: 24px; }
 .requirementBox h3 { font-size: 20px; line-height: 1.5; color: #f6faf2; }
+.requirementSummary { margin-top: 16px; color: #d3e4da; font-size: 14px; line-height: 2.05; }
 .requirementBox ul { padding-left: 19px; margin: 16px 0 0; color: #d3e4da; font-size: 14px; line-height: 2.05; }
 .requirementBox li + li { margin-top: 8px; }
 .requirementBox li::marker { color: var(--poc-lime); }

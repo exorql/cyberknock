@@ -53,6 +53,19 @@ test("B2B LP excludes unverified analysis counts and prohibited guarantees", () 
   }
 })
 
+test("B2B LP explains NDA and paid validation in one short reassurance paragraph", () => {
+  assert.ok(page.includes("<h3>安心してご相談いただくために</h3>"))
+  assert.ok(page.includes("初回相談・概算見積もりは無料です"))
+  assert.ok(page.includes("NDA締結に対応しています"))
+  assert.ok(page.includes("内容と費用を事前に合意したうえで有償にて実施します"))
+  assert.ok(page.includes("className={styles.requirementSummary}"))
+  assert.ok(developmentStyles.includes(".requirementSummary {"))
+  assert.ok(page.includes('href="/security"'), "retain the detailed security-policy link")
+  assert.ok(!page.includes("NDA・成果物・知的財産権・契約条件"))
+  assert.ok(!page.includes("成果物・知的財産権："))
+  assert.ok(!page.includes("保管場所・利用範囲・検証後の削除手順"))
+})
+
 test("DemoVideoPlayer uses only the three web delivery files and a click-to-play, captioned player", () => {
   const demoVideo = readFileSync(new URL("../components/development/demo-video.tsx", import.meta.url), "utf8")
   for (const path of [

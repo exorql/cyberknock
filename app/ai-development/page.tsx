@@ -291,7 +291,7 @@ export default function AiDevelopmentPage() {
               <p className={styles.sectionCode}>02 / CAPABILITIES FOR BUSINESS</p>
               <div>
                 <h2 id="challenges-title" className={styles.chapterTitle}>
-                  法人向けの開発対応領域。
+                  AI受託開発の対応領域。
                 </h2>
                 <p className={styles.chapterLead}>
                   自社プロダクトで構築・運用してきた動画解析・生成AI・アプリ開発の技術基盤をもとに、スポーツ分野に限らず幅広い業界のAI導入・新規プロダクト開発を支援します。

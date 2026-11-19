@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { pageCategory, safeAnalyticsParams, trackEvent } from '../lib/analytics.ts';
+import { initializeGtagDataLayer, pageCategory, safeAnalyticsParams, trackEvent } from '../lib/analytics.ts';
 
 test('analytics discards form contents, emails, raw URLs, arbitrary values and parameter names', () => {
   const actual = safeAnalyticsParams({ location: 'hero', service: 'sports-ai', source: 'home', email: 'qa@example.com', message: 'Private details', href: '/?email=qa@example.com', company: 'Private company', page: '/?email=qa@example.com', error_type: 'private detail', page_location: 'https://private.example?email=qa@example.com', page_referrer: 'https://private.example?name=private', store: 'private-store' });
@@ -94,4 +94,22 @@ test('store events retain only the two supported store categories', () => {
 
 test('method-level case study click is measured without raw URLs or PII', () => {
   assert.deepEqual(safeAnalyticsParams({ location: 'method', page: 'home', email: 'private@example.com' }), { location: 'method', page: 'home' });
+});
+
+test('Google tag initialization queues Arguments objects rather than arrays', () => {
+  const target = {};
+  initializeGtagDataLayer(target);
+  const timestamp = new Date('2026-11-19T00:00:00.000Z');
+
+  target.gtag('js', timestamp);
+  target.gtag('config', 'G-TEST123456', { send_page_view: false });
+  target.gtag('event', 'page_view', { page_location: 'https://cyberknock.jp/' });
+
+  assert.equal(target.dataLayer.length, 3);
+  for (const command of target.dataLayer) {
+    assert.equal(Object.prototype.toString.call(command), '[object Arguments]');
+  }
+  assert.deepEqual(Array.from(target.dataLayer[0]), ['js', timestamp]);
+  assert.deepEqual(Array.from(target.dataLayer[1]), ['config', 'G-TEST123456', { send_page_view: false }]);
+  assert.deepEqual(Array.from(target.dataLayer[2]), ['event', 'page_view', { page_location: 'https://cyberknock.jp/' }]);
 });

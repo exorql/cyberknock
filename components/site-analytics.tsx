@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
-import { analyticsEvents, isProductionAnalyticsHost, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
+import { analyticsEvents, initializeGtagDataLayer, isProductionAnalyticsHost, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
 
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void
-  dataLayer?: unknown[][]
+  dataLayer?: unknown[]
   __cyberknockGa4Bootstrapped?: boolean
 }
 
@@ -24,11 +24,10 @@ function ensureSiteGa4(): boolean {
   if (analyticsWindow.__cyberknockGa4Bootstrapped) return true
   if (typeof analyticsWindow.gtag === "function") return false
 
-  analyticsWindow.dataLayer = analyticsWindow.dataLayer || []
-  analyticsWindow.gtag = (...args: unknown[]) => { analyticsWindow.dataLayer?.push(args) }
+  const gtag = initializeGtagDataLayer(analyticsWindow)
   analyticsWindow.__cyberknockGa4Bootstrapped = true
-  analyticsWindow.gtag("js", new Date())
-  analyticsWindow.gtag("config", id, {
+  gtag("js", new Date())
+  gtag("config", id, {
     send_page_view: false,
     page_location: "https://cyberknock.jp/",
     page_referrer: "",

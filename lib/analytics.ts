@@ -75,6 +75,23 @@ export function safeAnalyticsParams(params: Record<string, unknown> = {}): Recor
   return safe
 }
 
+type GtagQueueWindow = {
+  dataLayer?: unknown[]
+  gtag?: (...args: unknown[]) => void
+}
+
+/**
+ * The Google tag processes IArguments objects, not arrays.
+ * Keep the standard gtag.js queue shape so config and manual page_view reach GA4.
+ */
+export function initializeGtagDataLayer(target: GtagQueueWindow): (...args: unknown[]) => void {
+  target.dataLayer ??= []
+  target.gtag = function (..._args: unknown[]) {
+    target.dataLayer?.push(arguments)
+  }
+  return target.gtag
+}
+
 export function trackEvent(event: AnalyticsEvent, params: Record<string, unknown> = {}): void {
   if (typeof window === "undefined" || !analyticsEvents.includes(event)) return
   const analyticsWindow = window as Window & { gtag?: (...args: unknown[]) => void }

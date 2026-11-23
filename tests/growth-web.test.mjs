@@ -198,6 +198,18 @@ test("Growth Web inquiry API enforces security controls (Origin, Content-Type, 1
   }
   const env = { SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T000/B000/XXXX" }
 
+  // A production-domain dry-run must fail closed rather than claim a lead was received.
+  const prodDryRunRes = await handleGrowthWebInquiry(
+    createJsonPost(
+      "https://cyberknock.jp/api/growth-web/inquiries",
+      makeValidInquiryPayload()
+    ),
+    { ...env, GROWTH_WEB_DRY_RUN: "1" },
+    spyFetch
+  )
+  assert.equal(prodDryRunRes.status, 503)
+  assert.equal(fetchCount, 0)
+
   // Preview hosts must never invoke the production Slack webhook, even when
   // its secret is accidentally available in the preview environment.
   const previewRes = await handleGrowthWebInquiry(

@@ -6,14 +6,15 @@ import {
   STICKY_MAX_WIDTH_QUERY,
   type StickyVisibilityState,
   isKeyboardOpen,
+  isFormVisibleOrPassed,
   shouldShowSticky,
 } from "@/lib/growth-web/sticky-cta"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 
 /**
  * Mobile-only CTA to the inquiry form. Shown after the hero CTA leaves the
- * viewport; hidden while the form is visible, while a field is focused and
- * while the software keyboard shrinks the visual viewport.
+ * viewport; hidden from the moment the form is reached through the footer,
+ * while a field is focused and while the keyboard shrinks the visual viewport.
  */
 export function MobileStickyCta() {
   const [visible, setVisible] = useState(false)
@@ -51,7 +52,7 @@ export function MobileStickyCta() {
     if (form) {
       const io = new IntersectionObserver(
         ([entry]) => {
-          state.formVisible = entry.isIntersecting
+          state.formVisible = isFormVisibleOrPassed(entry.isIntersecting, entry.boundingClientRect.bottom)
           update()
         },
         { rootMargin: "0px 0px -20% 0px" }

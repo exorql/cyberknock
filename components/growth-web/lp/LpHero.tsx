@@ -16,8 +16,7 @@ export function LpHero() {
             <h1 id="gwl-h1" className="gwl-h1">
               <span className="gwl-l1">{LP_HERO.kicker}</span>
               <span className="gwl-l2">
-                <span className="gwl-k1">{SERIF_TEXT.heroTitleLine1.slice(0, 1)}</span>
-                {SERIF_TEXT.heroTitleLine1.slice(1)}
+                {SERIF_TEXT.heroTitleLine1}
                 <br />
                 <span className="gwl-em">{SERIF_TEXT.heroTitleEm}</span>
                 {SERIF_TEXT.heroTitleTail}

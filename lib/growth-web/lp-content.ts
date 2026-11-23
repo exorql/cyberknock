@@ -12,9 +12,9 @@
 
 /** Headings rendered with the "GW Mincho" subset. Keep in sync with the components. */
 export const SERIF_TEXT = {
-  heroTitleLine1: "サイトに、",
-  heroTitleEm: "専属コーチ",
-  heroTitleTail: "を。",
+  heroTitleLine1: "Web集客は、",
+  heroTitleEm: "毎月改善",
+  heroTitleTail: "。",
   howTitleLine1: "毎月、サイトの",
   howTitleLine2: "フォームを直す。",
   trustTitleLine1: "依頼する前に、",
@@ -28,12 +28,12 @@ export const SERIF_TEXT = {
 export const INQUIRY_REQUIRED_FIELD_LABELS = ["スクール名", "お名前", "メールアドレス"] as const
 
 export const LP_HERO = {
-  eyebrow: "民間スポーツスクール経営者のための Web集客改善サービス",
-  kicker: "スポーツスクールの",
+  eyebrow: "民間スポーツスクール専門｜Web制作・継続集客改善",
+  kicker: "指導に集中。",
   definition: ["サイト制作", "毎月の計測と改修", "地域検索対策"],
   definitionNote: "定額・先行3社",
-  ledeLead: "公開して終わりにせず、保護者がサイトのどこで迷ったかを",
-  ledeStrong: "毎月計測し、体験申込が増えるように直し続けます。",
+  ledeLead: "保護者が学年・曜日・料金で迷わず体験申込へ進めるサイトを制作。",
+  ledeStrong: "公開後は離脱箇所を毎月データで特定し、改修も更新も一括対応します。",
   ctaLabel: "無料サイト診断を申し込む",
   demoLabel: "実働デモサイトを見る",
   assurances: [

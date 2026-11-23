@@ -8,6 +8,7 @@ const MAX_MEMORY_ENTRIES = 5_000;
 const IDEMPOTENCY_TTL_MS = 5 * 60 * 1000;
 
 const SPORT_CATEGORY_LABELS = {
+  baseball: "野球・少年野球・打撃／投球指導",
   soccer: "サッカー・フットサル",
   gymnastics: "体操・運動基礎・体幹",
   dance: "ダンス・チアリーディング",

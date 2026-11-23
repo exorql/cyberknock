@@ -2,7 +2,7 @@ import test from "node:test"
 import assert from "node:assert/strict"
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs"
 import { INQUIRY_REQUIRED_FIELD_LABELS, LP_HERO, PRICING_TERMS, SERIF_TEXT } from "../lib/growth-web/lp-content.ts"
-import { isKeyboardOpen, shouldShowSticky } from "../lib/growth-web/sticky-cta.ts"
+import { isFormVisibleOrPassed, isKeyboardOpen, shouldShowSticky } from "../lib/growth-web/sticky-cta.ts"
 import { safeAnalyticsParams } from "../lib/analytics.ts"
 
 const root = new URL("../", import.meta.url)
@@ -65,6 +65,9 @@ test("Growth Web LP hero copy matches the real inquiry form requirements", () =>
   assert.deepEqual(requiredNames, ["organizationName", "contactName", "email"])
   assert.equal(INQUIRY_REQUIRED_FIELD_LABELS.length, requiredNames.length)
   assert.ok(LP_HERO.assurances[0].includes(INQUIRY_REQUIRED_FIELD_LABELS.join("・")))
+  assert.match(LP_HERO.assurances[0], /プライバシーポリシーへの同意/)
+  assert.match(form, /name="privacyAccepted"/)
+  assert.match(read("lib/growth-web/form-options.ts"), /privacyAccepted/)
   // Promises that the service does not define must not reappear.
   const copy = SANS_SOURCES.map(read).join("\n")
   for (const banned of ["URLを送るだけ", "約5分", "約60分", "1週目"]) assert.ok(!copy.includes(banned), banned)
@@ -95,6 +98,15 @@ test("Growth Web sticky CTA visibility rule and PII-free tracking", () => {
   assert.equal(shouldShowSticky({ ...base, formVisible: true }), false)
   assert.equal(shouldShowSticky({ ...base, fieldFocused: true }), false)
   assert.equal(shouldShowSticky({ ...base, keyboardOpen: true }), false)
+  // Below the form: show; entering it: hide; after scrolling into footer: stay hidden.
+  assert.equal(isFormVisibleOrPassed(false, 900), false)
+  assert.equal(isFormVisibleOrPassed(true, 600), true)
+  assert.equal(isFormVisibleOrPassed(false, 0), true)
+  assert.equal(isFormVisibleOrPassed(false, -150), true)
+  assert.equal(shouldShowSticky({ ...base, formVisible: isFormVisibleOrPassed(false, -150) }), false)
+  // Scrolling back up: keep hidden over the form; resume only above the form.
+  assert.equal(isFormVisibleOrPassed(true, 300), true)
+  assert.equal(isFormVisibleOrPassed(false, 900), false)
   assert.equal(isKeyboardOpen(400, 844), true)
   assert.equal(isKeyboardOpen(800, 844), false)
   assert.deepEqual(
@@ -103,4 +115,5 @@ test("Growth Web sticky CTA visibility rule and PII-free tracking", () => {
   )
   const sticky = read("components/growth-web/lp/MobileStickyCta.tsx")
   assert.match(sticky, /location: "growth_web_sticky"/)
+  assert.match(sticky, /isFormVisibleOrPassed\(entry\.isIntersecting, entry\.boundingClientRect\.bottom\)/)
 })

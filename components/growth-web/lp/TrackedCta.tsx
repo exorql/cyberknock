@@ -13,6 +13,7 @@ interface TrackedCtaProps {
   params: Record<string, string | number | boolean>
   className: string
   children: ReactNode
+  id?: string
 }
 
 export function TrackedCta({
@@ -21,6 +22,7 @@ export function TrackedCta({
   params,
   className,
   children,
+  id,
 }: TrackedCtaProps) {
   const handleClick = () => {
     trackGrowthWebEvent(event, params)
@@ -28,14 +30,14 @@ export function TrackedCta({
 
   if (href.startsWith("#")) {
     return (
-      <a href={href} onClick={handleClick} className={className}>
+      <a id={id} href={href} onClick={handleClick} className={className}>
         {children}
       </a>
     )
   }
 
   return (
-    <Link href={href} onClick={handleClick} className={className}>
+    <Link id={id} href={href} onClick={handleClick} className={className}>
       {children}
     </Link>
   )

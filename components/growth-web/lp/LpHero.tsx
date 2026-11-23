@@ -1,114 +1,54 @@
-import Link from "next/link"
-import { ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react"
-import { LpEditorialPitchVisual } from "@/components/growth-web/EditorialVisuals"
+import { FormCheckFigure } from "@/components/growth-web/lp/FormCheckFigure"
 import { TrackedCta } from "@/components/growth-web/lp/TrackedCta"
+import { LP_HERO, SERIF_TEXT } from "@/lib/growth-web/lp-content"
 import { GROWTH_WEB_ROUTES, SERVICE_METADATA } from "@/lib/growth-web/service-lp"
+
+/** Accessible name of the sports band (also asserted by tests/growth-web.test.mjs). */
+const SPORTS_LABEL = "対応している民間スポーツスクール：野球・サッカー・体操・ダンス・バスケ・水泳など"
 
 export function LpHero() {
   return (
-    <section className="gw-editorial-grid relative border-b border-[#dddad0] pb-16 pt-8 sm:pb-24 sm:pt-14 lg:pb-28 lg:pt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Clean Breadcrumb tying into official Cyber Knock site IA */}
-        <nav
-          aria-label="パンくずリスト"
-          className="mb-6 flex flex-wrap items-center gap-2 text-xs font-medium text-[#424d48]"
-        >
-          <Link href="/" className="hover:text-[#0a5c42] hover:underline">
-            Cyber Knock
-          </Link>
-          <span aria-hidden="true">/</span>
-          <Link href="/#services" className="hover:text-[#0a5c42] hover:underline">
-            支援内容
-          </Link>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page" className="font-semibold text-[#101815]">
-            Cyber Knock Growth Web
-          </span>
-        </nav>
-
-        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Left editorial column */}
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#0a5c42]/30 bg-[#e6f4ee] px-3 py-1.5 text-[11px] font-semibold text-[#0a5c42] sm:px-3.5 sm:text-xs">
-              <span
-                className="inline-block h-2 w-2 shrink-0 rounded-full bg-[#0a5c42]"
-                aria-hidden="true"
-              />
-              <span>民間スポーツスクール特化｜先行パートナー3社限定募集</span>
-            </div>
-
-            <h1 className="mt-5 text-[1.72rem] font-extrabold leading-[1.24] tracking-[-0.025em] text-[#101815] sm:text-5xl sm:leading-[1.15]">
-              <span className="block">ホームページ制作ではなく、</span>
-              <span className="mt-1 block text-[#0a5c42]">
-                体験申込を増やし続ける
+    <>
+      <div className="gwl-wrap">
+        <section className="gwl-hero" aria-labelledby="gwl-h1">
+          <div>
+            <p className="gwl-eyebrow">{LP_HERO.eyebrow}</p>
+            <h1 id="gwl-h1" className="gwl-h1">
+              <span className="gwl-l1">{LP_HERO.kicker}</span>
+              <span className="gwl-l2">
+                <span className="gwl-k1">{SERIF_TEXT.heroTitleLine1.slice(0, 1)}</span>
+                {SERIF_TEXT.heroTitleLine1.slice(1)}
+                <br />
+                <span className="gwl-em">{SERIF_TEXT.heroTitleEm}</span>
+                {SERIF_TEXT.heroTitleTail}
               </span>
-              <span className="block">集客改善。</span>
             </h1>
-
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#38443f] sm:text-lg">
-              民間スポーツスクール（野球・サッカー・体操・ダンス・バスケ・水泳など）に特化し、
-              保護者がスマホで迷わず無料体験へ進めるWebサイト構築と、
-              GA4計測×AI活用による毎月のCVR・地域SEO改善を一体で提供します。
+            <ul className="gwl-def" aria-label="サービスに含まれるもの">
+              {LP_HERO.definition.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+              <li className="gwl-def-note">{LP_HERO.definitionNote}</li>
+            </ul>
+            <p className="gwl-lede">
+              {LP_HERO.ledeLead}
+              <br className="gwl-br-pc" />
+              <strong>{LP_HERO.ledeStrong}</strong>
             </p>
-
-            {/* Transparent pricing strip */}
-            <div className="mt-7 rounded-xl border border-[#dddad0] bg-white p-4 sm:p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <div>
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#424d48]">
-                    PILOT PARTNER（先着3社・初期検証価格）
-                  </p>
-                  <p className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-[#101815] tabular-nums">
-                    <span className="inline-flex items-baseline gap-1.5 whitespace-nowrap">
-                      <span className="text-sm font-semibold text-[#424d48]">
-                        初期
-                      </span>
-                      <span className="text-2xl font-extrabold sm:text-3xl">
-                        ¥{SERVICE_METADATA.initialPriceExclTax}
-                      </span>
-                    </span>
-                    <span className="inline-flex items-baseline gap-1.5 whitespace-nowrap">
-                      <span className="text-sm font-semibold text-[#424d48]">
-                        ＋ 月額
-                      </span>
-                      <span className="text-2xl font-extrabold text-[#0a5c42] sm:text-3xl">
-                        ¥{SERVICE_METADATA.monthlyPriceExclTax}
-                      </span>
-                    </span>
-                    <span className="text-xs font-medium text-[#424d48]">
-                      （税抜／税込 初期¥{SERVICE_METADATA.initialPriceInclTax}・月額¥
-                      {SERVICE_METADATA.monthlyPriceInclTax}）
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="mt-3.5 grid gap-2 border-t border-[#eeece4] pt-3.5 text-xs font-medium text-[#2c3632] sm:grid-cols-3">
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2
-                    className="h-4 w-4 shrink-0 text-[#0a5c42]"
-                    aria-hidden="true"
-                  />
-                  体験申込特化UI・60秒フォーム
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2
-                    className="h-4 w-4 shrink-0 text-[#0a5c42]"
-                    aria-hidden="true"
-                  />
-                  GA4計測×AI月次改善込み
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CheckCircle2
-                    className="h-4 w-4 shrink-0 text-[#0a5c42]"
-                    aria-hidden="true"
-                  />
-                  既存予約ツール併用OK
-                </span>
-              </div>
-            </div>
-
-            {/* Primary CTAs */}
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="gwl-cta-row">
+              <TrackedCta
+                id="gwl-hero-cta"
+                href="#contact"
+                event="lp_hero_cta_click"
+                params={{
+                  cta_label: "hero_free_site_audit",
+                  destination: "#contact",
+                  location: "growth_web_hero",
+                }}
+                className="gwl-btn gwl-btn-p"
+              >
+                {LP_HERO.ctaLabel}
+                <ArrowIcon />
+              </TrackedCta>
               <TrackedCta
                 href={GROWTH_WEB_ROUTES.demo}
                 event="lp_demo_cta_click"
@@ -117,39 +57,116 @@ export function LpHero() {
                   cta_label: "hero_demo",
                   location: "growth_web_hero",
                 }}
-                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-[#b8430f] px-6 text-base font-bold text-white shadow-[0_12px_28px_-10px_rgba(184,67,15,0.55)] transition-colors hover:bg-[#94340a]"
+                className="gwl-link"
               >
-                スポーツスクール実働デモを触る
-                <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
-              </TrackedCta>
-              <TrackedCta
-                href="#contact"
-                event="lp_hero_cta_click"
-                params={{
-                  cta_label: "hero_free_site_audit",
-                  destination: "#contact",
-                  location: "growth_web_hero",
-                }}
-                className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-[#101815] bg-white px-6 text-base font-bold text-[#101815] transition-colors hover:bg-[#101815] hover:text-white"
-              >
-                現サイトの無料診断を相談する
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                {LP_HERO.demoLabel}
               </TrackedCta>
             </div>
-
-            {/* Explicit honesty commitment */}
-            <p className="mt-4 text-xs leading-relaxed text-[#424d48]">
-              ※新規事業MVPの初期検証フェーズ（先着3社限定）のため、架空の導入実績・口コミ・誇張された成果数値は掲載していません。
-              実際の画面・操作感・GA4計測設計をデモサイトでご確認いただけます。
+            <ul className="gwl-assure" aria-label="無料診断について">
+              {LP_HERO.assurances.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <p className="gwl-price-line">
+              <span>
+                初期 <b>¥{SERVICE_METADATA.initialPriceExclTax}</b>
+              </span>
+              <span>
+                月額 <b>¥{SERVICE_METADATA.monthlyPriceExclTax}</b>
+              </span>
+              <span>（税抜）</span>
+              <a href="#pricing">料金と契約条件</a>
             </p>
           </div>
+          <FormCheckFigure />
+        </section>
+      </div>
 
-          {/* Right visual architectural proof column */}
-          <div className="lg:col-span-5">
-            <LpEditorialPitchVisual />
+      <section className="gwl-sports" aria-labelledby="gwl-sports-h">
+        <div className="gwl-wrap">
+          <div className="gwl-sports-row">
+            <h2 id="gwl-sports-h">
+              対応している
+              <br />
+              民間スポーツスクール
+            </h2>
+            <ul aria-label={SPORTS_LABEL}>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round">
+                    <path d="M16 28 4 16 16 4l12 12z" />
+                    <path d="M14.4 26.4 16 28l1.6-1.6L16 24.8z" fill="#131614" />
+                    <path d="M4 14.4 5.6 16 4 17.6 2.4 16zM16 2.4 17.6 4 16 5.6 14.4 4zM28 14.4 29.6 16 28 17.6 26.4 16z" />
+                    <circle cx="16" cy="16" r="1.8" />
+                  </g>
+                </svg>
+                野球
+              </li>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinejoin="round">
+                    <rect x="3" y="7" width="26" height="18" rx="1" />
+                    <path d="M16 7v18" />
+                    <circle cx="16" cy="16" r="3.5" />
+                    <path d="M3 11.5h3.5v9H3M29 11.5h-3.5v9H29" />
+                  </g>
+                </svg>
+                サッカー
+              </li>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="11" width="26" height="3" rx="1" />
+                    <path d="M8 14 6 27M24 14l2 13M7 21h18" />
+                  </g>
+                </svg>
+                体操
+              </li>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="5" width="26" height="22" rx="1" />
+                    <path d="M3 9.5h26" />
+                    <path d="m9 15 3 3m0-3-3 3M20 15l3 3m0-3-3 3M14.5 21l3 3m0-3-3 3" />
+                  </g>
+                </svg>
+                ダンス
+              </li>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinejoin="round">
+                    <rect x="3" y="4" width="26" height="24" rx="1" />
+                    <path d="M11.5 4v11h9V4" />
+                    <path d="M11.5 15a4.5 4.5 0 0 0 9 0" />
+                    <path d="M6 4v6a10 10 0 0 0 20 0V4" />
+                    <circle cx="16" cy="7.5" r="1.5" />
+                  </g>
+                </svg>
+                バスケ
+              </li>
+              <li>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                  <g fill="none" stroke="#131614" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round">
+                    <rect x="3" y="5" width="26" height="22" rx="1" />
+                    <path d="M3 10.5h26M3 16h26M3 21.5h26" strokeDasharray="1 3" />
+                    <path d="M7 5v22" />
+                  </g>
+                </svg>
+                水泳
+              </li>
+              <li className="gwl-more">ほか 武道・複合スポーツなど</li>
+            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
+  )
+}
+
+export function ArrowIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+      <path d="M3 9h11M10 4.5 14.5 9 10 13.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }

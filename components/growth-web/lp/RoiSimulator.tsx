@@ -31,7 +31,7 @@ function paybackBand(months: number | null): string {
   return "10_to_12m"
 }
 
-export function RoiSimulator() {
+export function RoiSimulator({ embedded = false }: { embedded?: boolean } = {}) {
   const [input, setInput] = useState<RoiSimulationInput>(DEFAULT_ROI_INPUT)
   const lastTrackedRef = useRef<number>(0)
 
@@ -72,21 +72,30 @@ export function RoiSimulator() {
     1
   )
 
+  const Wrapper = embedded ? "div" : "section"
   return (
-    <section
+    <Wrapper
       id="simulator"
-      className="scroll-mt-24 border-b border-[#dddad0] bg-[#f6f5f0] py-16 sm:py-24"
+      className={
+        embedded
+          ? "scroll-mt-24 py-6 sm:py-8"
+          : "scroll-mt-24 border-b border-[#dddad0] bg-[#f6f5f0] py-16 sm:py-24"
+      }
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className={embedded ? "px-4 sm:px-7" : "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"}>
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
           <div className="max-w-3xl">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0a5c42]">
-              04 / UNIT ECONOMICS SIMULATOR
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-[#101815] sm:text-4xl">
-              粗利と顧客獲得費を含めて、現実的な採算を試算
-            </h2>
-            <p className="mt-3 text-base leading-relaxed text-[#424d48]">
+            {!embedded && (
+              <>
+                <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0a5c42]">
+                  04 / UNIT ECONOMICS SIMULATOR
+                </p>
+                <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-[#101815] sm:text-4xl">
+                  粗利と顧客獲得費を含めて、現実的な採算を試算
+                </h2>
+              </>
+            )}
+            <p className={`${embedded ? "" : "mt-3 "}text-base leading-relaxed text-[#424d48]`}>
               売上LTVだけで回収を断定しません。貴校の月謝・継続期間に加え、
               <strong>粗利益率・体験入会率・追加の集客コスト（広告/チラシ等）</strong>
               を織り込み、初期{formatYen(SERVICE_INITIAL_FEE_JPY)}＋月額
@@ -135,7 +144,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2.5"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>¥4,000</span>
                   <span>¥18,000</span>
                 </div>
@@ -165,7 +174,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2.5"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>¥0</span>
                   <span>¥25,000</span>
                 </div>
@@ -195,7 +204,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2.5"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>6ヶ月</span>
                   <span>36ヶ月</span>
                 </div>
@@ -213,7 +222,7 @@ export function RoiSimulator() {
                     {input.grossMarginPercent}%
                   </span>
                 </div>
-                <p className="mt-0.5 text-[11px] text-[#424d48]">
+                <p className="mt-0.5 text-xs text-[#424d48]">
                   指導員変動人件費・会場費・保険・決済手数料等を差し引いた目安
                 </p>
                 <input
@@ -228,7 +237,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>30%（高コスト）</span>
                   <span>90%（空き枠活用）</span>
                 </div>
@@ -258,7 +267,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2.5"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>＋1件/月</span>
                   <span>＋10件/月</span>
                 </div>
@@ -288,7 +297,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2.5"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>20%</span>
                   <span>80%</span>
                 </div>
@@ -306,7 +315,7 @@ export function RoiSimulator() {
                     {formatYen(input.additionalMonthlyAcquisitionCostJpy)} / 月
                   </span>
                 </div>
-                <p className="mt-0.5 text-[11px] text-[#424d48]">
+                <p className="mt-0.5 text-xs text-[#424d48]">
                   本サービス月額とは別にかかる広告費・チラシ費・体験運営費
                 </p>
                 <input
@@ -324,7 +333,7 @@ export function RoiSimulator() {
                   }
                   className="gw-range mt-2"
                 />
-                <div className="mt-1 flex justify-between text-[11px] text-[#424d48] tabular-nums">
+                <div className="mt-1 flex justify-between text-xs text-[#424d48] tabular-nums">
                   <span>¥0</span>
                   <span>¥50,000 / 月</span>
                 </div>
@@ -348,7 +357,7 @@ export function RoiSimulator() {
                   >
                     {formatYen(result.studentGrossProfitLtvJpy)}
                   </p>
-                  <p className="mt-1 text-[11px] text-[#424d48] tabular-nums">
+                  <p className="mt-1 text-xs text-[#424d48] tabular-nums">
                     参考：累積売上LTV {formatYen(result.studentRevenueLtvJpy)} × 粗利率
                     {input.grossMarginPercent}%
                   </p>
@@ -364,7 +373,7 @@ export function RoiSimulator() {
                   >
                     ＋{result.expectedNewMembersPerMonth} 名 / 月
                   </p>
-                  <p className="mt-1 text-[11px] text-[#424d48] tabular-nums">
+                  <p className="mt-1 text-xs text-[#424d48] tabular-nums">
                     6ヶ月目の月次粗利増分{" "}
                     {formatYen(result.month6MonthlyGrossProfitJpy)}
                   </p>
@@ -383,7 +392,7 @@ export function RoiSimulator() {
                       / 名
                     </span>
                   </p>
-                  <p className="mt-1 text-[11px] text-[#424d48] tabular-nums">
+                  <p className="mt-1 text-xs text-[#424d48] tabular-nums">
                     粗利LTV / CAC ={" "}
                     <strong className="text-[#101815]">
                       {result.grossProfitLtvToCacRatio}倍
@@ -420,7 +429,7 @@ export function RoiSimulator() {
                       ? `${result.grossProfitBreakEvenMonth}ヶ月目`
                       : "12ヶ月超"}
                   </p>
-                  <p className="mt-1 text-[11px] text-[#2c3632] tabular-nums">
+                  <p className="mt-1 text-xs text-[#2c3632] tabular-nums">
                     12ヶ月累積粗利収支{" "}
                     <strong>
                       {result.year1CumulativeNetGrossProfitJpy > 0 ? "+" : ""}
@@ -584,6 +593,6 @@ export function RoiSimulator() {
           </div>
         </div>
       </div>
-    </section>
+    </Wrapper>
   )
 }

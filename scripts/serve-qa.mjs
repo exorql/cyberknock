@@ -21,6 +21,10 @@ const media = options.media || 'ok';
 if (!['ok', 'fail'].includes(media)) throw new Error('Use media=ok or fail');
 const functionSource = await readFile(new URL('../functions/contact.js', import.meta.url), 'utf8');
 const { handleContact } = await import(`data:text/javascript;base64,${Buffer.from(functionSource).toString('base64')}`);
+const gwInquirySource = await readFile(new URL('../functions/api/growth-web/inquiries.js', import.meta.url), 'utf8');
+const { handleGrowthWebInquiry } = await import(`data:text/javascript;base64,${Buffer.from(gwInquirySource).toString('base64')}`);
+const gwDemoSource = await readFile(new URL('../functions/api/growth-web/demo-trial.js', import.meta.url), 'utf8');
+const { handleGrowthWebDemoTrial } = await import(`data:text/javascript;base64,${Buffer.from(gwDemoSource).toString('base64')}`);
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'application/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.mp4': 'video/mp4', '.vtt': 'text/vtt; charset=utf-8' };
 const compressible = new Set(['.html', '.js', '.css', '.json', '.txt', '.xml', '.svg']);
 
@@ -120,6 +124,28 @@ createServer(async (request, response) => {
         if (mode === 'slow') await new Promise(done => setTimeout(done, 2000));
         return new Response(mode === 'failure' ? 'simulated failure' : 'ok', { status: mode === 'failure' ? 500 : 200 });
       });
+      response.writeHead(result.status, Object.fromEntries(result.headers));
+      response.end(await result.text());
+      return;
+    }
+    if ((url.pathname === '/api/growth-web/inquiries' || url.pathname === '/api/growth-web/demo-trial') && request.method === 'POST') {
+      const chunks = [];
+      let length = 0;
+      for await (const chunk of request) {
+        length += chunk.length;
+        if (length > 24_000) { response.writeHead(413, { 'Content-Type': 'application/json' }); response.end('{"ok":false}'); return; }
+        chunks.push(chunk);
+      }
+      const headers = new Headers();
+      for (const [name, value] of Object.entries(request.headers)) if (typeof value === 'string') headers.set(name, value);
+      const host = request.headers.host || `127.0.0.1:${port}`;
+      const input = new Request(`http://${host}${url.pathname}`, { method: 'POST', headers, body: Buffer.concat(chunks) });
+      const result = url.pathname === '/api/growth-web/demo-trial'
+        ? await handleGrowthWebDemoTrial(input)
+        : await handleGrowthWebInquiry(input, { SLACK_WEBHOOK_URL: 'https://hooks.slack.com/services/local-qa-only' }, async () => {
+            if (mode === 'slow') await new Promise(done => setTimeout(done, 2000));
+            return new Response(mode === 'failure' ? 'simulated failure' : 'ok', { status: mode === 'failure' ? 500 : 200 });
+          });
       response.writeHead(result.status, Object.fromEntries(result.headers));
       response.end(await result.text());
       return;

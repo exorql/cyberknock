@@ -222,6 +222,15 @@ export default function PrivacyPolicyPage() {
               <p>AIスポーツトレーナーの動画保存、外部AIサービスの利用、データ削除などは、データの取り扱いページでご案内しています。</p>
               <Link href="/security" className="text-link">データの取り扱いを確認する <span aria-hidden="true">↗</span></Link>
             </div>
+
+            <div className="info-note" style={{ marginTop: 20 }}>
+              <p className="section-label">Cyber Knock Growth Web（LP・デモサイト）での取り扱い</p>
+              <p>
+                サービスLP（/services/growth-web）の無料診断・お問い合わせフォームでご入力いただいた情報は、ご回答・診断連絡およびスパム・重複送信の防止（送信元IP・送信キーの一時制御）のためにのみ利用します。
+                なお、スポーツスクール向けデモサイト（/services/growth-web/demo）の体験申込フォームへの入力内容は画面上のプレビュー表示のみに用い、外部送信およびサーバーへの永続保存は一切行いません。また、GA4計測イベントには許可された固定語彙のみを送信し、氏名・メールアドレス・電話番号等の個人情報は送信しません。
+              </p>
+              <Link href="/services/growth-web" className="text-link">Cyber Knock Growth Webを見る <span aria-hidden="true">↗</span></Link>
+            </div>
           </article>
         </div>
       </main>

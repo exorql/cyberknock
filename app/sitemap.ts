@@ -10,12 +10,14 @@ import { insights } from "@/lib/b2b-insights"
  * the published page materially changes, not merely when deploying.
  */
 const lastSignificantUpdate = {
-  home: "2026-11-17", // buyer-guide links updated via InsightsEntryPoints
+  home: "2026-11-23", // Growth Web entry point added to services
   sportsDx: "2026-11-12", // canonical domain and linked content updated
   aiDevelopment: "2026-11-17", // B2B buyer-intent section updated
+  growthWeb: "2026-11-23", // Cyber Knock Growth Web service LP launched
+  growthWebDemo: "2026-11-23", // Sports school live demo model launched
   caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
   security: "2026-11-12", // canonical domain updated
-  privacy: "2026-11-12", // canonical domain updated
+  privacy: "2026-11-23", // Growth Web LP and demo data handling disclosure added
 } as const
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -38,6 +40,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(lastSignificantUpdate.aiDevelopment),
       changeFrequency: "monthly",
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/services/growth-web`,
+      lastModified: new Date(lastSignificantUpdate.growthWeb),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/services/growth-web/demo`,
+      lastModified: new Date(lastSignificantUpdate.growthWebDemo),
+      changeFrequency: "monthly",
+      priority: 0.75,
     },
     {
       url: `${baseUrl}/insights`,

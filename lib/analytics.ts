@@ -1,22 +1,99 @@
 /** Only fixed vocabulary can leave the page. Never add contact fields or raw URLs. */
-export const analyticsEvents = ["page_view", "cta_click", "case_study_click", "case_study_view", "demo_click", "insight_click", "store_click", "contact_form_start", "contact_form_submit", "contact_form_success", "contact_form_error", "contact_form_abandon", "b2b_demo_video_start", "b2b_demo_video_50", "b2b_demo_video_complete", "b2b_demo_contact_click"] as const
+export const analyticsEvents = [
+  "page_view",
+  "cta_click",
+  "case_study_click",
+  "case_study_view",
+  "demo_click",
+  "insight_click",
+  "store_click",
+  "contact_form_start",
+  "contact_form_submit",
+  "contact_form_success",
+  "contact_form_error",
+  "contact_form_abandon",
+  "b2b_demo_video_start",
+  "b2b_demo_video_50",
+  "b2b_demo_video_complete",
+  "b2b_demo_contact_click",
+  "lp_hero_cta_click",
+  "lp_demo_cta_click",
+  "lp_roi_calculator_change",
+  "lp_faq_toggle",
+  "service_inquiry_start",
+  "service_inquiry_submit",
+  "service_inquiry_error",
+  "demo_view",
+  "demo_hero_cta_click",
+  "demo_sticky_cta_click",
+  "demo_schedule_filter",
+  "demo_class_select",
+  "demo_pricing_toggle",
+  "demo_faq_toggle",
+  "trial_form_start",
+  "trial_form_submit",
+  "trial_form_error",
+  "demo_inspector_toggle",
+] as const
 export type AnalyticsEvent = (typeof analyticsEvents)[number]
 
 /** The only first-party B2B demo video whose events may be measured. */
 export const b2bDemoVideo = { id: "cyberknock_b2b_ai_demo_25s", durationSeconds: 25, placement: "ai_development_proof" } as const
 
 const allowedValues: Record<string, readonly string[]> = {
-  location: ["header", "hero", "inquiry", "method", "services", "case_study", "process", "profile", "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content", "ai_development", "demo_video", "demo_footer", "unknown"],
-  service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"],
+  location: [
+    "header", "hero", "inquiry", "method", "services", "case_study", "process", "profile",
+    "footer", "sports_dx", "security", "contact", "case", "faq", "mobile_nav", "content",
+    "ai_development", "demo_video", "demo_footer",
+    "growth_web_hero", "growth_web_comparison", "growth_web_simulator",
+    "growth_web_demo_bridge", "growth_web_pricing", "growth_web_demo_hero",
+    "growth_web_demo_sticky", "unknown",
+  ],
+  service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "growth-web", "other"],
   store: ["app_store", "google_play"],
   guide: ["overview", "ai-development-outsourcing-guide", "ai-poc-process-evaluation", "ai-video-analysis-poc-cost", "ai-video-analysis-development-request"],
-  source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"],
-  page: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "insights", "insight_cost", "insight_poc", "insight_outsourcing", "insight_video_request", "ai_demo", "other"],
+  source: ["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "growth_web", "other"],
+  page: [
+    "home", "sports_dx", "case_study", "security", "privacy", "ai_development",
+    "insights", "insight_cost", "insight_poc", "insight_outsourcing", "insight_video_request",
+    "ai_demo", "growth_web", "growth_web_demo", "other",
+  ],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
   video_id: [b2bDemoVideo.id],
   video_duration: [String(b2bDemoVideo.durationSeconds)],
   placement: [b2bDemoVideo.placement],
   demo_video: ["started"],
+  // Growth Web strictly allowlisted funnel parameters (zero PII possible)
+  cta_label: [
+    "hero_free_site_audit", "comparison_to_simulator", "comparison_to_audit",
+    "simulator_to_free_audit", "pricing_free_site_audit", "subnav_free_audit",
+    "hero_demo", "demo_bridge", "pricing_demo", "subnav_demo",
+  ],
+  section: ["hero", "demo_bridge", "pricing", "subnav"],
+  destination: ["#contact", "#simulator", "#schedule", "#trial-form"],
+  form_id: ["growth_web_inquiry", "growth_web_demo_trial"],
+  inquiry_type: ["free_site_audit", "pilot_partner", "demo_walkthrough", "other"],
+  delivery_mode: ["live", "local_dry_run"],
+  viability_status: ["favorable", "caution", "unviable"],
+  payback_band: ["within_6m", "7_to_9m", "10_to_12m", "over_12m"],
+  question_id: [
+    "why-no-fake-cases", "difference-from-raksul", "photos-and-materials",
+    "existing-booking-tools", "contract-and-ownership", "consultation-flow",
+    "demo-faq-beginner", "demo-faq-parent-duty", "demo-faq-rain",
+    "demo-faq-items", "demo-faq-demo-notice",
+  ],
+  expanded: ["true", "false"],
+  open: ["true", "false"],
+  is_demo: ["true", "false"],
+  school_type: ["junior_soccer_and_movement"],
+  grade_filter: ["all", "preschool_senior", "grade_1_2", "grade_3_4", "grade_5_6"],
+  campus_filter: ["all", "futako_turf", "yoga_gym"],
+  class_id: ["kids-movement-tue", "u9-soccer-wed", "indoor-agility-thu", "u12-game-sense-fri", "weekend-family-sat"],
+  preselected_class: ["kids-movement-tue", "u9-soccer-wed", "indoor-agility-thu", "u12-game-sense-fri", "weekend-family-sat"],
+  grade: ["preschool_senior", "grade_1_2", "grade_3_4", "grade_5_6"],
+  discount_mode: ["standard", "sibling_second_child"],
+  action: ["jump_schedule", "jump_trial_form", "school_header", "hero_primary", "hero_schedule", "schedule_consult_card"],
+  result_count: ["0", "1", "2", "3", "4", "5"],
 }
 
 const siteOrigin = "https://cyberknock.jp"
@@ -38,6 +115,8 @@ const safePagePaths: Record<string, string> = {
   insight_outsourcing: "/insights/ai-development-outsourcing-guide",
   insight_video_request: "/insights/ai-video-analysis-development-request",
   ai_demo: "/demos/ai-sports-trainer",
+  growth_web: "/services/growth-web",
+  growth_web_demo: "/services/growth-web/demo",
   other: "/",
 }
 
@@ -62,8 +141,16 @@ export function pageCategory(path: string): string {
     "/insights/ai-development-outsourcing-guide": "insight_outsourcing",
     "/insights/ai-video-analysis-development-request": "insight_video_request",
     "/demos/ai-sports-trainer": "ai_demo",
+    "/services/growth-web": "growth_web",
+    "/services/growth-web/demo": "growth_web_demo",
   }
-  const aliases: Record<string, string> = { "sports-dx": "sports_dx", "case-study": "case_study", "privacy-policy": "privacy", "ai-development": "ai_development" }
+  const aliases: Record<string, string> = {
+    "sports-dx": "sports_dx",
+    "case-study": "case_study",
+    "privacy-policy": "privacy",
+    "ai-development": "ai_development",
+    "growth-web": "growth_web",
+  }
   return (Object.hasOwn(pages, cleanPath) ? pages[cleanPath] : undefined) || (Object.hasOwn(aliases, cleanPath) ? aliases[cleanPath] : undefined) || (allowedValues.page.includes(cleanPath) ? cleanPath : "other")
 }
 

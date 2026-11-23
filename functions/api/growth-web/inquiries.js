@@ -469,7 +469,11 @@ export async function handleGrowthWebInquiry(request, env, fetchImpl = fetch) {
       error: "現在お問い合わせ受付システムの設定調整中です。時間をおいて再度お試しください。",
     }, 503);
   }
-  if (!isCanonicalHost && env?.GROWTH_WEB_DRY_RUN !== "1") {
+  // The local browser QA harness injects a mock fetch transport. Never enable
+  // this exception on public preview hosts or with the actual network fetch.
+  const isMockLocalQa = (requestHostname === "127.0.0.1" || requestHostname === "localhost")
+    && fetchImpl !== fetch;
+  if (!isCanonicalHost && !isMockLocalQa && env?.GROWTH_WEB_DRY_RUN !== "1") {
     return jsonResponse({
       ok: false,
       error: "プレビュー環境ではお問い合わせを受け付けていません。正式サイトからお問い合わせください。",

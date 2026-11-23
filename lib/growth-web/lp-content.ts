@@ -37,7 +37,7 @@ export const LP_HERO = {
   ctaLabel: "無料サイト診断を申し込む",
   demoLabel: "実働デモサイトを見る",
   assurances: [
-    `必須入力は${INQUIRY_REQUIRED_FIELD_LABELS.join("・")}`,
+    `必須：${INQUIRY_REQUIRED_FIELD_LABELS.join("・")}＋プライバシーポリシーへの同意`,
     "ご連絡は原則メール。営業電話はしません",
   ],
 } as const

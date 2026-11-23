@@ -1,4 +1,5 @@
 export const SPORT_CATEGORIES = [
+  { value: "baseball", label: "野球・少年野球・打撃／投球指導" },
   { value: "soccer", label: "サッカー・フットサル" },
   { value: "gymnastics", label: "体操・運動基礎・体幹" },
   { value: "dance", label: "ダンス・チアリーディング" },

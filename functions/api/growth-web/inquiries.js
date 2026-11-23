@@ -457,6 +457,18 @@ async function runIdempotent(keys, producer) {
 }
 
 export async function handleGrowthWebInquiry(request, env, fetchImpl = fetch) {
+  // Never deliver live lead notifications from Cloudflare preview or other
+  // non-canonical hosts, even if production Webhook secrets are accidentally bound.
+  // Explicit local/preview dry-run remains safe because it never sends externally.
+  const requestHostname = new URL(request.url).hostname.toLowerCase();
+  const isCanonicalHost = requestHostname === "cyberknock.jp" || requestHostname === "www.cyberknock.jp";
+  if (!isCanonicalHost && env?.GROWTH_WEB_DRY_RUN !== "1") {
+    return jsonResponse({
+      ok: false,
+      error: "プレビュー環境ではお問い合わせを受け付けていません。正式サイトからお問い合わせください。",
+    }, 503);
+  }
+
   const origin = request.headers.get("origin");
   if ((origin && origin !== new URL(request.url).origin) || request.headers.get("sec-fetch-site") === "cross-site") {
     return jsonResponse({ ok: false, error: "不正な送信元からのリクエストです。" }, 403);

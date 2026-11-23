@@ -225,6 +225,8 @@ test("Growth Web inquiry API enforces security controls (Origin, Content-Type, 1
   assert.equal((await dryRunRes.json()).receipt.externalDeliveryExecuted, false)
   assert.equal(fetchCount, 0)
 
+  resetGrowthWebInquiryStores()
+
   // 405 GET
   const getRes = await inquiryOnRequest({
     request: new Request("https://cyberknock.jp/api/growth-web/inquiries", { method: "GET" }),

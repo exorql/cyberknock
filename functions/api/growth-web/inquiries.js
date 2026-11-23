@@ -462,6 +462,13 @@ export async function handleGrowthWebInquiry(request, env, fetchImpl = fetch) {
   // Explicit local/preview dry-run remains safe because it never sends externally.
   const requestHostname = new URL(request.url).hostname.toLowerCase();
   const isCanonicalHost = requestHostname === "cyberknock.jp" || requestHostname === "www.cyberknock.jp";
+  // Never falsely acknowledge a production lead when delivery is disabled.
+  if (isCanonicalHost && env?.GROWTH_WEB_DRY_RUN === "1") {
+    return jsonResponse({
+      ok: false,
+      error: "現在お問い合わせ受付システムの設定調整中です。時間をおいて再度お試しください。",
+    }, 503);
+  }
   if (!isCanonicalHost && env?.GROWTH_WEB_DRY_RUN !== "1") {
     return jsonResponse({
       ok: false,

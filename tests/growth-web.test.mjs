@@ -3,6 +3,7 @@ import assert from "node:assert/strict"
 import { readFileSync } from "node:fs"
 import { calculateRoiSimulation, DEFAULT_ROI_INPUT } from "../lib/growth-web/roi.ts"
 import {
+  SPORT_CATEGORIES,
   validateServiceInquiryClient,
   validateTrialBookingClient,
 } from "../lib/growth-web/form-options.ts"
@@ -125,6 +126,28 @@ test("Client validators enforce phone digits, http/https URL, and strip CR/LF", 
   )
   assert.ok(badDemo.fieldErrors?.phone)
   assert.ok(badDemo.fieldErrors?.demoAcknowledged)
+})
+
+test("Baseball schools are selectable and accepted through the production inquiry validator", async () => {
+  assert.ok(SPORT_CATEGORIES.some((c) => c.value === "baseball"))
+  const input = makeValidInquiryPayload({ sportCategory: "baseball", organizationName: "少年野球アカデミー" })
+  const validated = validateServiceInquiryClient(input)
+  assert.equal(validated.data?.sportCategory, "baseball")
+
+  resetGrowthWebInquiryStores()
+  let sentPayload = null
+  const result = await handleGrowthWebInquiry(
+    createJsonPost("https://cyberknock.jp/api/growth-web/inquiries", input),
+    { SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/test/mock/only" },
+    async (_url, options) => {
+      sentPayload = JSON.parse(options.body)
+      return new Response("ok", { status: 200 })
+    }
+  )
+  assert.equal(result.status, 200)
+  assert.match(sentPayload.blocks[0].text.text, /野球・少年野球・打撃／投球指導/)
+  assert.match(read("components/growth-web/lp/LpHero.tsx"), /野球・サッカー・体操/)
+  resetGrowthWebInquiryStores()
 })
 
 test("Growth Web inquiry API delivers Slack plain_text payload, deduplicates replays, and coalesces concurrent requests", async () => {

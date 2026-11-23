@@ -40,6 +40,7 @@ const pages = [
 const targets = { performance: 90, accessibility: 95, 'best-practices': 95, seo: 95, lcpMs: 2500, cls: 0.1 };
 const blocked = [
   '*://*/contact*',
+  '*://*/api/growth-web/*',
   '*://hooks.slack.com/*',
   '*://*.google-analytics.com/*',
   '*://*.googletagmanager.com/*',

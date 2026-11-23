@@ -1,0 +1,68 @@
+@config "./tailwind.growth-web.config.cjs";
+@tailwind utilities;
+
+/* Scoped styles for Cyber Knock Growth Web (/services/growth-web & /services/growth-web/demo).
+ * Isolated from existing site pages via @config so existing Cyber Knock routes pay 0 bytes of Growth Web CSS. */
+
+.gw-scope {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "BIZ UDPGothic", "Yu Gothic UI", "Yu Gothic", Meiryo, Arial, sans-serif;
+}
+
+.gw-scope h1,
+.gw-scope h2 {
+  font-feature-settings: "palt" 1;
+}
+
+.gw-dark-surface :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: #6ee7b7;
+}
+
+.gw-editorial-grid {
+  background-image:
+    linear-gradient(to right, rgba(16, 24, 21, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 24, 21, 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.gw-dark-grid {
+  background-image:
+    linear-gradient(to right, rgba(110, 231, 183, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(110, 231, 183, 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+input[type="range"].gw-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: #dddad0;
+  cursor: pointer;
+}
+
+input[type="range"].gw-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #0a5c42;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 24, 21, 0.28);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+input[type="range"].gw-range::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+  background: #074733;
+}
+
+input[type="range"].gw-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #0a5c42;
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 24, 21, 0.28);
+}

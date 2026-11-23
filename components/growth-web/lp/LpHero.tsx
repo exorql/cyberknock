@@ -46,7 +46,7 @@ export function LpHero() {
             </h1>
 
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#38443f] sm:text-lg">
-              民間スポーツスクール（サッカー・体操・ダンス・バスケ・水泳等）に特化し、
+              民間スポーツスクール（野球・サッカー・体操・ダンス・バスケ・水泳など）に特化し、
               保護者がスマホで迷わず無料体験へ進めるWebサイト構築と、
               GA4計測×AI活用による毎月のCVR・地域SEO改善を一体で提供します。
             </p>

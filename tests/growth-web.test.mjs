@@ -198,6 +198,33 @@ test("Growth Web inquiry API enforces security controls (Origin, Content-Type, 1
   }
   const env = { SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/T000/B000/XXXX" }
 
+  // Preview hosts must never invoke the production Slack webhook, even when
+  // its secret is accidentally available in the preview environment.
+  const previewRes = await handleGrowthWebInquiry(
+    createJsonPost(
+      "https://feat-growth-web-mvp-integrat.cyberknock.pages.dev/api/growth-web/inquiries",
+      makeValidInquiryPayload(),
+    ),
+    env,
+    spyFetch
+  )
+  assert.equal(previewRes.status, 503)
+  assert.equal(fetchCount, 0)
+
+  // Explicit QA dry-run is allowed on non-canonical local/preview hosts,
+  // but it must never dispatch a notification.
+  const dryRunRes = await handleGrowthWebInquiry(
+    createJsonPost(
+      "https://feat-growth-web-mvp-integrat.cyberknock.pages.dev/api/growth-web/inquiries",
+      makeValidInquiryPayload(),
+    ),
+    { ...env, GROWTH_WEB_DRY_RUN: "1" },
+    spyFetch
+  )
+  assert.equal(dryRunRes.status, 200)
+  assert.equal((await dryRunRes.json()).receipt.externalDeliveryExecuted, false)
+  assert.equal(fetchCount, 0)
+
   // 405 GET
   const getRes = await inquiryOnRequest({
     request: new Request("https://cyberknock.jp/api/growth-web/inquiries", { method: "GET" }),

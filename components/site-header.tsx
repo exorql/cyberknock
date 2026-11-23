@@ -6,6 +6,7 @@ import { ArrowUpRight, Menu, X } from "lucide-react"
 const links = [
   { href: "/#services", label: "支援内容" },
   { href: "/ai-development", label: "AI開発・PoC" },
+  { href: "/services/growth-web", label: "スクール集客Web" },
   { href: "/cases/ai-sports-trainer", label: "開発事例" },
   { href: "/sports-dx", label: "スポーツDX" },
   { href: "/#profile", label: "Cyber Knockについて" },
@@ -15,7 +16,11 @@ export function BrandMark() {
 }
 export function SiteHeader() {
   const pathname = usePathname()
-  const contactHref = pathname === "/ai-development" || pathname?.startsWith("/insights") || pathname?.startsWith("/demos") || pathname?.startsWith("/cases") ? "/ai-development#contact" : "/#contact"
+  const contactHref = pathname?.startsWith("/services/growth-web")
+    ? "/services/growth-web#contact"
+    : pathname === "/ai-development" || pathname?.startsWith("/insights") || pathname?.startsWith("/demos") || pathname?.startsWith("/cases")
+      ? "/ai-development#contact"
+      : "/#contact"
   const [open, setOpen] = useState(false)
   const toggle = useRef<HTMLButtonElement>(null)
   useEffect(() => {

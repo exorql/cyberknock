@@ -9,6 +9,8 @@ const sourceFiles = [
   "app/sports-dx/content.tsx", "app/cases/ai-sports-trainer/page.tsx",
   "app/security/page.tsx", "app/privacy-policy/page.tsx",
   "app/insights/page.tsx", "app/insights/[slug]/page.tsx",
+  "app/services/growth-web/page.tsx", "app/services/growth-web/demo/page.tsx",
+  "lib/growth-web/structured-data.ts",
   "lib/site.ts", "lib/analytics.ts", "components/site-analytics.tsx",
 ]
 

@@ -408,6 +408,24 @@ test("Growth Web inquiry API enforces security controls (Origin, Content-Type, 1
   assert.ok(Number(ipLimitedRes.headers.get("retry-after")) >= 1)
 })
 
+test("Growth Web local browser QA accepts mock-only transport without permitting public preview delivery", async () => {
+  resetGrowthWebInquiryStores()
+  let mockCalls = 0
+  const result = await handleGrowthWebInquiry(
+    createJsonPost(
+      "http://127.0.0.1:48151/api/growth-web/inquiries",
+      makeValidInquiryPayload()
+    ),
+    { SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/local/qa/mock" },
+    async () => {
+      mockCalls += 1
+      return new Response("ok", { status: 200 })
+    }
+  )
+  assert.equal(result.status, 200)
+  assert.equal(mockCalls, 1)
+})
+
 test("Growth Web demo-trial API is strictly ephemeral, never calls fetch, and validates class/origin/rate-limit", async () => {
   resetGrowthWebDemoStores()
 

@@ -1,12 +1,12 @@
 "use client"
 
-import { ChevronDown } from "lucide-react"
 import { useState } from "react"
+import { DEMO_DISPLAY_TEXT } from "@/lib/growth-web/demo-content"
 import { DEMO_FAQS } from "@/lib/growth-web/demo-school"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 
 export function DemoFaq() {
-  const [openId, setOpenId] = useState<string | null>(DEMO_FAQS[0]?.id ?? null)
+  const [openId, setOpenId] = useState<string | null>(null)
 
   const toggle = (id: string) => {
     const next = openId === id ? null : id
@@ -19,53 +19,31 @@ export function DemoFaq() {
   }
 
   return (
-    <section
-      id="demo-faq"
-      className="scroll-mt-24 border-b border-[#dddad0] bg-[#faf9f5] py-14 sm:py-20"
-    >
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="text-left sm:text-center">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0d5e43]">
-            PARENT FAQ
-          </p>
-          <h2 className="mt-2.5 text-2xl font-extrabold tracking-tight text-[#10211b] sm:text-3xl">
-            体験前によくいただくご質問
-          </h2>
+    <section className="gwd-sec" id="faq" aria-labelledby="faq-title">
+      <div className="gwd-wrap gwd-faq-grid">
+        <div>
+          <p className="gwd-eyebrow">FAQ</p>
+          <h2 className="gwd-h2" id="faq-title">{DEMO_DISPLAY_TEXT.faqTitle}</h2>
         </div>
-
-        <div className="mt-8 divide-y divide-[#dddad0] rounded-2xl border border-[#dddad0] bg-white">
+        <div className="gwd-faq" data-gwd-pin="7">
           {DEMO_FAQS.map((faq) => {
-            const isOpen = openId === faq.id
-            const panelId = `demo-faq-panel-${faq.id}`
-            const buttonId = `demo-faq-btn-${faq.id}`
+            const open = openId === faq.id
             return (
-              <div key={faq.id} className="px-5 sm:px-7">
+              <div className="gwd-faq-item" key={faq.id}>
                 <h3>
                   <button
-                    id={buttonId}
                     type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
+                    id={`${faq.id}-q`}
+                    aria-expanded={open}
+                    aria-controls={`${faq.id}-a`}
                     onClick={() => toggle(faq.id)}
-                    className="flex min-h-14 w-full items-center justify-between gap-4 py-4 text-left text-sm font-bold text-[#10211b] hover:text-[#0d5e43] sm:text-base"
+                    data-testid={`faq-${faq.id}`}
                   >
-                    <span>{faq.question}</span>
-                    <ChevronDown
-                      className={`h-5 w-5 shrink-0 text-[#0d5e43] transition-transform duration-200 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                      aria-hidden="true"
-                    />
+                    {faq.question}
                   </button>
                 </h3>
-                <div
-                  id={panelId}
-                  role="region"
-                  aria-labelledby={buttonId}
-                  hidden={!isOpen}
-                  className="pb-5 text-sm leading-relaxed text-[#41524b]"
-                >
-                  {faq.answer}
+                <div id={`${faq.id}-a`} role="region" aria-labelledby={`${faq.id}-q`} hidden={!open}>
+                  <p>{faq.answer}</p>
                 </div>
               </div>
             )

@@ -1,28 +1,18 @@
 "use client"
 
-import Link from "next/link"
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  useSyncExternalStore,
-} from "react"
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { DemoApproach } from "@/components/growth-web/demo/DemoApproach"
 import { DemoBanner } from "@/components/growth-web/demo/DemoBanner"
 import { DemoFaq } from "@/components/growth-web/demo/DemoFaq"
-import { DemoHero } from "@/components/growth-web/demo/DemoHero"
+import { DemoHeader, DemoHero, DemoLogo, DemoMobileFacts } from "@/components/growth-web/demo/DemoHero"
 import { DemoInspectorDrawer } from "@/components/growth-web/demo/DemoInspectorDrawer"
 import { MobileStickyBar } from "@/components/growth-web/demo/MobileStickyBar"
 import { PricingSection } from "@/components/growth-web/demo/PricingSection"
 import { SafetyStandards } from "@/components/growth-web/demo/SafetyStandards"
-import { ScheduleFinder } from "@/components/growth-web/demo/ScheduleFinder"
+import { ClassFinder, ClassList } from "@/components/growth-web/demo/ScheduleFinder"
 import { TrialBookingForm } from "@/components/growth-web/demo/TrialBookingForm"
-import { TrialFlowAndCoaches } from "@/components/growth-web/demo/TrialFlowAndCoaches"
-import {
-  DEMO_CLASSES,
-  DEMO_SCHOOL_INFO,
-  type DemoClassSlot,
-} from "@/lib/growth-web/demo-school"
+import { DEMO_PHOTO_CREDITS, type DemoClassFilters, dayFilterParam, filterDemoClasses } from "@/lib/growth-web/demo-content"
+import { DEMO_SCHOOL_INFO, type DemoClassSlot } from "@/lib/growth-web/demo-school"
 import {
   getRecentGrowthWebEvents,
   getServerGrowthWebEventsSnapshot,
@@ -30,14 +20,13 @@ import {
   trackGrowthWebEvent,
 } from "@/lib/growth-web/telemetry"
 
+const NO_FILTERS: DemoClassFilters = { grade: "all", days: [], campus: "all" }
+
 export function DemoSportsSchoolApp() {
-  const [selectedClassId, setSelectedClassId] = useState<string>(
-    DEMO_CLASSES[0].id
-  )
-  const [selectedGrade, setSelectedGrade] = useState<string>(
-    DEMO_CLASSES[0].defaultGradeValue
-  )
-  const [inspectorOpen, setInspectorOpen] = useState(false)
+  const [filters, setFilters] = useState<DemoClassFilters>(NO_FILTERS)
+  const [selectedClassId, setSelectedClassId] = useState<string>("")
+  const [selectedGrade, setSelectedGrade] = useState<string>("")
+  const [ownerMode, setOwnerMode] = useState(false)
   const viewedRef = useRef(false)
 
   const events = useSyncExternalStore(
@@ -45,37 +34,53 @@ export function DemoSportsSchoolApp() {
     getRecentGrowthWebEvents,
     getServerGrowthWebEventsSnapshot
   )
+  const classes = useMemo(() => filterDemoClasses(filters), [filters])
 
   useEffect(() => {
     if (viewedRef.current) return
     viewedRef.current = true
-    trackGrowthWebEvent("demo_view", {
-      school_type: "junior_soccer_and_movement",
-      is_demo: true,
-    })
+    trackGrowthWebEvent("demo_view", { school_type: "junior_soccer_and_movement", is_demo: true })
+    if (new URLSearchParams(window.location.search).has("owner")) setOwnerMode(true)
   }, [])
 
   const scrollToForm = useCallback(() => {
     const el = document.getElementById("trial-form")
-    el?.scrollIntoView({ behavior: "smooth", block: "start" })
+    if (!el) return
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" })
+    el.focus({ preventScroll: true })
   }, [])
+
+  const handleFilterChange = (next: DemoClassFilters, changed: "grade" | "day" | "campus" | "reset") => {
+    setFilters(next)
+    if (changed === "grade" && next.grade !== "all") setSelectedGrade(next.grade)
+    trackGrowthWebEvent("demo_schedule_filter", {
+      grade_filter: next.grade,
+      campus_filter: next.campus,
+      day_filter: dayFilterParam(next.days),
+      result_count: filterDemoClasses(next).length,
+      is_demo: true,
+    })
+  }
 
   const handleSelectClassForTrial = useCallback(
     (slot: DemoClassSlot) => {
       setSelectedClassId(slot.id)
-      setSelectedGrade(slot.defaultGradeValue)
-      trackGrowthWebEvent("demo_class_select", {
-        class_id: slot.id,
-        campus_filter: slot.campusId,
-        is_demo: true,
-      })
+      setSelectedGrade((current) =>
+        filters.grade !== "all" && slot.grades.includes(filters.grade)
+          ? filters.grade
+          : current && slot.grades.includes(current as DemoClassSlot["grades"][number])
+            ? current
+            : slot.defaultGradeValue
+      )
+      trackGrowthWebEvent("demo_class_select", { class_id: slot.id, campus_filter: slot.campusId, is_demo: true })
       scrollToForm()
     },
-    [scrollToForm]
+    [filters.grade, scrollToForm]
   )
 
-  const handleToggleInspector = () => {
-    setInspectorOpen((prev) => {
+  const toggleOwnerMode = () => {
+    setOwnerMode((prev) => {
       const next = !prev
       trackGrowthWebEvent("demo_inspector_toggle", { open: next, is_demo: true })
       return next
@@ -83,80 +88,80 @@ export function DemoSportsSchoolApp() {
   }
 
   return (
-    <div className="gw-scope min-h-screen bg-[#faf9f5] text-[#10211b]">
-      <a href="#main-content" className="skip-link">
+    <div className={`gwd${ownerMode ? " is-owner" : ""}`}>
+      <a href="#main-content" className="gwd-skip">
         本文へ移動する
       </a>
+      <DemoBanner ownerMode={ownerMode} onToggleOwnerMode={toggleOwnerMode} />
+      <DemoInspectorDrawer open={ownerMode} events={events} onClose={() => setOwnerMode(false)} />
 
-      <DemoBanner
-        eventCount={events.length}
-        inspectorOpen={inspectorOpen}
-        onToggleInspector={handleToggleInspector}
-      />
+      <div className="gwd-page">
+        <DemoHeader onJumpToBooking={scrollToForm} />
+        <main id="main-content">
+          <DemoHero onJumpToBooking={scrollToForm} />
+          <DemoMobileFacts />
+          <ClassFinder filters={filters} resultCount={classes.length} onChange={handleFilterChange} />
+          <SafetyStandards />
+          <ClassList
+            filters={filters}
+            classes={classes}
+            selectedClassId={selectedClassId}
+            onSelectClassForTrial={handleSelectClassForTrial}
+            onReset={() => handleFilterChange(NO_FILTERS, "reset")}
+          />
+          <DemoApproach />
+          <PricingSection />
+          <TrialBookingForm
+            selectedClassId={selectedClassId}
+            selectedGrade={selectedGrade}
+            onClassChanged={setSelectedClassId}
+            onGradeChanged={setSelectedGrade}
+          />
+          <DemoFaq />
+        </main>
 
-      <DemoInspectorDrawer
-        open={inspectorOpen}
-        events={events}
-        onClose={() => setInspectorOpen(false)}
-      />
-
-      <DemoHero onJumpToBooking={scrollToForm} />
-
-      <main id="main-content">
-        <SafetyStandards />
-        <ScheduleFinder
-          selectedClassId={selectedClassId}
-          onSelectClassForTrial={handleSelectClassForTrial}
-        />
-        <PricingSection />
-        <TrialFlowAndCoaches />
-        <DemoFaq />
-        <TrialBookingForm
-          selectedClassId={selectedClassId}
-          selectedGrade={selectedGrade}
-          onClassChanged={setSelectedClassId}
-          onGradeChanged={setSelectedGrade}
-        />
-      </main>
-
-      <footer className="gw-dark-surface border-t border-[#1f3d32] bg-[#0e1b16] pb-24 pt-12 text-[#c6d4cd] lg:pb-12">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <footer className="gwd-foot">
+          <div className="gwd-wrap gwd-foot-grid">
             <div>
-              <p className="text-base font-extrabold text-white">
-                {DEMO_SCHOOL_INFO.name}
-              </p>
-              <p className="mt-1 text-xs text-[#a7f3d0]">
-                {DEMO_SCHOOL_INFO.demoBadge}｜{DEMO_SCHOOL_INFO.areaLabel}
-              </p>
-              <p className="mt-2 max-w-xl text-xs leading-relaxed text-[#c6d4cd]">
-                本サイトはCyber Knockによる民間スポーツスクール向け集客改善サービスのデモモデルです。
-                登場する拠点名・時間割・料金・コーチプロフィールはすべて架空のダミーデータです。
+              <a className="gwd-logo" href="#top">
+                <DemoLogo />
+              </a>
+              <p>
+                {DEMO_SCHOOL_INFO.areaLabel}
+                <br />
+                電話 {DEMO_SCHOOL_INFO.phoneDemo}
               </p>
             </div>
-            <div className="flex flex-wrap gap-x-5 gap-y-1 text-xs font-semibold">
-              <Link
-                href="/services/growth-web"
-                className="inline-flex min-h-11 items-center text-[#6ee7b7] hover:underline"
-              >
-                Growth Web サービスLPへ戻る
-              </Link>
-              <Link
-                href="/"
-                className="inline-flex min-h-11 items-center text-[#e3eee8] hover:underline"
-              >
-                Cyber Knock トップ
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className="inline-flex min-h-11 items-center text-[#e3eee8] hover:underline"
-              >
-                プライバシーポリシー
-              </Link>
+            <div>
+              <h2>このサイトについて</h2>
+              <p>
+                Cyber Knock「Growth Web」の制作デモです。スクール名・クラス・料金・コーチ・空き状況はすべて架空の設定で、実在の団体とは関係ありません。体験の申し込みを送信しても、予約・メール・通知は発生しません。
+              </p>
+              <div className="gwd-foot-links">
+                <a href="/services/growth-web">Growth Web サービス紹介へ戻る</a>
+                <a href="/">Cyber Knock トップ</a>
+                <a href="/privacy-policy">プライバシーポリシー</a>
+              </div>
+            </div>
+            <div>
+              <h2>写真クレジット（Unsplash License）</h2>
+              <ul>
+                {DEMO_PHOTO_CREDITS.map((c) => (
+                  <li key={c.photoId}>
+                    {c.use}：
+                    <a href={`https://unsplash.com/photos/${c.photoId}`} rel="noopener noreferrer" target="_blank">
+                      {c.photographer}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p style={{ marginTop: 10 }}>
+                写真はイメージです。写っている人物は、このスクールの生徒・指導者ではありません。
+              </p>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </div>
 
       <MobileStickyBar onJumpToBooking={scrollToForm} />
     </div>

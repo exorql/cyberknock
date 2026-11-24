@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-import "@/app/services/growth-web/growth-web.css"
+import "./demo.css"
+import { preload } from "react-dom"
 import { DemoSportsSchoolApp } from "@/components/growth-web/demo/DemoSportsSchoolApp"
 import { DEMO_CLASSES, DEMO_FAQS } from "@/lib/growth-web/demo-school"
 import {
@@ -11,7 +12,7 @@ const pathname = "/services/growth-web/demo"
 const title =
   "あおばフィールド スポーツアカデミー【デモサイト】｜Cyber Knock Growth Web"
 const description =
-  "Cyber Knockによる民間スポーツスクール向け集客改善サイトの実働デモモデル。学年×拠点フィルタ、透明な料金表示、60秒無料体験予約フォーム、GA4イベント計測インスペクターを体験できます。"
+  "Cyber Knockによる民間スポーツスクール向け集客改善サイトの実働デモモデル。学年・曜日・拠点で探せるクラス検索、透明な料金表示、無料体験の申込フォーム、経営者向けのGA4計測モードを体験できます。"
 const ogImage = "/images/og/cyberknock-b2b.png"
 
 export const metadata: Metadata = {
@@ -38,6 +39,23 @@ export const metadata: Metadata = {
 }
 
 export default function GrowthWebDemoPage() {
+  // LCP image (art-directed per breakpoint), then the ~11 KB display-font subset.
+  preload("/images/growth-web-demo/hero-tall-480.avif", {
+    as: "image",
+    type: "image/avif",
+    imageSrcSet: "/images/growth-web-demo/hero-tall-480.avif 480w, /images/growth-web-demo/hero-tall-720.avif 720w, /images/growth-web-demo/hero-tall-828.avif 828w",
+    imageSizes: "100vw",
+    media: "(max-width: 767px)",
+    fetchPriority: "high",
+  })
+  preload("/images/growth-web-demo/hero-wide-1280.avif", {
+    as: "image",
+    type: "image/avif",
+    imageSrcSet: "/images/growth-web-demo/hero-wide-1280.avif 1280w, /images/growth-web-demo/hero-wide-1920.avif 1920w",
+    imageSizes: "100vw",
+    media: "(min-width: 768px)",
+    fetchPriority: "high",
+  })
   const jsonLd = buildGrowthWebDemoJsonLd(
     DEMO_CLASSES.map((c) => ({
       name: `${c.name}（${c.gradeLabel}）`,
@@ -45,6 +63,8 @@ export default function GrowthWebDemoPage() {
     })),
     DEMO_FAQS
   )
+
+  preload("/fonts/growth-web-demo/zen-kaku-gothic-new-900.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" })
 
   return (
     <>

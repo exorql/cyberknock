@@ -1,42 +1,51 @@
-import { SAFETY_STANDARDS } from "@/lib/growth-web/demo-school"
+import type { ReactNode } from "react"
+import { DEMO_ASSURANCES } from "@/lib/growth-web/demo-content"
 
+const ICONS: Record<(typeof DEMO_ASSURANCES)[number]["icon"], ReactNode> = {
+  check: (
+    <>
+      <circle cx="16" cy="16" r="12" />
+      <path d="M11 17l3.5 3.5L21.5 13" />
+    </>
+  ),
+  cup: (
+    <>
+      <path d="M8 13h16v10a4 4 0 0 1-4 4h-8a4 4 0 0 1-4-4z" />
+      <path d="M24 15h2a3 3 0 0 1 0 6h-2M5 5l22 22" />
+    </>
+  ),
+  rain: (
+    <>
+      <path d="M9 20a6 6 0 1 1 1.5-11.8A8 8 0 0 1 25 12a5 5 0 0 1-1 9.9" />
+      <path d="M12 24l-2 4M18 24l-2 4" />
+    </>
+  ),
+  talk: (
+    <>
+      <path d="M6 8h20v13H14l-6 5v-5H6z" />
+      <path d="M11 14h10" />
+    </>
+  ),
+}
+
+/** Four reassurance points for first-time parents, shown right under the class search. */
 export function SafetyStandards() {
   return (
-    <section
-      id="safety"
-      className="scroll-mt-24 border-b border-[#dddad0] bg-white py-14 sm:py-20"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0d5e43]">
-            PARENT-FIRST STANDARDS
-          </p>
-          <h2 className="mt-2.5 text-2xl font-extrabold tracking-tight text-[#10211b] sm:text-3xl">
-            保護者の方が体験前に安心できる6つの約束
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-[#41524b] sm:text-base">
-            「送り迎えや当番が大変そう」「初心者でも馴染めるか心配」といった不安を、運営ルールとして明確に解消しています。
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SAFETY_STANDARDS.map((item) => (
-            <article
-              key={item.code}
-              className="rounded-2xl border border-[#dddad0] bg-[#faf9f5] p-5 sm:p-6"
-            >
-              <span className="font-mono text-xs font-bold tracking-[0.14em] text-[#0d5e43]">
-                PROMISE {item.code}
-              </span>
-              <h3 className="mt-2.5 text-base font-bold leading-snug text-[#10211b]">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#41524b]">
-                {item.description}
-              </p>
-            </article>
+    <section className="gwd-assure" aria-label="はじめての方へ">
+      <div className="gwd-wrap">
+        <ul>
+          {DEMO_ASSURANCES.map((item) => (
+            <li key={item.title}>
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                {ICONS[item.icon]}
+              </svg>
+              <div>
+                <b>{item.title}</b>
+                <span>{item.body}</span>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   )

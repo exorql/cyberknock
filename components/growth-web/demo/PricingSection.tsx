@@ -1,13 +1,29 @@
 "use client"
 
 import { useState } from "react"
+import { DEMO_DISPLAY_TEXT } from "@/lib/growth-web/demo-content"
 import { TRANSPARENT_PRICING } from "@/lib/growth-web/demo-school"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 
+const yen = (n: number) => n.toLocaleString("ja-JP")
+
+/** Tier label/target split for the table ("キッズ運動基礎（週1・60分）" → name + "60分"). */
+function tierParts(name: string): { title: string; minutes: string } {
+  const m = name.match(/^(.*?)（週1・(\d+分)）$/)
+  return m ? { title: m[1], minutes: m[2] } : { title: name, minutes: "" }
+}
+
 export function PricingSection() {
   const [siblingMode, setSiblingMode] = useState(false)
+  const p = TRANSPARENT_PRICING
+  const discount = siblingMode ? p.siblingDiscountMonthlyJpy : 0
+  const enrollment = siblingMode ? 0 : p.enrollmentFeeJpy
+  const exampleTier = p.tiers.find((t) => t.name.startsWith("U-9")) ?? p.tiers[0]
+  const exampleMonthly = exampleTier.monthlyJpy - discount
+  const initialTotal = enrollment + p.annualInsuranceAndAdminFeeJpy + p.uniformSetJpy
 
   const toggleMode = (nextSibling: boolean) => {
+    if (nextSibling === siblingMode) return
     setSiblingMode(nextSibling)
     trackGrowthWebEvent("demo_pricing_toggle", {
       discount_mode: nextSibling ? "sibling_second_child" : "standard",
@@ -16,163 +32,103 @@ export function PricingSection() {
   }
 
   return (
-    <section
-      id="demo-pricing"
-      className="scroll-mt-24 border-b border-[#dddad0] bg-white py-14 sm:py-20"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-          <div className="max-w-3xl">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0d5e43]">
-              TRANSPARENT PRICING（デモ料金設定）
-            </p>
-            <h2 className="mt-2.5 text-2xl font-extrabold tracking-tight text-[#10211b] sm:text-3xl">
-              月謝以外の費用まで、すべて事前に公開します
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#41524b] sm:text-base">
-              体験後に「思ったより初期費用が高かった」とならないよう、入会金・年会費（スポーツ安全保険込み）・練習シャツ代まで1円単位で明示しています。
+    <section className="gwd-sec" id="demo-pricing" aria-labelledby="pricing-title">
+      <div className="gwd-wrap">
+        <div className="gwd-sec-h">
+          <div>
+            <p className="gwd-eyebrow">PRICING</p>
+            <h2 className="gwd-h2" id="pricing-title">{DEMO_DISPLAY_TEXT.pricingTitle}</h2>
+            <p className="gwd-note" style={{ marginTop: 10 }}>
+              月謝以外にかかる費用も、ここに書いてあるものだけです。表示はすべて税込・デモ用の設定です。
             </p>
           </div>
-
-          <div
-            role="group"
-            aria-label="料金表示モード切替"
-            className="inline-flex self-start rounded-xl border border-[#c3bfb1] bg-[#faf9f5] p-1 sm:self-auto"
-          >
-            <button
-              type="button"
-              aria-pressed={!siblingMode}
-              onClick={() => toggleMode(false)}
-              className={`min-h-10 rounded-lg px-3.5 text-xs font-bold transition-colors ${
-                !siblingMode
-                  ? "bg-[#0d5e43] text-white"
-                  : "text-[#2a3b35] hover:bg-[#eeece4]"
-              }`}
-            >
-              通常（1名）
+          <div className="gwd-seg" role="group" aria-label="料金の表示" data-gwd-pin="5">
+            <button type="button" aria-pressed={!siblingMode} onClick={() => toggleMode(false)}>
+              1人目の料金
             </button>
-            <button
-              type="button"
-              aria-pressed={siblingMode}
-              onClick={() => toggleMode(true)}
-              className={`min-h-10 rounded-lg px-3.5 text-xs font-bold transition-colors ${
-                siblingMode
-                  ? "bg-[#0d5e43] text-white"
-                  : "text-[#2a3b35] hover:bg-[#eeece4]"
-              }`}
-            >
-              兄弟2人目割引
+            <button type="button" aria-pressed={siblingMode} onClick={() => toggleMode(true)} data-testid="pricing-sibling">
+              きょうだい2人目
             </button>
           </div>
         </div>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-12">
-          {/* Monthly tuition tiers */}
-          <div className="rounded-2xl border border-[#dddad0] bg-[#faf9f5] p-6 lg:col-span-7">
-            <h3 className="text-base font-bold text-[#10211b]">
-              月謝一覧（税込・デモ料金）
-            </h3>
-            <div className="mt-4 divide-y divide-[#dddad0]">
-              {TRANSPARENT_PRICING.tiers.map((tier) => {
-                const effectivePrice = siblingMode
-                  ? tier.monthlyJpy - TRANSPARENT_PRICING.siblingDiscountMonthlyJpy
-                  : tier.monthlyJpy
+        <div className="gwd-pr-grid">
+          <table className="gwd-ptable">
+            <caption className="gwd-sr">
+              クラス別の月謝（{siblingMode ? "きょうだい2人目" : "1人目"}・税込）
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">クラス（週1回）</th>
+                <th scope="col">月謝</th>
+              </tr>
+            </thead>
+            <tbody>
+              {p.tiers.map((tier) => {
+                const { title, minutes } = tierParts(tier.name)
                 return (
-                  <div
-                    key={tier.name}
-                    className="flex flex-wrap items-center justify-between gap-3 py-4"
-                  >
-                    <div>
-                      <p className="text-sm font-bold text-[#10211b]">
-                        {tier.name}
-                      </p>
-                      <p className="mt-0.5 text-xs text-[#41524b]">
-                        対象：{tier.target}｜{tier.note}
-                      </p>
-                    </div>
-                    <div className="text-right tabular-nums">
+                  <tr key={tier.name}>
+                    <th scope="row">
+                      {title}
+                      <small>
+                        {tier.target}
+                        {minutes && `・${minutes}`}
+                      </small>
+                    </th>
+                    <td>
                       {siblingMode && (
-                        <span className="mr-2 text-xs text-[#41524b] line-through">
-                          ¥{tier.monthlyJpy.toLocaleString("ja-JP")}
-                        </span>
+                        <s>
+                          <span className="gwd-sr">通常</span>
+                          {yen(tier.monthlyJpy)}円
+                        </s>
                       )}
-                      <span className="text-xl font-extrabold text-[#0d5e43]">
-                        ¥{effectivePrice.toLocaleString("ja-JP")}
-                      </span>
-                      <span className="text-xs font-medium text-[#41524b]">
-                        {" "}
-                        / 月
-                      </span>
-                    </div>
-                  </div>
+                      <b className="gwd-num">{yen(tier.monthlyJpy - discount)}</b>円
+                      <small>{tier.note}</small>
+                    </td>
+                  </tr>
                 )
               })}
-            </div>
-          </div>
-
-          {/* Initial & other transparent fees */}
-          <div className="rounded-2xl border border-[#dddad0] bg-white p-6 lg:col-span-5">
-            <h3 className="text-base font-bold text-[#10211b]">
-              月謝以外にかかる費用（税込・全額公開）
-            </h3>
-            <ul className="mt-4 space-y-4 text-sm">
-              <li className="flex items-baseline justify-between gap-3 border-b border-[#eeece4] pb-3 tabular-nums">
+            </tbody>
+          </table>
+          <div className="gwd-initial">
+            <h3>入会時にかかる費用</h3>
+            <dl>
+              <div>
+                <dt>初回の体験レッスン</dt>
+                <dd>無料</dd>
+              </div>
+              <div>
+                <dt>入会金{siblingMode && "（2人目以降は無料）"}</dt>
+                <dd>{yen(enrollment)}円</dd>
+              </div>
+              <div>
+                <dt>年会費（スポーツ安全保険込み）</dt>
+                <dd>{yen(p.annualInsuranceAndAdminFeeJpy)}円</dd>
+              </div>
+              <div>
+                <dt>練習シャツ・パンツ</dt>
+                <dd>{yen(p.uniformSetJpy)}円</dd>
+              </div>
+            </dl>
+            <details>
+              <summary>例：U-9基礎クラスに入会した月の合計</summary>
+              <dl aria-live="polite">
                 <div>
-                  <p className="font-bold text-[#10211b]">初回体験レッスン</p>
-                  <p className="text-xs text-[#41524b]">
-                    レクリエーション保険・ボール貸出込み
-                  </p>
+                  <dt>入会時の費用（上の合計）</dt>
+                  <dd>{yen(initialTotal)}円</dd>
                 </div>
-                <span className="text-lg font-extrabold text-[#b8430f]">
-                  無料（¥0）
-                </span>
-              </li>
-
-              <li className="flex items-baseline justify-between gap-3 border-b border-[#eeece4] pb-3 tabular-nums">
                 <div>
-                  <p className="font-bold text-[#10211b]">入会金（初回のみ）</p>
-                  <p className="text-xs text-[#41524b]">
-                    {TRANSPARENT_PRICING.siblingEnrollmentDiscountNote}
-                  </p>
+                  <dt>初月の月謝</dt>
+                  <dd>{yen(exampleMonthly)}円</dd>
                 </div>
-                <span className="text-lg font-extrabold text-[#10211b]">
-                  {siblingMode
-                    ? "¥0（兄弟割）"
-                    : `¥${TRANSPARENT_PRICING.enrollmentFeeJpy.toLocaleString("ja-JP")}`}
-                </span>
-              </li>
-
-              <li className="flex items-baseline justify-between gap-3 border-b border-[#eeece4] pb-3 tabular-nums">
-                <div>
-                  <p className="font-bold text-[#10211b]">
-                    年会費（スポーツ安全保険含む）
-                  </p>
-                  <p className="text-xs text-[#41524b]">
-                    毎年度4月更新・保険手続き代行込み
-                  </p>
+                <div className="sum">
+                  <dt>合計</dt>
+                  <dd className="gwd-num">{yen(initialTotal + exampleMonthly)}円</dd>
                 </div>
-                <span className="text-lg font-extrabold text-[#10211b]">
-                  ¥
-                  {TRANSPARENT_PRICING.annualInsuranceAndAdminFeeJpy.toLocaleString(
-                    "ja-JP"
-                  )}
-                </span>
-              </li>
-
-              <li className="flex items-baseline justify-between gap-3 tabular-nums">
-                <div>
-                  <p className="font-bold text-[#10211b]">
-                    指定練習シャツ（希望購入）
-                  </p>
-                  <p className="text-xs text-[#41524b]">
-                    手持ちの体操服でも受講可能（強制購入なし）
-                  </p>
-                </div>
-                <span className="text-lg font-extrabold text-[#10211b]">
-                  ¥{TRANSPARENT_PRICING.uniformSetJpy.toLocaleString("ja-JP")}
-                </span>
-              </li>
-            </ul>
+              </dl>
+            </details>
+            <p className="gwd-note">
+              きょうだい割引：2人目から月謝{yen(p.siblingDiscountMonthlyJpy)}円引き・入会金なし。ボールとビブスは無料で貸し出します。
+            </p>
           </div>
         </div>
       </div>

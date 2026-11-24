@@ -1,166 +1,209 @@
 "use client"
 
-import { ArrowDown, CalendarCheck, CheckCircle2, MapPin } from "lucide-react"
-import { DemoHeroArtwork } from "@/components/growth-web/EditorialVisuals"
-import { DEMO_SCHOOL_INFO } from "@/lib/growth-web/demo-school"
+import { useEffect, useId, useRef, useState } from "react"
+import { DEMO_DISPLAY_TEXT, DEMO_IMAGE_BASE } from "@/lib/growth-web/demo-content"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
+
+const NAV = [
+  { href: "#classes", label: "クラスと時間割" },
+  { href: "#approach", label: "指導方針" },
+  { href: "#demo-pricing", label: "料金" },
+  { href: "#trial-form", label: "体験の申し込み" },
+  { href: "#faq", label: "よくある質問" },
+]
+
+export function DemoLogo() {
+  return (
+    <>
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="18.5" fill="#15603B" />
+        <path d="M20 3.5v33M3.5 20h7M29.5 20h7" stroke="#F5F3EC" strokeWidth="1.6" />
+        <circle cx="20" cy="20" r="6" fill="none" stroke="#F5F3EC" strokeWidth="1.6" />
+        <circle cx="20" cy="20" r="2" fill="#FFC83A" />
+      </svg>
+      <span className="gwd-logo-t">
+        <b>AOBA FIELD</b>
+        <span>あおばフィールド スポーツアカデミー</span>
+      </span>
+    </>
+  )
+}
+
+interface DemoHeaderProps {
+  onJumpToBooking: () => void
+}
+
+export function DemoHeader({ onJumpToBooking }: DemoHeaderProps) {
+  const [open, setOpen] = useState(false)
+  const navId = useId()
+  const btnRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false)
+        btnRef.current?.focus()
+      }
+    }
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [open])
+
+  return (
+    <header className="gwd-header">
+      <div className="gwd-wrap">
+        <a className="gwd-logo" href="#top">
+          <DemoLogo />
+        </a>
+        <nav id={navId} className={`gwd-nav${open ? " is-open" : ""}`} aria-label="スクールのメニュー">
+          <ul>
+            {NAV.map((item) => (
+              <li key={item.href}>
+                <a href={item.href} onClick={() => setOpen(false)}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <a
+          className="gwd-btn gwd-btn-ink"
+          href="#trial-form"
+          onClick={(e) => {
+            e.preventDefault()
+            setOpen(false)
+            trackGrowthWebEvent("demo_hero_cta_click", { action: "school_header", destination: "#trial-form", is_demo: true })
+            onJumpToBooking()
+          }}
+        >
+          <span className="l">無料体験を予約</span>
+          <span className="s">体験予約</span>
+        </a>
+        <button
+          ref={btnRef}
+          type="button"
+          className="gwd-menu-btn"
+          aria-expanded={open}
+          aria-controls={navId}
+          aria-label={open ? "メニューを閉じる" : "メニューを開く"}
+          onClick={() => setOpen((v) => !v)}
+          data-testid="demo-menu-button"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            {open ? <path d="M6 6l12 12M18 6L6 18" /> : <path d="M3 7h18M3 12h18M3 17h18" />}
+          </svg>
+        </button>
+      </div>
+    </header>
+  )
+}
 
 interface DemoHeroProps {
   onJumpToBooking: () => void
 }
 
 export function DemoHero({ onJumpToBooking }: DemoHeroProps) {
-  const handleBookingClick = (action: "school_header" | "hero_primary") => {
-    trackGrowthWebEvent("demo_hero_cta_click", {
-      action,
-      destination: "#trial-form",
-      is_demo: true,
-    })
-    onJumpToBooking()
-  }
-
   return (
-    <>
-      {/* School Navigation Header */}
-      <header className="border-b border-[#dddad0] bg-[#faf9f5]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <span
-              aria-hidden="true"
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0d5e43] font-mono text-xs font-extrabold text-white"
-            >
-              AF
+    <section className="gwd-hero" id="top" aria-labelledby="demo-hero-title" data-testid="demo-hero">
+      <figure className="gwd-hero-ph">
+        <picture>
+          <source
+            media="(max-width: 767px)"
+            type="image/avif"
+            srcSet={`${DEMO_IMAGE_BASE}/hero-tall-480.avif 480w, ${DEMO_IMAGE_BASE}/hero-tall-720.avif 720w, ${DEMO_IMAGE_BASE}/hero-tall-828.avif 828w`}
+            sizes="100vw"
+          />
+          <source
+            media="(max-width: 767px)"
+            type="image/webp"
+            srcSet={`${DEMO_IMAGE_BASE}/hero-tall-480.webp 480w, ${DEMO_IMAGE_BASE}/hero-tall-720.webp 720w, ${DEMO_IMAGE_BASE}/hero-tall-828.webp 828w`}
+            sizes="100vw"
+          />
+          <source
+            type="image/avif"
+            srcSet={`${DEMO_IMAGE_BASE}/hero-wide-1280.avif 1280w, ${DEMO_IMAGE_BASE}/hero-wide-1920.avif 1920w`}
+            sizes="100vw"
+          />
+          <img
+            src={`${DEMO_IMAGE_BASE}/hero-wide-1280.webp`}
+            srcSet={`${DEMO_IMAGE_BASE}/hero-wide-1280.webp 1280w, ${DEMO_IMAGE_BASE}/hero-wide-1920.webp 1920w`}
+            sizes="100vw"
+            width={1280}
+            height={756}
+            alt="人工芝のコーンの間を、ボールを運んで進む小学生の足元（イメージ写真）"
+            fetchPriority="high"
+          />
+        </picture>
+        <figcaption className="gwd-credit">写真はイメージです（Unsplash）</figcaption>
+      </figure>
+      <div className="gwd-wrap">
+        <div className="gwd-hero-copy">
+          <p className="gwd-kicker">JUNIOR FOOTBALL &amp; MOVEMENT</p>
+          <h1 id="demo-hero-title" data-gwd-pin="1">
+            <span>
+              <span className="q">「</span>
+              {DEMO_DISPLAY_TEXT.heroLine1.slice(1)}
             </span>
-            <div>
-              <p className="text-sm font-extrabold tracking-tight text-[#10211b] sm:text-base">
-                {DEMO_SCHOOL_INFO.name}
-              </p>
-              <p className="text-[11px] font-medium text-[#41524b]">
-                {DEMO_SCHOOL_INFO.demoBadge}
-              </p>
-            </div>
-          </div>
-
-          <nav
-            aria-label="デモスクール内ナビゲーション"
-            className="hidden items-center gap-1 lg:flex"
-          >
-            {[
-              { href: "#safety", label: "6つの安心" },
-              { href: "#schedule", label: "クラス・曜日" },
-              { href: "#demo-pricing", label: "料金" },
-              { href: "#trial-flow", label: "体験の流れ" },
-              { href: "#coaches", label: "コーチ紹介" },
-              { href: "#demo-faq", label: "よくある質問" },
-            ].map((item) => (
+            <span>{DEMO_DISPLAY_TEXT.heroLine2}</span>
+          </h1>
+          <p className="gwd-lead">
+            年長〜小6のサッカー・運動教室。
+            <br />
+            ボールに触れる楽しさから、考えてプレーする力まで。
+            <br />
+            1クラス最大16名を、コーチ2名で見ています。
+          </p>
+          <dl className="gwd-facts">
+            <div><dt>対象</dt><dd>年長〜小学6年生</dd></div>
+            <div><dt>月謝</dt><dd>7,700円〜（税込・週1回）</dd></div>
+            <div><dt>場所</dt><dd>二子玉川（屋外）・用賀（屋内）</dd></div>
+            <div><dt>方針</dt><dd>ミスを叱らず、挑戦をほめる</dd></div>
+          </dl>
+          <div className="gwd-cta-row">
+            <a
+              className="gwd-btn gwd-btn-sun"
+              href="#trial-form"
+              data-gwd-pin="2"
+              data-testid="hero-primary-cta"
+              onClick={(e) => {
+                e.preventDefault()
+                trackGrowthWebEvent("demo_hero_cta_click", { action: "hero_primary", destination: "#trial-form", is_demo: true })
+                onJumpToBooking()
+              }}
+            >
+              無料体験を予約する
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </a>
+            <span className="gwd-cta-sub">
+              <span>体験は無料・当日の勧誘なし</span>
               <a
-                key={item.href}
-                href={item.href}
-                className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-[#2a3b35] hover:bg-[#eeece4] hover:text-[#10211b]"
+                href="#schedule"
+                onClick={() =>
+                  trackGrowthWebEvent("demo_hero_cta_click", { action: "hero_schedule", destination: "#schedule", is_demo: true })
+                }
               >
-                {item.label}
+                学年からクラスをさがす ↓
               </a>
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            onClick={() => handleBookingClick("school_header")}
-            className="hidden min-h-11 items-center gap-1.5 rounded-xl bg-[#b8430f] px-4 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#94340a] sm:inline-flex"
-          >
-            <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-            無料体験を予約
-          </button>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section
-        id="demo-hero"
-        className="border-b border-[#dddad0] bg-[#faf9f5] pb-14 pt-8 sm:pb-20 sm:pt-14"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-6">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e6f4ee] px-3 py-1 text-xs font-bold text-[#0d5e43]">
-                  <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
-                  {DEMO_SCHOOL_INFO.areaLabel}
-                </span>
-                <span className="rounded-full border border-[#c3bfb1] bg-white px-3 py-1 text-xs font-bold text-[#10211b]">
-                  {DEMO_SCHOOL_INFO.ageRangeLabel}
-                </span>
-              </div>
-
-              <h1 className="mt-5 text-[1.95rem] font-extrabold leading-[1.24] tracking-[-0.02em] text-[#10211b] sm:text-5xl sm:leading-[1.16]">
-                「できた！」の笑顔が、
-                <span className="block text-[#0d5e43]">
-                  体を動かす好きを育てる。
-                </span>
-              </h1>
-
-              <p className="mt-4 text-base leading-relaxed text-[#41524b] sm:text-lg">
-                年長から小学6年生まで、未経験のお子さまも安心して始められる少人数制ジュニアサッカー＆運動基礎スクールです。
-                保護者の当番なし・雨天振替対応で、ご家庭の負担を抑えて続けられます。
-              </p>
-
-              {/* Quick parent decision cues */}
-              <ul className="mt-6 grid grid-cols-2 gap-2.5 text-xs font-semibold text-[#10211b] sm:text-sm">
-                {[
-                  "未経験・運動が苦手でも歓迎",
-                  "親の当番・お茶出し一切なし",
-                  "雨天中止は屋内枠へ無料振替",
-                  "月謝以外の費用もすべて公開",
-                ].map((point) => (
-                  <li
-                    key={point}
-                    className="flex items-center gap-2 rounded-xl border border-[#dddad0] bg-white px-3 py-2.5"
-                  >
-                    <CheckCircle2
-                      className="h-4 w-4 shrink-0 text-[#0d5e43]"
-                      aria-hidden="true"
-                    />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <button
-                  type="button"
-                  onClick={() => handleBookingClick("hero_primary")}
-                  className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-[#b8430f] px-6 text-base font-bold text-white shadow-[0_12px_28px_-10px_rgba(184,67,15,0.55)] transition-colors hover:bg-[#94340a]"
-                >
-                  <CalendarCheck className="h-5 w-5" aria-hidden="true" />
-                  60秒で無料体験を予約する
-                </button>
-                <a
-                  href="#schedule"
-                  onClick={() =>
-                    trackGrowthWebEvent("demo_hero_cta_click", {
-                      action: "hero_schedule",
-                      destination: "#schedule",
-                      is_demo: true,
-                    })
-                  }
-                  className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-[#0d5e43] bg-white px-6 text-base font-bold text-[#0d5e43] transition-colors hover:bg-[#e6f4ee]"
-                >
-                  学年・曜日からクラスを見る
-                  <ArrowDown className="h-4 w-4" aria-hidden="true" />
-                </a>
-              </div>
-
-              <p className="mt-3 text-xs text-[#41524b]">
-                ※ボール・ビブスは無料貸出。体験当日の無理な入会勧誘はありません。
-              </p>
-            </div>
-
-            <div className="lg:col-span-6">
-              <DemoHeroArtwork />
-            </div>
+            </span>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
+  )
+}
+
+export function DemoMobileFacts() {
+  return (
+    <div className="gwd-wrap">
+      <dl className="gwd-mfacts" aria-label="スクールの概要">
+        <div><dt>対象</dt><dd>年長〜小6</dd></div>
+        <div><dt>月謝</dt><dd>7,700円〜（税込）</dd></div>
+        <div><dt>場所</dt><dd>二子玉川・用賀</dd></div>
+        <div><dt>方針</dt><dd>叱らず、挑戦をほめる</dd></div>
+      </dl>
+    </div>
   )
 }

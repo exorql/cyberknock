@@ -88,6 +88,7 @@ const allowedValues: Record<string, readonly string[]> = {
   school_type: ["junior_soccer_and_movement"],
   grade_filter: ["all", "preschool_senior", "grade_1_2", "grade_3_4", "grade_5_6"],
   campus_filter: ["all", "futako_turf", "yoga_gym"],
+  day_filter: ["all", "tue", "wed", "thu", "fri", "sat", "multiple"],
   class_id: ["kids-movement-tue", "u9-soccer-wed", "indoor-agility-thu", "u12-game-sense-fri", "weekend-family-sat"],
   preselected_class: ["kids-movement-tue", "u9-soccer-wed", "indoor-agility-thu", "u12-game-sense-fri", "weekend-family-sat"],
   grade: ["preschool_senior", "grade_1_2", "grade_3_4", "grade_5_6"],

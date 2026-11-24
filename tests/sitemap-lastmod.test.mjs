@@ -19,7 +19,7 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
     sportsDx: "2026-11-12",
     aiDevelopment: "2026-11-17",
     growthWeb: "2026-11-23",
-    growthWebDemo: "2026-11-23",
+    growthWebDemo: "2026-11-24",
     caseStudy: "2026-11-14",
     security: "2026-11-12",
     privacy: "2026-11-23",

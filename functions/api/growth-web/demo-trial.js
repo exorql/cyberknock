@@ -15,6 +15,8 @@ const DEMO_CLASS_MAP = {
     campusName: "二子玉川グリーンパーク人工芝（架空）",
     dayOfWeek: "毎週火曜",
     timeRange: "15:45–16:45（60分）",
+    gradeLabel: "年長〜小学2年生",
+    allowedGrades: ["preschool_senior", "grade_1_2"],
   },
   "u9-soccer-wed": {
     id: "u9-soccer-wed",
@@ -22,6 +24,8 @@ const DEMO_CLASS_MAP = {
     campusName: "二子玉川グリーンパーク人工芝（架空）",
     dayOfWeek: "毎週水曜",
     timeRange: "16:30–17:40（70分）",
+    gradeLabel: "小学1〜3年生",
+    allowedGrades: ["grade_1_2", "grade_3"],
   },
   "indoor-agility-thu": {
     id: "indoor-agility-thu",
@@ -29,6 +33,8 @@ const DEMO_CLASS_MAP = {
     campusName: "用賀コミュニティ屋内アリーナ（架空）",
     dayOfWeek: "毎週木曜",
     timeRange: "16:15–17:15（60分）",
+    gradeLabel: "年長〜小学4年生",
+    allowedGrades: ["preschool_senior", "grade_1_2", "grade_3", "grade_4"],
   },
   "u12-game-sense-fri": {
     id: "u12-game-sense-fri",
@@ -36,6 +42,8 @@ const DEMO_CLASS_MAP = {
     campusName: "二子玉川グリーンパーク人工芝（架空）",
     dayOfWeek: "毎週金曜",
     timeRange: "17:15–18:35（80分）",
+    gradeLabel: "小学4〜6年生",
+    allowedGrades: ["grade_4", "grade_5_6"],
   },
   "weekend-family-sat": {
     id: "weekend-family-sat",
@@ -43,13 +51,16 @@ const DEMO_CLASS_MAP = {
     campusName: "用賀コミュニティ屋内アリーナ（架空）",
     dayOfWeek: "毎週土曜",
     timeRange: "09:30–10:40（70分）",
+    gradeLabel: "年長〜小学6年生（2グループ制）",
+    allowedGrades: ["preschool_senior", "grade_1_2", "grade_3", "grade_4", "grade_5_6"],
   },
 };
 
 const GRADE_LABELS = {
   preschool_senior: "年長（5〜6歳）",
   grade_1_2: "小学1〜2年生",
-  grade_3_4: "小学3〜4年生",
+  grade_3: "小学3年生",
+  grade_4: "小学4年生",
   grade_5_6: "小学5〜6年生",
 };
 
@@ -228,11 +239,18 @@ export function validateDemoTrial(input) {
     }
   }
 
-  if (typeof input.childGrade !== "string" || !(input.childGrade in GRADE_LABELS)) {
+  const gradeValid = typeof input.childGrade === "string" && input.childGrade in GRADE_LABELS;
+  if (!gradeValid) {
     addError("childGrade", "お子さまの学年を選択してください。");
   }
-  if (!selectedClassId || !(selectedClassId in DEMO_CLASS_MAP)) {
+  const classValid = Boolean(selectedClassId && selectedClassId in DEMO_CLASS_MAP);
+  if (!classValid) {
     addError("selectedClassId", "有効なクラスを選択してください。");
+  } else if (gradeValid && !DEMO_CLASS_MAP[selectedClassId].allowedGrades.includes(input.childGrade)) {
+    addError(
+      "selectedClassId",
+      `選択されたクラス（${DEMO_CLASS_MAP[selectedClassId].gradeLabel}）は、選択中の学年ではお申し込みいただけません。対象クラスを選び直してください。`
+    );
   }
   if (typeof input.preferredTiming !== "string" || !(input.preferredTiming in TIMING_LABELS)) {
     addError("preferredTiming", "ご希望時期を選択してください。");

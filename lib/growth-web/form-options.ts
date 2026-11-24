@@ -1,3 +1,5 @@
+import { getDemoClassById, isGradeEligibleForClass } from "./demo-school.ts"
+
 export const SPORT_CATEGORIES = [
   { value: "baseball", label: "野球・少年野球・打撃／投球指導" },
   { value: "soccer", label: "サッカー・フットサル" },
@@ -28,7 +30,8 @@ export const STUDENT_BANDS = [
 export const CHILD_GRADES = [
   { value: "preschool_senior", label: "年長（5〜6歳）" },
   { value: "grade_1_2", label: "小学1〜2年生" },
-  { value: "grade_3_4", label: "小学3〜4年生" },
+  { value: "grade_3", label: "小学3年生" },
+  { value: "grade_4", label: "小学4年生" },
   { value: "grade_5_6", label: "小学5〜6年生" },
 ] as const
 
@@ -226,12 +229,16 @@ export function validateTrialBookingClient(
     fieldErrors.phone = "電話番号は半角数字（9〜15桁）とハイフンで入力してください。"
   }
 
-  if (!CHILD_GRADES.some((g) => g.value === raw.childGrade)) {
+  const gradeValid = CHILD_GRADES.some((g) => g.value === raw.childGrade)
+  if (!gradeValid) {
     fieldErrors.childGrade = "お子さまの学年を選択してください。"
   }
 
-  if (!selectedClassId || selectedClassId.length > 60) {
+  const selectedClass = selectedClassId ? getDemoClassById(selectedClassId) : undefined
+  if (!selectedClassId || selectedClassId.length > 60 || !selectedClass) {
     fieldErrors.selectedClassId = "希望クラスを選択してください。"
+  } else if (gradeValid && !isGradeEligibleForClass(selectedClassId, raw.childGrade)) {
+    fieldErrors.selectedClassId = `選択されたクラス（${selectedClass.gradeLabel}）は、選択中の学年ではお申し込みいただけません。対象クラスを選び直してください。`
   }
 
   if (!PREFERRED_TIMINGS.some((t) => t.value === raw.preferredTiming)) {

@@ -17,12 +17,12 @@ export function DemoApproach() {
               sizes="(max-width: 767px) 100vw, 600px"
               width={640}
               height={480}
-              alt="大人がひざをつき、子どもの靴ひもを結んでいる様子（イメージ写真）"
+              alt="芝生のピッチで、コーチが後ろ姿で子どもたちのサッカー練習を見守る様子（イメージ写真）"
               loading="lazy"
               decoding="async"
             />
           </picture>
-          <figcaption className="gwd-credit">写真はイメージです（Unsplash）</figcaption>
+          <figcaption className="gwd-credit">写真はイメージです（Wikimedia Commons / CC0）</figcaption>
         </figure>
         <div className="gwd-ap">
           <p className="gwd-eyebrow">OUR APPROACH</p>

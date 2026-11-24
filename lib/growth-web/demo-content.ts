@@ -23,7 +23,7 @@ export const DEMO_DISPLAY_TEXT = {
   formTitle: "無料体験の申し込み",
   receiptTitle: "デモ申込を受け付けました",
   faqTitle: "よくある質問",
-  gradeTiles: "年長小1・2小3・4小5・6",
+  gradeTiles: "年長小1・2小3小4小5・6",
   dayLabels: "火水木金土",
 } as const
 
@@ -40,7 +40,8 @@ export const DEMO_DAY_FILTERS: ReadonlyArray<{ id: DemoDayId; label: string; nam
 export const DEMO_GRADE_TILES: ReadonlyArray<{ id: Exclude<GradeFilterId, "all">; label: string; formGrade: string }> = [
   { id: "preschool_senior", label: "年長", formGrade: "preschool_senior" },
   { id: "grade_1_2", label: "小1・2", formGrade: "grade_1_2" },
-  { id: "grade_3_4", label: "小3・4", formGrade: "grade_3_4" },
+  { id: "grade_3", label: "小3", formGrade: "grade_3" },
+  { id: "grade_4", label: "小4", formGrade: "grade_4" },
   { id: "grade_5_6", label: "小5・6", formGrade: "grade_5_6" },
 ]
 
@@ -81,7 +82,7 @@ export const DEMO_CLASS_VISUALS: Record<
   "u12-game-sense-fri": {
     day: "fri",
     image: "class-u12",
-    imageAlt: "スローインの姿勢でボールを構える選手の後ろ姿（イメージ写真）",
+    imageAlt: "芝生のピッチでミニゴールに向かってサッカーの練習ゲームをする小学生たち（イメージ写真）",
     campusShort: "二子玉川・屋外人工芝",
     accessShort: "二子玉川駅 徒歩9分・夜間照明あり",
   },
@@ -120,15 +121,57 @@ export const DEMO_APPROACH_POINTS = [
   { title: "毎回、できたことを保護者へ", body: "練習の最後に、その日の良い変化をコーチからお伝えします。" },
 ] as const
 
-/** Unsplash License photos (https://unsplash.com/license). Faces of children are not identifiable. */
+/** Verified free-license photos (Unsplash License / Wikimedia Commons CC0 1.0 & CC BY 4.0). No identifiable faces. */
 export const DEMO_PHOTO_CREDITS = [
-  { use: "ヒーロー", photographer: "Ile Ristov", photoId: "ocroZaKaoyI" },
-  { use: "指導方針", photographer: "Adrià Crehuet Cano", photoId: "yndHHu2kJAw" },
-  { use: "火曜クラス", photographer: "Arion Reyvonputra", photoId: "WtpTVeCXcAg" },
-  { use: "水曜クラス", photographer: "James Lee", photoId: "0axqBrI8Or4" },
-  { use: "木曜クラス", photographer: "Abby Tait", photoId: "3EBaEQ0mKPk" },
-  { use: "金曜クラス", photographer: "Syed Ali", photoId: "PDbr_bFHvL4" },
-  { use: "土曜クラス", photographer: "Amr Taha™", photoId: "RuFuCkow5uw" },
+  {
+    use: "ヒーロー",
+    photographer: "Ile Ristov",
+    photoId: "ocroZaKaoyI",
+    sourceUrl: "https://unsplash.com/photos/ocroZaKaoyI",
+    license: "Unsplash License",
+  },
+  {
+    use: "指導方針",
+    photographer: "W.carter",
+    photoId: "SAIS_kids_soccer_practice_2",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:SAIS_kids%27_soccer_practice_2.jpg",
+    license: "Wikimedia Commons・CC0 1.0",
+  },
+  {
+    use: "火曜クラス",
+    photographer: "Arion Reyvonputra",
+    photoId: "WtpTVeCXcAg",
+    sourceUrl: "https://unsplash.com/photos/WtpTVeCXcAg",
+    license: "Unsplash License",
+  },
+  {
+    use: "水曜クラス",
+    photographer: "James Lee",
+    photoId: "0axqBrI8Or4",
+    sourceUrl: "https://unsplash.com/photos/0axqBrI8Or4",
+    license: "Unsplash License",
+  },
+  {
+    use: "木曜クラス",
+    photographer: "Abby Tait",
+    photoId: "3EBaEQ0mKPk",
+    sourceUrl: "https://unsplash.com/photos/3EBaEQ0mKPk",
+    license: "Unsplash License",
+  },
+  {
+    use: "金曜クラス",
+    photographer: "W.carter",
+    photoId: "Kids_soccer_practice_at_Brastad_Arena_1",
+    sourceUrl: "https://commons.wikimedia.org/wiki/File:Kids%27_soccer_practice_at_Brastad_Arena_1.jpg",
+    license: "Wikimedia Commons・CC BY 4.0",
+  },
+  {
+    use: "土曜クラス",
+    photographer: "Amr Taha™",
+    photoId: "RuFuCkow5uw",
+    sourceUrl: "https://unsplash.com/photos/RuFuCkow5uw",
+    license: "Unsplash License",
+  },
 ] as const
 
 /** Numbered measurement points shown only in owner (inspector) mode. */

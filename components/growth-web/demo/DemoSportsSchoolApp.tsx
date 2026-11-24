@@ -12,7 +12,7 @@ import { SafetyStandards } from "@/components/growth-web/demo/SafetyStandards"
 import { ClassFinder, ClassList } from "@/components/growth-web/demo/ScheduleFinder"
 import { TrialBookingForm } from "@/components/growth-web/demo/TrialBookingForm"
 import { DEMO_PHOTO_CREDITS, type DemoClassFilters, dayFilterParam, filterDemoClasses } from "@/lib/growth-web/demo-content"
-import { DEMO_SCHOOL_INFO, type DemoClassSlot } from "@/lib/growth-web/demo-school"
+import { DEMO_SCHOOL_INFO, type DemoClassSlot, isGradeEligibleForClass } from "@/lib/growth-web/demo-school"
 import {
   getRecentGrowthWebEvents,
   getServerGrowthWebEventsSnapshot,
@@ -26,6 +26,7 @@ export function DemoSportsSchoolApp() {
   const [filters, setFilters] = useState<DemoClassFilters>(NO_FILTERS)
   const [selectedClassId, setSelectedClassId] = useState<string>("")
   const [selectedGrade, setSelectedGrade] = useState<string>("")
+  const [classResetNotice, setClassResetNotice] = useState<string | null>(null)
   const [ownerMode, setOwnerMode] = useState(false)
   const viewedRef = useRef(false)
 
@@ -53,7 +54,15 @@ export function DemoSportsSchoolApp() {
 
   const handleFilterChange = (next: DemoClassFilters, changed: "grade" | "day" | "campus" | "reset") => {
     setFilters(next)
-    if (changed === "grade" && next.grade !== "all") setSelectedGrade(next.grade)
+    if (changed === "grade" && next.grade !== "all") {
+      setSelectedGrade(next.grade)
+      if (selectedClassId && !isGradeEligibleForClass(selectedClassId, next.grade)) {
+        setSelectedClassId("")
+        setClassResetNotice("学年の変更に合わせて対象外のクラス選択を解除しました。対象クラスを選び直してください。")
+      } else {
+        setClassResetNotice(null)
+      }
+    }
     trackGrowthWebEvent("demo_schedule_filter", {
       grade_filter: next.grade,
       campus_filter: next.campus,
@@ -66,6 +75,7 @@ export function DemoSportsSchoolApp() {
   const handleSelectClassForTrial = useCallback(
     (slot: DemoClassSlot) => {
       setSelectedClassId(slot.id)
+      setClassResetNotice(null)
       setSelectedGrade((current) =>
         filters.grade !== "all" && slot.grades.includes(filters.grade)
           ? filters.grade
@@ -77,6 +87,24 @@ export function DemoSportsSchoolApp() {
       scrollToForm()
     },
     [filters.grade, scrollToForm]
+  )
+
+  const handleFormClassChange = useCallback((nextClassId: string) => {
+    setSelectedClassId(nextClassId)
+    setClassResetNotice(null)
+  }, [])
+
+  const handleFormGradeChange = useCallback(
+    (nextGrade: string) => {
+      setSelectedGrade(nextGrade)
+      if (nextGrade && selectedClassId && !isGradeEligibleForClass(selectedClassId, nextGrade)) {
+        setSelectedClassId("")
+        setClassResetNotice("学年の変更に合わせて対象外のクラス選択を解除しました。対象クラスを選び直してください。")
+      } else {
+        setClassResetNotice(null)
+      }
+    },
+    [selectedClassId]
   )
 
   const toggleOwnerMode = () => {
@@ -114,8 +142,9 @@ export function DemoSportsSchoolApp() {
           <TrialBookingForm
             selectedClassId={selectedClassId}
             selectedGrade={selectedGrade}
-            onClassChanged={setSelectedClassId}
-            onGradeChanged={setSelectedGrade}
+            classResetNotice={classResetNotice}
+            onClassChanged={handleFormClassChange}
+            onGradeChanged={handleFormGradeChange}
           />
           <DemoFaq />
         </main>
@@ -144,14 +173,15 @@ export function DemoSportsSchoolApp() {
               </div>
             </div>
             <div>
-              <h2>写真クレジット（Unsplash License）</h2>
+              <h2>写真クレジット</h2>
               <ul>
                 {DEMO_PHOTO_CREDITS.map((c) => (
                   <li key={c.photoId}>
                     {c.use}：
-                    <a href={`https://unsplash.com/photos/${c.photoId}`} rel="noopener noreferrer" target="_blank">
+                    <a href={c.sourceUrl} rel="noopener noreferrer" target="_blank">
                       {c.photographer}
                     </a>
+                    （{c.license}）
                   </li>
                 ))}
               </ul>

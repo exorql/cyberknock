@@ -10,9 +10,20 @@ import {
   filterDemoClasses,
   splitTimeRange,
 } from "../lib/growth-web/demo-content.ts"
-import { DEMO_CLASSES } from "../lib/growth-web/demo-school.ts"
+import {
+  DEMO_CLASSES,
+  TRANSPARENT_PRICING,
+  getEligibleDemoClassesForGrade,
+  isGradeEligibleForClass,
+} from "../lib/growth-web/demo-school.ts"
+import { CHILD_GRADES, validateTrialBookingClient } from "../lib/growth-web/form-options.ts"
 import { isTextEntry, shouldShowDemoSticky } from "../lib/growth-web/demo-sticky.ts"
 import { safeAnalyticsParams } from "../lib/analytics.ts"
+import {
+  handleGrowthWebDemoTrial,
+  resetGrowthWebDemoStores,
+  validateDemoTrial,
+} from "../functions/api/growth-web/demo-trial.js"
 
 const root = new URL("../", import.meta.url)
 const read = (path) => readFileSync(new URL(path, root), "utf8")
@@ -49,20 +60,23 @@ test("every class has a visual with responsive AVIF and WebP files", () => {
   }
 })
 
-test("photo credits list every Unsplash photo used", () => {
+test("photo credits list every photo source and license used", () => {
   const credits = read("public/images/growth-web-demo/CREDITS.md")
   assert.match(credits, /Unsplash License/)
+  assert.match(credits, /CC0 1\.0/)
+  assert.match(credits, /CC BY 4\.0/)
   for (const c of DEMO_PHOTO_CREDITS) {
-    assert.ok(credits.includes(`https://unsplash.com/photos/${c.photoId}`), c.photoId)
+    assert.ok(credits.includes(c.sourceUrl), c.sourceUrl)
     assert.ok(credits.includes(c.photographer), c.photographer)
+    assert.ok(credits.includes(c.license), c.license)
   }
-  assert.equal(new Set(DEMO_PHOTO_CREDITS.map((c) => c.photoId)).size, DEMO_PHOTO_CREDITS.length)
+  assert.equal(new Set(DEMO_PHOTO_CREDITS.map((c) => c.sourceUrl)).size, DEMO_PHOTO_CREDITS.length)
 })
 
 test("class search: grade, day and place are independent filters", () => {
   assert.equal(filterDemoClasses(all).length, DEMO_CLASSES.length)
   const counts = Object.fromEntries(DEMO_GRADE_TILES.map((t) => [t.id, filterDemoClasses({ ...all, grade: t.id }).length]))
-  assert.deepEqual(counts, { preschool_senior: 3, grade_1_2: 4, grade_3_4: 4, grade_5_6: 2 })
+  assert.deepEqual(counts, { preschool_senior: 3, grade_1_2: 4, grade_3: 3, grade_4: 3, grade_5_6: 2 })
   assert.deepEqual(filterDemoClasses({ ...all, days: ["sat"] }).map((c) => c.id), ["weekend-family-sat"])
   assert.deepEqual(filterDemoClasses({ ...all, days: ["tue", "thu"] }).map((c) => c.id), ["kids-movement-tue", "indoor-agility-thu"])
   assert.deepEqual(
@@ -70,6 +84,81 @@ test("class search: grade, day and place are independent filters", () => {
     ["indoor-agility-thu", "weekend-family-sat"]
   )
   assert.equal(filterDemoClasses({ grade: "grade_5_6", days: ["tue"], campus: "all" }).length, 0)
+})
+
+test("grade and class eligibility stay strictly consistent across search, pricing, client validation and demo API", async () => {
+  // Grade 4 must never see or book the U-9 (grades 1-3) class; Grade 3 must never see or book U-12 (grades 4-6).
+  assert.equal(isGradeEligibleForClass("u9-soccer-wed", "grade_3"), true)
+  assert.equal(isGradeEligibleForClass("u9-soccer-wed", "grade_4"), false)
+  assert.equal(isGradeEligibleForClass("u12-game-sense-fri", "grade_3"), false)
+  assert.equal(isGradeEligibleForClass("u12-game-sense-fri", "grade_4"), true)
+
+  const grade4ClassIds = filterDemoClasses({ ...all, grade: "grade_4" }).map((c) => c.id)
+  assert.deepEqual(grade4ClassIds, ["indoor-agility-thu", "u12-game-sense-fri", "weekend-family-sat"])
+  assert.deepEqual(
+    getEligibleDemoClassesForGrade("grade_4").map((c) => c.id),
+    grade4ClassIds
+  )
+
+  const grade3ClassIds = filterDemoClasses({ ...all, grade: "grade_3" }).map((c) => c.id)
+  assert.deepEqual(grade3ClassIds, ["u9-soccer-wed", "indoor-agility-thu", "weekend-family-sat"])
+
+  // Pricing table reflects U-9 (1-3) vs Saturday (preschool-6) accurately.
+  const sharedTier = TRANSPARENT_PRICING.tiers.find((t) => t.name.includes("U-9"))
+  assert.ok(sharedTier)
+  assert.match(sharedTier.target, /小学1〜3年生/)
+  assert.match(sharedTier.target, /年長〜小学6年生/)
+
+  // Every (class, grade) pair must agree across DEMO_CLASSES, client validator and demo API validator.
+  const basePayload = {
+    guardianName: "青葉 花子",
+    email: "hanako@example.jp",
+    phone: "090-0000-0000",
+    preferredTiming: "next_week",
+    experienceLevel: "beginner",
+    notes: "",
+    demoAcknowledged: true,
+    websiteHp: "",
+  }
+  for (const slot of DEMO_CLASSES) {
+    assert.ok(slot.grades.includes(slot.defaultGradeValue), `${slot.id} defaultGradeValue must be eligible`)
+    for (const grade of CHILD_GRADES) {
+      const expectedOk = slot.grades.includes(grade.value)
+      const payload = { ...basePayload, selectedClassId: slot.id, childGrade: grade.value }
+      const clientResult = validateTrialBookingClient(payload)
+      const apiResult = validateDemoTrial(payload)
+      if (expectedOk) {
+        assert.ok(clientResult.data, `client should accept ${slot.id} + ${grade.value}`)
+        assert.ok(apiResult.data, `api should accept ${slot.id} + ${grade.value}`)
+      } else {
+        assert.ok(clientResult.fieldErrors?.selectedClassId, `client should reject ${slot.id} + ${grade.value}`)
+        assert.ok(apiResult.fieldErrors?.selectedClassId, `api should reject ${slot.id} + ${grade.value}`)
+      }
+    }
+  }
+
+  // HTTP 400 from demo API when grade_4 attempts to book U-9 (grades 1-3)
+  resetGrowthWebDemoStores()
+  const badRes = await handleGrowthWebDemoTrial(
+    new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "https://cyberknock.jp",
+        "cf-connecting-ip": "203.0.113.44",
+      },
+      body: JSON.stringify({ ...basePayload, selectedClassId: "u9-soccer-wed", childGrade: "grade_4" }),
+    })
+  )
+  assert.equal(badRes.status, 400)
+  const badBody = await badRes.json()
+  assert.ok(badBody.fieldErrors?.selectedClassId?.[0])
+
+  // GA4 allowlist permits grade_3 and grade_4 with zero PII
+  assert.deepEqual(safeAnalyticsParams({ grade_filter: "grade_4", grade: "grade_3", email: "x@example.jp" }), {
+    grade_filter: "grade_4",
+    grade: "grade_3",
+  })
 })
 
 test("day filter is measured with a fixed vocabulary only", () => {

@@ -21,15 +21,15 @@ from PIL import Image, ImageDraw, ImageFilter
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "public", "images", "growth-web-demo")
 
-# name -> (source file, crop box on the 2400px original, output widths)
+# name -> (source file, crop box on the original, output widths)
 JOBS = {
     "hero-wide": ("hero-dribble-cones_ocroZaKaoyI.jpg", (300, 360, 2400, 1600), (1280, 1920)),
     "hero-tall": ("hero-dribble-cones_ocroZaKaoyI.jpg", (500, 360, 1760, 1600), (480, 720, 828)),
-    "coach": ("coach-shoelace_yndHHu2kJAw.jpg", (700, 200, 2380, 1460), (640, 1200)),
+    "coach": ("coach-sais-practice-2.jpg", (80, 860, 2000, 2300), (640, 1200)),
     "class-movement": ("preschool-field_WtpTVeCXcAg.jpg", (0, 1300, 2400, 3100), (320, 480)),
     "class-u9": ("dribble-pair_0axqBrI8Or4.jpg", (130, 0, 2263, 1600), (320, 480)),
     "class-indoor": ("indoor-futsal-feet_3EBaEQ0mKPk.jpg", (300, 400, 1900, 1600), (320, 480)),
-    "class-u12": ("throwin-back_PDbr_bFHvL4.jpg", (500, 0, 2400, 1425), (320, 480)),
+    "class-u12": ("u12-brastad-arena-1.jpg", (1580, 1080, 3980, 2880), (320, 480)),
     "class-weekend": ("ball-closeup_RuFuCkow5uw.jpg", (0, 700, 2400, 2500), (320, 480)),
 }
 
@@ -38,7 +38,6 @@ JOBS = {
 BLUR_BOXES = {
     "indoor-futsal-feet_3EBaEQ0mKPk.jpg": [(1500, 480, 1660, 640)],
     "dribble-pair_0axqBrI8Or4.jpg": [(1820, 80, 2020, 280)],
-    "throwin-back_PDbr_bFHvL4.jpg": [(1980, 40, 2400, 280)],
 }
 
 
@@ -52,9 +51,9 @@ def blur_boxes(img: Image.Image, boxes: list[tuple[int, int, int, int]]) -> Imag
     return Image.composite(blurred, img, mask.filter(ImageFilter.GaussianBlur(12)))
 
 
-# Printed badges to cover with the surrounding fabric colour (box, sample point).
+# Printed brand text/badges to cover with the surrounding fabric colour (box, sample point).
 COVER_BOXES = {
-    "coach-shoelace_yndHHu2kJAw.jpg": [((1792, 862, 1842, 930), (1870, 900))],
+    "coach-sais-practice-2.jpg": [((480, 1150, 585, 1205), (530, 1225))],
 }
 
 
@@ -95,9 +94,14 @@ def main() -> None:
         for w in widths:
             h = round(crop.height * w / crop.width)
             out = crop.resize((w, h), Image.LANCZOS)
-            q = (32 if name == "hero-tall" else 40) if name.startswith("hero") else 52
-            out.save(os.path.join(OUT, f"{name}-{w}.avif"), "AVIF", quality=q, speed=4)
-            out.save(os.path.join(OUT, f"{name}-{w}.webp"), "WEBP", quality=72, method=6)
+            if name == "coach":
+                out = out.filter(ImageFilter.GaussianBlur(0.85 if w == 1200 else 0.4))
+                qa, qw = (34, 48) if w == 1200 else (44, 62)
+            else:
+                qa = (32 if name == "hero-tall" else 40) if name.startswith("hero") else 52
+                qw = 72
+            out.save(os.path.join(OUT, f"{name}-{w}.avif"), "AVIF", quality=qa, speed=4)
+            out.save(os.path.join(OUT, f"{name}-{w}.webp"), "WEBP", quality=qw, method=6)
             print(f"{name}-{w}: {w}x{h}")
 
 

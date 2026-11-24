@@ -2,7 +2,7 @@
 
 import { type FormEvent, useRef, useState } from "react"
 import { DEMO_CLASS_VISUALS, DEMO_DISPLAY_TEXT, DEMO_IMAGE_BASE, splitTimeRange } from "@/lib/growth-web/demo-content"
-import { DEMO_CLASSES } from "@/lib/growth-web/demo-school"
+import { DEMO_CLASSES, getEligibleDemoClassesForGrade } from "@/lib/growth-web/demo-school"
 import {
   CHILD_GRADES,
   EXPERIENCE_LEVELS,
@@ -15,6 +15,7 @@ import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 interface TrialBookingFormProps {
   selectedClassId: string
   selectedGrade: string
+  classResetNotice?: string | null
   onClassChanged: (classId: string) => void
   onGradeChanged: (grade: string) => void
 }
@@ -40,6 +41,7 @@ function createDemoIdempotencyKey(): string {
 export function TrialBookingForm({
   selectedClassId,
   selectedGrade,
+  classResetNotice,
   onClassChanged,
   onGradeChanged,
 }: TrialBookingFormProps) {
@@ -71,7 +73,8 @@ export function TrialBookingForm({
   const idempotencyKeyRef = useRef<string>(createDemoIdempotencyKey())
 
   const formRef = useRef<HTMLFormElement>(null)
-  const activeClass = DEMO_CLASSES.find((c) => c.id === selectedClassId)
+  const availableClasses = getEligibleDemoClassesForGrade(selectedGrade)
+  const activeClass = availableClasses.find((c) => c.id === selectedClassId) ?? DEMO_CLASSES.find((c) => c.id === selectedClassId)
   const activeVisual = activeClass ? DEMO_CLASS_VISUALS[activeClass.id] : undefined
 
   const markStarted = () => {
@@ -371,13 +374,18 @@ export function TrialBookingForm({
                     {...fieldProps("selectedClassId")}
                   >
                     <option value="">えらんでください</option>
-                    {DEMO_CLASSES.map((slot) => (
+                    {availableClasses.map((slot) => (
                       <option key={slot.id} value={slot.id}>
                         {slot.shortLabel}　{slot.name}
                       </option>
                     ))}
                   </select>
                   {fieldError("selectedClassId")}
+                  {!fieldErrors.selectedClassId && classResetNotice && (
+                    <p className="gwd-hint" role="status" data-testid="class-reset-notice">
+                      {classResetNotice}
+                    </p>
+                  )}
                 </div>
                 <div className="gwd-fld">
                   <label htmlFor="trial-grade">
@@ -393,6 +401,7 @@ export function TrialBookingForm({
                       onGradeChanged(e.target.value)
                       idempotencyKeyRef.current = createDemoIdempotencyKey()
                       clearFieldError("childGrade")
+                      clearFieldError("selectedClassId")
                     }}
                     {...fieldProps("childGrade")}
                   >

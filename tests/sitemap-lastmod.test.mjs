@@ -17,9 +17,8 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
   assert.deepEqual(dates, {
     home: "2026-11-23",
     sportsDx: "2026-11-12",
-    aiDevelopment: "2026-11-17",
+    aiDevelopment: "2026-11-24",
     growthWeb: "2026-11-23",
-    growthWebDemo: "2026-11-24",
     caseStudy: "2026-11-14",
     security: "2026-11-12",
     privacy: "2026-11-23",
@@ -29,7 +28,6 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
     sportsDx: "`${baseUrl}/sports-dx`",
     aiDevelopment: "`${baseUrl}/ai-development`",
     growthWeb: "`${baseUrl}/services/growth-web`",
-    growthWebDemo: "`${baseUrl}/services/growth-web/demo`",
     caseStudy: "`${baseUrl}/cases/ai-sports-trainer`",
     security: "`${baseUrl}/security`",
     privacy: "`${baseUrl}/privacy-policy`",
@@ -38,6 +36,7 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
     assert.ok(src.includes(`url: ${urlExpression},\n      lastModified: new Date(lastSignificantUpdate.${key}),`), key)
     assert.ok(Number.isFinite(Date.parse(dates[key])), key)
   }
+  assert.doesNotMatch(src, /growthWebDemo|\/services\/growth-web\/demo/)
   assert.match(src, /\.\.\.insights\.map/)
   assert.match(src, /slug === "ai-development-outsourcing-guide"/)
   assert.match(src, /slug === "ai-video-analysis-development-request"/)

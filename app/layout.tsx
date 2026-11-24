@@ -41,18 +41,57 @@ export const metadata: Metadata = {
   },
 }
 
-const organizationJsonLd = {
-  "@context": "https://schema.org",
+const organizationRef = {
   "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: "Cyber Knock",
   url: siteUrl,
-  description: siteDescription,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "三鷹市",
-    addressRegion: "東京都",
-    addressCountry: "JP",
-  },
+}
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      ...organizationRef,
+      description: siteDescription,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "三鷹市",
+        addressRegion: "東京都",
+        addressCountry: "JP",
+      },
+      makesOffer: [
+        {
+          "@type": "Offer",
+          itemOffered: { "@id": "https://ai-sportstrainer.com/#app" },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: { "@id": "https://choleste-coach.com/#app" },
+        },
+      ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://ai-sportstrainer.com/#app",
+      name: "AIスポーツトレーナー",
+      applicationCategory: "SportsApplication",
+      operatingSystem: "iOS, Android",
+      url: "https://ai-sportstrainer.com",
+      creator: organizationRef,
+      publisher: organizationRef,
+    },
+    {
+      "@type": "MobileApplication",
+      "@id": "https://choleste-coach.com/#app",
+      name: "コレステAI（コレステAIコーチ）",
+      applicationCategory: "HealthApplication",
+      operatingSystem: "iOS",
+      url: "https://choleste-coach.com",
+      creator: organizationRef,
+      publisher: organizationRef,
+    },
+  ],
 }
 
 export default function RootLayout({

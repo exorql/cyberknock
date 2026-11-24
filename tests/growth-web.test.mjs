@@ -570,14 +570,10 @@ test("Growth Web structured data escapes dangerous chars and links official /pri
   assert.match(lpLd, /https:\/\/cyberknock\.jp\/services\/growth-web/)
   assert.doesNotMatch(lpLd, /pages\.dev|localhost/)
 
-  const demoLd = JSON.stringify(
-    buildGrowthWebDemoJsonLd(
-      DEMO_CLASSES.map((c) => ({ name: c.name, description: c.focusSummary })),
-      DEMO_FAQS
-    )
-  )
+  const demoLd = JSON.stringify(buildGrowthWebDemoJsonLd())
   assert.match(demoLd, /https:\/\/cyberknock\.jp\/services\/growth-web\/demo/)
-  assert.match(demoLd, /架空モデル/)
+  assert.match(demoLd, /"BreadcrumbList"/)
+  assert.doesNotMatch(demoLd, /SportsActivityLocation|"@type":"Course"|架空デモ住所/)
 
   assert.equal(GROWTH_WEB_ROUTES.privacy, "/privacy-policy")
   assert.equal(GROWTH_WEB_ROUTES.lp, "/services/growth-web")

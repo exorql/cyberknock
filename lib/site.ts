@@ -3,6 +3,8 @@ export const site = {
   appUrl: "https://ai-sportstrainer.com",
   appStore: "https://apps.apple.com/jp/app/id6742685461",
   googlePlay: "https://play.google.com/store/apps/details?id=com.harutowatanabe.mealier",
+  cholesteUrl: "https://choleste-coach.com",
+  cholesteAppStore: "https://apps.apple.com/jp/app/id6756923850",
 }
 export const services = [
   { id: "sports-ai", number: "01", title: "スポーツAI・動画分析", audience: "スポーツ企業・競技団体・スクール", question: "映像を、指導やサービスの価値に変えたい。", description: "撮影条件や競技特性を踏まえて、AIが判断する範囲から設計。分析結果を、利用者が理解して使える機能までつなぎます。", scope: "実現性の確認 / 評価基準 / AI分析基盤 / 動画UI", deliverable: "検証結果、分析API、動画分析機能", link: "/ai-development", linkText: "AI・プロダクト開発の支援内容" },

@@ -60,10 +60,7 @@ export function buildGrowthWebLpJsonLd(
   ]
 }
 
-export function buildGrowthWebDemoJsonLd(
-  courses: ReadonlyArray<{ readonly name: string; readonly description: string }>,
-  faqs: ReadonlyArray<{ readonly question: string; readonly answer: string }>
-) {
+export function buildGrowthWebDemoJsonLd() {
   const lpUrl = `${SITE_URL}/services/growth-web`
   const demoUrl = `${SITE_URL}/services/growth-web/demo`
   return [
@@ -80,43 +77,6 @@ export function buildGrowthWebDemoJsonLd(
           item: demoUrl,
         },
       ],
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "SportsActivityLocation",
-      name: "あおばフィールド スポーツアカデミー【架空モデル・デモ】",
-      url: demoUrl,
-      description:
-        "Cyber Knockによる民間スポーツスクール向け集客改善サイトの架空デモモデル。年長〜小学6年生対象のジュニアサッカー・運動基礎スクール。",
-      address: {
-        "@type": "PostalAddress",
-        addressRegion: "東京都",
-        addressLocality: "世田谷区（架空デモ住所）",
-        addressCountry: "JP",
-      },
-      priceRange: "¥7,700 - ¥9,900/月（デモ料金設定）",
-    },
-    ...courses.map((course) => ({
-      "@context": "https://schema.org",
-      "@type": "Course",
-      name: course.name,
-      description: course.description,
-      provider: {
-        "@type": "Organization",
-        name: "あおばフィールド スポーツアカデミー（架空モデル）",
-      },
-    })),
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faqs.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
     },
   ]
 }

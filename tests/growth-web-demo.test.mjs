@@ -218,3 +218,104 @@ test("demo page stays isolated from the LP stylesheet and keeps SEO and demo-saf
   const banner = read("components/growth-web/demo/DemoBanner.tsx")
   assert.match(banner, /架空のスクール/)
 })
+
+test("demo-trial API rejects prototype property names (constructor, __proto__, toString, valueOf, hasOwnProperty) with HTTP 400 instead of 500", async () => {
+  resetGrowthWebDemoStores()
+  const baseValidPayload = {
+    guardianName: "青葉 花子",
+    email: "hanako@example.jp",
+    phone: "090-0000-0000",
+    childGrade: "grade_3",
+    selectedClassId: "u9-soccer-wed",
+    preferredTiming: "next_week",
+    experienceLevel: "beginner",
+    notes: "",
+    demoAcknowledged: true,
+    websiteHp: "",
+  }
+
+  const protoKeys = ["constructor", "__proto__", "toString", "valueOf", "hasOwnProperty", "isPrototypeOf"]
+
+  for (const key of protoKeys) {
+    // 1. Invalid selectedClassId: must return 400 with selectedClassId error (never throw TypeError or return 500)
+    const resClass = await handleGrowthWebDemoTrial(
+      new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://cyberknock.jp",
+          "cf-connecting-ip": "203.0.113.50",
+        },
+        body: JSON.stringify({ ...baseValidPayload, selectedClassId: key }),
+      })
+    )
+    assert.equal(resClass.status, 400, `selectedClassId=${key} must return HTTP 400`)
+    const bodyClass = await resClass.json()
+    assert.ok(bodyClass.fieldErrors?.selectedClassId, `selectedClassId=${key} must have field error`)
+
+    // 2. Invalid childGrade: must return 400 with childGrade error
+    const resGrade = await handleGrowthWebDemoTrial(
+      new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://cyberknock.jp",
+          "cf-connecting-ip": "203.0.113.51",
+        },
+        body: JSON.stringify({ ...baseValidPayload, childGrade: key }),
+      })
+    )
+    assert.equal(resGrade.status, 400, `childGrade=${key} must return HTTP 400`)
+    const bodyGrade = await resGrade.json()
+    assert.ok(bodyGrade.fieldErrors?.childGrade, `childGrade=${key} must have field error`)
+
+    // 3. Invalid preferredTiming: must return 400 with preferredTiming error
+    const resTiming = await handleGrowthWebDemoTrial(
+      new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://cyberknock.jp",
+          "cf-connecting-ip": "203.0.113.52",
+        },
+        body: JSON.stringify({ ...baseValidPayload, preferredTiming: key }),
+      })
+    )
+    assert.equal(resTiming.status, 400, `preferredTiming=${key} must return HTTP 400`)
+    const bodyTiming = await resTiming.json()
+    assert.ok(bodyTiming.fieldErrors?.preferredTiming, `preferredTiming=${key} must have field error`)
+
+    // 4. Invalid experienceLevel: must return 400 with experienceLevel error
+    const resExp = await handleGrowthWebDemoTrial(
+      new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Origin: "https://cyberknock.jp",
+          "cf-connecting-ip": "203.0.113.53",
+        },
+        body: JSON.stringify({ ...baseValidPayload, experienceLevel: key }),
+      })
+    )
+    assert.equal(resExp.status, 400, `experienceLevel=${key} must return HTTP 400`)
+    const bodyExp = await resExp.json()
+    assert.ok(bodyExp.fieldErrors?.experienceLevel, `experienceLevel=${key} must have field error`)
+  }
+
+  // 5. Normal valid request continues to succeed with HTTP 200
+  const validRes = await handleGrowthWebDemoTrial(
+    new Request("https://cyberknock.jp/api/growth-web/demo-trial", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Origin: "https://cyberknock.jp",
+        "cf-connecting-ip": "203.0.113.54",
+      },
+      body: JSON.stringify(baseValidPayload),
+    })
+  )
+  assert.equal(validRes.status, 200)
+  const validBody = await validRes.json()
+  assert.equal(validBody.ok, true)
+  assert.equal(validBody.selectedClass.id, "u9-soccer-wed")
+})

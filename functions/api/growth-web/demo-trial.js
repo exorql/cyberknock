@@ -239,11 +239,11 @@ export function validateDemoTrial(input) {
     }
   }
 
-  const gradeValid = typeof input.childGrade === "string" && input.childGrade in GRADE_LABELS;
+  const gradeValid = typeof input.childGrade === "string" && Object.hasOwn(GRADE_LABELS, input.childGrade);
   if (!gradeValid) {
     addError("childGrade", "お子さまの学年を選択してください。");
   }
-  const classValid = Boolean(selectedClassId && selectedClassId in DEMO_CLASS_MAP);
+  const classValid = Boolean(selectedClassId && Object.hasOwn(DEMO_CLASS_MAP, selectedClassId));
   if (!classValid) {
     addError("selectedClassId", "有効なクラスを選択してください。");
   } else if (gradeValid && !DEMO_CLASS_MAP[selectedClassId].allowedGrades.includes(input.childGrade)) {
@@ -252,10 +252,10 @@ export function validateDemoTrial(input) {
       `選択されたクラス（${DEMO_CLASS_MAP[selectedClassId].gradeLabel}）は、選択中の学年ではお申し込みいただけません。対象クラスを選び直してください。`
     );
   }
-  if (typeof input.preferredTiming !== "string" || !(input.preferredTiming in TIMING_LABELS)) {
+  if (typeof input.preferredTiming !== "string" || !Object.hasOwn(TIMING_LABELS, input.preferredTiming)) {
     addError("preferredTiming", "ご希望時期を選択してください。");
   }
-  if (typeof input.experienceLevel !== "string" || !(input.experienceLevel in EXPERIENCE_LABELS)) {
+  if (typeof input.experienceLevel !== "string" || !Object.hasOwn(EXPERIENCE_LABELS, input.experienceLevel)) {
     addError("experienceLevel", "ご経験を選択してください。");
   }
   if (notes === null) addError("notes", "メモの形式を確認してください。");

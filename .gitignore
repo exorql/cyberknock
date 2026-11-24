@@ -48,3 +48,6 @@ next-env.d.ts
 /video/hyperframes/.transcode-cache/
 # Machine-specific tool paths; copy scripts/local-env.example.ps1 instead
 /video/hyperframes/scripts/local-env.ps1
+
+# Growth Web LP font sources (downloaded by scripts/build-growth-web-fonts.py)
+/.cache/growth-web-fonts/

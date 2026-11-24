@@ -11,6 +11,7 @@ import {
   type ServiceInquiryFormValues,
   validateServiceInquiryClient,
 } from "@/lib/growth-web/form-options"
+import { APPLY, LP_HERO, SERIF_TEXT } from "@/lib/growth-web/lp-content"
 import { GROWTH_WEB_ROUTES } from "@/lib/growth-web/service-lp"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 
@@ -164,30 +165,27 @@ export function ServiceInquiryForm() {
   return (
     <section
       id="contact"
-      className="scroll-mt-24 bg-[#f6f5f0] py-16 sm:py-24"
+      className="gwl-apply scroll-mt-24 bg-[#F1EFE9] py-14 sm:py-24"
+      aria-labelledby="gwl-apply-h"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="gwl-wrap">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-[#0a5c42]">
-              07 / FREE SITE AUDIT &amp; CONTACT
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-[#101815] sm:text-4xl">
-              現サイトの無料診断・先行パートナー相談
+            <h2 id="gwl-apply-h" className="gwl-serif gwl-apply-h2">
+              {SERIF_TEXT.applyTitleLine1}
+              <br />
+              {SERIF_TEXT.applyTitleLine2}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#424d48] sm:text-base">
-              「まず今のホームページやInstagram導線のどこで離脱しているか知りたい」という段階でも歓迎です。
-              URLをご記入いただければ、スポーツスクール特化の観点で改善ポイントをお返しします。
-            </p>
+            <p className="gwl-apply-lead mt-4">{APPLY.lead}</p>
 
-            <div className="mt-7 space-y-4 rounded-2xl border border-[#dddad0] bg-white p-6">
-              <h3 className="text-sm font-bold text-[#101815]">
+            <div className="mt-7 space-y-4 rounded-2xl border border-[#D5D1C7] bg-white p-6">
+              <h3 className="text-sm font-bold text-[#131614]">
                 無料診断でお伝えする3つの観点
               </h3>
-              <ul className="space-y-2.5 text-xs leading-relaxed text-[#2c3632] sm:text-sm">
+              <ul className="space-y-2.5 text-sm leading-relaxed text-[#2c3632]">
                 <li className="flex items-start gap-2">
                   <CheckCircle2
-                    className="mt-0.5 h-4 w-4 shrink-0 text-[#0a5c42]"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#131614]"
                     aria-hidden="true"
                   />
                   <span>
@@ -196,7 +194,7 @@ export function ServiceInquiryForm() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2
-                    className="mt-0.5 h-4 w-4 shrink-0 text-[#0a5c42]"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#131614]"
                     aria-hidden="true"
                   />
                   <span>
@@ -205,7 +203,7 @@ export function ServiceInquiryForm() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2
-                    className="mt-0.5 h-4 w-4 shrink-0 text-[#0a5c42]"
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#131614]"
                     aria-hidden="true"
                   />
                   <span>
@@ -215,9 +213,9 @@ export function ServiceInquiryForm() {
               </ul>
             </div>
 
-            <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-[#0a5c42]/25 bg-[#e6f4ee]/80 p-4 text-xs leading-relaxed text-[#144333]">
+            <div className="mt-4 flex items-start gap-2.5 rounded-xl border border-[#131614]/25 bg-white p-4 text-sm leading-relaxed text-[#131614]">
               <ShieldCheck
-                className="mt-0.5 h-4 w-4 shrink-0 text-[#0a5c42]"
+                className="mt-0.5 h-4 w-4 shrink-0 text-[#131614]"
                 aria-hidden="true"
               />
               <p>
@@ -228,7 +226,7 @@ export function ServiceInquiryForm() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-[#dddad0] bg-white p-6 shadow-sm sm:p-8">
+            <div className="rounded-2xl border border-[#D5D1C7] bg-white p-6 shadow-sm sm:p-8">
               {receipt ? (
                 <div
                   role="status"
@@ -236,20 +234,20 @@ export function ServiceInquiryForm() {
                   data-testid="inquiry-receipt"
                   className="space-y-6"
                 >
-                  <div className="flex items-start gap-3 rounded-xl border border-[#0a5c42]/30 bg-[#e6f4ee] p-5">
+                  <div className="flex items-start gap-3 rounded-xl border border-[#131614]/30 bg-[#F1EFE9] p-5">
                     <MailCheck
-                      className="mt-0.5 h-6 w-6 shrink-0 text-[#0a5c42]"
+                      className="mt-0.5 h-6 w-6 shrink-0 text-[#131614]"
                       aria-hidden="true"
                     />
                     <div>
-                      <h3 className="text-lg font-extrabold text-[#101815]">
+                      <h3 className="text-lg font-extrabold text-[#131614]">
                         {receipt.externalDeliveryExecuted
                           ? "ご相談内容を受け付けました"
                           : "ご相談フォームの動作検証が完了しました"}
                       </h3>
                       <p className="mt-1 text-sm text-[#2c3632]">
                         受付番号：
-                        <code className="ml-1 rounded bg-white px-2 py-0.5 font-mono text-xs font-bold text-[#0a5c42]">
+                        <code className="ml-1 rounded bg-white px-2 py-0.5 font-mono text-xs font-bold text-[#131614]">
                           {receipt.receiptId}
                         </code>
                       </p>
@@ -269,14 +267,14 @@ export function ServiceInquiryForm() {
                   </div>
 
                   {receipt.preview && (
-                    <div className="rounded-xl border border-[#dddad0] bg-[#f6f5f0] p-4">
-                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#424d48]">
+                    <div className="rounded-xl border border-[#D5D1C7] bg-[#F1EFE9] p-4">
+                      <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#4B514C]">
                         NOTIFICATION PREVIEW（検証用・通知内容プレビュー）
                       </p>
-                      <p className="mt-2 text-xs font-bold text-[#101815]">
+                      <p className="mt-2 text-xs font-bold text-[#131614]">
                         件名：{receipt.preview.emailSubject}
                       </p>
-                      <pre className="mt-2 max-h-56 overflow-auto whitespace-pre-wrap rounded-lg border border-[#dddad0] bg-white p-3 font-mono text-xs leading-relaxed text-[#2c3632]">
+                      <pre className="mt-2 max-h-56 overflow-auto whitespace-pre-wrap rounded-lg border border-[#D5D1C7] bg-white p-3 font-mono text-xs leading-relaxed text-[#2c3632]">
                         {receipt.preview.emailBodyPreview}
                       </pre>
                     </div>
@@ -290,7 +288,7 @@ export function ServiceInquiryForm() {
                       startedRef.current = false
                       idempotencyKeyRef.current = createClientIdempotencyKey()
                     }}
-                    className="inline-flex min-h-11 items-center rounded-lg border border-[#101815] px-4 text-sm font-semibold text-[#101815] hover:bg-[#eeece4]"
+                    className="inline-flex min-h-11 items-center rounded-lg border border-[#131614] px-4 text-sm font-semibold text-[#131614] hover:bg-[#E8E4DB]"
                   >
                     別の内容でフォームをやり直す
                   </button>
@@ -304,7 +302,7 @@ export function ServiceInquiryForm() {
                   {submitError && (
                     <div
                       role="alert"
-                      className="rounded-xl border border-[#b8430f]/45 bg-[#fdf0e8] px-4 py-3 text-sm font-medium text-[#7c2d0b]"
+                      className="rounded-xl border border-[#C93D14]/45 bg-[#FBF1EC] px-4 py-3 text-sm font-medium text-[#A8320F]"
                     >
                       {submitError}
                     </div>
@@ -331,10 +329,10 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="org-name"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         スクール名・法人名
-                        <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
+                        <span className="ml-1.5 text-xs font-bold text-[#C93D14]">
                           必須
                         </span>
                       </label>
@@ -355,12 +353,12 @@ export function ServiceInquiryForm() {
                             ? "org-name-error"
                             : undefined
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                       />
                       {fieldErrors.organizationName && (
                         <p
                           id="org-name-error"
-                          className="mt-1 text-xs font-medium text-[#b8430f]"
+                          className="mt-1 text-xs font-medium text-[#C93D14]"
                         >
                           {fieldErrors.organizationName}
                         </p>
@@ -370,10 +368,10 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="contact-name"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         ご担当者名
-                        <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
+                        <span className="ml-1.5 text-xs font-bold text-[#C93D14]">
                           必須
                         </span>
                       </label>
@@ -394,12 +392,12 @@ export function ServiceInquiryForm() {
                             ? "contact-name-error"
                             : undefined
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                       />
                       {fieldErrors.contactName && (
                         <p
                           id="contact-name-error"
-                          className="mt-1 text-xs font-medium text-[#b8430f]"
+                          className="mt-1 text-xs font-medium text-[#C93D14]"
                         >
                           {fieldErrors.contactName}
                         </p>
@@ -411,10 +409,10 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         メールアドレス
-                        <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
+                        <span className="ml-1.5 text-xs font-bold text-[#C93D14]">
                           必須
                         </span>
                       </label>
@@ -431,12 +429,12 @@ export function ServiceInquiryForm() {
                         aria-describedby={
                           fieldErrors.email ? "contact-email-error" : undefined
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                       />
                       {fieldErrors.email && (
                         <p
                           id="contact-email-error"
-                          className="mt-1 text-xs font-medium text-[#b8430f]"
+                          className="mt-1 text-xs font-medium text-[#C93D14]"
                         >
                           {fieldErrors.email}
                         </p>
@@ -446,10 +444,10 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="contact-phone"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         電話番号
-                        <span className="ml-1.5 text-xs font-normal text-[#424d48]">
+                        <span className="ml-1.5 text-xs font-normal text-[#4B514C]">
                           任意
                         </span>
                       </label>
@@ -465,12 +463,12 @@ export function ServiceInquiryForm() {
                         aria-describedby={
                           fieldErrors.phone ? "contact-phone-error" : undefined
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                       />
                       {fieldErrors.phone && (
                         <p
                           id="contact-phone-error"
-                          className="mt-1 text-xs font-medium text-[#b8430f]"
+                          className="mt-1 text-xs font-medium text-[#C93D14]"
                         >
                           {fieldErrors.phone}
                         </p>
@@ -482,7 +480,7 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="sport-category"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         主な種目
                       </label>
@@ -493,7 +491,7 @@ export function ServiceInquiryForm() {
                         onChange={(e) =>
                           updateField("sportCategory", e.target.value)
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614]"
                       >
                         {SPORT_CATEGORIES.map((item) => (
                           <option key={item.value} value={item.value}>
@@ -506,7 +504,7 @@ export function ServiceInquiryForm() {
                     <div>
                       <label
                         htmlFor="student-band"
-                        className="block text-sm font-bold text-[#101815]"
+                        className="block text-sm font-bold text-[#131614]"
                       >
                         現在の生徒数規模
                       </label>
@@ -517,7 +515,7 @@ export function ServiceInquiryForm() {
                         onChange={(e) =>
                           updateField("monthlyStudentsBand", e.target.value)
                         }
-                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815]"
+                        className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614]"
                       >
                         {STUDENT_BANDS.map((item) => (
                           <option key={item.value} value={item.value}>
@@ -531,7 +529,7 @@ export function ServiceInquiryForm() {
                   <div>
                     <label
                       htmlFor="inquiry-type"
-                      className="block text-sm font-bold text-[#101815]"
+                      className="block text-sm font-bold text-[#131614]"
                     >
                       ご相談内容
                     </label>
@@ -542,7 +540,7 @@ export function ServiceInquiryForm() {
                       onChange={(e) =>
                         updateField("inquiryType", e.target.value)
                       }
-                      className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815]"
+                      className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614]"
                     >
                       {INQUIRY_TYPES.map((item) => (
                         <option key={item.value} value={item.value}>
@@ -555,10 +553,10 @@ export function ServiceInquiryForm() {
                   <div>
                     <label
                       htmlFor="current-website"
-                      className="block text-sm font-bold text-[#101815]"
+                      className="block text-sm font-bold text-[#131614]"
                     >
                       現在のホームページURL
-                      <span className="ml-1.5 text-xs font-normal text-[#424d48]">
+                      <span className="ml-1.5 text-xs font-normal text-[#4B514C]">
                         任意（ある場合は無料診断に活用します）
                       </span>
                     </label>
@@ -577,12 +575,12 @@ export function ServiceInquiryForm() {
                           ? "current-website-error"
                           : undefined
                       }
-                      className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                      className="mt-1.5 min-h-12 w-full rounded-xl border border-[#BDB8AD] bg-white px-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                     />
                     {fieldErrors.currentWebsiteUrl && (
                       <p
                         id="current-website-error"
-                        className="mt-1 text-xs font-medium text-[#b8430f]"
+                        className="mt-1 text-xs font-medium text-[#C93D14]"
                       >
                         {fieldErrors.currentWebsiteUrl}
                       </p>
@@ -592,10 +590,10 @@ export function ServiceInquiryForm() {
                   <div>
                     <label
                       htmlFor="inquiry-message"
-                      className="block text-sm font-bold text-[#101815]"
+                      className="block text-sm font-bold text-[#131614]"
                     >
                       現状の課題や強化したい学年枠
-                      <span className="ml-1.5 text-xs font-normal text-[#424d48]">
+                      <span className="ml-1.5 text-xs font-normal text-[#4B514C]">
                         任意
                       </span>
                     </label>
@@ -610,12 +608,12 @@ export function ServiceInquiryForm() {
                       aria-describedby={
                         fieldErrors.message ? "inquiry-message-error" : undefined
                       }
-                      className="mt-1.5 w-full rounded-xl border border-[#c3bfb1] bg-white p-3.5 text-sm text-[#101815] placeholder:text-[#66736d]"
+                      className="mt-1.5 w-full rounded-xl border border-[#BDB8AD] bg-white p-3.5 text-base text-[#131614] placeholder:text-[#66736d]"
                     />
                     {fieldErrors.message && (
                       <p
                         id="inquiry-message-error"
-                        className="mt-1 text-xs font-medium text-[#b8430f]"
+                        className="mt-1 text-xs font-medium text-[#C93D14]"
                       >
                         {fieldErrors.message}
                       </p>
@@ -638,14 +636,14 @@ export function ServiceInquiryForm() {
                             ? "privacy-accepted-error"
                             : undefined
                         }
-                        className="mt-0.5 h-5 w-5 rounded border-[#c3bfb1] accent-[#0a5c42]"
+                        className="mt-0.5 h-[22px] w-[22px] shrink-0 rounded border-[#BDB8AD] accent-[#C93D14]"
                       />
-                      <span className="text-xs leading-relaxed text-[#2c3632]">
+                      <span className="text-sm leading-relaxed text-[#2c3632]">
                         <Link
                           href={GROWTH_WEB_ROUTES.privacy}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex min-h-8 items-center font-bold text-[#0a5c42] underline underline-offset-2 hover:text-[#074733]"
+                          className="inline-flex min-h-8 items-center font-bold text-[#131614] underline underline-offset-2 hover:text-[#A8320F]"
                         >
                           プライバシーポリシー
                           <span className="sr-only">（新しいタブで開きます）</span>
@@ -656,7 +654,7 @@ export function ServiceInquiryForm() {
                     {fieldErrors.privacyAccepted && (
                       <p
                         id="privacy-accepted-error"
-                        className="mt-1 text-xs font-medium text-[#b8430f]"
+                        className="mt-1 text-xs font-medium text-[#C93D14]"
                       >
                         {fieldErrors.privacyAccepted}
                       </p>
@@ -666,12 +664,11 @@ export function ServiceInquiryForm() {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-xl bg-[#b8430f] px-6 text-base font-bold text-white shadow-sm transition-colors hover:bg-[#94340a] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex min-h-[52px] w-full items-center justify-center rounded-xl bg-[#C93D14] px-6 text-base font-bold text-white shadow-sm transition-colors hover:bg-[#A8320F] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {submitting
-                      ? "送信処理中..."
-                      : "無料サイト診断・相談を送信する"}
+                    {submitting ? "送信処理中..." : LP_HERO.ctaLabel}
                   </button>
+                  <p className="text-sm leading-relaxed text-[#4B514C]">{APPLY.afterSubmit}</p>
                 </form>
               )}
             </div>

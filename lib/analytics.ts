@@ -47,7 +47,7 @@ const allowedValues: Record<string, readonly string[]> = {
     "ai_development", "demo_video", "demo_footer",
     "growth_web_hero", "growth_web_comparison", "growth_web_simulator",
     "growth_web_demo_bridge", "growth_web_pricing", "growth_web_demo_hero",
-    "growth_web_demo_sticky", "unknown",
+    "growth_web_demo_sticky", "growth_web_sticky", "unknown",
   ],
   service: ["sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "growth-web", "other"],
   store: ["app_store", "google_play"],
@@ -77,7 +77,7 @@ const allowedValues: Record<string, readonly string[]> = {
   viability_status: ["favorable", "caution", "unviable"],
   payback_band: ["within_6m", "7_to_9m", "10_to_12m", "over_12m"],
   question_id: [
-    "why-no-fake-cases", "difference-from-raksul", "photos-and-materials",
+    "why-no-fake-cases", "difference-from-low-cost-updates", "photos-and-materials",
     "existing-booking-tools", "contract-and-ownership", "consultation-flow",
     "demo-faq-beginner", "demo-faq-parent-duty", "demo-faq-rain",
     "demo-faq-items", "demo-faq-demo-notice",

@@ -1,13 +1,12 @@
 import type { Metadata } from "next"
+import { preload } from "react-dom"
 import "@/app/services/growth-web/growth-web.css"
-import { DemoShowcaseBridge } from "@/components/growth-web/lp/DemoShowcaseBridge"
-import { DifferentiationPillars } from "@/components/growth-web/lp/DifferentiationPillars"
+import { HowItWorks } from "@/components/growth-web/lp/HowItWorks"
 import { LpFaq } from "@/components/growth-web/lp/LpFaq"
 import { LpHero } from "@/components/growth-web/lp/LpHero"
-import { PainAndComparison } from "@/components/growth-web/lp/PainAndComparison"
-import { PricingAndProcess } from "@/components/growth-web/lp/PricingAndProcess"
-import { RoiSimulator } from "@/components/growth-web/lp/RoiSimulator"
+import { MobileStickyCta } from "@/components/growth-web/lp/MobileStickyCta"
 import { ServiceInquiryForm } from "@/components/growth-web/lp/ServiceInquiryForm"
+import { TrustAndPricing } from "@/components/growth-web/lp/TrustAndPricing"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { LP_FAQS } from "@/lib/growth-web/service-lp"
@@ -48,23 +47,27 @@ export const metadata: Metadata = {
 
 export default function GrowthWebServicePage() {
   const jsonLd = buildGrowthWebLpJsonLd(LP_FAQS)
+  // The display face is the only font needed for the first paint of the H1.
+  preload("/fonts/growth-web/gw-mincho-800.woff2", {
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  })
 
   return (
-    <div className="gw-scope min-h-screen bg-[#f6f5f0] text-[#101815]">
+    <div className="gw-scope gwl-page min-h-screen bg-[#F1EFE9] text-[#131614]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       <SiteHeader />
-      <main id="main-content">
+      <main id="main-content" className="gwl-root">
         <LpHero />
-        <PainAndComparison />
-        <DifferentiationPillars />
-        <RoiSimulator />
-        <DemoShowcaseBridge />
-        <PricingAndProcess />
+        <HowItWorks />
+        <TrustAndPricing />
         <LpFaq />
         <ServiceInquiryForm />
+        <MobileStickyCta />
       </main>
       <SiteFooter />
     </div>

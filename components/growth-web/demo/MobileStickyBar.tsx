@@ -1,89 +1,67 @@
 "use client"
 
-import { CalendarCheck, Search } from "lucide-react"
 import { useEffect, useState } from "react"
+import { isTextEntry, shouldShowDemoSticky } from "@/lib/growth-web/demo-sticky"
 import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 
 interface MobileStickyBarProps {
   onJumpToBooking: () => void
 }
 
+/** Mobile-only (CSS) bar. Visibility: lib/growth-web/demo-sticky.ts */
 export function MobileStickyBar({ onJumpToBooking }: MobileStickyBarProps) {
-  const [heroVisible, setHeroVisible] = useState(true)
-  const [formVisible, setFormVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    if (typeof IntersectionObserver === "undefined") return
-
-    const heroTarget = document.getElementById("demo-hero")
-    const formTarget = document.getElementById("trial-form")
-
-    const heroObserver = heroTarget
-      ? new IntersectionObserver(
-          (entries) => {
-            setHeroVisible(Boolean(entries[0]?.isIntersecting))
-          },
-          { threshold: 0.1 }
+    let frame = 0
+    const update = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        const hero = document.getElementById("top")
+        const form = document.getElementById("trial-form")
+        if (!hero || !form) return
+        setVisible(
+          shouldShowDemoSticky({
+            heroBottom: hero.getBoundingClientRect().bottom,
+            formTop: form.getBoundingClientRect().top,
+            viewportHeight: window.innerHeight,
+            fieldFocused: isTextEntry(document.activeElement),
+          })
         )
-      : null
-
-    const formObserver = formTarget
-      ? new IntersectionObserver(
-          (entries) => {
-            setFormVisible(Boolean(entries[0]?.isIntersecting))
-          },
-          { threshold: 0.15 }
-        )
-      : null
-
-    if (heroTarget && heroObserver) heroObserver.observe(heroTarget)
-    if (formTarget && formObserver) formObserver.observe(formTarget)
-
+      })
+    }
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    window.addEventListener("resize", update)
+    document.addEventListener("focusin", update)
+    document.addEventListener("focusout", update)
     return () => {
-      heroObserver?.disconnect()
-      formObserver?.disconnect()
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", update)
+      window.removeEventListener("resize", update)
+      document.removeEventListener("focusin", update)
+      document.removeEventListener("focusout", update)
     }
   }, [])
 
-  if (heroVisible || formVisible) {
-    return null
-  }
-
   return (
-    <div
-      role="region"
-      aria-label="モバイル体験予約クイックバー"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-[#dddad0] bg-white/95 px-3 py-2.5 shadow-[0_-8px_24px_rgba(16,33,27,0.12)] backdrop-blur-md lg:hidden"
-    >
-      <div className="mx-auto grid max-w-md grid-cols-2 gap-2.5">
-        <a
-          href="#schedule"
-          onClick={() =>
-            trackGrowthWebEvent("demo_sticky_cta_click", {
-              action: "jump_schedule",
-              is_demo: true,
-            })
-          }
-          className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl border border-[#0d5e43] bg-white px-3 text-xs font-bold text-[#0d5e43]"
-        >
-          <Search className="h-4 w-4" aria-hidden="true" />
-          クラス・曜日を見る
-        </a>
-        <button
-          type="button"
-          onClick={() => {
-            trackGrowthWebEvent("demo_sticky_cta_click", {
-              action: "jump_trial_form",
-              is_demo: true,
-            })
-            onJumpToBooking()
-          }}
-          className="inline-flex min-h-12 items-center justify-center gap-1.5 rounded-xl bg-[#b8430f] px-3 text-xs font-bold text-white shadow-sm"
-        >
-          <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-          無料体験（60秒）
-        </button>
-      </div>
+    <div className={`gwd-stick${visible ? " is-visible" : ""}`} aria-hidden={!visible} data-testid="mobile-sticky-bar">
+      <span className="p">
+        月謝<b className="gwd-num">7,700円〜</b>
+      </span>
+      <a
+        className="gwd-btn gwd-btn-sun"
+        href="#trial-form"
+        tabIndex={visible ? 0 : -1}
+        data-gwd-pin="8"
+        onClick={(e) => {
+          e.preventDefault()
+          trackGrowthWebEvent("demo_sticky_cta_click", { action: "jump_trial_form", is_demo: true })
+          onJumpToBooking()
+        }}
+      >
+        無料体験を予約する
+      </a>
     </div>
   )
 }

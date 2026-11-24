@@ -14,7 +14,7 @@ const lastSignificantUpdate = {
   sportsDx: "2026-11-12", // canonical domain and linked content updated
   aiDevelopment: "2026-11-17", // B2B buyer-intent section updated
   growthWeb: "2026-11-23", // Cyber Knock Growth Web service LP launched
-  growthWebDemo: "2026-11-23", // Sports school live demo model launched
+  growthWebDemo: "2026-11-24", // Sports school demo redesigned (photos, class search, trial form)
   caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
   security: "2026-11-12", // canonical domain updated
   privacy: "2026-11-23", // Growth Web LP and demo data handling disclosure added

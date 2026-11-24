@@ -2,7 +2,8 @@ export type GradeFilterId =
   | "all"
   | "preschool_senior"
   | "grade_1_2"
-  | "grade_3_4"
+  | "grade_3"
+  | "grade_4"
   | "grade_5_6"
 
 export type CampusFilterId = "all" | "futako_turf" | "yoga_gym"
@@ -56,7 +57,8 @@ export const DEMO_GRADE_FILTERS = [
   { id: "all" as const, label: "全学年" },
   { id: "preschool_senior" as const, label: "年長" },
   { id: "grade_1_2" as const, label: "小1〜2" },
-  { id: "grade_3_4" as const, label: "小3〜4" },
+  { id: "grade_3" as const, label: "小3" },
+  { id: "grade_4" as const, label: "小4" },
   { id: "grade_5_6" as const, label: "小5〜6" },
 ]
 
@@ -88,7 +90,7 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     campusId: "futako_turf",
     campusName: "二子玉川グリーンパーク人工芝（架空）",
     campusAccess: "二子玉川駅 徒歩9分・近隣コインパーキング併設",
-    grades: ["grade_1_2", "grade_3_4"],
+    grades: ["grade_1_2", "grade_3"],
     gradeLabel: "小学1〜3年生",
     dayOfWeek: "毎週水曜",
     timeRange: "16:30–17:40（70分）",
@@ -108,7 +110,7 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     campusId: "yoga_gym",
     campusName: "用賀コミュニティ屋内アリーナ（架空）",
     campusAccess: "用賀駅 徒歩6分・屋内施設のため雨天中止なし",
-    grades: ["preschool_senior", "grade_1_2", "grade_3_4"],
+    grades: ["preschool_senior", "grade_1_2", "grade_3", "grade_4"],
     gradeLabel: "年長〜小学4年生",
     dayOfWeek: "毎週木曜",
     timeRange: "16:15–17:15（60分）",
@@ -119,7 +121,7 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     focusSummary:
       "ラダー・ミニハードルでリズム感とバランス力を養い、後半は少人数ミニゲームで判断力を伸ばす全天候クラス。",
     monthlyFeeJpy: 8_250,
-    defaultGradeValue: "grade_3_4",
+    defaultGradeValue: "grade_3",
   },
   {
     id: "u12-game-sense-fri",
@@ -128,7 +130,7 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     campusId: "futako_turf",
     campusName: "二子玉川グリーンパーク人工芝（架空）",
     campusAccess: "二子玉川駅 徒歩9分・夜間照明完備",
-    grades: ["grade_3_4", "grade_5_6"],
+    grades: ["grade_4", "grade_5_6"],
     gradeLabel: "小学4〜6年生",
     dayOfWeek: "毎週金曜",
     timeRange: "17:15–18:35（80分）",
@@ -148,7 +150,7 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     campusId: "yoga_gym",
     campusName: "用賀コミュニティ屋内アリーナ（架空）",
     campusAccess: "用賀駅 徒歩6分・週末の送迎がしやすい午前枠",
-    grades: ["preschool_senior", "grade_1_2", "grade_3_4", "grade_5_6"],
+    grades: ["preschool_senior", "grade_1_2", "grade_3", "grade_4", "grade_5_6"],
     gradeLabel: "年長〜小学6年生（2グループ制）",
     dayOfWeek: "毎週土曜",
     timeRange: "09:30–10:40（70分）",
@@ -162,6 +164,23 @@ export const DEMO_CLASSES: DemoClassSlot[] = [
     defaultGradeValue: "grade_1_2",
   },
 ]
+
+export function getDemoClassById(classId: string): DemoClassSlot | undefined {
+  return DEMO_CLASSES.find((slot) => slot.id === classId)
+}
+
+export function isGradeEligibleForClass(classId: string, grade: string): boolean {
+  const slot = getDemoClassById(classId)
+  if (!slot) return false
+  return slot.grades.includes(grade as Exclude<GradeFilterId, "all">)
+}
+
+export function getEligibleDemoClassesForGrade(grade: string): DemoClassSlot[] {
+  if (!grade || grade === "all") return DEMO_CLASSES
+  return DEMO_CLASSES.filter((slot) =>
+    slot.grades.includes(grade as Exclude<GradeFilterId, "all">)
+  )
+}
 
 export const SAFETY_STANDARDS = [
   {
@@ -223,7 +242,7 @@ export const TRANSPARENT_PRICING = {
     },
     {
       name: "U-9基礎 / 土曜総合（週1・70分）",
-      target: "小学1〜6年生",
+      target: "U-9：小学1〜3年生 ／ 土曜：年長〜小学6年生",
       monthlyJpy: 8_800,
       note: "月4回開催・振替対応",
     },

@@ -1,8 +1,8 @@
 "use client"
 
-import { CalendarCheck, CheckCircle2, Info, MailCheck } from "lucide-react"
 import { type FormEvent, useRef, useState } from "react"
-import { DEMO_CLASSES } from "@/lib/growth-web/demo-school"
+import { DEMO_CLASS_VISUALS, DEMO_DISPLAY_TEXT, DEMO_IMAGE_BASE, splitTimeRange } from "@/lib/growth-web/demo-content"
+import { DEMO_CLASSES, getEligibleDemoClassesForGrade } from "@/lib/growth-web/demo-school"
 import {
   CHILD_GRADES,
   EXPERIENCE_LEVELS,
@@ -15,6 +15,7 @@ import { trackGrowthWebEvent } from "@/lib/growth-web/telemetry"
 interface TrialBookingFormProps {
   selectedClassId: string
   selectedGrade: string
+  classResetNotice?: string | null
   onClassChanged: (classId: string) => void
   onGradeChanged: (grade: string) => void
 }
@@ -40,6 +41,7 @@ function createDemoIdempotencyKey(): string {
 export function TrialBookingForm({
   selectedClassId,
   selectedGrade,
+  classResetNotice,
   onClassChanged,
   onGradeChanged,
 }: TrialBookingFormProps) {
@@ -70,8 +72,10 @@ export function TrialBookingForm({
   const submittingRef = useRef(false)
   const idempotencyKeyRef = useRef<string>(createDemoIdempotencyKey())
 
-  const activeClass =
-    DEMO_CLASSES.find((c) => c.id === selectedClassId) ?? DEMO_CLASSES[0]
+  const formRef = useRef<HTMLFormElement>(null)
+  const availableClasses = getEligibleDemoClassesForGrade(selectedGrade)
+  const activeClass = availableClasses.find((c) => c.id === selectedClassId) ?? DEMO_CLASSES.find((c) => c.id === selectedClassId)
+  const activeVisual = activeClass ? DEMO_CLASS_VISUALS[activeClass.id] : undefined
 
   const markStarted = () => {
     if (!startedRef.current) {
@@ -118,6 +122,12 @@ export function TrialBookingForm({
     if (!validated.data) {
       setFieldErrors(validated.fieldErrors ?? {})
       setSubmitError("未入力または形式に誤りのある項目をご確認ください。")
+      const firstKey = Object.keys(validated.fieldErrors ?? {})[0]
+      const target = firstKey ? formRef.current?.querySelector<HTMLElement>(`[name="${firstKey}"]`) : null
+      if (target) {
+        if (target.closest("details")) (target.closest("details") as HTMLDetailsElement).open = true
+        target.focus()
+      }
       trackGrowthWebEvent("trial_form_error", {
         form_id: "growth_web_demo_trial",
         error_type: "validation",
@@ -171,6 +181,7 @@ export function TrialBookingForm({
         receipt: data.receipt as GrowthWebPublicReceipt,
         selectedClass: data.selectedClass,
       })
+      requestAnimationFrame(() => document.getElementById("trial-form")?.focus())
       trackGrowthWebEvent("trial_form_submit", {
         form_id: "growth_web_demo_trial",
         class_id: validated.data.selectedClassId,
@@ -190,122 +201,129 @@ export function TrialBookingForm({
     }
   }
 
+
+  const fieldProps = (key: string) => ({
+    "aria-invalid": Boolean(fieldErrors[key]),
+    "aria-describedby": fieldErrors[key] ? `${key}-err` : undefined,
+  })
+  const fieldError = (key: string) =>
+    fieldErrors[key] ? (
+      <p id={`${key}-err`} className="gwd-err">
+        {fieldErrors[key]}
+      </p>
+    ) : null
+
   return (
-    <section
-      id="trial-form"
-      className="scroll-mt-24 bg-white pb-24 pt-14 sm:py-20"
-    >
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-        <div className="text-left sm:text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-[#fdf0e8] px-3.5 py-1 text-xs font-bold text-[#94340a]">
-            <CalendarCheck className="h-4 w-4" aria-hidden="true" />
-            スマホで60秒・持ち物は動きやすい服と水筒だけ
-          </div>
-          <h2 className="mt-3 text-2xl font-extrabold tracking-tight text-[#10211b] sm:text-3xl">
-            無料体験レッスンお申し込み（デモフォーム）
+    <section className="gwd-sec gwd-trial gwd-dark" id="trial" aria-labelledby="trial-title">
+      <div className="gwd-wrap gwd-tr-grid">
+        <div>
+          <p className="gwd-eyebrow">FREE TRIAL</p>
+          <h2 className="gwd-h2" id="trial-title">
+            <span>{DEMO_DISPLAY_TEXT.trialLine1}</span>
+            <span>{DEMO_DISPLAY_TEXT.trialLine2}</span>
           </h2>
-          <p className="mt-2.5 text-sm leading-relaxed text-[#41524b]">
-            ※架空モデルスクールの動作確認フォームです。送信しても実在スクールへの予約・外部メール送信・サーバー永続保存は一切発生しません。
-          </p>
+          <dl className="gwd-times">
+            <div>
+              <dt>フォームの入力</dt>
+              <dd>
+                必須4項目＋確認1つ
+                <small>希望クラス・学年・お名前・メール。ほかの項目は任意です。</small>
+              </dd>
+            </div>
+            <div>
+              <dt>体験レッスン当日</dt>
+              <dd>
+                60〜80分
+                <small>えらんだクラスの通常の練習時間（クラスにより異なります）</small>
+              </dd>
+            </div>
+          </dl>
+          <ol className="gwd-flow">
+            <li>
+              <b>このフォームで申し込む</b>
+              <span>日程は、スクールからの折り返しの連絡で決めます。</span>
+            </li>
+            <li>
+              <b>スクールから確認の連絡</b>
+              <span>持ち物と集合場所をお知らせします（このデモでは連絡は届きません）。</span>
+            </li>
+            <li>
+              <b>体験レッスンに参加</b>
+              <span>動きやすい服・運動靴・水筒だけでOK。保護者の方は見学できます。</span>
+            </li>
+            <li>
+              <b>入会はおうちで決める</b>
+              <span>当日の勧誘はありません。WebかLINEで、いつでもお返事ください。</span>
+            </li>
+          </ol>
         </div>
 
-        <div className="mt-8 rounded-2xl border border-[#dddad0] bg-[#faf9f5] p-6 shadow-sm sm:p-8">
-          {/* Active class summary pill */}
-          <div
-            data-testid="selected-class-banner"
-            className="mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#0d5e43]/30 bg-[#e6f4ee] px-4 py-3 text-xs sm:text-sm"
-          >
-            <div>
-              <span className="font-mono text-[11px] font-bold text-[#0d5e43]">
-                選択中の希望クラス：
-              </span>
-              <strong className="ml-1 font-extrabold text-[#10211b]">
-                {activeClass.name}
-              </strong>
-              <span className="ml-2 text-[#2a3b35]">
-                （{activeClass.dayOfWeek} {activeClass.timeRange}）
-              </span>
-            </div>
-            <span className="font-bold text-[#0d5e43]">初回体験 ¥0</span>
-          </div>
-
+        <div className="gwd-form" id="trial-form" data-gwd-pin="6" tabIndex={-1}>
           {receipt ? (
-            <div
-              role="status"
-              aria-live="polite"
-              data-testid="trial-booking-receipt"
-              className="space-y-5"
-            >
-              <div className="flex items-start gap-3 rounded-xl border border-[#0d5e43]/35 bg-white p-5">
-                <MailCheck
-                  className="mt-0.5 h-6 w-6 shrink-0 text-[#0d5e43]"
-                  aria-hidden="true"
-                />
+            <div className="gwd-receipt" role="status" aria-live="polite" data-testid="trial-booking-receipt">
+              <h3>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#15603B" strokeWidth="2.2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M7.5 12.5l3 3 6-6.5" />
+                </svg>
+                {DEMO_DISPLAY_TEXT.receiptTitle}
+              </h3>
+              <p className="meta">
+                デモのため、予約は成立していません。スクールへの通知やメールも送られていません。
+              </p>
+              <dl>
                 <div>
-                  <h3 className="text-lg font-extrabold text-[#10211b]">
-                    無料体験のデモ申込を受け付けました
-                  </h3>
-                  <p className="mt-1 text-sm text-[#2a3b35]">
-                    受付ID：
-                    <code className="ml-1 rounded bg-[#e6f4ee] px-2 py-0.5 font-mono text-xs font-bold text-[#0d5e43]">
-                      {receipt.receipt.receiptId}
-                    </code>
-                  </p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#41524b]">
-                    選択クラス：{receipt.selectedClass.name}（
-                    {receipt.selectedClass.dayOfWeek}{" "}
-                    {receipt.selectedClass.timeRange}／
-                    {receipt.selectedClass.campusName}）
-                  </p>
-                  <p className="mt-1 text-xs font-semibold text-[#0d5e43]">
-                    安全動作モード：{receipt.receipt.mode}
-                    （外部メール未送信・サーバー永続保存なし・GA4イベント発火済み）
-                  </p>
+                  <dt>受付ID（デモ）</dt>
+                  <dd>
+                    <code>{receipt.receipt.receiptId}</code>
+                  </dd>
                 </div>
-              </div>
-
+                <div>
+                  <dt>希望クラス</dt>
+                  <dd>
+                    {receipt.selectedClass.name}（{receipt.selectedClass.dayOfWeek} {receipt.selectedClass.timeRange}／
+                    {receipt.selectedClass.campusName}）
+                  </dd>
+                </div>
+                <div>
+                  <dt>送信の扱い</dt>
+                  <dd>外部へのメール・通知なし／入力内容はサーバーに保存されません</dd>
+                </div>
+              </dl>
               {receipt.receipt.preview && (
-                <div className="rounded-xl border border-[#dddad0] bg-white p-4">
-                  <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-[#41524b]">
-                    SCHOOL STAFF NOTIFICATION PREVIEW（実導入時にコーチへ届く通知内容）
-                  </p>
-                  <p className="mt-2 text-xs font-bold text-[#10211b]">
+                <div className="gwd-preview">
+                  <p>実際に導入した場合、スクールに届く通知の見本</p>
+                  <pre tabIndex={0} aria-label="通知の見本（スクロールできます）">
                     件名：{receipt.receipt.preview.emailSubject}
-                  </p>
-                  <pre className="mt-2 max-h-56 overflow-auto whitespace-pre-wrap rounded-lg border border-[#eeece4] bg-[#faf9f5] p-3 font-mono text-xs leading-relaxed text-[#2a3b35]">
+                    {"\n\n"}
                     {receipt.receipt.preview.emailBodyPreview}
                   </pre>
                 </div>
               )}
-
               <button
                 type="button"
+                className="gwd-btn gwd-btn-line"
                 onClick={() => {
                   setReceipt(null)
                   startedRef.current = false
                   idempotencyKeyRef.current = createDemoIdempotencyKey()
                 }}
-                className="inline-flex min-h-11 items-center rounded-lg border border-[#10211b] bg-white px-4 text-sm font-semibold text-[#10211b] hover:bg-[#eeece4]"
               >
                 別の条件でデモ送信を試す
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            <form ref={formRef} onSubmit={handleSubmit} noValidate aria-labelledby="trial-form-title">
+              <h3 id="trial-form-title">{DEMO_DISPLAY_TEXT.formTitle}</h3>
+              <p className="meta">架空のスクールのデモフォームです。送信しても予約やメールは発生しません。</p>
+
               {submitError && (
-                <div
-                  role="alert"
-                  className="rounded-xl border border-[#b8430f]/45 bg-[#fdf0e8] px-4 py-3 text-sm font-medium text-[#7c2d0b]"
-                >
+                <p role="alert" className="gwd-alert">
                   {submitError}
-                </div>
+                </p>
               )}
 
-              {/* Honeypot */}
-              <div
-                className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
-                aria-hidden="true"
-              >
+              <div className="gwd-hp" aria-hidden="true">
                 <label htmlFor="demo-website-hp">Leave blank</label>
                 <input
                   id="demo-website-hp"
@@ -318,310 +336,211 @@ export function TrialBookingForm({
                 />
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="trial-class"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    希望クラス
-                    <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
-                      必須
+              {activeClass && activeVisual && (
+                <div className="gwd-sel" data-testid="selected-class-banner">
+                  <img
+                    src={`${DEMO_IMAGE_BASE}/${activeVisual.image}-320.webp`}
+                    alt=""
+                    width={72}
+                    height={54}
+                    loading="lazy"
+                  />
+                  <div>
+                    <b>{activeClass.name}</b>
+                    <span>
+                      {activeClass.dayOfWeek} {splitTimeRange(activeClass.timeRange).time}（
+                      {splitTimeRange(activeClass.timeRange).minutes}）・{activeVisual.campusShort}
                     </span>
+                  </div>
+                </div>
+              )}
+
+              <div className="gwd-row2">
+                <div className="gwd-fld">
+                  <label htmlFor="trial-class">
+                    希望クラス <span className="gwd-req">必須</span>
                   </label>
                   <select
                     id="trial-class"
                     name="selectedClassId"
                     value={selectedClassId}
+                    required
                     onChange={(e) => {
                       markStarted()
                       onClassChanged(e.target.value)
                       idempotencyKeyRef.current = createDemoIdempotencyKey()
                       clearFieldError("selectedClassId")
                     }}
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b]"
+                    {...fieldProps("selectedClassId")}
                   >
-                    {DEMO_CLASSES.map((slot) => (
+                    <option value="">えらんでください</option>
+                    {availableClasses.map((slot) => (
                       <option key={slot.id} value={slot.id}>
-                        {slot.name}（{slot.shortLabel}）
+                        {slot.shortLabel}　{slot.name}
                       </option>
                     ))}
                   </select>
+                  {fieldError("selectedClassId")}
+                  {!fieldErrors.selectedClassId && classResetNotice && (
+                    <p className="gwd-hint" role="status" data-testid="class-reset-notice">
+                      {classResetNotice}
+                    </p>
+                  )}
                 </div>
-
-                <div>
-                  <label
-                    htmlFor="trial-grade"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    お子さまの学年
-                    <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
-                      必須
-                    </span>
+                <div className="gwd-fld">
+                  <label htmlFor="trial-grade">
+                    お子さまの学年 <span className="gwd-req">必須</span>
                   </label>
                   <select
                     id="trial-grade"
                     name="childGrade"
                     value={selectedGrade}
+                    required
                     onChange={(e) => {
                       markStarted()
                       onGradeChanged(e.target.value)
                       idempotencyKeyRef.current = createDemoIdempotencyKey()
                       clearFieldError("childGrade")
+                      clearFieldError("selectedClassId")
                     }}
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b]"
+                    {...fieldProps("childGrade")}
                   >
+                    <option value="">えらんでください</option>
                     {CHILD_GRADES.map((g) => (
                       <option key={g.value} value={g.value}>
                         {g.label}
                       </option>
                     ))}
                   </select>
+                  {fieldError("childGrade")}
                 </div>
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="trial-timing"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    体験のご希望時期
-                  </label>
-                  <select
-                    id="trial-timing"
-                    name="preferredTiming"
-                    value={form.preferredTiming}
-                    onChange={(e) =>
-                      updateField("preferredTiming", e.target.value)
-                    }
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b]"
-                  >
-                    {PREFERRED_TIMINGS.map((t) => (
-                      <option key={t.value} value={t.value}>
-                        {t.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="trial-experience"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    運動・サッカーのご経験
-                  </label>
-                  <select
-                    id="trial-experience"
-                    name="experienceLevel"
-                    value={form.experienceLevel}
-                    onChange={(e) =>
-                      updateField("experienceLevel", e.target.value)
-                    }
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b]"
-                  >
-                    {EXPERIENCE_LEVELS.map((exp) => (
-                      <option key={exp.value} value={exp.value}>
-                        {exp.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="guardian-name"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    保護者の方のお名前
-                    <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
-                      必須
-                    </span>
-                  </label>
-                  <input
-                    id="guardian-name"
-                    name="guardianName"
-                    type="text"
-                    required
-                    autoComplete="name"
-                    placeholder="例：鈴木 花子"
-                    value={form.guardianName}
-                    onChange={(e) =>
-                      updateField("guardianName", e.target.value)
-                    }
-                    aria-invalid={Boolean(fieldErrors.guardianName)}
-                    aria-describedby={
-                      fieldErrors.guardianName ? "guardian-name-err" : undefined
-                    }
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b] placeholder:text-[#66736d]"
-                  />
-                  {fieldErrors.guardianName && (
-                    <p
-                      id="guardian-name-err"
-                      className="mt-1 text-xs font-medium text-[#b8430f]"
-                    >
-                      {fieldErrors.guardianName}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="guardian-email"
-                    className="block text-sm font-bold text-[#10211b]"
-                  >
-                    メールアドレス（デモ入力）
-                    <span className="ml-1.5 text-xs font-bold text-[#b8430f]">
-                      必須
-                    </span>
-                  </label>
-                  <input
-                    id="guardian-email"
-                    name="email"
-                    type="email"
-                    required
-                    autoComplete="email"
-                    placeholder="demo-parent@example.jp"
-                    value={form.email}
-                    onChange={(e) => updateField("email", e.target.value)}
-                    aria-invalid={Boolean(fieldErrors.email)}
-                    aria-describedby={
-                      fieldErrors.email ? "guardian-email-err" : undefined
-                    }
-                    className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b] placeholder:text-[#66736d]"
-                  />
-                  {fieldErrors.email && (
-                    <p
-                      id="guardian-email-err"
-                      className="mt-1 text-xs font-medium text-[#b8430f]"
-                    >
-                      {fieldErrors.email}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="guardian-phone"
-                  className="block text-sm font-bold text-[#10211b]"
-                >
-                  雨天中止時の当日連絡先
-                  <span className="ml-1.5 text-xs font-normal text-[#41524b]">
-                    任意
-                  </span>
+              <div className="gwd-fld">
+                <label htmlFor="guardian-name">
+                  保護者の方のお名前 <span className="gwd-req">必須</span>
                 </label>
                 <input
-                  id="guardian-phone"
-                  name="phone"
-                  type="tel"
-                  autoComplete="tel"
-                  placeholder="090-0000-0000"
-                  value={form.phone}
-                  onChange={(e) => updateField("phone", e.target.value)}
-                  aria-invalid={Boolean(fieldErrors.phone)}
-                  aria-describedby={
-                    fieldErrors.phone ? "guardian-phone-err" : undefined
-                  }
-                  className="mt-1.5 min-h-12 w-full rounded-xl border border-[#c3bfb1] bg-white px-3.5 text-sm text-[#10211b] placeholder:text-[#66736d]"
+                  id="guardian-name"
+                  name="guardianName"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder="例：青葉 花子"
+                  value={form.guardianName}
+                  onChange={(e) => updateField("guardianName", e.target.value)}
+                  {...fieldProps("guardianName")}
                 />
-                {fieldErrors.phone && (
-                  <p
-                    id="guardian-phone-err"
-                    className="mt-1 text-xs font-medium text-[#b8430f]"
-                  >
-                    {fieldErrors.phone}
-                  </p>
-                )}
+                {fieldError("guardianName")}
               </div>
 
-              <div>
-                <label
-                  htmlFor="trial-notes"
-                  className="block text-sm font-bold text-[#10211b]"
-                >
-                  お子さまの性格やご不安な点
-                  <span className="ml-1.5 text-xs font-normal text-[#41524b]">
-                    任意
-                  </span>
+              <div className="gwd-fld">
+                <label htmlFor="guardian-email">
+                  メールアドレス <span className="gwd-req">必須</span>
                 </label>
-                <textarea
-                  id="trial-notes"
-                  name="notes"
-                  rows={2}
-                  placeholder="例：人見知りなので最初は親の近くから見学させたい、兄弟2人で体験したい等"
-                  value={form.notes}
-                  onChange={(e) => updateField("notes", e.target.value)}
-                  aria-invalid={Boolean(fieldErrors.notes)}
-                  aria-describedby={
-                    fieldErrors.notes ? "trial-notes-err" : undefined
-                  }
-                  className="mt-1.5 w-full rounded-xl border border-[#c3bfb1] bg-white p-3.5 text-sm text-[#10211b] placeholder:text-[#66736d]"
+                <input
+                  id="guardian-email"
+                  name="email"
+                  type="email"
+                  inputMode="email"
+                  required
+                  autoComplete="email"
+                  placeholder="例：hanako@example.com"
+                  value={form.email}
+                  onChange={(e) => updateField("email", e.target.value)}
+                  {...fieldProps("email")}
                 />
-                {fieldErrors.notes && (
-                  <p
-                    id="trial-notes-err"
-                    className="mt-1 text-xs font-medium text-[#b8430f]"
-                  >
-                    {fieldErrors.notes}
-                  </p>
-                )}
+                {fieldError("email")}
               </div>
 
-              <div className="rounded-xl border border-[#0d5e43]/25 bg-white p-4">
-                <label className="flex cursor-pointer items-start gap-3">
+              <details className="gwd-more">
+                <summary>任意の項目（希望時期・経験・当日の連絡先・気になること）</summary>
+                <div className="gwd-row2">
+                  <div className="gwd-fld">
+                    <label htmlFor="trial-timing">体験の希望時期</label>
+                    <select
+                      id="trial-timing"
+                      name="preferredTiming"
+                      value={form.preferredTiming}
+                      onChange={(e) => updateField("preferredTiming", e.target.value)}
+                      {...fieldProps("preferredTiming")}
+                    >
+                      {PREFERRED_TIMINGS.map((t) => (
+                        <option key={t.value} value={t.value}>
+                          {t.label}
+                        </option>
+                      ))}
+                    </select>
+                    {fieldError("preferredTiming")}
+                  </div>
+                  <div className="gwd-fld">
+                    <label htmlFor="trial-experience">運動・サッカーの経験</label>
+                    <select
+                      id="trial-experience"
+                      name="experienceLevel"
+                      value={form.experienceLevel}
+                      onChange={(e) => updateField("experienceLevel", e.target.value)}
+                      {...fieldProps("experienceLevel")}
+                    >
+                      {EXPERIENCE_LEVELS.map((exp) => (
+                        <option key={exp.value} value={exp.value}>
+                          {exp.label}
+                        </option>
+                      ))}
+                    </select>
+                    {fieldError("experienceLevel")}
+                  </div>
+                </div>
+                <div className="gwd-fld">
+                  <label htmlFor="guardian-phone">雨天中止時の当日連絡先（電話）</label>
                   <input
-                    id="demo-acknowledged"
-                    name="demoAcknowledged"
-                    type="checkbox"
-                    checked={form.demoAcknowledged}
-                    onChange={(e) =>
-                      updateField("demoAcknowledged", e.target.checked)
-                    }
-                    aria-invalid={Boolean(fieldErrors.demoAcknowledged)}
-                    aria-describedby={
-                      fieldErrors.demoAcknowledged
-                        ? "demo-acknowledged-err"
-                        : undefined
-                    }
-                    className="mt-0.5 h-5 w-5 rounded border-[#c3bfb1] accent-[#0d5e43]"
+                    id="guardian-phone"
+                    name="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    placeholder="例：090-0000-0000"
+                    value={form.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                    {...fieldProps("phone")}
                   />
-                  <span className="text-xs leading-relaxed text-[#2a3b35]">
-                    本ページが架空モデルスクールのデモ送信であり、実在スクールへの予約・外部送信・サーバー永続保存は行われないことを確認しました。
-                  </span>
-                </label>
-                {fieldErrors.demoAcknowledged && (
-                  <p
-                    id="demo-acknowledged-err"
-                    className="mt-1.5 text-xs font-medium text-[#b8430f]"
-                  >
-                    {fieldErrors.demoAcknowledged}
-                  </p>
-                )}
-              </div>
+                  {fieldError("phone")}
+                </div>
+                <div className="gwd-fld">
+                  <label htmlFor="trial-notes">お子さまの性格や、気になること</label>
+                  <textarea
+                    id="trial-notes"
+                    name="notes"
+                    rows={3}
+                    placeholder="例：人見知りなので、最初は見学からはじめたい"
+                    value={form.notes}
+                    onChange={(e) => updateField("notes", e.target.value)}
+                    {...fieldProps("notes")}
+                  />
+                  {fieldError("notes")}
+                </div>
+              </details>
 
-              <button
-                type="submit"
-                disabled={submitting}
-                className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-xl bg-[#b8430f] px-6 text-base font-bold text-white shadow-md transition-colors hover:bg-[#94340a] disabled:opacity-60"
-              >
-                <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
-                {submitting
-                  ? "デモ送信を処理中..."
-                  : "無料体験のデモ申込を送信する（60秒）"}
-              </button>
-
-              <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[#41524b]">
-                <Info
-                  className="h-3.5 w-3.5 shrink-0 text-[#0d5e43]"
-                  aria-hidden="true"
+              <label className="gwd-ack" htmlFor="demo-acknowledged">
+                <input
+                  id="demo-acknowledged"
+                  name="demoAcknowledged"
+                  type="checkbox"
+                  checked={form.demoAcknowledged}
+                  onChange={(e) => updateField("demoAcknowledged", e.target.checked)}
+                  {...fieldProps("demoAcknowledged")}
                 />
                 <span>
-                  送信後、上部の「GA4ログ」で発火したCVイベントを確認できます。
+                  <strong>確認（必須）：</strong>
+                  これは架空のスクールのデモです。送信しても予約は成立せず、メールや通知も送られないこと、入力内容がサーバーに保存されないことを確認しました。
                 </span>
+              </label>
+              {fieldError("demoAcknowledged")}
+
+              <button type="submit" className="gwd-btn gwd-btn-sun gwd-submit" disabled={submitting}>
+                {submitting ? "送信中…" : "デモ申込を送信する"}
+              </button>
+              <p className="after">
+                送信すると、この画面に受付内容と、実際に導入した場合にスクールへ届く通知の見本が表示されます。計測（GA4）に送るのはクラスや学年などの選択内容だけで、お名前やメールアドレスは送りません。
               </p>
             </form>
           )}

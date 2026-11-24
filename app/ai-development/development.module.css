@@ -44,7 +44,8 @@
 .chapterDark .chapterLead { color: #c8ded1; }
 
 /* Section 2: Operational Proof & Technical Demo */
-.proofSummaryCard { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); gap: 28px; border: 1px solid #bdcfc3; background: #fffefa; padding: 30px; margin-bottom: 28px; align-items: start; }
+.proofStack { display: grid; gap: 22px; margin-bottom: 28px; }
+.proofSummaryCard { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(260px, .65fr); gap: 28px; border: 1px solid #bdcfc3; background: #fffefa; padding: 30px; align-items: start; }
 .proofSummaryMain { min-width: 0; }
 .proofCardTop { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; border-bottom: 1px solid #d2dacf; padding-bottom: 12px; margin-bottom: 18px; }
 .proofCardTop span { color: #366958; font-size: 12px; font-family: "Courier New", monospace; font-weight: 700; letter-spacing: .05em; }
@@ -56,6 +57,8 @@
 .proofPoints li svg { color: #1f6d59; flex: 0 0 auto; margin-top: 4px; }
 .proofSummaryLinks { border-left: 1px solid #d2dacf; padding-left: 26px; display: flex; flex-direction: column; gap: 12px; }
 .proofLinksHeading { font-size: 11px; font-family: "Courier New", monospace; color: #476c5e; font-weight: 700; letter-spacing: .05em; }
+.proofThumbWrap { background: #edf2eb; border: 1px solid #cfdcd0; padding: 10px; display: flex; justify-content: center; }
+.proofThumb { width: 100%; max-width: 196px; height: auto; border-radius: 10px; border: 2px solid #1d3c34; display: block; }
 .proofAction { font-size: 13px; }
 .proofStoreRow { display: flex; flex-wrap: wrap; gap: 14px; padding-top: 6px; font-size: 12px; font-weight: 700; color: #265c4b; }
 .proofStoreRow a { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; text-decoration: underline; text-underline-offset: 4px; }
@@ -110,6 +113,14 @@
 .challengeScope { margin-top: auto; padding-top: 14px; border-top: 1px solid #e2ebe3; font-size: 12px !important; color: #36584d !important; font-weight: 700; }
 .challengeGuideLink { display: inline-flex; align-items: center; gap: 8px; color: #216b52; font-size: 13px; font-weight: 700; min-height: 44px; margin-top: 10px; text-decoration: underline; text-underline-offset: 4px; }
 .challengeGuideLink:focus-visible { outline: 3px solid #216b52; outline-offset: 3px; }
+.consultBridge { margin-top: 24px; padding: 24px 26px; background: #fffefa; border: 1px solid #bdd0c2; display: grid; gap: 16px; }
+.consultBridgeHead { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 18px; }
+.consultBridgeHead h3 { font-size: clamp(17px, 1.8vw, 21px); letter-spacing: -.03em; color: #16332c; }
+.consultBridgeHead p { font-size: 13px; color: #486258; line-height: 1.7; }
+.consultBridgeActions { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.consultBridgeLink { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 8px 15px; border: 1px solid #2f6c5a; background: #f3f7f0; color: #183d33; font-size: 13px; font-weight: 700; text-decoration: none; transition: background-color .15s ease, border-color .15s ease; }
+.consultBridgeLink:hover { background: #e3eee0; border-color: #184237; }
+.consultBridgeLink:focus-visible { outline: 3px solid #216b52; outline-offset: 2px; }
 .disclosure { padding: 18px 20px; border-left: 3px solid #3d7966; background: #eef2ea; color: #425950; font-size: 13px; line-height: 1.9; margin-top: 24px; }
 .disclosure strong { color: #18362e; }
 
@@ -196,3 +207,10 @@
 @media(prefers-reduced-motion: reduce) {
   .hero { scroll-behavior: auto; }
 }
+
+
+/* Reference pricing: reuse the existing capability-card visual language. */
+.priceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.priceGrid .priceAmount { font-size: clamp(24px, 2.5vw, 32px); line-height: 1.4; font-weight: 800; color: #16332c; font-variant-numeric: tabular-nums; }
+.priceGrid .challengeCard h3 { margin-top: 0; }
+@media (max-width: 700px) { .priceGrid { grid-template-columns: minmax(0, 1fr); } }

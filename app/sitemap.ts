@@ -12,9 +12,8 @@ import { insights } from "@/lib/b2b-insights"
 const lastSignificantUpdate = {
   home: "2026-11-23", // Growth Web entry point added to services
   sportsDx: "2026-11-12", // canonical domain and linked content updated
-  aiDevelopment: "2026-11-17", // B2B buyer-intent section updated
+  aiDevelopment: "2026-11-24", // Choleste AI proof, capability scope, and consultation CTAs updated
   growthWeb: "2026-11-23", // Cyber Knock Growth Web service LP launched
-  growthWebDemo: "2026-11-24", // Sports school demo redesigned (photos, class search, trial form)
   caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
   security: "2026-11-12", // canonical domain updated
   privacy: "2026-11-23", // Growth Web LP and demo data handling disclosure added
@@ -46,12 +45,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(lastSignificantUpdate.growthWeb),
       changeFrequency: "monthly",
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services/growth-web/demo`,
-      lastModified: new Date(lastSignificantUpdate.growthWebDemo),
-      changeFrequency: "monthly",
-      priority: 0.75,
     },
     {
       url: `${baseUrl}/insights`,

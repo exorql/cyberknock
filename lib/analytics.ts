@@ -98,10 +98,77 @@ const allowedValues: Record<string, readonly string[]> = {
 }
 
 const siteOrigin = "https://cyberknock.jp"
+const allowedUtmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const
+// Only campaign values actually used by our published operator links are retained.
+const allowedUtmValues: Record<(typeof allowedUtmKeys)[number], readonly string[]> = {
+  utm_source: ["ai_sportstrainer", "choleste_coach"],
+  utm_medium: ["referral"],
+  utm_campaign: ["operator_credit"],
+  utm_content: [],
+}
+const publicHostPattern = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/
+const disallowedReferrerSuffixes = [".cyberknock.jp", ".pages.dev", ".localhost", ".local", ".internal", ".invalid", ".test", ".example"]
 
 /** Preview deployments must not initialize the production GA4 property. */
 export function isProductionAnalyticsHost(hostname: string): boolean {
   return hostname === "cyberknock.jp" || hostname === "www.cyberknock.jp"
+}
+
+/**
+ * Returns only the stripped origin (with trailing slash) for public external HTTP/HTTPS referrers.
+ * Internal hosts, preview hostnames, IP literals, ports, credentials, paths, and queries are rejected.
+ */
+export function safeExternalReferrer(rawReferrer?: string | null): string {
+  if (typeof rawReferrer !== "string") return ""
+  const trimmed = rawReferrer.trim()
+  if (!trimmed || trimmed.length > 2048) return ""
+  try {
+    const parsed = new URL(trimmed)
+    if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return ""
+    if (parsed.username || parsed.password || parsed.port) return ""
+    const host = parsed.hostname.toLowerCase().replace(/\.$/, "")
+    if (!host || host === "cyberknock.jp" || host === "localhost" || host === "pages.dev") return ""
+    if (disallowedReferrerSuffixes.some((suffix) => host.endsWith(suffix))) return ""
+    if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || host.includes(":")) return ""
+    if (!publicHostPattern.test(host)) return ""
+    return `${parsed.protocol}//${host}/`
+  } catch {
+    return ""
+  }
+}
+
+function isSafeUtmValue(key: (typeof allowedUtmKeys)[number], rawValue: string): string | null {
+  return allowedUtmValues[key].includes(rawValue) ? rawValue : null
+}
+
+/**
+ * Validates both UTM parameter keys and values against a fixed campaign value allowlist
+ * so raw search terms, emails, phone numbers, names, or IDs can never reach GA4.
+ */
+export function sanitizeUtmQuery(rawSearch?: string | null): string {
+  if (typeof rawSearch !== "string") return ""
+  const trimmed = rawSearch.trim().replace(/^\?/, "")
+  if (!trimmed || trimmed.length > 512) return ""
+  const params = new URLSearchParams(trimmed)
+  const clean = new URLSearchParams()
+  for (const key of allowedUtmKeys) {
+    const values = params.getAll(key)
+    if (values.length !== 1) continue
+    const safeVal = isSafeUtmValue(key, values[0])
+    if (safeVal) clean.set(key, safeVal)
+  }
+  const serialized = clean.toString()
+  return serialized ? `?${serialized}` : ""
+}
+
+export function buildSafePageLocation(
+  page: string,
+  rawSearch?: string | null,
+  includeUtm = false,
+): string {
+  const safePath = Object.hasOwn(safePagePaths, page) ? safePagePaths[page] : "/"
+  const query = includeUtm ? sanitizeUtmQuery(rawSearch) : ""
+  return `${siteOrigin}${safePath}${query}`
 }
 const safePagePaths: Record<string, string> = {
   home: "/",
@@ -180,13 +247,24 @@ export function initializeGtagDataLayer(target: GtagQueueWindow): (...args: unkn
   return target.gtag
 }
 
-export function trackEvent(event: AnalyticsEvent, params: Record<string, unknown> = {}): void {
+export type TrackEventOptions = {
+  includeAttribution?: boolean
+}
+
+export function trackEvent(
+  event: AnalyticsEvent,
+  params: Record<string, unknown> = {},
+  options: TrackEventOptions = {},
+): void {
   if (typeof window === "undefined" || !analyticsEvents.includes(event)) return
   const analyticsWindow = window as Window & { gtag?: (...args: unknown[]) => void }
   if (typeof analyticsWindow.gtag !== "function") return
   try {
     const page = pageCategory(window.location.pathname)
     const isDemoEvent = event.startsWith("b2b_demo_")
+    const includeAttribution = event === "page_view" && options.includeAttribution === true
+    const rawSearch = typeof window.location?.search === "string" ? window.location.search : ""
+    const rawReferrer = typeof document !== "undefined" && typeof document.referrer === "string" ? document.referrer : ""
     const input: Record<string, unknown> = { ...params, page }
     // Video identifiers belong only to demo events; engagement flags come only from this module.
     delete input.demo_video
@@ -196,8 +274,8 @@ export function trackEvent(event: AnalyticsEvent, params: Record<string, unknown
       ...safeAnalyticsParams(input),
       // Canonical path from the fixed page category, never from the raw URL.
       ...(isDemoEvent ? { page_path: safePagePaths[page] } : {}),
-      page_location: siteOrigin + safePagePaths[page],
-      page_referrer: "",
+      page_location: buildSafePageLocation(page, rawSearch, includeAttribution),
+      page_referrer: includeAttribution ? safeExternalReferrer(rawReferrer) : "",
     })
   } catch { /* Optional measurement must never interrupt a lead submission. */ }
 }

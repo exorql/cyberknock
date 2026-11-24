@@ -2,7 +2,16 @@
 
 import { useEffect, useRef } from "react"
 import { usePathname } from "next/navigation"
-import { analyticsEvents, initializeGtagDataLayer, isProductionAnalyticsHost, pageCategory, trackEvent, type AnalyticsEvent } from "@/lib/analytics"
+import {
+  analyticsEvents,
+  buildSafePageLocation,
+  initializeGtagDataLayer,
+  isProductionAnalyticsHost,
+  pageCategory,
+  safeExternalReferrer,
+  trackEvent,
+  type AnalyticsEvent,
+} from "@/lib/analytics"
 
 type AnalyticsWindow = Window & {
   gtag?: (...args: unknown[]) => void
@@ -10,12 +19,14 @@ type AnalyticsWindow = Window & {
   __cyberknockGa4Bootstrapped?: boolean
 }
 
+const CANONICAL_ORIGIN = "https://cyberknock.jp"
+
 /**
  * Optional GA4 setup. Measurement ID comes from deployment settings, never from
  * a placeholder or a hard-coded account value. With no ID, no script is loaded.
  * A pre-existing gtag integration remains responsible for its own page views.
  */
-function ensureSiteGa4(): boolean {
+function ensureSiteGa4(initialPath: string): boolean {
   const id = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID
   if (!id || !/^G-[A-Z0-9]{6,15}$/.test(id)) return false
   // Cloudflare previews are production builds; only the live site may load production GA4.
@@ -26,11 +37,14 @@ function ensureSiteGa4(): boolean {
 
   const gtag = initializeGtagDataLayer(analyticsWindow)
   analyticsWindow.__cyberknockGa4Bootstrapped = true
+  const page = pageCategory(initialPath)
+  const rawSearch = typeof window.location.search === "string" ? window.location.search : ""
+  const rawReferrer = typeof document !== "undefined" && typeof document.referrer === "string" ? document.referrer : ""
   gtag("js", new Date())
   gtag("config", id, {
     send_page_view: false,
-    page_location: "https://cyberknock.jp/",
-    page_referrer: "",
+    page_location: buildSafePageLocation(page, rawSearch, true) || `${CANONICAL_ORIGIN}/`,
+    page_referrer: safeExternalReferrer(rawReferrer),
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   })
@@ -50,9 +64,12 @@ export function SiteAnalytics() {
   useEffect(() => {
     const currentPath = pathname || "/"
     if (lastPath.current === currentPath) return
+    const isInitialNavigation = lastPath.current === null
     lastPath.current = currentPath
 
-    if (ensureSiteGa4()) trackEvent("page_view")
+    if (ensureSiteGa4(currentPath)) {
+      trackEvent("page_view", {}, isInitialNavigation ? { includeAttribution: true } : undefined)
+    }
     if (["case_study"].includes(pageCategory(currentPath))) {
       trackEvent("case_study_view")
     }

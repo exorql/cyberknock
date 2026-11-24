@@ -192,12 +192,16 @@ test("mobile sticky CTA hides over the hero, at/after the form and while typing"
   assert.equal(isTextEntry(null), false)
 })
 
-test("demo page stays isolated from the LP stylesheet and keeps SEO and demo-safety copy", () => {
+test("demo page stays isolated from the LP stylesheet and keeps noindex, BreadcrumbList-only SEO and demo-safety copy", () => {
   const page = read("app/services/growth-web/demo/page.tsx")
   assert.match(page, /import "\.\/demo\.css"/)
   assert.doesNotMatch(page, /growth-web\.css/)
   assert.match(page, /canonical: pathname/)
-  assert.match(page, /buildGrowthWebDemoJsonLd/)
+  assert.match(page, /index:\s*false/)
+  assert.match(page, /follow:\s*true/)
+  assert.match(page, /buildGrowthWebDemoJsonLd\(\)/)
+  const ld = read("lib/growth-web/structured-data.ts")
+  assert.doesNotMatch(ld, /SportsActivityLocation|"@type":\s*"Course"/)
   const css = read("app/services/growth-web/demo/demo.css")
   const selectors = css
     .replace(/\/\*[\s\S]*?\*\//g, "")

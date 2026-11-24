@@ -141,3 +141,22 @@ test("Case study CTAs unify to /ai-development#contact and OGP images exist for 
   assert.ok(casePage.includes("/images/og/ai-sports-trainer-demo.png"))
   assert.ok(demoPage.includes("/images/og/ai-sports-trainer-demo.png"))
 })
+
+test("B2B LP showcases Choleste AI commercial proof, consultation shortcuts, and presents scoped reference prices", () => {
+  assert.ok(page.includes("コレステAI"))
+  assert.ok(page.includes("/images/product/choleste-meal-record.webp"))
+  assert.match(page, /choleste-meal-record\.webp[\s\S]*loading="lazy"/)
+  assert.ok(existsSync(new URL("../public/images/product/choleste-meal-record.webp", import.meta.url)))
+  assert.ok(page.includes("https://choleste-coach.com") || page.includes("site.cholesteUrl"))
+  for (const service of ["sports-ai", "ai-improvement", "product", "advisory"]) {
+    assert.ok(page.includes(`?service=${service}#contact`) || page.includes("`?service=${shortcut.service}#contact`"))
+    assert.ok(page.includes(`"${service}"`))
+  }
+  for (const approvedPrice of ["30万〜80万円", "80万〜250万円", "150万〜600万円", "個別見積もり"]) {
+    assert.ok(page.includes(approvedPrice), `missing reference price: \${approvedPrice}`)
+  }
+  assert.ok(page.includes('id="pricing"'))
+  assert.ok(page.includes('税抜の参考費用'))
+  assert.ok(page.includes('固定料金や認識精度の保証ではありません'))
+  assert.ok(page.includes('href="#contact"'))
+})

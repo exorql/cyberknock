@@ -1,6 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { initializeGtagDataLayer, pageCategory, safeAnalyticsParams, trackEvent } from '../lib/analytics.ts';
+import {
+  buildSafePageLocation,
+  initializeGtagDataLayer,
+  pageCategory,
+  safeAnalyticsParams,
+  safeExternalReferrer,
+  sanitizeUtmQuery,
+  trackEvent,
+} from '../lib/analytics.ts';
 
 test('analytics discards form contents, emails, raw URLs, arbitrary values and parameter names', () => {
   const actual = safeAnalyticsParams({ location: 'hero', service: 'sports-ai', source: 'home', email: 'qa@example.com', message: 'Private details', href: '/?email=qa@example.com', company: 'Private company', page: '/?email=qa@example.com', error_type: 'private detail', page_location: 'https://private.example?email=qa@example.com', page_referrer: 'https://private.example?name=private', store: 'private-store' });
@@ -112,4 +120,72 @@ test('Google tag initialization queues Arguments objects rather than arrays', ()
   assert.deepEqual(Array.from(target.dataLayer[0]), ['js', timestamp]);
   assert.deepEqual(Array.from(target.dataLayer[1]), ['config', 'G-TEST123456', { send_page_view: false }]);
   assert.deepEqual(Array.from(target.dataLayer[2]), ['event', 'page_view', { page_location: 'https://cyberknock.jp/' }]);
+});
+
+test('safeExternalReferrer retains only public HTTPS/HTTP origin and rejects internal or preview hosts', () => {
+  assert.equal(safeExternalReferrer('https://www.google.com/search?q=ai+development&oq=secret'), 'https://www.google.com/');
+  assert.equal(safeExternalReferrer('https://ai-sportstrainer.com/legal/tokushoho?uid=999'), 'https://ai-sportstrainer.com/');
+  assert.equal(safeExternalReferrer('https://choleste-coach.com/logic#section'), 'https://choleste-coach.com/');
+  assert.equal(safeExternalReferrer('https://cyberknock.jp/ai-development'), '');
+  assert.equal(safeExternalReferrer('https://sub.cyberknock.jp/'), '');
+  assert.equal(safeExternalReferrer('https://preview.cyberknock.pages.dev/'), '');
+  assert.equal(safeExternalReferrer('http://localhost:3000/'), '');
+  assert.equal(safeExternalReferrer('http://127.0.0.1/'), '');
+  assert.equal(safeExternalReferrer('https://user:pass@example.com/path'), '');
+  assert.equal(safeExternalReferrer('javascript:alert(1)'), '');
+  assert.equal(safeExternalReferrer(''), '');
+});
+
+test('sanitizeUtmQuery validates both UTM keys and values against PII leaks', () => {
+  assert.equal(
+    sanitizeUtmQuery('?utm_source=ai_sportstrainer&utm_medium=referral&utm_campaign=operator_credit&name=yamada'),
+    '?utm_source=ai_sportstrainer&utm_medium=referral&utm_campaign=operator_credit'
+  );
+  assert.equal(
+    sanitizeUtmQuery('?utm_source=newsletter&utm_medium=email&utm_content=footer_link'),
+    ''
+  );
+  assert.equal(
+    sanitizeUtmQuery('?utm_source=taro@example.com&utm_medium=bad_medium&utm_campaign=090-1234-5678&utm_term=secret&gclid=abc&custom_id=12345'),
+    ''
+  );
+  assert.equal(sanitizeUtmQuery('?utm_source=1234567890&utm_campaign=user_id_99'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=550e8400-e29b-41d4-a716-446655440000'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=a&utm_source=b'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=yamada_taro&utm_campaign=yamada-taro&utm_content=12345'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=ai_sportstrainer&utm_campaign=arbitrary_slug'), '?utm_source=ai_sportstrainer');
+  assert.equal(sanitizeUtmQuery('?utm_source=AI_SPORTSTRAINER&utm_medium=REFERRAL'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit'), '?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit');
+
+});
+
+test('attribution referrer and safe UTM parameters attach only to initial page_view', () => {
+  const calls = [];
+  global.window = {
+    location: new URL('https://cyberknock.jp/ai-development?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit&email=qa@example.com'),
+    gtag: (...args) => calls.push(args),
+  };
+  global.document = { referrer: 'https://www.google.com/search?q=ai+video+analysis' };
+  try {
+    trackEvent('page_view', {}, { includeAttribution: true });
+    trackEvent('page_view');
+    trackEvent('cta_click', { location: 'hero' });
+    assert.equal(calls.length, 3);
+    assert.equal(calls[0][2].page_referrer, 'https://www.google.com/');
+    assert.equal(
+      calls[0][2].page_location,
+      'https://cyberknock.jp/ai-development?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit'
+    );
+    assert.equal(calls[1][2].page_referrer, '');
+    assert.equal(calls[1][2].page_location, 'https://cyberknock.jp/ai-development');
+    assert.equal(calls[2][2].page_referrer, '');
+    assert.equal(calls[2][2].page_location, 'https://cyberknock.jp/ai-development');
+    assert.equal(
+      buildSafePageLocation('ai_development', '?utm_source=test&utm_medium=organic', false),
+      'https://cyberknock.jp/ai-development'
+    );
+  } finally {
+    delete global.window;
+    delete global.document;
+  }
 });

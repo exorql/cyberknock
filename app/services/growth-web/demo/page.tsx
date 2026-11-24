@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import "./demo.css"
 import { preload } from "react-dom"
 import { DemoSportsSchoolApp } from "@/components/growth-web/demo/DemoSportsSchoolApp"
-import { DEMO_CLASSES, DEMO_FAQS } from "@/lib/growth-web/demo-school"
 import {
   buildGrowthWebDemoJsonLd,
   serializeJsonLd,
@@ -20,6 +19,14 @@ export const metadata: Metadata = {
   description,
   alternates: {
     canonical: pathname,
+  },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
   },
   openGraph: {
     type: "website",
@@ -56,13 +63,7 @@ export default function GrowthWebDemoPage() {
     media: "(min-width: 768px)",
     fetchPriority: "high",
   })
-  const jsonLd = buildGrowthWebDemoJsonLd(
-    DEMO_CLASSES.map((c) => ({
-      name: `${c.name}（${c.gradeLabel}）`,
-      description: `${c.focusSummary} ${c.dayOfWeek} ${c.timeRange} / ${c.campusName}`,
-    })),
-    DEMO_FAQS
-  )
+  const jsonLd = buildGrowthWebDemoJsonLd()
 
   preload("/fonts/growth-web-demo/zen-kaku-gothic-new-900.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" })
 

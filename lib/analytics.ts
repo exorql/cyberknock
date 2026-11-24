@@ -99,17 +99,14 @@ const allowedValues: Record<string, readonly string[]> = {
 
 const siteOrigin = "https://cyberknock.jp"
 const allowedUtmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"] as const
-const allowedUtmMedia = new Set([
-  "organic", "referral", "social", "video", "email", "cpc", "ppc",
-  "display", "affiliate", "partner", "qr", "profile", "footer", "doc",
-])
-const safeUtmSlugPattern = /^[a-z0-9]+(?:[_-][a-z0-9]+)*$/
+// Only campaign values actually used by our published operator links are retained.
+const allowedUtmValues: Record<(typeof allowedUtmKeys)[number], readonly string[]> = {
+  utm_source: ["ai_sportstrainer", "choleste_coach"],
+  utm_medium: ["referral"],
+  utm_campaign: ["operator_credit"],
+  utm_content: [],
+}
 const publicHostPattern = /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,24}$/
-const piiTokenSegmentPattern = /(?:^|[_-])(?:email|mail|phone|tel|mobile|user|userid|name|fullname|token|session|secret|passwd|password|client|address|birthday)(?:$|[_-])/
-const phoneLikePattern = /^0\d{1,4}[_-]\d{1,4}[_-]\d{3,4}$/
-const postalLikePattern = /^\d{3}[_-]\d{4}$/
-const longHexPattern = /^[0-9a-f]{12,}$/
-const uuidPrefixPattern = /^[0-9a-f]{8}[_-][0-9a-f]{4}[_-][0-9a-f]{4}/
 const disallowedReferrerSuffixes = [".cyberknock.jp", ".pages.dev", ".localhost", ".local", ".internal", ".invalid", ".test", ".example"]
 
 /** Preview deployments must not initialize the production GA4 property. */
@@ -130,7 +127,7 @@ export function safeExternalReferrer(rawReferrer?: string | null): string {
     if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return ""
     if (parsed.username || parsed.password || parsed.port) return ""
     const host = parsed.hostname.toLowerCase().replace(/\.$/, "")
-    if (!host || host === "cyberknock.jp" || host === "localhost") return ""
+    if (!host || host === "cyberknock.jp" || host === "localhost" || host === "pages.dev") return ""
     if (disallowedReferrerSuffixes.some((suffix) => host.endsWith(suffix))) return ""
     if (/^\d{1,3}(?:\.\d{1,3}){3}$/.test(host) || host.includes(":")) return ""
     if (!publicHostPattern.test(host)) return ""
@@ -141,23 +138,11 @@ export function safeExternalReferrer(rawReferrer?: string | null): string {
 }
 
 function isSafeUtmValue(key: (typeof allowedUtmKeys)[number], rawValue: string): string | null {
-  if (!rawValue || rawValue.length > 50) return null
-  if (/[\u0000-\u001f\u007f\s@./:%?&#=+\\]/.test(rawValue)) return null
-  const normalized = rawValue.toLowerCase()
-  if (!safeUtmSlugPattern.test(normalized)) return null
-  if (key === "utm_medium") {
-    return allowedUtmMedia.has(normalized) ? normalized : null
-  }
-  const digitCount = (normalized.match(/\d/g) || []).length
-  if (digitCount >= 9) return null
-  if (phoneLikePattern.test(normalized) || postalLikePattern.test(normalized)) return null
-  if (longHexPattern.test(normalized) || uuidPrefixPattern.test(normalized)) return null
-  if (piiTokenSegmentPattern.test(normalized)) return null
-  return normalized
+  return allowedUtmValues[key].includes(rawValue) ? rawValue : null
 }
 
 /**
- * Validates both UTM parameter keys and values against a strict slug/token allowlist
+ * Validates both UTM parameter keys and values against a fixed campaign value allowlist
  * so raw search terms, emails, phone numbers, names, or IDs can never reach GA4.
  */
 export function sanitizeUtmQuery(rawSearch?: string | null): string {

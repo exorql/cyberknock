@@ -90,6 +90,14 @@ const consultationShortcuts = [
   },
 ] as const
 
+const developmentPricing = [
+  { title: "小規模技術検証", price: "30万〜80万円", audience: "まず手元の映像・画像で実現可能性を確認したい方へ。", scope: "成果物：サンプルを用いた検証結果・課題整理。専用UIや独自モデル学習は別途。" },
+  { title: "本格PoC", price: "80万〜250万円", audience: "評価基準を定め、本開発の投資判断をしたい方へ。", scope: "成果物：試作パイプライン、定量評価・本開発の要件整理。評価範囲は事前合意。" },
+  { title: "新規事業MVP開発", price: "150万〜600万円", audience: "最小限の機能で実ユーザーに価値を検証したい方へ。", scope: "成果物：実用Web・モバイルアプリ。低価格帯はWeb単体・AI機能1系統などに限定。" },
+  { title: "本開発・既存システム統合", price: "個別見積もり", audience: "商用環境への導入や既存システムとの連携を進めたい方へ。", scope: "成果物：要件に応じた実装・テスト・リリース支援。" },
+  { title: "継続開発・運用改善", price: "個別見積もり", audience: "公開後の精度・推論コスト・利用体験を改善したい方へ。", scope: "成果物：合意した範囲の機能改善・運用支援。稼働範囲と条件を事前に決定。" },
+] as const
+
 const faqs = [
   {
     q: "仕様書や予算が決まっていなくても相談できますか？",
@@ -501,10 +509,34 @@ export default function AiDevelopmentPage() {
         </section>
 
         {/* ⑤ FAQ＋お問い合わせ */}
+        <section id="pricing" className={styles.chapter} aria-labelledby="pricing-title">
+          <div className="wrap">
+            <div className={styles.chapterHead}>
+              <p className={styles.sectionCode}>04 / ESTIMATED COST</p>
+              <div>
+                <h2 id="pricing-title" className={styles.chapterTitle}>AI開発の参考費用。</h2>
+                <p className={styles.chapterLead}>小さな技術検証から商用サービスの開発まで、必要な範囲に合わせてご提案します。</p>
+              </div>
+            </div>
+            <div className={styles.priceGrid}>
+              {developmentPricing.map((item) => (
+                <article className={styles.challengeCard} key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p className={styles.priceAmount}>{item.price}</p>
+                  <p>{item.audience}</p>
+                  <p className={styles.challengeScope}>{item.scope}</p>
+                </article>
+              ))}
+            </div>
+            <p className={styles.disclosure}>金額は税抜の参考費用です。開発範囲、データ条件、精度・運用要件により変動します。固定料金や認識精度の保証ではありません。初回相談・概算見積もりは無料です。</p>
+            <a href="#contact" className={styles.challengeGuideLink} data-track="cta_click" data-location="ai_development">開発費用・進め方を相談する <ArrowRight size={15} aria-hidden="true" /></a>
+          </div>
+        </section>
+
         <section className={styles.chapter} aria-labelledby="faq-title">
           <div className="wrap">
             <div className={styles.chapterHead}>
-              <p className={styles.sectionCode}>04 / FAQ</p>
+              <p className={styles.sectionCode}>05 / FAQ</p>
               <div>
                 <h2 id="faq-title" className={styles.chapterTitle}>
                   相談前によくある質問。
@@ -527,7 +559,7 @@ export default function AiDevelopmentPage() {
         <section id="contact" className={styles.contactArea} aria-labelledby="development-contact-title">
           <div className={`wrap ${styles.contactLayout}`}>
             <div className={styles.contactCopy}>
-              <span className={styles.sectionCode}>05 / CONSULTATION</span>
+              <span className={styles.sectionCode}>06 / CONSULTATION</span>
               <h2 id="development-contact-title">まずは、開発したいことを。</h2>
               <p>
                 現在の業務課題や、実現したいサービス・AI機能を分かる範囲でお聞かせください。詳細な仕様書や予算が決まっていなくてもご相談いただけます。

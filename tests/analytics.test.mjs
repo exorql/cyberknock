@@ -143,7 +143,7 @@ test('sanitizeUtmQuery validates both UTM keys and values against PII leaks', ()
   );
   assert.equal(
     sanitizeUtmQuery('?utm_source=newsletter&utm_medium=email&utm_content=footer_link'),
-    '?utm_source=newsletter&utm_medium=email&utm_content=footer_link'
+    ''
   );
   assert.equal(
     sanitizeUtmQuery('?utm_source=taro@example.com&utm_medium=bad_medium&utm_campaign=090-1234-5678&utm_term=secret&gclid=abc&custom_id=12345'),
@@ -152,6 +152,11 @@ test('sanitizeUtmQuery validates both UTM keys and values against PII leaks', ()
   assert.equal(sanitizeUtmQuery('?utm_source=1234567890&utm_campaign=user_id_99'), '');
   assert.equal(sanitizeUtmQuery('?utm_source=550e8400-e29b-41d4-a716-446655440000'), '');
   assert.equal(sanitizeUtmQuery('?utm_source=a&utm_source=b'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=yamada_taro&utm_campaign=yamada-taro&utm_content=12345'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=ai_sportstrainer&utm_campaign=arbitrary_slug'), '?utm_source=ai_sportstrainer');
+  assert.equal(sanitizeUtmQuery('?utm_source=AI_SPORTSTRAINER&utm_medium=REFERRAL'), '');
+  assert.equal(sanitizeUtmQuery('?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit'), '?utm_source=choleste_coach&utm_medium=referral&utm_campaign=operator_credit');
+
 });
 
 test('attribution referrer and safe UTM parameters attach only to initial page_view', () => {

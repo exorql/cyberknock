@@ -1,9 +1,7 @@
 import { RoiSimulator } from "@/components/growth-web/lp/RoiSimulator"
 import { TrackedCta } from "@/components/growth-web/lp/TrackedCta"
 import { PRICING_TERMS, SERIF_TEXT, TRUST } from "@/lib/growth-web/lp-content"
-import { GROWTH_WEB_ROUTES, PROCESS_STEPS, SERVICE_METADATA } from "@/lib/growth-web/service-lp"
-
-const buildDuration = PROCESS_STEPS[1]?.duration ?? ""
+import { BUILD_TIMELINE, GROWTH_WEB_ROUTES, SERVICE_METADATA } from "@/lib/growth-web/service-lp"
 
 export function TrustAndPricing() {
   return (
@@ -64,7 +62,7 @@ export function TrustAndPricing() {
             </div>
           </div>
           <ul className="gwl-terms">
-            <li><b>{PRICING_TERMS.pilot}</b>構築期間は{buildDuration}。</li>
+            <li><b>{PRICING_TERMS.pilot}</b>構築期間は{BUILD_TIMELINE.duration}。{BUILD_TIMELINE.note}</li>
             <li><b>契約：</b>{PRICING_TERMS.contract}</li>
             <li><b>権利：</b>{PRICING_TERMS.rights}</li>
           </ul>

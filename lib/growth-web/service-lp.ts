@@ -47,6 +47,11 @@ export const PRICING_INCLUDES = {
   ],
 } as const
 
+export const BUILD_TIMELINE = {
+  duration: "約3〜5営業日（目安）",
+  note: "必要な情報・素材が揃ってからの期間です。公開日は確認・修正状況により異なります。",
+} as const
+
 export const PROCESS_STEPS: ProcessStep[] = [
   {
     phase: "STEP 01",
@@ -58,7 +63,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
   },
   {
     phase: "STEP 02",
-    duration: "約10〜14日（目標）",
+    duration: BUILD_TIMELINE.duration,
     title: "スポーツスクール特化サイト構築・計測実装",
     description:
       "ヒアリング内容と既存写真をもとに、構成案・デザイン・高CVR体験フォーム・GA4イベント計測・構造化データを一気通貫で構築します。",

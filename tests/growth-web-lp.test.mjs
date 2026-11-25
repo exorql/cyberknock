@@ -4,6 +4,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs"
 import { INQUIRY_REQUIRED_FIELD_LABELS, LP_HERO, PRICING_TERMS, SERIF_TEXT } from "../lib/growth-web/lp-content.ts"
 import { isFormVisibleOrPassed, isKeyboardOpen, shouldShowSticky } from "../lib/growth-web/sticky-cta.ts"
 import { safeAnalyticsParams } from "../lib/analytics.ts"
+import { BUILD_TIMELINE, PROCESS_STEPS } from "../lib/growth-web/service-lp.ts"
 
 const root = new URL("../", import.meta.url)
 const read = (p) => readFileSync(new URL(p, root), "utf8")
@@ -86,6 +87,16 @@ test("Growth Web LP names no real competitors and frames the ROI tool as a non-g
   const page = read("components/growth-web/lp/TrustAndPricing.tsx")
   assert.match(page, /<details className="gwl-roi">/)
   assert.match(page, /<RoiSimulator embedded \/>/)
+})
+
+test("Growth Web LP states a 3–5 business day build estimate and distinguishes publication", () => {
+  assert.equal(BUILD_TIMELINE.duration, "約3〜5営業日（目安）")
+  assert.match(BUILD_TIMELINE.note, /必要な情報・素材が揃ってから/)
+  assert.match(BUILD_TIMELINE.note, /公開日は確認・修正状況により異なります/)
+  assert.equal(PROCESS_STEPS.find((step) => step.phase === "STEP 02")?.duration, BUILD_TIMELINE.duration)
+  const pricing = read("components/growth-web/lp/TrustAndPricing.tsx")
+  assert.match(pricing, /構築期間は\{BUILD_TIMELINE\.duration\}。\{BUILD_TIMELINE\.note\}/)
+  assert.doesNotMatch(SANS_SOURCES.map(read).join("\n"), /約10〜14日/)
 })
 
 test("Growth Web LP keeps anchors, sections and tracked CTAs", () => {

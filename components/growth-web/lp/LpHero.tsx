@@ -14,20 +14,9 @@ export function LpHero() {
           <div>
             <p className="gwl-eyebrow">{LP_HERO.eyebrow}</p>
             <h1 id="gwl-h1" className="gwl-h1">
-              <span className="gwl-l1">{LP_HERO.kicker}</span>
-              <span className="gwl-l2">
-                {SERIF_TEXT.heroTitleLine1}
-                <br />
-                <span className="gwl-em">{SERIF_TEXT.heroTitleEm}</span>
-                {SERIF_TEXT.heroTitleTail}
-              </span>
+              <span className="gwl-title-line"><span className="gwl-em">{SERIF_TEXT.heroTitleLine1}</span></span>
+              <span className="gwl-title-line">{SERIF_TEXT.heroTitleLine2}</span>
             </h1>
-            <ul className="gwl-def" aria-label="サービスに含まれるもの">
-              {LP_HERO.definition.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-              <li className="gwl-def-note">{LP_HERO.definitionNote}</li>
-            </ul>
             <p className="gwl-lede">
               {LP_HERO.ledeLead}
               <br className="gwl-br-pc" />

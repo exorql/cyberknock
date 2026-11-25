@@ -4,7 +4,7 @@
  * Every promise here must stay consistent with the real inquiry form
  * (components/growth-web/lp/ServiceInquiryForm.tsx), PRICING_INCLUDES,
  * PROCESS_STEPS and LP_FAQS in ./service-lp.ts. tests/growth-web-lp.test.mjs
- * checks the required-field wording against the form.
+ * checks the actual required fields and hero copy.
  *
  * Text rendered in the mincho display face must live in SERIF_TEXT: the font
  * subset (scripts/build-growth-web-fonts.py) only contains those glyphs.
@@ -12,9 +12,8 @@
 
 /** Headings rendered with the "GW Mincho" subset. Keep in sync with the components. */
 export const SERIF_TEXT = {
-  heroTitleLine1: "Web集客は、",
-  heroTitleEm: "毎月改善",
-  heroTitleTail: "。",
+  heroTitleLine1: "体験申込を増やす",
+  heroTitleLine2: "ホームページづくり",
   howTitleLine1: "毎月、サイトの",
   howTitleLine2: "フォームを直す。",
   trustTitleLine1: "依頼する前に、",
@@ -28,17 +27,13 @@ export const SERIF_TEXT = {
 export const INQUIRY_REQUIRED_FIELD_LABELS = ["スクール名", "お名前", "メールアドレス"] as const
 
 export const LP_HERO = {
-  eyebrow: "民間スポーツスクール専門｜Web制作・継続集客改善",
-  kicker: "指導に集中。",
-  definition: ["サイト制作", "毎月の計測と改修", "地域検索対策"],
-  definitionNote: "定額・先行3社",
-  ledeLead: "保護者が学年・曜日・料金で迷わず体験申込へ進めるサイトを制作。",
-  ledeStrong: "公開後は離脱箇所を毎月データで特定し、改修も更新も一括対応します。",
+  eyebrow: "スポーツスクール専門のホームページ制作・集客支援",
+  ledeLead: "保護者が迷わず体験を申し込めるホームページを制作。",
+  ledeStrong: "公開後も地域検索対策とデータに基づく毎月の改善で、生徒募集を支援します。",
   ctaLabel: "無料サイト診断を申し込む",
   demoLabel: "実働デモサイトを見る",
   assurances: [
-    `必須：${INQUIRY_REQUIRED_FIELD_LABELS.join("・")}＋プライバシーポリシーへの同意`,
-    "ご連絡は原則メール。営業電話はしません",
+    "所要30分・無料／ご連絡は原則メール。営業電話はしません",
   ],
 } as const
 

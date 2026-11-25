@@ -59,13 +59,19 @@ test("Growth Web LP fonts stay small and are declared only for the LP", () => {
   }
 })
 
-test("Growth Web LP hero copy matches the real inquiry form requirements", () => {
+test("Growth Web LP hero copy is concise and keeps the real inquiry form requirements", () => {
   const form = read("components/growth-web/lp/ServiceInquiryForm.tsx")
   const requiredNames = [...form.matchAll(/name="(\w+)"\s+type="[^"]+"\s+required/g)].map((m) => m[1])
   assert.deepEqual(requiredNames, ["organizationName", "contactName", "email"])
   assert.equal(INQUIRY_REQUIRED_FIELD_LABELS.length, requiredNames.length)
-  assert.ok(LP_HERO.assurances[0].includes(INQUIRY_REQUIRED_FIELD_LABELS.join("・")))
-  assert.match(LP_HERO.assurances[0], /プライバシーポリシーへの同意/)
+  assert.equal(SERIF_TEXT.heroTitleLine1, "体験申込を増やす")
+  assert.equal(SERIF_TEXT.heroTitleLine2, "ホームページづくり")
+  assert.deepEqual(LP_HERO.assurances, ["所要30分・無料／ご連絡は原則メール。営業電話はしません"])
+  const hero = read("components/growth-web/lp/LpHero.tsx")
+  assert.equal((hero.match(/className="gwl-title-line"/g) || []).length, 2)
+  assert.doesNotMatch(hero, /gwl-def|LP_HERO\.kicker/)
+  assert.match(hero, /SERIF_TEXT\.heroTitleLine1/)
+  assert.match(hero, /SERIF_TEXT\.heroTitleLine2/)
   assert.match(form, /name="privacyAccepted"/)
   assert.match(read("lib/growth-web/form-options.ts"), /privacyAccepted/)
   // Promises that the service does not define must not reappear.

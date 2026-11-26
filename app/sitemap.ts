@@ -12,12 +12,20 @@ import { insights } from "@/lib/b2b-insights"
 const lastSignificantUpdate = {
   home: "2026-11-23", // Growth Web entry point added to services
   sportsDx: "2026-11-12", // canonical domain and linked content updated
-  aiDevelopment: "2026-11-24", // Choleste AI proof, capability scope, and consultation CTAs updated
+  aiDevelopment: "2026-11-26", // #24 offer details; consultation context and form guidance revised
   growthWeb: "2026-11-23", // Cyber Knock Growth Web service LP launched
   caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
   security: "2026-11-12", // canonical domain updated
   privacy: "2026-11-23", // Growth Web LP and demo data handling disclosure added
 } as const
+
+// Material CTA and decision-guide revisions, not the date of a routine deploy.
+const insightLastSignificantUpdate: Record<string, string> = {
+  "ai-development-outsourcing-guide": "2026-11-26",
+  "ai-poc-process-evaluation": "2026-11-26",
+  "ai-video-analysis-poc-cost": "2026-11-26",
+  "ai-video-analysis-development-request": "2026-11-26",
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://cyberknock.jp"
@@ -54,7 +62,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...insights.map(({ slug }) => ({
       url: `${baseUrl}/insights/${slug}`,
-      lastModified: new Date(slug === "ai-video-analysis-development-request" || slug === "ai-development-outsourcing-guide" ? "2026-11-17" : "2026-11-03"),
+      lastModified: insightLastSignificantUpdate[slug] ? new Date(insightLastSignificantUpdate[slug]) : undefined,
       changeFrequency: "monthly" as const,
       priority: 0.68,
     })),

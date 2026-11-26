@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, CheckCircle2 } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { findInsight, insights } from "@/lib/b2b-insights"
+import { consultationForGuide, guideContactHref } from "@/lib/b2b-inquiry"
 import styles from "../insights.module.css"
 
 const origin = "https://cyberknock.jp"
@@ -46,6 +47,7 @@ export default async function InsightPage({ params }: Props) {
   const { slug } = await params
   const article = findInsight(slug)
   if (!article) notFound()
+  const consultation = consultationForGuide(article.slug)
   const url = `${origin}/insights/${article.slug}`
   const jsonLd = [
     {
@@ -100,7 +102,7 @@ export default async function InsightPage({ params }: Props) {
             </nav>
             <div className={styles.sideContact}>
               <p>開発できるか、まず確かめたい方へ</p>
-              <Link href="/ai-development#contact" data-track="cta_click" data-location="content">開発について相談する（無料） <ArrowUpRight size={17} aria-hidden="true" /></Link>
+              <Link href={consultation.href} data-track="cta_click" data-location="content" data-guide={consultation.guide} data-service={consultation.service}>{consultation.cta} <ArrowUpRight size={17} aria-hidden="true" /></Link>
               <Link href="/ai-development" style={{ marginTop: 8, fontSize: 12 }}>法人向けAI開発LPを見る <ArrowRight size={15} aria-hidden="true" /></Link>
             </div>
           </aside>
@@ -139,6 +141,18 @@ export default async function InsightPage({ params }: Props) {
               </section>
             ))}
 
+            {article.slug === "ai-poc-process-evaluation" && (
+              <section className={styles.related} aria-labelledby="production-evaluation-heading">
+                <p className={styles.relatedOverline}>AFTER RELEASE / 運用中のAI機能</p>
+                <h2 id="production-evaluation-heading">公開済みAIの精度・原価を改善するときは</h2>
+                <p>モデルやプロンプトを更新する前に、現行方式と改善案を同じ評価データ・同じ採点基準で比較します。正解と照合できる項目、誤答や保留の内訳、1件当たりの処理費用と人による確認時間を分けて確認すると、変更の採否を判断しやすくなります。</p>
+                <p>新規開発を目的とするPoCと、運用中の機能を継続的に評価するレビューは別の相談です。現在の方式で困っていること、利用頻度、見直したい指標から整理できます。品質や原価の改善幅を一律に保証するものではありません。</p>
+                <Link href={guideContactHref("ai-poc-process-evaluation", "ai-improvement")} data-track="cta_click" data-location="content" data-guide="ai-poc-process-evaluation" data-service="ai-improvement">
+                  運用中のAIの品質・原価改善を相談する（無料） <ArrowUpRight size={18} aria-hidden="true" />
+                </Link>
+              </section>
+            )}
+
             <section id="common-questions" className={styles.bodySection} aria-labelledby="faq-title">
               <h2 id="faq-title">よくある質問</h2>
               <div className={styles.faqs}>{article.faqs.map(({ question, answer }) => (
@@ -170,10 +184,10 @@ export default async function InsightPage({ params }: Props) {
           <div className={`wrap ${styles.contactInner}`}>
             <div>
               <p className={styles.eyebrow}>NEXT STEP</p>
-              <h2 id="insight-contact-heading">最初は、可能性の確認から。</h2>
-              <p>実現したい業務・機能、現在の仕組み、判断したいことを教えてください。仕様が未定でも相談できます。</p>
+              <h2 id="insight-contact-heading">{consultation.heading}</h2>
+              <p>{consultation.lead}</p>
             </div>
-            <Link className="button" href="/ai-development#contact" data-track="cta_click" data-location="content">AI・プロダクト開発を相談する <ArrowRight size={18} aria-hidden="true" /></Link>
+            <Link className="button" href={consultation.href} data-track="cta_click" data-location="content" data-guide={consultation.guide} data-service={consultation.service}>{consultation.cta} <ArrowRight size={18} aria-hidden="true" /></Link>
           </div>
         </section>
       </main>

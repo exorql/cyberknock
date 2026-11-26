@@ -4,9 +4,10 @@ import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } 
 import Link from "next/link"
 import { ArrowUpRight, CheckCircle2 } from "lucide-react"
 import { pageCategory, trackEvent } from "@/lib/analytics"
+import { guideConsultations, guideFromContactSearch, inquiryMessageHint, type B2BGuide } from "@/lib/b2b-inquiry"
 
 const services = [
-  ["sports-ai", "スポーツAI・動画分析"], ["product", "Web・モバイルプロダクト開発"],
+  ["sports-ai", "動画・画像解析／スポーツAI"], ["product", "Web・モバイルプロダクト開発"],
   ["ai-improvement", "AI機能開発・品質改善"], ["advisory", "開発顧問・技術支援"],
   ["sports-dx", "スポーツDX・AI実証"], ["other", "相談しながら整理したい"],
 ] as const
@@ -42,11 +43,15 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
   const [done, setDone] = useState(false)
   const [error, setError] = useState("")
   const normalizedSource = pageCategory(source)
+  const [guide, setGuide] = useState<B2BGuide | undefined>()
+  const inquiryGuide = normalizedSource === "ai_development" ? guide : undefined
   const id = (field: Field) => `${prefix}-${field}`
 
   useEffect(() => {
     function selectService(search: string) {
-      const service = new URLSearchParams(search).get("service")
+      setGuide(guideFromContactSearch(search, normalizedSource))
+      const values = new URLSearchParams(search).getAll("service")
+      const service = values.length === 1 ? values[0] : undefined
       if (service && services.some(([key]) => key === service)) setForm((previous) => ({ ...previous, service }))
     }
     function fromLocation() { selectService(window.location.search) }
@@ -62,19 +67,19 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
     window.addEventListener("popstate", fromLocation)
     document.addEventListener("click", fromLink)
     return () => { window.removeEventListener("popstate", fromLocation); document.removeEventListener("click", fromLink) }
-  }, [])
+  }, [normalizedSource])
 
   useEffect(() => {
-    function abandon() { if (started.current && !completed.current) trackEvent("contact_form_abandon", { source: normalizedSource, service: form.service }) }
+    function abandon() { if (started.current && !completed.current) trackEvent("contact_form_abandon", { source: normalizedSource, service: form.service, guide: inquiryGuide }) }
     window.addEventListener("pagehide", abandon)
     return () => window.removeEventListener("pagehide", abandon)
-  }, [normalizedSource, form.service])
+  }, [normalizedSource, form.service, inquiryGuide])
   useEffect(() => { if (done) successRef.current?.focus() }, [done])
 
   function start() {
     if (started.current) return
     started.current = true
-    trackEvent("contact_form_start", { source: normalizedSource, service: form.service })
+    trackEvent("contact_form_start", { source: normalizedSource, service: form.service, guide: inquiryGuide })
   }
 
   function change(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
@@ -98,19 +103,19 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
     setErrors(nextErrors)
     setError("")
     if (Object.keys(nextErrors).length) {
-      trackEvent("contact_form_error", { source: normalizedSource, error_type: "validation" })
+      trackEvent("contact_form_error", { source: normalizedSource, guide: inquiryGuide, error_type: "validation" })
       focusError(nextErrors)
       return
     }
     inFlight.current = true
     setSending(true)
-    trackEvent("contact_form_submit", { source: normalizedSource, service: form.service })
+    trackEvent("contact_form_submit", { source: normalizedSource, service: form.service, guide: inquiryGuide })
     const controller = new AbortController()
     const timeout = window.setTimeout(() => controller.abort(), 12_000)
     try {
       const response = await fetch("/contact", {
         method: "POST", headers: { "Content-Type": "application/json" }, signal: controller.signal,
-        body: JSON.stringify({ ...form, name: form.name.trim(), email: normalizeEmail(form.email), company: form.company.trim(), message: form.message.trim(), source: normalizedSource }),
+        body: JSON.stringify({ ...form, name: form.name.trim(), email: normalizeEmail(form.email), company: form.company.trim(), message: form.message.trim(), source: normalizedSource, guide: inquiryGuide }),
       })
       const result = await response.json().catch(() => null) as { ok?: boolean; errors?: Errors } | null
       if (response.status === 400 && result?.errors) {
@@ -122,17 +127,17 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
         focusError(serverErrors)
       }
       if (!response.ok || result?.ok !== true) {
-        trackEvent("contact_form_error", { source: normalizedSource, error_type: response.status === 400 ? "validation" : response.status === 429 ? "rate_limit" : "server" })
+        trackEvent("contact_form_error", { source: normalizedSource, guide: inquiryGuide, error_type: response.status === 400 ? "validation" : response.status === 429 ? "rate_limit" : "server" })
         setError(response.status === 429 ? "しばらく時間をおいてから再度お試しください。入力内容は残っています。" : "送信を完了できませんでした。入力内容は残っています。時間をおいて再度お試しください。")
         return
       }
       completed.current = true
       setDone(true)
-      trackEvent("contact_form_success", { source: normalizedSource, service: form.service })
+      trackEvent("contact_form_success", { source: normalizedSource, service: form.service, guide: inquiryGuide })
     } catch (reason) {
       const timedOut = reason instanceof Error && reason.name === "AbortError"
       setError(timedOut ? "通信に時間がかかっています。入力内容は残っています。少し時間をおいて再度お試しください。" : "通信できませんでした。入力内容は残っています。接続を確認して再度お試しください。")
-      trackEvent("contact_form_error", { source: normalizedSource, error_type: timedOut ? "timeout" : "network" })
+      trackEvent("contact_form_error", { source: normalizedSource, guide: inquiryGuide, error_type: timedOut ? "timeout" : "network" })
     } finally {
       window.clearTimeout(timeout)
       inFlight.current = false
@@ -157,6 +162,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
   return (
     <form ref={formRef} className="contact-form" onSubmit={submit} onFocus={start} noValidate aria-busy={sending}>
       <p className="form-meta">必須項目だけでもご相談いただけます。予算・仕様は未定で構いません。</p>
+      {inquiryGuide && <p className="form-meta">相談リンクのガイド：{guideConsultations[inquiryGuide].label}。相談テーマは変更できます。</p>}
       {errorCount > 0 && <div className="form-alert" role="alert"><strong>入力内容を確認してください。</strong><p>{errorCount}件の項目に修正が必要です。</p></div>}
       <div className="form-grid">
         <div className="form-field">
@@ -189,7 +195,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
       </div>
       <div className="form-field">
         <label htmlFor={id("message")}>ご相談内容 <span className="required-label">必須</span></label>
-        <p id={`${id("message")}-hint`} className="field-hint">実現したいこと、困っていること、希望時期など、分かる範囲でお聞かせください。</p>
+        <p id={`${id("message")}-hint`} className="field-hint">{inquiryMessageHint(normalizedSource, form.service)}</p>
         <textarea id={id("message")} name="message" value={form.message} onChange={change} rows={6} required maxLength={5000} disabled={sending} aria-invalid={!!errors.message} aria-describedby={describedBy("message", true)} />
         {fieldError("message")}
       </div>

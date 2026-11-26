@@ -27,5 +27,5 @@ test("service LP explicitly identifies commissioned AI development without distu
   assert.match(source, /自社アプリ「AIスポーツトレーナー」/)
   assert.match(source, /<DemoVideoPlayer \/>/)
   assert.match(source, /<ContactForm source="ai_development"/)
-  assert.match(read("app/sitemap.ts"), /slug === "ai-development-outsourcing-guide"/)
+  assert.match(read("app/sitemap.ts"), /"ai-development-outsourcing-guide": "2026-11-26"/)
 })

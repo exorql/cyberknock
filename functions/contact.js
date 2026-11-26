@@ -4,10 +4,18 @@ const MAX_BODY_BYTES = 24_000;
 const LIMITS = { name: 100, email: 254, company: 200, message: 5_000 };
 const BUDGETS = new Set(["", "undecided", "under_50", "50_100", "100_300", "300_500", "over_500"]);
 const SERVICES = new Set(["", "sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"]);
+// Optional, fixed consultation-link context. Never infer acquisition or accept a raw URL.
+const GUIDE_LABELS = Object.freeze({
+  "ai-development-outsourcing-guide": "AI開発会社の選び方と費用",
+  "ai-poc-process-evaluation": "AI PoCの進め方と評価基準",
+  "ai-video-analysis-poc-cost": "AI動画解析の開発費用とPoCの見積ポイント",
+  "ai-video-analysis-development-request": "AI動画解析システム開発の依頼ガイド",
+});
+const isKnownGuide = value => typeof value === "string" && Object.hasOwn(GUIDE_LABELS, value);
 const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"]);
 const BUDGET_LABELS = { undecided: "相談して決めたい", under_50: "50万円未満", "50_100": "50〜100万円", "100_300": "100〜300万円", "300_500": "300〜500万円", over_500: "500万円以上" };
 const SOURCE_LABELS = { home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", ai_development: "AI・プロダクト開発の受託相談", other: "その他" };
-const SERVICE_LABELS = { "sports-ai": "スポーツAI・動画分析", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
+const SERVICE_LABELS = { "sports-ai": "動画・画像解析／スポーツAI", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -60,13 +68,16 @@ export function validateContact(input) {
     else data[key] = value;
   }
   data.source = SOURCES.has(input.source) ? input.source : "other";
+  if (data.source === "ai_development" && isKnownGuide(input.guide)) data.guide = input.guide;
   return Object.keys(errors).length ? { errors } : { data };
 }
 
 export function buildSlackPayload(data) {
   const details = `氏名: ${data.name}\nメール: ${data.email}\n会社名・組織名: ${data.company || "未入力"}\n相談テーマ: ${SERVICE_LABELS[data.service] || "未選択"}\nご予算: ${BUDGET_LABELS[data.budget] || "未選択"}\n相談元: ${SOURCE_LABELS[data.source] || "その他"} (${data.source})`;
   const characters = Array.from(data.message);
-  const sections = [details];
+  const guideLine = data.source === "ai_development" && isKnownGuide(data.guide)
+    ? "\n相談リンクのガイド: " + GUIDE_LABELS[data.guide] + " (" + data.guide + ")" : "";
+  const sections = [details + guideLine];
   for (let index = 0; index < characters.length; index += 2_500) {
     sections.push(`${index === 0 ? "ご相談内容:\n" : "（続き）\n"}${characters.slice(index, index + 2_500).join("")}`);
   }

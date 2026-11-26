@@ -78,7 +78,7 @@ const consultationShortcuts = [
   },
   {
     service: "ai-improvement",
-    label: "マルチモーダルAI・既存組み込みを相談する",
+    label: "AI機能の組み込み・品質や原価の改善を相談する",
   },
   {
     service: "product",
@@ -91,11 +91,23 @@ const consultationShortcuts = [
 ] as const
 
 const developmentPricing = [
-  { title: "小規模技術検証", price: "30万〜80万円", audience: "まず手元の映像・画像で実現可能性を確認したい方へ。", scope: "成果物：サンプルを用いた検証結果・課題整理。専用UIや独自モデル学習は別途。" },
+  {
+    title: "小規模技術検証",
+    consultation: { service: "sports-ai", label: "動画解析の技術検証を相談する" },
+    price: "30万〜80万円",
+    audience: "手元の動画・画像で、AIを業務に使えるか判断したい方へ。",
+    scope: "用途を一つに絞り、正解の基準を決めて検証します。誤検出や見落としが起きる条件、処理時間、推論原価、人による確認・修正時間を評価レポートにまとめます。本番組み込み、専用画面、独自モデルの学習は別途お見積もりします。",
+  },
   { title: "本格PoC", price: "80万〜250万円", audience: "評価基準を定め、本開発の投資判断をしたい方へ。", scope: "成果物：試作パイプライン、定量評価・本開発の要件整理。評価範囲は事前合意。" },
   { title: "新規事業MVP開発", price: "150万〜600万円", audience: "最小限の機能で実ユーザーに価値を検証したい方へ。", scope: "成果物：実用Web・モバイルアプリ。低価格帯はWeb単体・AI機能1系統などに限定。" },
   { title: "本開発・既存システム統合", price: "個別見積もり", audience: "商用環境への導入や既存システムとの連携を進めたい方へ。", scope: "成果物：要件に応じた実装・テスト・リリース支援。" },
-  { title: "継続開発・運用改善", price: "個別見積もり", audience: "公開後の精度・推論コスト・利用体験を改善したい方へ。", scope: "成果物：合意した範囲の機能改善・運用支援。稼働範囲と条件を事前に決定。" },
+  {
+    title: "継続開発・運用改善",
+    consultation: { service: "ai-improvement", label: "運用中のAI機能の改善を相談する" },
+    price: "個別見積もり",
+    audience: "運用中のAI機能で、更新のたびに品質や処理原価を見直したい方へ。",
+    scope: "品質・原価改善レビューでは、現行方式と改善案を同じデータで比較します。誤りの変化と1件あたりの費用を基に、改修を採用するか判断できます。機能開発や保守の範囲は別途ご相談ください。",
+  },
 ] as const
 
 const faqs = [
@@ -525,10 +537,33 @@ export default function AiDevelopmentPage() {
                   <p className={styles.priceAmount}>{item.price}</p>
                   <p>{item.audience}</p>
                   <p className={styles.challengeScope}>{item.scope}</p>
+                  {"consultation" in item && (
+                    <Link
+                      href={`?service=${item.consultation.service}#contact`}
+                      className={styles.challengeGuideLink}
+                      data-track="cta_click"
+                      data-location="ai_development"
+                      data-service={item.consultation.service}
+                    >
+                      {item.consultation.label} <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                  )}
                 </article>
               ))}
             </div>
             <p className={styles.disclosure}>金額は税抜の参考費用です。開発範囲、データ条件、精度・運用要件により変動します。固定料金や認識精度の保証ではありません。初回相談・概算見積もりは無料です。</p>
+            <div className={styles.faqList}>
+              <details>
+                <summary>技術検証の評価レポート見本を見る（架空の例）</summary>
+                <p>
+                  <strong>検証したいこと</strong>　固定カメラの動画から指定した動作の候補区間を抽出し、人が映像を確認する時間を減らせるか。
+                  <br />
+                  <strong>評価結果の例</strong>　評価用の動画24本のうち、動作がある12本中10本を検出。残りは見落とし1本、判定保留1本で、事前に決めた検出率90％に届きませんでした。
+                  <br />
+                  <strong>本開発の判断</strong>　24本の確認・修正時間は8分から4.8分になり、AIの変動費は144円。動作が隠れると見落とすため、自動確定は見送ります。次は撮影条件を絞り、新しい動画で再評価するかを判断します。
+                </p>
+              </details>
+            </div>
             <a href="#contact" className={styles.challengeGuideLink} data-track="cta_click" data-location="ai_development">開発費用・進め方を相談する <ArrowRight size={15} aria-hidden="true" /></a>
           </div>
         </section>

@@ -6,7 +6,7 @@ import { CaseStudyContent } from "./content"
 const siteUrl = "https://cyberknock.jp"
 const title = "AIスポーツトレーナー 開発・運用事例 | スポーツAI・動画分析 | Cyber Knock"
 const description =
-  "スポーツ動画分析、姿勢推定、動作解析、生成AIを組み合わせた「AIスポーツトレーナー」の開発・運用事例。企画からモバイルアプリ、クラウド、AI品質設計、継続改善まで紹介します。"
+  "AIスポーツトレーナーの開発・運用事例。短距離走の動画分析でAPIが応答しても結果が届かなかった1件を起点に、実動画での6試行、採点理由の欠落、推論原価、修正候補の公開判断を紹介します。"
 const ogImage = "/images/og/ai-sports-trainer-demo.png"
 
 export const metadata: Metadata = {

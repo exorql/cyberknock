@@ -12,7 +12,7 @@ import styles from "./development.module.css"
 
 const title = "AI開発・PoC・Web／モバイルアプリ受託開発｜動画解析・骨格推定・マルチモーダルAI | Cyber Knock"
 const description =
-  "AI機能開発、動画解析、Web・モバイルアプリ開発。自社アプリ「AIスポーツトレーナー」「コレステAI」の商用開発・運用実績をもとに、動画解析・骨格推定・マルチモーダルAI組み込み・必要に応じた有償PoCから本番実装・運用改善まで一貫支援します。"
+  "画像・動画AI実用性判定は60万円、稼働中のAI品質・原価改善レビューは月額20万円（いずれも税別）。自社アプリの開発・運用経験をもとに、動画解析・生成AIの有償検証からWeb・モバイルへの本番実装まで支援します。"
 const ogImage = "/images/og/cyberknock-b2b.png"
 
 export const metadata: Metadata = {
@@ -50,7 +50,7 @@ const capabilities = [
     code: "MULTIMODAL & GEN AI",
     title: "マルチモーダルAI・生成AI組み込み",
     description:
-      "画像・動画・文書・数値を扱うマルチモーダルLLMを、既存のWebサービスや業務システム、モバイルアプリへ統合します。プロンプト設計だけでなく、構造化出力・誤答抑止ガードレール、推論コストと応答時間の最適化まで実装します。",
+      "画像・動画・文書・数値を扱うマルチモーダルLLMを、既存のWebサービスや業務システム、モバイルアプリへ統合します。既存アプリへ1機能を追加する場合は、利用するAPI、送信できるデータと閲覧権限、失敗時に画面へ返す内容を整理します。貴社が担当する画面・認証と、当社が実装する出力検証や再試行の範囲を分けて見積もります。",
     scope: "対応例：写真や動画解析結果の構造化レポート生成、画像と数値の複合判定、業務知識の検索・要約支援など",
   },
   {
@@ -90,13 +90,38 @@ const consultationShortcuts = [
   },
 ] as const
 
+const standardOffers = [
+  {
+    name: "画像・動画AI実用性判定",
+    price: "60万円",
+    audience: "手元の画像や録画でAI機能を公開できるか判断したい、SaaS・業務アプリの責任者や開発会社向けです。",
+    requirements: "利用権限のある素材、成功例と失敗例、業務上の正解を判断できる方をご用意ください。画像認識・画像解析では、照明や撮影角度をそろえた場合と変えた場合で、誤検出・見逃しと人の確認が必要な条件を調べます。",
+    scope: "1用途・1種類の入力・1種類の出力に絞り、最大2方式を比較。判定する場面などを1評価単位と定め、最大30単位、かつ動画は合計15分または画像は50枚までとします。",
+    delivery: "評価仕様、データと方式の版、再現手順、失敗例、原価・遅延と測定できなかった項目をレポートにまとめます。60分の報告会で、採用・条件付き採用・見送りの根拠と次の検証条件を説明します。",
+    exclusions: "大量の正解付け、独自モデルの学習、画面開発・本番連携は個別見積もりです。判定は合意した評価素材と条件に限ります。",
+    detail: { href: "#report-sample", label: "評価レポートの見本を読む（架空の例）" },
+    consultation: { service: "sports-ai", label: "検証したい画像・動画の用途を相談する" },
+  },
+  {
+    name: "AI品質・原価改善レビュー",
+    price: "月額20万円",
+    audience: "運用中のAI機能で、モデルやプロンプトを更新するか決めたいチーム向けです。改善を実装する担当者がいることが前提です。",
+    requirements: "現行版のモデル・設定、変更候補、正解と判断基準を付けた固定データ、失敗や再処理・費用が分かるログをご用意ください。同等の評価資産があれば、初回の実用性判定を経ずに依頼できます。",
+    scope: "1サービスで固定30評価単位以内、合計15分以内の動画または50枚以内の画像を使用します。現行版と候補版の最大2版を月1回比較し、失敗分の再実行は5評価単位まで各1回です。",
+    delivery: "誤判定・未判定の変化、待ち時間、再試行を含む利用可能な結果1件あたりの原価を比較できる範囲で報告します。変更の採否と、実装担当者が次に直す項目の優先順位をお渡しします。",
+    exclusions: "初回は単月です。新規データの追加、基準の変更、改善実装、常時監視は個別見積もりです。",
+    detail: { href: "/ai-development/ai-quality-evaluation", label: "品質評価の進め方と必要なログを見る" },
+    consultation: { service: "ai-improvement", label: "運用中のAI機能の評価を相談する" },
+  },
+] as const
+
 const developmentPricing = [
   {
     title: "小規模技術検証",
     consultation: { service: "sports-ai", label: "動画解析の技術検証を相談する" },
     price: "30万〜80万円",
     audience: "手元の動画・画像で、AIを業務に使えるか判断したい方へ。",
-    scope: "用途を一つに絞り、正解の基準を決めて検証します。誤検出や見落としが起きる条件、処理時間、推論原価、人による確認・修正時間を評価レポートにまとめます。本番組み込み、専用画面、独自モデルの学習は別途お見積もりします。",
+    scope: "画像・動画AI実用性判定は、この範囲に含まれる標準商品です。対象や評価方法が標準条件を外れるときは、必要な検証項目に合わせて見積もります。",
   },
   { title: "本格PoC", price: "80万〜250万円", audience: "評価基準を定め、本開発の投資判断をしたい方へ。", scope: "成果物：試作パイプライン、定量評価・本開発の要件整理。評価範囲は事前合意。" },
   { title: "新規事業MVP開発", price: "150万〜600万円", audience: "最小限の機能で実ユーザーに価値を検証したい方へ。", scope: "成果物：実用Web・モバイルアプリ。低価格帯はWeb単体・AI機能1系統などに限定。" },
@@ -106,7 +131,7 @@ const developmentPricing = [
     consultation: { service: "ai-improvement", label: "運用中のAI機能の改善を相談する" },
     price: "個別見積もり",
     audience: "運用中のAI機能で、更新のたびに品質や処理原価を見直したい方へ。",
-    scope: "品質・原価改善レビューでは、現行方式と改善案を同じデータで比較します。誤りの変化と1件あたりの費用を基に、改修を採用するか判断できます。機能開発や保守の範囲は別途ご相談ください。",
+    scope: "標準の月次レビューから先の改善実装、機能追加、監視・保守は、変更の頻度と担当範囲に応じて個別に見積もります。",
   },
 ] as const
 
@@ -129,7 +154,7 @@ const faqs = [
   },
   {
     q: "費用や期間、成果物の権利はどのように決まりますか？",
-    a: "対象データの条件、開発範囲（技術検証・PoCのみ／MVPや本開発・運用改善まで）、評価項目、運用要件に応じて個別にお見積もりします。NDA、契約形態（準委任・請負）、成果物および知的財産権の帰属は、着手前に契約書で明確に定めます。",
+    a: "標準条件でお引き受けする場合、画像・動画AI実用性判定は60万円（税別）、AI品質・原価改善レビューは月額20万円（税別）です。合意した範囲で固定見積もりを提示し、条件外の開発や調査は個別に見積もります。日程は素材の受領時期を確認して決めます。NDA、契約形態（準委任・請負）、成果物および知的財産権の帰属は、着手前に契約書で明確に定めます。",
   },
 ] as const
 
@@ -199,6 +224,9 @@ export default function AiDevelopmentPage() {
                 >
                   実際の技術デモを見る <ArrowDownRight size={18} aria-hidden="true" />
                 </Link>
+                <Link href="#standard-offers" className={`text-link ${styles.secondary}`}>
+                  検証・レビューの料金を見る <ArrowDownRight size={18} aria-hidden="true" />
+                </Link>
               </div>
               <p className={styles.heroMicro}>
                 仕様・予算が未定でも相談可能 ／ 初回フォームで機密動画の添付は不要 ／ 代表エンジニアが直接対応
@@ -244,6 +272,49 @@ export default function AiDevelopmentPage() {
                 </p>
               </figcaption>
             </figure>
+          </div>
+        </section>
+
+        <section id="standard-offers" className={styles.chapter} aria-labelledby="standard-offers-title">
+          <div className="wrap">
+            <h2 id="standard-offers-title" className={styles.chapterTitle}>AI検証・改善の標準料金</h2>
+            <p className={styles.chapterLead}>
+              新しいAI機能を採用する判断と、運用中の機能を更新する判断。それぞれに必要なデータと納品物を定めた、法人向けの標準商品です。
+            </p>
+            <div className={styles.offerGrid}>
+              {standardOffers.map((offer) => (
+                <article className={styles.offerCard} key={offer.name}>
+                  <h3>{offer.name}</h3>
+                  <p className={styles.offerPrice}>{offer.price}<small>（税別）</small></p>
+                  <p>{offer.audience}</p>
+                  <dl className={styles.offerTerms}>
+                    <dt>ご用意いただくもの</dt><dd>{offer.requirements}</dd>
+                    <dt>検証範囲</dt><dd>{offer.scope}</dd>
+                    <dt>納品物</dt><dd>{offer.delivery}</dd>
+                    <dt>適用条件・対象外</dt><dd>{offer.exclusions}</dd>
+                  </dl>
+                  <div className={styles.offerLinks}>
+                    <Link href={offer.detail.href} className={styles.challengeGuideLink}>
+                      {offer.detail.label} <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                    <Link
+                      href={`?service=${offer.consultation.service}#contact`}
+                      className={styles.consultBridgeLink}
+                      data-track="cta_click"
+                      data-location="ai_development"
+                      data-service={offer.consultation.service}
+                    >
+                      {offer.consultation.label} <ArrowDownRight size={16} aria-hidden="true" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className={styles.disclosure}>
+              <strong>無料相談の範囲</strong>　課題の概要を伺い、必要に応じて初回面談（30分以内・1回）で、適用条件と概算を確認します。
+              実データの解析、コード調査、比較検証は、データの扱いと見積もりに合意してから有償で行います。
+              標準条件を超える場合は<Link href="#pricing" className="subtle-link">開発サービスの参考費用</Link>をご覧ください。
+            </p>
           </div>
         </section>
 
@@ -298,6 +369,9 @@ export default function AiDevelopmentPage() {
                   <p className={styles.proofLinksHeading}>実績・ストア詳細</p>
                   <Link className={`text-link ${styles.proofAction}`} href="/cases/ai-sports-trainer" data-track="case_study_click" data-location="ai_development">
                     自社プロダクトの開発・運用事例 <ArrowUpRight size={18} aria-hidden="true" />
+                  </Link>
+                  <Link className={`text-link ${styles.proofAction}`} href="/cases/ai-sports-trainer#quality-evaluation" data-track="case_study_click" data-location="ai_development">
+                    分析結果を公開するための品質評価を読む <ArrowUpRight size={18} aria-hidden="true" />
                   </Link>
                   <div className={styles.proofStoreRow}>
                     <a
@@ -551,9 +625,9 @@ export default function AiDevelopmentPage() {
                 </article>
               ))}
             </div>
-            <p className={styles.disclosure}>金額は税抜の参考費用です。開発範囲、データ条件、精度・運用要件により変動します。固定料金や認識精度の保証ではありません。初回相談・概算見積もりは無料です。</p>
+            <p className={styles.disclosure}>上記の価格帯は個別見積もりのための税抜の参考費用です。固定料金や認識精度の保証ではありません。<Link href="#standard-offers" className="subtle-link">2つの標準商品</Link>は、対象データと納品物の範囲を確認したうえで固定見積もりを提示します。</p>
             <div className={styles.faqList}>
-              <details>
+              <details id="report-sample">
                 <summary>技術検証の評価レポート見本を見る（架空の例）</summary>
                 <p>
                   <strong>検証したいこと</strong>　固定カメラの動画から指定した動作の候補区間を抽出し、人が映像を確認する時間を減らせるか。

@@ -56,7 +56,7 @@ const allowedValues: Record<string, readonly string[]> = {
   page: [
     "home", "sports_dx", "case_study", "security", "privacy", "ai_development",
     "insights", "insight_cost", "insight_poc", "insight_outsourcing", "insight_video_request",
-    "ai_demo", "growth_web", "growth_web_demo", "other",
+    "ai_demo", "ai_quality_evaluation", "growth_web", "growth_web_demo", "other",
   ],
   error_type: ["validation", "network", "server", "timeout", "rate_limit", "configuration", "unknown"],
   video_id: [b2bDemoVideo.id],
@@ -177,6 +177,7 @@ const safePagePaths: Record<string, string> = {
   security: "/security",
   privacy: "/privacy-policy",
   ai_development: "/ai-development",
+  ai_quality_evaluation: "/ai-development/ai-quality-evaluation",
   insights: "/insights",
   insight_cost: "/insights/ai-video-analysis-poc-cost",
   insight_poc: "/insights/ai-poc-process-evaluation",
@@ -204,6 +205,7 @@ export function pageCategory(path: string): string {
   const pages: Record<string, string> = {
     "": "home", "/sports-dx": "sports_dx", "/cases/ai-sports-trainer": "case_study",
     "/security": "security", "/privacy-policy": "privacy", "/ai-development": "ai_development",
+    "/ai-development/ai-quality-evaluation": "ai_quality_evaluation",
     "/insights": "insights", "/insights/ai-video-analysis-poc-cost": "insight_cost",
     "/insights/ai-poc-process-evaluation": "insight_poc",
     "/insights/ai-development-outsourcing-guide": "insight_outsourcing",

@@ -4,12 +4,6 @@ import { ProductVisual } from "@/components/product-visual"
 import { ChapterNav } from "@/components/chapter-nav"
 import { site } from "@/lib/site"
 
-const quality = [
-  { title: "見えない動作を、決めつけない。", body: "撮影角度、全身の映り方、遮蔽、動作の速さによって、動画から確認できる範囲は変わります。分析できる入力かを確認し、根拠が不足する項目は無理に評価しない設計に取り組んでいます。" },
-  { title: "競技と利用者に合わせて伝える。", body: "同じ動作情報でも、競技や局面によって意味は異なります。評価の観点を競技ごとに設計し、年齢・経験を踏まえて、利用者が練習に生かしやすい説明を目指しています。" },
-  { title: "AIの出力を、そのまま表示しない。", body: "出力の構造化、検証、正規化、分析不能時の処理を組み合わせています。モデルやプロンプトの変更時にも評価を行い、機能として安定して届けるための改善を続けています。" },
-  { title: "品質と、待ち時間と、コスト。", body: "分析が詳しくても、待ち時間や推論コストが大きければ運用は難しくなります。映像の処理方法、AIモデル、出力内容を、結果の分かりやすさや利用導線と一緒に調整しています。" },
-]
 const jsonLd = { "@context": "https://schema.org", "@graph": [
   { "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Cyber Knock", item: site.url }, { "@type": "ListItem", position: 2, name: "開発・運用事例", item: `${site.url}/cases/ai-sports-trainer` } ] },
   { "@type": "SoftwareApplication", name: "AIスポーツトレーナー", description: "スポーツ動画を分析し、競技別のフィードバックや練習の振り返りを支援するアプリ。", applicationCategory: "SportsApplication", operatingSystem: "iOS, Android", url: site.appUrl, author: { "@type": "Organization", name: site.name, url: site.url } },
@@ -21,7 +15,7 @@ export function CaseStudyContent() {
     <ChapterNav note="EXPLORE / PRODUCT STORY" location="case" chapters={[
       { href: "#screens-title", label: "実画面" },
       { href: "#ownership", label: "担当範囲" },
-      { href: "#quality", label: "AI品質と運用" },
+      { href: "#quality-evaluation", label: "品質評価と公開判断" },
       { href: "/ai-development#contact", label: "相談窓口", service: "sports-ai" },
     ]} />
 
@@ -40,7 +34,45 @@ export function CaseStudyContent() {
       ["04", "利用者へ届ける", "動画・評価・フィードバックを、練習や振り返りにつなぐ。"],
     ].map(([n,title,body]) => <li key={n}><span className="mono">{n}</span><strong>{title}</strong><p>{body}</p></li>)}</ol></div><p className="media-note">理解のために簡略化した構成です。競技・分析内容により利用する処理や情報は異なります。</p></div></section>
 
-    <section id="quality" className="section" style={{background:"var(--mint)"}}><div className="wrap"><div className="section-heading"><p className="section-label"><span className="mono">04 /</span> 実運用で向き合ってきたこと</p><h2 className="section-title">AIの回答を、プロダクトの品質にする。</h2></div><div className="quality-list">{quality.map(item => <article className="quality-row" key={item.title}><h3>{item.title}</h3><p>{item.body}</p></article>)}</div><div className="evidence-links"><Link href="/security" className="text-link">AIの限界とデータの取り扱い <ArrowUpRight size={18} aria-hidden="true" /></Link></div></div></section>
+    <section id="quality" className="section" style={{ background: "var(--mint)" }} aria-labelledby="quality-evaluation">
+      <div className="wrap">
+        <div className="section-heading">
+          <p className="section-label"><span className="mono">04 /</span> 動画分析の品質評価</p>
+          <h2 id="quality-evaluation" className="section-title">AIが3回応答しても、分析結果が届かなかった理由</h2>
+        </div>
+        <div className="quality-list">
+          <article className="quality-row">
+            <h3>本番の分析依頼1件を追う</h3>
+            <p>2026年10月17日、短距離走の分析で最初のモデルから回答を受け取りました。アプリ側で使うための検査を通らず、別のモデルへ順に切り替えました。3候補すべてが応答しましたが、採点理由の欠落など、それぞれの検査で止まりました。利用者に届いた分析は0件で、利用枠の予約は解除されました。記録に残ったのは拒否理由までで、映像の読み違いがあったかは特定できませんでした。</p>
+          </article>
+          <article className="quality-row">
+            <h3>何を誤判定とし、何を保留するか</h3>
+            <p>短距離走では、手を地面につけたスタートと、立った状態からのスタートで姿勢が変わります。許諾済み動画ペアの比較結果をフレーム画像と突き合わせ、開始姿勢の違いをフォームの改善と数えていないことを確認しました。一方、すべての接地のタイミングまでは確認できません。評価データでは、映像から否定できる動作、画角などで判別できない動作、まだ人が確認していない項目を分けています。</p>
+          </article>
+          <article className="quality-row">
+            <h3>再試行を外して修正候補を検証</h3>
+            <p>許諾済みの短距離動画ペアを使い、モデルや生成指示を変えて6回試しました。本番で失敗した依頼と同じ映像かは確認できていません。自動再試行は0回。6回ともAPIは正常応答し、保存に必要な項目とその対応関係を満たしたのは3回でした。残りには点数があっても、その点をつけた理由が欠ける応答がありました。欠けた理由を別の観察文から補うと、どこまで評価できたかが分からなくなるため、この応答は不採用としました。</p>
+          </article>
+          <article className="quality-row">
+            <h3>画面に届くかと、指導に使えるか</h3>
+            <p>受理した3応答を保存形式とアプリの版を変えて読み込み、通信を模擬した画面テスト24件で原文の表示範囲を照合しました。フレーム画像の目視では、同じ素材でも「上体が早く起きる」を最優先の課題とする応答と、主な課題を挙げない応答がありました。採点理由の欠落と、指導上重要な判断の揺れが残ったため、この時点で修正候補の本番公開を保留しました。</p>
+          </article>
+          <article className="quality-row">
+            <h3>利用できる分析1件当たりの推論原価</h3>
+            <p>6試行の推論費は、記録した使用量と試験時の単価による推計で合計約0.69米ドルでした。運用で比較したい単価は、対象の依頼に使った推論費の総額（失敗・再試行を含む）を、画面に届き、用途に合うと確認した分析件数で割った値です。この試験では、3件の構造検査合格を起点に表示と内容を評価しました。本番で利用できる分析1件当たりの実測原価は未算定です。</p>
+          </article>
+          <article className="quality-row">
+            <h3>モデル変更後に同じ条件で確かめる</h3>
+            <p>比較用の評価ツールでは、動画の識別値、モデル、プロンプトの版、フレームの抽出設定、評価基準を記録します。同じ撮影から切り出した動画が、調整用と最終確認用の両方に入ると検査で検出します。合成データでは入力の取り違えや欠測の扱いを試し、実映像の誤認は該当区間の映像と回答を人が照合して判定します。</p>
+          </article>
+        </div>
+        <div className="evidence-links">
+          <Link href="/ai-development/ai-quality-evaluation" className="text-link">稼働中のAIの品質・原価を評価する <ArrowRight size={18} aria-hidden="true" /></Link>
+          <Link href="/ai-development#standard-offers" className="text-link">自社素材で検証する範囲と料金 <ArrowRight size={18} aria-hidden="true" /></Link>
+          <Link href="/security" className="text-link">AIの限界とデータの取り扱い <ArrowUpRight size={18} aria-hidden="true" /></Link>
+        </div>
+      </div>
+    </section>
 
     <section className="section"><div className="wrap editorial-grid"><p className="section-label"><span className="mono">05 /</span> 確認できる成果と次の改善</p><div><h2 className="section-title">公開して終わりにしない。使われ方から、学び続ける。</h2><div className="body-copy" style={{marginTop:25}}><p>iOS・Androidの公開アプリとして、動画分析からフィードバック、練習支援までを提供しています。企画から継続運用まで、ひとつのプロダクトを自社で担っていることが、この事例の実績です。</p><p>ユーザー評価や利用状況をもとに、分析結果の説明、分析不能時の対応、画面の導線、待ち時間とコストを見直しています。モデルや機能の変更時にも、評価と改善を継続します。</p><p>公開アプリで実際の体験を確認いただけます。個別の開発相談では、この事例での設計・運用経験を、対象の課題や条件に合わせてご説明します。</p></div><div className="evidence-links"><a href={site.appStore} target="_blank" rel="noopener noreferrer" className="text-link">App Storeで確認 <ArrowUpRight size={16} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a><a href={site.googlePlay} target="_blank" rel="noopener noreferrer" className="text-link">Google Playで確認 <ArrowUpRight size={16} aria-hidden="true" /><span className="sr-only">（新しいタブ）</span></a></div></div></div></section>
 

@@ -3,7 +3,7 @@
 const MAX_BODY_BYTES = 24_000;
 const LIMITS = { name: 100, email: 254, company: 200, message: 5_000 };
 const BUDGETS = new Set(["", "undecided", "under_50", "50_100", "100_300", "300_500", "over_500"]);
-const SERVICES = new Set(["", "sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"]);
+const SERVICES = new Set(["", "business-automation", "business-systems", "sports-ai", "product", "ai-improvement", "advisory", "sports-dx", "other"]);
 // Optional, fixed consultation-link context. Never infer acquisition or accept a raw URL.
 const GUIDE_LABELS = Object.freeze({
   "ai-development-outsourcing-guide": "AI開発会社の選び方と費用",
@@ -12,10 +12,10 @@ const GUIDE_LABELS = Object.freeze({
   "ai-video-analysis-development-request": "AI動画解析システム開発の依頼ガイド",
 });
 const isKnownGuide = value => typeof value === "string" && Object.hasOwn(GUIDE_LABELS, value);
-const SOURCES = new Set(["home", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"]);
+const SOURCES = new Set(["home", "business_automation", "business_systems", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"]);
 const BUDGET_LABELS = { undecided: "相談して決めたい", under_50: "50万円未満", "50_100": "50〜100万円", "100_300": "100〜300万円", "300_500": "300〜500万円", over_500: "500万円以上" };
-const SOURCE_LABELS = { home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", ai_development: "AI・プロダクト開発の受託相談", other: "その他" };
-const SERVICE_LABELS = { "sports-ai": "動画・画像解析／スポーツAI", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
+const SOURCE_LABELS = { business_automation: "業務自動化の相談ページ", business_systems: "業務システムの相談ページ", home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", ai_development: "AI・プロダクト開発の受託相談", other: "その他" };
+const SERVICE_LABELS = { "business-automation": "AI導入・業務自動化", "business-systems": "Excel・紙の業務をシステム化", "sports-ai": "動画・画像解析／スポーツAI", product: "Web・モバイルプロダクト開発", "ai-improvement": "AI機能開発・品質改善", advisory: "開発顧問・技術支援", "sports-dx": "スポーツDX・AI実証", other: "相談しながら整理したい" };
 
 function json(body, status = 200) {
   return new Response(JSON.stringify(body), {

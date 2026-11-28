@@ -137,7 +137,8 @@ test("Case study CTAs unify to /ai-development#contact and OGP images exist for 
   assert.ok(existsSync(new URL("../public/images/og/cyberknock-b2b.png", import.meta.url)))
   assert.ok(existsSync(new URL("../public/images/og/ai-sports-trainer-demo.png", import.meta.url)))
   assert.ok(page.includes("/images/og/cyberknock-b2b.png"))
-  assert.ok(rootLayout.includes("/images/og/cyberknock-b2b.png"))
+  assert.ok(rootLayout.includes("/images/og/business-operations.png"))
+  assert.ok(existsSync(new URL("../public/images/og/business-operations.png", import.meta.url)))
   assert.ok(casePage.includes("/images/og/ai-sports-trainer-demo.png"))
   assert.ok(demoPage.includes("/images/og/ai-sports-trainer-demo.png"))
 })
@@ -163,7 +164,7 @@ test("B2B LP showcases Choleste AI commercial proof, consultation shortcuts, and
     assert.ok(page.includes(`?service=${service}#contact`) || page.includes("`?service=${shortcut.service}#contact`"))
     assert.ok(page.includes(`"${service}"`))
   }
-  for (const approvedPrice of ["30万〜80万円", "80万〜250万円", "150万〜600万円", "個別見積もり"]) {
+  for (const approvedPrice of ["30万〜80万円", "80万〜250万円", "300万〜800万円", "標準500万円", "個別見積もり"]) {
     assert.ok(page.includes(approvedPrice), `missing reference price: \${approvedPrice}`)
   }
   assert.ok(page.includes('id="pricing"'))

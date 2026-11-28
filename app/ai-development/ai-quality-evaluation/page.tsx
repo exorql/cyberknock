@@ -51,8 +51,8 @@ export default function QualityEvaluationPage() {
             </div>
             <aside className={styles.heroProofStage} aria-labelledby="review-example">
               <p className={styles.stageTop}>AIスポーツトレーナーの検証記録</p>
-              <h2 id="review-example" className={styles.reviewExampleTitle}>6回の応答のうち、必要な項目がそろったのは3回</h2>
-              <p className={styles.heroLead}>同じ動画ペアでモデルや指示を変えて試しました。採点理由の欠落と、指導で優先する課題の揺れが残り、当時の候補版は公開を見送りました。</p>
+              <h2 id="review-example" className={styles.reviewExampleTitle}>AIの応答成功と、業務で使える結果を分けて評価</h2>
+              <p className={styles.heroLead}>開発中の候補を、出力の構造、保存・画面表示、映像に即した内容の順に検証。未解決の問題を明確にし、当時の候補版は公開を見送りました。</p>
               <div className={styles.heroActions}>
                 <Link className={`text-link ${styles.secondary}`} href="/cases/ai-sports-trainer#quality-evaluation" data-track="case_study_click" data-location="hero">評価条件と判断の根拠を読む <span aria-hidden="true">→</span></Link>
               </div>
@@ -75,7 +75,7 @@ export default function QualityEvaluationPage() {
               <p>同じ画像や動画を両方の版で処理し、担当者の正解判定と突き合わせます。以前は正しかったのに誤った例、見逃した例、判定を保留できた例を入力条件ごとに並べます。重大な見逃しが増えた条件は、平均値が良くなっても採用前に確認できます。</p>
               <h3>応答が利用者の手元に届いたか</h3>
               <p>API応答、形式チェック、保存、画面表示、業務上の合格を順に照合します。各段階の件数と追跡に必要なログが欠けている箇所を示し、修正・追加計測の順序を決めます。</p>
-              <p><Link href="/cases/ai-sports-trainer#quality-evaluation" data-track="case_study_click" data-location="content">自社の動画分析でAPIが応答しても結果を返せなかった事例</Link></p>
+              <p><Link href="/cases/ai-sports-trainer#quality-evaluation" data-track="case_study_click" data-location="content">自社アプリでの品質評価と公開判断の事例</Link></p>
               <h3>使える結果を1件届ける費用はいくらか</h3>
               <p>失敗・再試行を含む全呼び出しの推論費を、合意した基準を満たして利用者に届いた件数で割ります。利用可能件数がゼロ、または到達を確認できない場合は単価を算定できません。請求額、料金表による推計、未計測を区別して報告します。</p>
             </section>

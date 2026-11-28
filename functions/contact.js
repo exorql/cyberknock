@@ -10,8 +10,23 @@ const GUIDE_LABELS = Object.freeze({
   "ai-poc-process-evaluation": "AI PoCの進め方と評価基準",
   "ai-video-analysis-poc-cost": "AI動画解析の開発費用とPoCの見積ポイント",
   "ai-video-analysis-development-request": "AI動画解析システム開発の依頼ガイド",
+  "excel-systemization-cost": "Excel業務のシステム化にかかる費用",
+  "business-automation-cost": "業務自動化の外注費用",
+  "order-entry-automation": "受発注業務の自動化",
+  "ai-adoption-cost": "中小企業のAI導入費用",
+});
+const GUIDE_SOURCES = Object.freeze({
+  "ai-development-outsourcing-guide": "ai_development",
+  "ai-poc-process-evaluation": "ai_development",
+  "ai-video-analysis-poc-cost": "ai_development",
+  "ai-video-analysis-development-request": "ai_development",
+  "excel-systemization-cost": "business_systems",
+  "business-automation-cost": "business_automation",
+  "order-entry-automation": "business_automation",
+  "ai-adoption-cost": "business_automation"
 });
 const isKnownGuide = value => typeof value === "string" && Object.hasOwn(GUIDE_LABELS, value);
+const isGuideForSource = (value, source) => isKnownGuide(value) && GUIDE_SOURCES[value] === source;
 const SOURCES = new Set(["home", "business_automation", "business_systems", "sports_dx", "case_study", "security", "privacy", "ai_development", "other"]);
 const BUDGET_LABELS = { undecided: "相談して決めたい", under_50: "50万円未満", "50_100": "50〜100万円", "100_300": "100〜300万円", "300_500": "300〜500万円", over_500: "500万円以上" };
 const SOURCE_LABELS = { business_automation: "業務自動化の相談ページ", business_systems: "業務システムの相談ページ", home: "ホーム", sports_dx: "スポーツDX", case_study: "アプリ事例", security: "セキュリティ", privacy: "プライバシー", ai_development: "AI・プロダクト開発の受託相談", other: "その他" };
@@ -68,14 +83,14 @@ export function validateContact(input) {
     else data[key] = value;
   }
   data.source = SOURCES.has(input.source) ? input.source : "other";
-  if (data.source === "ai_development" && isKnownGuide(input.guide)) data.guide = input.guide;
+  if (isGuideForSource(input.guide, data.source)) data.guide = input.guide;
   return Object.keys(errors).length ? { errors } : { data };
 }
 
 export function buildSlackPayload(data) {
   const details = `氏名: ${data.name}\nメール: ${data.email}\n会社名・組織名: ${data.company || "未入力"}\n相談テーマ: ${SERVICE_LABELS[data.service] || "未選択"}\nご予算: ${BUDGET_LABELS[data.budget] || "未選択"}\n相談元: ${SOURCE_LABELS[data.source] || "その他"} (${data.source})`;
   const characters = Array.from(data.message);
-  const guideLine = data.source === "ai_development" && isKnownGuide(data.guide)
+  const guideLine = isGuideForSource(data.guide, data.source)
     ? "\n相談リンクのガイド: " + GUIDE_LABELS[data.guide] + " (" + data.guide + ")" : "";
   const sections = [details + guideLine];
   for (let index = 0; index < characters.length; index += 2_500) {

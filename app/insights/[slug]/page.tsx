@@ -60,7 +60,7 @@ export default async function InsightPage({ params }: Props) {
       "@context": "https://schema.org", "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Cyber Knock", item: origin },
-        { "@type": "ListItem", position: 2, name: "技術・PoCガイド", item: origin + "/insights" },
+        { "@type": "ListItem", position: 2, name: "業務改善・開発ガイド", item: origin + "/insights" },
         { "@type": "ListItem", position: 3, name: article.title, item: url },
       ],
     },
@@ -74,20 +74,20 @@ export default async function InsightPage({ params }: Props) {
 
   return (
     <div className={styles.root}>
-      <SiteHeader />
+      <SiteHeader consultationHref={consultation.href} consultationService={consultation.service} />
       <main id="main-content">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <header className={styles.articleHero}>
           <div className="wrap">
             <nav className={styles.breadcrumb} aria-label="パンくずリスト">
               <Link href="/">Cyber Knock</Link><span aria-hidden="true">/</span>
-              <Link href="/insights">技術・PoCガイド</Link><span aria-hidden="true">/</span>
+              <Link href="/insights">業務改善・開発ガイド</Link><span aria-hidden="true">/</span>
               <span aria-current="page">この記事</span>
             </nav>
             <p className={styles.eyebrow}>{article.eyebrow}</p>
             <h1>{article.title}</h1>
             <p className={styles.lead}>{article.lead}</p>
-            <p className={styles.updated}>対象：AI開発・動画解析の発注・PoC担当者</p>
+            <p className={styles.updated}>対象：{consultation.source === "ai_development" ? "AI開発・動画解析の発注・PoC担当者" : "経営者・業務改善の担当者"}</p>
           </div>
         </header>
 
@@ -103,7 +103,7 @@ export default async function InsightPage({ params }: Props) {
             <div className={styles.sideContact}>
               <p>開発できるか、まず確かめたい方へ</p>
               <Link href={consultation.href} data-track="cta_click" data-location="content" data-guide={consultation.guide} data-service={consultation.service}>{consultation.cta} <ArrowUpRight size={17} aria-hidden="true" /></Link>
-              <Link href="/ai-development" style={{ marginTop: 8, fontSize: 12 }}>法人向けAI開発LPを見る <ArrowRight size={15} aria-hidden="true" /></Link>
+              <Link href={consultation.path} style={{ marginTop: 8, fontSize: 12 }}>関連サービスと料金を見る <ArrowRight size={15} aria-hidden="true" /></Link>
             </div>
           </aside>
 
@@ -165,7 +165,7 @@ export default async function InsightPage({ params }: Props) {
             <section className={styles.related} aria-labelledby="more-guides-title">
               <p className={styles.relatedOverline}>RELATED GUIDES</p>
               <h2 id="more-guides-title">次に読む発注ガイド</h2>
-              <p>AI開発の外注・動画解析システムの依頼・PoCの評価・費用を、発注前に整理できます。</p>
+              <p>業務改善・システム化から専門AI開発まで、発注前の判断材料をまとめました。</p>
               {insights.filter(other => other.slug !== article.slug).map(other => (
                 <Link key={other.slug} href={"/insights/" + other.slug}>
                   {other.title}<ArrowUpRight size={18} aria-hidden="true" />
@@ -175,9 +175,9 @@ export default async function InsightPage({ params }: Props) {
             <section className={styles.related} aria-labelledby="related-title">
               <p className={styles.relatedOverline}>FURTHER READING</p>
               <h2 id="related-title">関連するサービスと実績</h2>
-              <p>自社アプリの開発・運用実績と、AI・プロダクト開発の相談窓口をご案内します。未契約の個別案件を実績として紹介することはありません。</p>
+              <p>関連する支援内容と、開発・運用の判断材料をご案内します。未契約の個別案件を実績として紹介することはありません。</p>
               {article.relatedResources.map(item => <Link key={item.href} href={item.href} {...(item.href.startsWith("/demos/") ? { "data-track": "demo_click", "data-location": "content" } : {})}>{item.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>)}
-              <Link href="/insights">技術・PoCガイドの一覧へ<ArrowLeft size={18} aria-hidden="true" /></Link>
+              <Link href="/insights">業務改善・開発ガイドの一覧へ<ArrowLeft size={18} aria-hidden="true" /></Link>
             </section>
           </article>
         </div>
@@ -193,7 +193,7 @@ export default async function InsightPage({ params }: Props) {
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <SiteFooter consultationHref={consultation.href} consultationService={consultation.service} />
     </div>
   )
 }

@@ -15,16 +15,17 @@ test("each canonical guide has distinct appropriate inquiry context and safe fix
   for (const article of insights) {
     const entry = consultationForGuide(article.slug)
     const url = new URL(entry.href, "https://cyberknock.jp")
-    assert.equal(url.pathname, "/ai-development")
+    assert.equal(url.pathname, entry.path)
     assert.equal(url.hash, "#contact")
     assert.equal(url.searchParams.get("guide"), article.slug)
     assert.equal(url.searchParams.get("service"), entry.service)
-    assert.equal(guideFromContactSearch(url.search, "ai_development"), article.slug)
+    assert.equal(guideFromContactSearch(url.search, entry.source), article.slug)
+    for (const wrongSource of ["ai_development", "business_automation", "business_systems"].filter(x => x !== entry.source)) assert.equal(guideFromContactSearch(url.search, wrongSource), undefined)
     assert.equal(guideFromContactSearch(url.search, "home"), undefined)
     assert.equal(safeAnalyticsParams({ guide: article.slug }).guide, article.slug)
     ctas.add(entry.cta)
   }
-  assert.equal(ctas.size, 4)
+  assert.equal(ctas.size, 8)
   assert.equal(consultationForGuide("private@example.test").href, "/ai-development#contact")
   assert.equal(consultationForGuide("__proto__").guide, undefined)
   assert.equal(new URL(guideContactHref("ai-poc-process-evaluation", "ai-improvement"), "https://cyberknock.jp").searchParams.get("service"), "ai-improvement")
@@ -48,8 +49,14 @@ test("unknown, repeated, long and cross-page contexts are not accepted", () => {
 test("existing contact endpoint delivers a safe guide only with eligible source, preserving legacy requests", async () => {
   for (const article of insights) {
     const guide = article.slug
+    const entry = consultationForGuide(guide)
+    for (const wrongSource of ["ai_development", "business_automation", "business_systems", "home"].filter(x => x !== entry.source)) {
+      const data = validateContact({...base, source: wrongSource, guide}).data
+      assert.equal(data.guide, undefined)
+      assert.doesNotMatch(buildSlackPayload(data).blocks[0].text.text, /相談リンクのガイド:/)
+    }
     const payloads = []
-    const request = new Request("https://cyberknock.jp/contact", { method: "POST", headers: { "content-type": "application/json", origin: "https://cyberknock.jp" }, body: JSON.stringify({ ...base, guide }) })
+    const request = new Request("https://cyberknock.jp/contact", { method: "POST", headers: { "content-type": "application/json", origin: "https://cyberknock.jp" }, body: JSON.stringify({ ...base, guide, source: entry.source, service: entry.service }) })
     const response = await handleContact(request, { SLACK_WEBHOOK_URL: "https://example.test/mock-only" }, async (_url, init) => {
       payloads.push(JSON.parse(init.body))
       return new Response("ok")

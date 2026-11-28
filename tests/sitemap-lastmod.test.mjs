@@ -50,7 +50,12 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
   assert.deepEqual(guideMap, Object.fromEntries([
     "ai-development-outsourcing-guide", "ai-poc-process-evaluation",
     "ai-video-analysis-poc-cost", "ai-video-analysis-development-request",
-  ].map(slug => [slug, "2026-11-28"])))
+  ].map(slug => [slug, "2026-11-29"]).concat([
+    ["excel-systemization-cost", "2026-11-29"],
+    ["business-automation-cost", "2026-11-29"],
+    ["order-entry-automation", "2026-11-29"],
+    ["ai-adoption-cost", "2026-11-29"],
+  ])))
   assert.match(src, /lastModified: insightLastSignificantUpdate\[slug\]/)
 })
 

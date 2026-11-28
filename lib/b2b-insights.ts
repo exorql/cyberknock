@@ -1,4 +1,5 @@
 import { videoAnalysisRequestGuide } from "./b2b-video-analysis-procurement.ts"
+import { operationsInsights } from "./b2b-operations-insights.ts"
 
 export type InsightSection = {
   heading: string
@@ -343,6 +344,7 @@ export const insights: InsightArticle[] = [
   },
 
   videoAnalysisRequestGuide,
+  ...operationsInsights,
 ] as const
 
 export function findInsight(slug: string): InsightArticle | undefined {

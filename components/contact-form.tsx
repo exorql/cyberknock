@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState, type ChangeEvent, type FormEvent } 
 import Link from "next/link"
 import { ArrowUpRight, CheckCircle2 } from "lucide-react"
 import { pageCategory, trackEvent } from "@/lib/analytics"
-import { guideConsultations, guideFromContactSearch, inquiryMessageHint, type B2BGuide } from "@/lib/b2b-inquiry"
+import { guideConsultations, guideFromContactSearch, inquiryMessageHint, isGuideForSource, type B2BGuide } from "@/lib/b2b-inquiry"
 
 const services = [
   ["business-automation", "AI導入・業務自動化"], ["business-systems", "Excel・紙の業務をシステム化"],
@@ -45,7 +45,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
   const [error, setError] = useState("")
   const normalizedSource = pageCategory(source)
   const [guide, setGuide] = useState<B2BGuide | undefined>()
-  const inquiryGuide = normalizedSource === "ai_development" ? guide : undefined
+  const inquiryGuide = isGuideForSource(guide, normalizedSource) ? guide : undefined
   const id = (field: Field) => `${prefix}-${field}`
 
   useEffect(() => {

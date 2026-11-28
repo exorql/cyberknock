@@ -24,10 +24,14 @@ const lastSignificantUpdate = {
 
 // Material CTA and decision-guide revisions, not the date of a routine deploy.
 const insightLastSignificantUpdate: Record<string, string> = {
-  "ai-development-outsourcing-guide": "2026-11-28",
-  "ai-poc-process-evaluation": "2026-11-28",
-  "ai-video-analysis-poc-cost": "2026-11-28",
-  "ai-video-analysis-development-request": "2026-11-28",
+  "ai-development-outsourcing-guide": "2026-11-29",
+  "ai-poc-process-evaluation": "2026-11-29",
+  "ai-video-analysis-poc-cost": "2026-11-29",
+  "ai-video-analysis-development-request": "2026-11-29",
+  "excel-systemization-cost": "2026-11-29",
+  "business-automation-cost": "2026-11-29",
+  "order-entry-automation": "2026-11-29",
+  "ai-adoption-cost": "2026-11-29",
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -77,7 +81,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/insights`,
-      lastModified: new Date("2026-11-17"),
+      lastModified: new Date("2026-11-29"),
       changeFrequency: "monthly",
       priority: 0.7,
     },

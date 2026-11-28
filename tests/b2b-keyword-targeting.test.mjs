@@ -26,8 +26,8 @@ test("video analysis cost guide retains its specialist intent without misleading
   assert.ok(article)
   assert.match(article.title, /^AI動画解析/)
   assert.match(article.description, /開発|費用/)
-  assert.equal(insights.length, 4)
-  assert.equal(new Set(insights.map(x => x.slug)).size, 4)
+  assert.equal(insights.length, 8)
+  assert.equal(new Set(insights.map(x => x.slug)).size, 8)
 })
 
 test("native source is described as Japan all-languages search bands, not exact values", () => {

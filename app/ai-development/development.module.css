@@ -64,7 +64,7 @@
 .cholesteScrollHint { display: none; }
 .cholesteStoreGallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 780px; margin: 0 auto; padding: 0; list-style: none; }
 .cholesteStoreGallery li { min-width: 0; }
-.cholesteStoreGallery img { display: block; width: 100%; height: auto; aspect-ratio: 660 / 1434; border-radius: 8px; }
+.cholesteStoreGallery img { display: block; width: 100%; height: auto; aspect-ratio: 804 / 1748; border-radius: 8px; }
 .cholesteStoreGallery:focus-visible { outline: 2px solid #1f6d59; outline-offset: 4px; }
 @media (max-width: 600px) {
   .cholesteScrollHint { display: inline; }

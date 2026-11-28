@@ -150,8 +150,8 @@ test("B2B LP showcases Choleste AI commercial proof, consultation shortcuts, and
     assert.ok(page.includes(asset))
     const img = page.split("\n").find(line => line.includes(asset))
     assert.ok(img?.includes('loading="lazy"'))
-    assert.ok(img?.includes('width={660}'))
-    assert.ok(img?.includes('height={1434}'))
+    assert.ok(img?.includes('width={804}'))
+    assert.ok(img?.includes('height={1748}'))
     assert.ok(img?.includes('alt="'))
     assert.ok(existsSync(new URL("../public" + asset, import.meta.url)))
   }

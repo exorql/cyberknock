@@ -29,6 +29,7 @@
 .bodySection h2 { font-size:clamp(23px,2.5vw,30px); line-height:1.45; letter-spacing:-.025em; border-bottom:1px solid #bacbbd; padding-bottom:19px; margin-bottom:23px; }
 .bodySection > p { font-size:15px; line-height:2.1; color:#345145; margin-bottom:20px; }
 .checklist { margin:25px 0 0 !important; padding:21px 27px 21px 43px; border-radius:13px; background:#ecf0e9; color:#2c513d; display:grid; gap:11px; line-height:1.8; font-size:14px; }
+.sectionLink { display:inline-block; margin-top:12px; color:#166143; font-size:14px; font-weight:700; line-height:1.7; text-decoration:underline; text-underline-offset:4px; }
 .checklist li::marker { color:#4a925f; }
 .tableScroll { max-width:100%; overflow-x:auto; margin:27px 0; border:1px solid #c7d6cb; border-radius:12px; background:#fff; }
 .tableScroll:focus-visible { outline:3px solid #69a96f; outline-offset:4px; }

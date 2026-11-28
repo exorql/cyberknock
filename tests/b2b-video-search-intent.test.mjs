@@ -37,7 +37,7 @@ test("guide appears in site navigation, service context, sitemap and static arti
   assert.ok(lp.includes('href="/insights/' + slug + '"'))
   assert.ok(lp.includes('data-guide="' + slug + '"'))
   assert.ok(sitemap.includes("...insights.map"))
-  assert.ok(sitemap.includes('"' + slug + '": "2026-11-26"'))
+  assert.ok(sitemap.includes('"' + slug + '": "2026-11-28"'))
   assert.ok(articlePage.includes("generateStaticParams"))
   assert.ok(articlePage.includes("alternates: { canonical: url }"))
   assert.ok(articlePage.includes('inLanguage: "ja-JP"'))

@@ -12,19 +12,20 @@ import { insights } from "@/lib/b2b-insights"
 const lastSignificantUpdate = {
   home: "2026-11-23", // Growth Web entry point added to services
   sportsDx: "2026-11-12", // canonical domain and linked content updated
-  aiDevelopment: "2026-11-26", // #24 offer details; consultation context and form guidance revised
+  aiDevelopment: "2026-11-28", // standard assessment and monthly review offers
+  aiQualityEvaluation: "2026-11-28", // quality review service
   growthWeb: "2026-11-23", // Cyber Knock Growth Web service LP launched
-  caseStudy: "2026-11-14", // case-study metadata and B2B navigation updated
+  caseStudy: "2026-11-28", // release evaluation and failure analysis
   security: "2026-11-12", // canonical domain updated
   privacy: "2026-11-23", // Growth Web LP and demo data handling disclosure added
 } as const
 
 // Material CTA and decision-guide revisions, not the date of a routine deploy.
 const insightLastSignificantUpdate: Record<string, string> = {
-  "ai-development-outsourcing-guide": "2026-11-26",
-  "ai-poc-process-evaluation": "2026-11-26",
-  "ai-video-analysis-poc-cost": "2026-11-26",
-  "ai-video-analysis-development-request": "2026-11-26",
+  "ai-development-outsourcing-guide": "2026-11-28",
+  "ai-poc-process-evaluation": "2026-11-28",
+  "ai-video-analysis-poc-cost": "2026-11-28",
+  "ai-video-analysis-development-request": "2026-11-28",
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -47,6 +48,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(lastSignificantUpdate.aiDevelopment),
       changeFrequency: "monthly",
       priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/ai-development/ai-quality-evaluation`,
+      lastModified: new Date(lastSignificantUpdate.aiQualityEvaluation),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/services/growth-web`,

@@ -17,9 +17,10 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
   assert.deepEqual(dates, {
     home: "2026-11-23",
     sportsDx: "2026-11-12",
-    aiDevelopment: "2026-11-26",
+    aiDevelopment: "2026-11-28",
+    aiQualityEvaluation: "2026-11-28",
     growthWeb: "2026-11-23",
-    caseStudy: "2026-11-14",
+    caseStudy: "2026-11-28",
     security: "2026-11-12",
     privacy: "2026-11-23",
   })
@@ -27,6 +28,7 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
     home: "baseUrl",
     sportsDx: "`${baseUrl}/sports-dx`",
     aiDevelopment: "`${baseUrl}/ai-development`",
+    aiQualityEvaluation: "`${baseUrl}/ai-development/ai-quality-evaluation`",
     growthWeb: "`${baseUrl}/services/growth-web`",
     caseStudy: "`${baseUrl}/cases/ai-sports-trainer`",
     security: "`${baseUrl}/security`",
@@ -44,7 +46,7 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
   assert.deepEqual(guideMap, Object.fromEntries([
     "ai-development-outsourcing-guide", "ai-poc-process-evaluation",
     "ai-video-analysis-poc-cost", "ai-video-analysis-development-request",
-  ].map(slug => [slug, "2026-11-26"])))
+  ].map(slug => [slug, "2026-11-28"])))
   assert.match(src, /lastModified: insightLastSignificantUpdate\[slug\]/)
 })
 

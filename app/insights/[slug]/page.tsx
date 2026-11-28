@@ -138,6 +138,7 @@ export default async function InsightPage({ params }: Props) {
                   </div>
                 )}
                 {section.bullets && <ul className={styles.checklist}>{section.bullets.map(value => <li key={value}>{value}</li>)}</ul>}
+                {section.link && <Link className={styles.sectionLink} href={section.link.href}>{section.link.label}</Link>}
               </section>
             ))}
 
@@ -146,7 +147,8 @@ export default async function InsightPage({ params }: Props) {
                 <p className={styles.relatedOverline}>AFTER RELEASE / 運用中のAI機能</p>
                 <h2 id="production-evaluation-heading">公開済みAIの精度・原価を改善するときは</h2>
                 <p>モデルやプロンプトを更新する前に、現行方式と改善案を同じ評価データ・同じ採点基準で比較します。正解と照合できる項目、誤答や保留の内訳、1件当たりの処理費用と人による確認時間を分けて確認すると、変更の採否を判断しやすくなります。</p>
-                <p>新規開発を目的とするPoCと、運用中の機能を継続的に評価するレビューは別の相談です。現在の方式で困っていること、利用頻度、見直したい指標から整理できます。品質や原価の改善幅を一律に保証するものではありません。</p>
+                <p>基準データと実装担当者がいるチーム向けに、月額20万円（税別）のレビューを用意しています。公開を検討している変更点と困っている失敗例を、概要からご相談ください。</p>
+                <Link href="/ai-development/ai-quality-evaluation">AI品質・原価改善レビューの対象と納品物を見る <ArrowUpRight size={18} aria-hidden="true" /></Link>
                 <Link href={guideContactHref("ai-poc-process-evaluation", "ai-improvement")} data-track="cta_click" data-location="content" data-guide="ai-poc-process-evaluation" data-service="ai-improvement">
                   運用中のAIの品質・原価改善を相談する（無料） <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>

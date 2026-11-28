@@ -14,13 +14,13 @@ const links = [
 export function BrandMark() {
   return <svg viewBox="0 0 36 36" width="32" height="32" fill="none" aria-hidden="true"><path d="M23 5H12L4 18l8 13h11M19 18 31 6M19 18l12 12" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round"/><circle cx="19" cy="18" r="3.4" fill="currentColor"/></svg>
 }
-export function SiteHeader() {
+export function SiteHeader({ consultationHref }: { consultationHref?: string }) {
   const pathname = usePathname()
-  const contactHref = pathname?.startsWith("/services/growth-web")
+  const contactHref = consultationHref ?? (pathname?.startsWith("/services/growth-web")
     ? "/services/growth-web#contact"
     : pathname === "/ai-development" || pathname?.startsWith("/insights") || pathname?.startsWith("/demos") || pathname?.startsWith("/cases")
       ? "/ai-development#contact"
-      : "/#contact"
+      : "/#contact")
   const [open, setOpen] = useState(false)
   const toggle = useRef<HTMLButtonElement>(null)
   useEffect(() => {

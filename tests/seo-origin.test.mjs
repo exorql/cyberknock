@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs"
 const read = path => readFileSync(new URL("../" + path, import.meta.url), "utf8")
 const sourceFiles = [
   "app/layout.tsx", "app/robots.ts", "app/sitemap.ts",
-  "app/ai-development/page.tsx", "app/sports-dx/page.tsx",
+  "app/ai-development/ai-quality-evaluation/page.tsx", "app/ai-development/page.tsx", "app/sports-dx/page.tsx",
   "app/sports-dx/content.tsx", "app/cases/ai-sports-trainer/page.tsx",
   "app/security/page.tsx", "app/privacy-policy/page.tsx",
   "app/insights/page.tsx", "app/insights/[slug]/page.tsx",

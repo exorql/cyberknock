@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ContactForm } from "@/components/contact-form"
 import { WorkflowExample } from "@/components/workflow-example"
+import { BusinessOrderDemo } from "@/components/business-order-demo"
+import { operationsInsights } from "@/lib/b2b-operations-insights"
 import { businessServices, businessPath, businessContactHref, investmentDesign, supportPlans, type BusinessServiceId } from "@/lib/business-services"
 import { site } from "@/lib/site"
 
@@ -54,6 +56,10 @@ export function BusinessServicePage({ id }: { id: BusinessServiceId }) {
         </article>)}</div>
       </div></section>
 
+      {automation && <section id="order-demo" className="section business-tint"><div className="wrap business-layout">
+        <div><p className="section-label">受注入力の実演</p><h2 className="business-title">登録前に、確認する。</h2><p>通常の注文と、単価や品番が異なる例を比べてください。読み取った値をそのまま登録せず、業務のルールで確認する仕組みです。</p></div>
+        <BusinessOrderDemo />
+      </div></section>}
       <section className="section business-tint"><div className="wrap business-layout">
         <div><p className="section-label">方法の選び方</p><h2 className="business-title">今ある道具で、どこまでできるか。</h2>
           <p>同じ業務を対象に、導入費、毎月の利用料、担当者の作業時間を比べます。</p></div>
@@ -106,6 +112,10 @@ export function BusinessServicePage({ id }: { id: BusinessServiceId }) {
         </div>
       </div></section>
 
+      <section className="section"><div className="wrap business-layout">
+        <div><p className="section-label">発注前のガイド</p><h2 className="business-title">費用と進め方を考える。</h2></div>
+        <div className="business-rows">{operationsInsights.filter(article => automation ? article.slug !== "excel-systemization-cost" : article.slug === "excel-systemization-cost").map(article => <article key={article.slug}><h3><Link href={"/insights/" + article.slug} data-track="insight_click" data-location="content" data-guide={article.slug}>{article.title}</Link></h3><p>{article.description}</p></article>)}</div>
+      </div></section>
       <section id="contact" className="section contact-section"><div className="wrap contact-grid">
         <div className="contact-copy"><p className="eyebrow">初回無料相談</p><h2 className="section-title">どの作業に時間がかかっていますか？</h2>
           <p>使っている道具と、困っている場面を一つ教えてください。代表が内容を確認し、次に整理したいことをメールでご連絡します。</p>

@@ -4,14 +4,18 @@ import { insights, findInsight } from "../lib/b2b-insights.ts"
 import { pageCategory, trackEvent } from "../lib/analytics.ts"
 
 test("B2B insight pages have unique, substantive, decision-focused content", () => {
-  assert.equal(insights.length, 4)
+  assert.equal(insights.length, 8)
   assert.deepEqual(insights.map(article => article.slug), [
     "ai-development-outsourcing-guide",
     "ai-poc-process-evaluation",
     "ai-video-analysis-poc-cost",
     "ai-video-analysis-development-request",
+    "excel-systemization-cost",
+    "business-automation-cost",
+    "order-entry-automation",
+    "ai-adoption-cost",
   ])
-  assert.equal(new Set(insights.map(item => item.slug)).size, 4)
+  assert.equal(new Set(insights.map(item => item.slug)).size, 8)
   for (const article of insights) {
     assert.ok(article.title.length >= 12 && article.title.length <= 60)
     assert.ok(article.description.length >= 50 && article.description.length <= 160)
@@ -22,8 +26,10 @@ test("B2B insight pages have unique, substantive, decision-focused content", () 
     assert.ok(article.sections.every(section => section.paragraphs.length > 0))
     const characters = [article.lead, ...article.sections.flatMap(x => x.paragraphs), ...article.sections.flatMap(x => x.bullets ?? []), ...article.sections.flatMap(x => x.table ? x.table.rows.flat() : []), ...article.faqs.map(x => x.answer)].join("").length
     assert.ok(characters >= 1250, article.slug + " has too little evidence-driven guidance: " + characters)
-    assert.ok(article.relatedResources.some(x => x.href === '/cases/ai-sports-trainer'))
-    assert.ok(article.relatedResources.some(x => x.href === '/ai-development'))
+    if (["ai-development-outsourcing-guide","ai-poc-process-evaluation","ai-video-analysis-poc-cost","ai-video-analysis-development-request"].includes(article.slug)) {
+      assert.ok(article.relatedResources.some(x => x.href === '/cases/ai-sports-trainer'))
+      assert.ok(article.relatedResources.some(x => x.href === '/ai-development'))
+    } else assert.ok(article.relatedResources.some(x => x.href.startsWith('/services/business-')))
     assert.ok(article.relatedResources.every(x => !x.href.includes('/soccer-player-tracking') && !x.href.includes('/kyudo-motion-analysis')))
     assert.equal(findInsight(article.slug), article)
   }
@@ -37,6 +43,10 @@ test("new article pages are tracked by fixed GA4-safe URL mapping", () => {
     ["/insights/ai-poc-process-evaluation", "insight_poc", "https://cyberknock.jp/insights/ai-poc-process-evaluation"],
     ["/insights/ai-development-outsourcing-guide", "insight_outsourcing", "https://cyberknock.jp/insights/ai-development-outsourcing-guide"],
     ["/insights/ai-video-analysis-development-request", "insight_video_request", "https://cyberknock.jp/insights/ai-video-analysis-development-request"],
+    ["/insights/excel-systemization-cost", "insight_excel_system", "https://cyberknock.jp/insights/excel-systemization-cost"],
+    ["/insights/business-automation-cost", "insight_automation_cost", "https://cyberknock.jp/insights/business-automation-cost"],
+    ["/insights/order-entry-automation", "insight_order_entry", "https://cyberknock.jp/insights/order-entry-automation"],
+    ["/insights/ai-adoption-cost", "insight_ai_adoption", "https://cyberknock.jp/insights/ai-adoption-cost"],
   ]
   for (const [path, category, canonical] of cases) {
     assert.equal(pageCategory(path + "?name=private&email=qa@example.com"), category)

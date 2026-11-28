@@ -144,9 +144,20 @@ test("Case study CTAs unify to /ai-development#contact and OGP images exist for 
 
 test("B2B LP showcases Choleste AI commercial proof, consultation shortcuts, and presents scoped reference prices", () => {
   assert.ok(page.includes("コレステAI"))
-  assert.ok(page.includes("/images/product/choleste-meal-record.webp"))
-  assert.match(page, /choleste-meal-record\.webp[\s\S]*loading="lazy"/)
-  assert.ok(existsSync(new URL("../public/images/product/choleste-meal-record.webp", import.meta.url)))
+  const storeScreens = ["meal-analysis", "lipid-report", "lab-history"]
+  for (const screen of storeScreens) {
+    const asset = "/images/product/choleste-store-" + screen + ".webp"
+    assert.ok(page.includes(asset))
+    const img = page.split("\n").find(line => line.includes(asset))
+    assert.ok(img?.includes('loading="lazy"'))
+    assert.ok(img?.includes('width={660}'))
+    assert.ok(img?.includes('height={1434}'))
+    assert.ok(img?.includes('alt="'))
+    assert.ok(existsSync(new URL("../public" + asset, import.meta.url)))
+  }
+  assert.ok(!page.includes("/images/product/choleste-meal-record.webp"))
+  assert.ok(page.includes("App Store掲載スクリーンショット"))
+  assert.ok(page.includes('className={styles.cholesteStoreGallery}'))
   assert.ok(page.includes("https://choleste-coach.com") || page.includes("site.cholesteUrl"))
   for (const service of ["sports-ai", "ai-improvement", "product", "advisory"]) {
     assert.ok(page.includes(`?service=${service}#contact`) || page.includes("`?service=${shortcut.service}#contact`"))

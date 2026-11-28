@@ -57,8 +57,20 @@
 .proofPoints li svg { color: #1f6d59; flex: 0 0 auto; margin-top: 4px; }
 .proofSummaryLinks { border-left: 1px solid #d2dacf; padding-left: 26px; display: flex; flex-direction: column; gap: 12px; }
 .proofLinksHeading { font-size: 11px; font-family: "Courier New", monospace; color: #476c5e; font-weight: 700; letter-spacing: .05em; }
-.proofThumbWrap { background: #edf2eb; border: 1px solid #cfdcd0; padding: 10px; display: flex; justify-content: center; }
-.proofThumb { width: 100%; max-width: 196px; height: auto; border-radius: 10px; border: 2px solid #1d3c34; display: block; }
+.cholesteProofCard { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.cholesteProofCard .proofSummaryLinks { border-left: 0; border-top: 1px solid #d2dacf; padding: 20px 0 0; min-width: 0; }
+.cholesteStoreFigure { margin: 0; min-width: 0; }
+.cholesteStoreCaption { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: #4e625a; margin-bottom: 10px; }
+.cholesteScrollHint { display: none; }
+.cholesteStoreGallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; max-width: 780px; margin: 0 auto; padding: 0; list-style: none; }
+.cholesteStoreGallery li { min-width: 0; }
+.cholesteStoreGallery img { display: block; width: 100%; height: auto; aspect-ratio: 804 / 1748; border-radius: 8px; }
+.cholesteStoreGallery:focus-visible { outline: 2px solid #1f6d59; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .cholesteScrollHint { display: inline; }
+  .cholesteStoreGallery { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(82%, 242px); gap: 12px; justify-content: start; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .cholesteStoreGallery li { scroll-snap-align: start; }
+}
 .proofAction { font-size: 13px; }
 .proofStoreRow { display: flex; flex-wrap: wrap; gap: 14px; padding-top: 6px; font-size: 12px; font-weight: 700; color: #265c4b; }
 .proofStoreRow a { display: inline-flex; align-items: center; gap: 5px; min-height: 40px; text-decoration: underline; text-underline-offset: 4px; }

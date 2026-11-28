@@ -400,7 +400,7 @@ export default function AiDevelopmentPage() {
                 </div>
               </div>
 
-              <div className={styles.proofSummaryCard} id="proof-choleste-ai">
+              <div className={`${styles.proofSummaryCard} ${styles.cholesteProofCard}`} id="proof-choleste-ai">
                 <div className={styles.proofSummaryMain}>
                   <div className={styles.proofCardTop}>
                     <span>REPRESENTATIVE PRODUCT 02 / マルチモーダルAI・ヘルスケア領域</span>
@@ -429,17 +429,23 @@ export default function AiDevelopmentPage() {
                 </div>
                 <div className={styles.proofSummaryLinks}>
                   <p className={styles.proofLinksHeading}>プロダクト画面・公開先</p>
-                  <div className={styles.proofThumbWrap}>
-                    <img
-                      src="/images/product/choleste-meal-record.webp"
-                      alt="自社アプリ「コレステAI」実画面：食事写真のマルチモーダルAI解析と栄養バランス評価UI（デモデータ）"
-                      width={800}
-                      height={800}
-                      loading="lazy"
-                      decoding="async"
-                      className={styles.proofThumb}
-                    />
-                  </div>
+                  <figure className={styles.cholesteStoreFigure}>
+                    <figcaption className={styles.cholesteStoreCaption}>
+                      App Store掲載スクリーンショット
+                      <span className={styles.cholesteScrollHint}>左右にスクロールして表示</span>
+                    </figcaption>
+                    <ul className={styles.cholesteStoreGallery} aria-label="コレステAIのApp Store掲載画面" tabIndex={0}>
+                      <li>
+                        <img src="/images/product/choleste-store-meal-analysis.webp" alt="食事写真をAIで分析し、次の食事のヒントを提案するコレステAIの紹介画像" width={804} height={1748} loading="lazy" decoding="async" />
+                      </li>
+                      <li>
+                        <img src="/images/product/choleste-store-lipid-report.webp" alt="5項目の食事バランスをレーダーチャートで可視化するコレステAIの紹介画像" width={804} height={1748} loading="lazy" decoding="async" />
+                      </li>
+                      <li>
+                        <img src="/images/product/choleste-store-lab-history.webp" alt="LDL・HDLなどの検査値を食事と一緒に記録するコレステAIの紹介画像" width={804} height={1748} loading="lazy" decoding="async" />
+                      </li>
+                    </ul>
+                  </figure>
                   <a
                     className={`text-link ${styles.proofAction}`}
                     href={site.cholesteUrl}

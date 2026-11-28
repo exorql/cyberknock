@@ -4,17 +4,17 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 const links = [
-  { href: "/#services", label: "支援内容" },
-  { href: "/ai-development", label: "AI開発・PoC" },
-  { href: "/services/growth-web", label: "スクール集客Web" },
-  { href: "/cases/ai-sports-trainer", label: "開発事例" },
-  { href: "/sports-dx", label: "スポーツDX" },
-  { href: "/#profile", label: "Cyber Knockについて" },
+  { href: "/services/business-automation", label: "業務改善・自動化" },
+  { href: "/services/business-systems", label: "業務システム" },
+  { href: "/ai-development", label: "AI・新サービス開発" },
+  { href: "/#case-study", label: "開発実績" },
+  { href: "/#services", label: "料金・支援内容" },
+  { href: "/#process", label: "進め方" },
 ]
 export function BrandMark() {
   return <svg viewBox="0 0 36 36" width="32" height="32" fill="none" aria-hidden="true"><path d="M23 5H12L4 18l8 13h11M19 18 31 6M19 18l12 12" stroke="currentColor" strokeWidth="3.2" strokeLinejoin="round"/><circle cx="19" cy="18" r="3.4" fill="currentColor"/></svg>
 }
-export function SiteHeader({ consultationHref }: { consultationHref?: string }) {
+export function SiteHeader({ consultationHref, consultationService }: { consultationHref?: string; consultationService?: string }) {
   const pathname = usePathname()
   const contactHref = consultationHref ?? (pathname?.startsWith("/services/growth-web")
     ? "/services/growth-web#contact"
@@ -36,12 +36,12 @@ export function SiteHeader({ consultationHref }: { consultationHref?: string }) 
         <Link href="/" className="brand" aria-label="Cyber Knock ホーム" onClick={() => setOpen(false)}><BrandMark /><span>Cyber Knock</span></Link>
         <nav className="desktop-nav" aria-label="メインナビゲーション">{links.map(link => <Link key={link.href} href={link.href} prefetch={false}>{link.label}</Link>)}</nav>
         <div className="header-actions">
-          <Link href={contactHref} className="button button-primary header-cta" data-track="cta_click" data-location="header" onClick={() => setOpen(false)}>相談する <ArrowUpRight size={17} aria-hidden="true" /></Link>
+          <Link href={contactHref} className="button button-primary header-cta" data-track="cta_click" data-location="header" data-service={consultationService} onClick={() => setOpen(false)}>相談する <ArrowUpRight size={17} aria-hidden="true" /></Link>
           <button ref={toggle} type="button" className="menu-toggle" aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? "メニューを閉じる" : "メニューを開く"} onClick={() => setOpen(!open)}>{open ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}</button>
         </div>
       </div>
       <nav id="mobile-navigation" className="mobile-nav" aria-label="モバイルナビゲーション" hidden={!open}>
-        <div className="wrap">{links.map((link,i) => <Link key={link.href} href={link.href} prefetch={false} onClick={() => setOpen(false)}><span className="mono" aria-hidden="true">0{i+1}</span>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>)}<Link href="/#process" onClick={() => setOpen(false)}>ご相談からの進め方<ArrowUpRight size={18} aria-hidden="true" /></Link></div>
+        <div className="wrap">{links.map((link,i) => <Link key={link.href} href={link.href} prefetch={false} onClick={() => setOpen(false)}><span className="mono" aria-hidden="true">0{i+1}</span>{link.label}<ArrowUpRight size={18} aria-hidden="true" /></Link>)}</div>
       </nav>
     </header>
   </>

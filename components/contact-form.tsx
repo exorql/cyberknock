@@ -7,6 +7,7 @@ import { pageCategory, trackEvent } from "@/lib/analytics"
 import { guideConsultations, guideFromContactSearch, inquiryMessageHint, type B2BGuide } from "@/lib/b2b-inquiry"
 
 const services = [
+  ["business-automation", "AI導入・業務自動化"], ["business-systems", "Excel・紙の業務をシステム化"],
   ["sports-ai", "動画・画像解析／スポーツAI"], ["product", "Web・モバイルプロダクト開発"],
   ["ai-improvement", "AI機能開発・品質改善"], ["advisory", "開発顧問・技術支援"],
   ["sports-dx", "スポーツDX・AI実証"], ["other", "相談しながら整理したい"],
@@ -48,11 +49,18 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
   const id = (field: Field) => `${prefix}-${field}`
 
   useEffect(() => {
+    let hadLinkedService = false
     function selectService(search: string) {
       setGuide(guideFromContactSearch(search, normalizedSource))
       const values = new URLSearchParams(search).getAll("service")
       const service = values.length === 1 ? values[0] : undefined
-      if (service && services.some(([key]) => key === service)) setForm((previous) => ({ ...previous, service }))
+      const linked = services.find(([key]) => key === service)?.[0]
+      // A plain anchor can scroll back to a draft without changing its chosen theme.
+      if (linked || hadLinkedService) {
+        const selected = linked ?? defaultService
+        setForm((previous) => previous.service === selected ? previous : { ...previous, service: selected })
+      }
+      hadLinkedService = Boolean(linked)
     }
     function fromLocation() { selectService(window.location.search) }
     // Next.js may retain this component when only the query/hash changes.
@@ -67,7 +75,7 @@ export function ContactForm({ source = "home", defaultService = "" }: { source?:
     window.addEventListener("popstate", fromLocation)
     document.addEventListener("click", fromLink)
     return () => { window.removeEventListener("popstate", fromLocation); document.removeEventListener("click", fromLink) }
-  }, [normalizedSource])
+  }, [normalizedSource, defaultService])
 
   useEffect(() => {
     function abandon() { if (started.current && !completed.current) trackEvent("contact_form_abandon", { source: normalizedSource, service: form.service, guide: inquiryGuide }) }

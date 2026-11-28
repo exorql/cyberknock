@@ -15,9 +15,11 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
     [...block[1].matchAll(/(\w+):\s*"(\d{4}-\d{2}-\d{2})"/g)].map((m) => [m[1], m[2]])
   )
   assert.deepEqual(dates, {
-    home: "2026-11-23",
+    home: "2026-11-29",
+    businessAutomation: "2026-11-29",
+    businessSystems: "2026-11-29",
     sportsDx: "2026-11-12",
-    aiDevelopment: "2026-11-28",
+    aiDevelopment: "2026-11-29",
     aiQualityEvaluation: "2026-11-28",
     growthWeb: "2026-11-23",
     caseStudy: "2026-11-28",
@@ -26,6 +28,8 @@ test("sitemap lastmod tracks page changes rather than deployment time", () => {
   })
   const expectedPaths = {
     home: "baseUrl",
+    businessAutomation: "`${baseUrl}/services/business-automation`",
+    businessSystems: "`${baseUrl}/services/business-systems`",
     sportsDx: "`${baseUrl}/sports-dx`",
     aiDevelopment: "`${baseUrl}/ai-development`",
     aiQualityEvaluation: "`${baseUrl}/ai-development/ai-quality-evaluation`",

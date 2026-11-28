@@ -558,3 +558,83 @@
 @media (max-width: 360px) {
   .method-statement h2 { font-size: 27px; }
 }
+
+/* A worked example, set like an annotated order sheet. */
+.workflow-paper {
+  min-width: 0; width: min(100%, 30rem); margin: 0 auto;
+  background: var(--signal-cream); color: var(--signal-ink);
+  border: 1px solid #acbeb0; border-top: 6px solid var(--teal);
+  padding: clamp(22px, 3vw, 44px); box-shadow: 8px 9px 0 #15383225;
+}
+.workflow-paper figcaption { padding-bottom: 17px; border-bottom: 2px solid var(--ink); }
+.workflow-paper figcaption span, .workflow-label, .business-kicker {
+  display: block; color: var(--teal-dark); font-size: .875rem; font-weight: 700;
+}
+.workflow-paper figcaption strong { display: block; margin-top: 5px; font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.4; }
+.workflow-paper ol, .business-steps { list-style: none; margin: 0; padding: 0; }
+.workflow-paper li { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.workflow-paper li:last-child { border: 0; padding-bottom: 0; }
+.workflow-icon { display: grid; place-items: center; width: 46px; height: 46px; background: var(--signal-pale); border-radius: 50%; color: var(--teal-dark); }
+.workflow-paper li strong { font-size: 1.125rem; }
+.workflow-paper li p { color: var(--muted); font-size: .9375rem; margin: 0; }
+.hero-editorial .operations-headline { font-size: clamp(2.1rem, 3.7vw, 3.55rem); line-height: 1.35; letter-spacing: -.06em; }
+.operations-headline .accent-text, .business-hero h1 span { display: block; }
+.operations-headline .accent-text span { display: inline-block; }
+.hero-editorial .hero-grid:has(.workflow-paper) { min-height: 0; padding-block: clamp(45px, 6vw, 90px); }
+.hero-editorial:has(.workflow-paper) .hero-description { font-size: 1rem; max-width: 35em; }
+.home-service-links h3 a { text-decoration: underline; text-underline-offset: .22em; text-decoration-color: #849e8d; }
+.home-service-links h3 a:hover { color: var(--teal-dark); }
+.home-service-links h3 svg { display: inline; vertical-align: baseline; }
+.home-service-links p { font-size: 1rem; }
+.home-service-links .business-kicker, .home-service-links .home-price { font-size: .875rem; font-weight: 700; color: var(--teal-dark); }
+
+.business-hero { background: var(--signal-pale); padding-block: clamp(48px, 6vw, 92px); border-bottom: 1px solid var(--line); }
+.business-hero-grid, .business-layout, .business-offer { display: grid; align-items: start; gap: clamp(28px, 6vw, 88px); }
+.business-hero-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); align-items: center; }
+.business-hero h1 { margin: 18px 0 22px; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.3; letter-spacing: -.065em; text-wrap: balance; }
+.business-hero h1 span { color: var(--teal-dark); }
+.business-lead, .business-intro { max-width: 44em; }
+.business-hero-price { margin-top: 22px; font-size: .9375rem; }
+.business-hero-price > span { display: inline-block; }
+.business-hero-price strong { font-size: 1.25rem; }
+.business-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; margin-top: 24px; }
+.business-layout, .business-offer { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.business-title { margin: 9px 0 18px; font-size: clamp(1.85rem, 3.2vw, 3rem); line-height: 1.4; letter-spacing: -.055em; text-wrap: balance; }
+.business-rows, .business-options, .business-offer, .business-steps { border-top: 2px solid var(--signal-ink); }
+.business-rows article, .business-options > div, .business-steps li { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.business-page h3, .business-options dt { font-size: clamp(1.125rem, 1.5vw, 1.4rem); line-height: 1.55; font-weight: 700; }
+.business-rows h3, .business-options dt, .business-steps h3 { margin-bottom: 6px; }
+.business-rows .business-kicker { margin-bottom: 6px; }
+.business-page dd { margin: 0; }
+.business-tint { background: #eaf0e7; }
+.business-intro { margin: 0 0 32px; }
+.business-offer { padding: 28px 0; }
+.business-price { display: flex; gap: .35em; align-items: baseline; margin: 10px 0; color: var(--teal-dark); font-weight: 700; }
+.business-price span { font-size: .875rem; }
+.business-price strong { font: 600 clamp(2.8rem, 5vw, 4.5rem)/1 Arial, sans-serif; letter-spacing: -.07em; }
+.business-spec > div { display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 12px; margin: 16px 0; padding-top: 12px; border-top: 1px solid var(--line); }
+.business-spec dt { font-weight: 700; }
+.business-design { margin: 20px 0; padding: clamp(18px, 3vw, 32px); border-left: 4px solid var(--teal); background: var(--signal-pale); }
+.business-design p, .business-design a { margin-top: 10px; }
+.business-cost-note, .business-exclusion { color: var(--muted); font-size: .9375rem; }
+.business-monthly { color: var(--teal-dark); font-size: 1.35rem; font-weight: 700; }
+.business-monthly small { font-size: .875rem; }
+.business-exclusion { margin-top: 8px; }
+.business-steps { counter-reset: step; }
+.business-steps li { position: relative; padding-left: 3.25rem; counter-increment: step; }
+.business-steps li::before { content: counter(step, decimal-leading-zero); position: absolute; left: 0; top: 19px; color: var(--teal-dark); font: 600 1.5rem/1.6 monospace; }
+.business-proof { background: var(--signal-ink); color: var(--signal-cream); }
+.business-proof a:focus-visible, .hero-editorial a:focus-visible { outline-color: var(--signal-light); }
+.business-proof .section-label, .business-proof .text-link { color: var(--signal-light); }
+.business-page .faq-list > .text-link { margin-top: 24px; }
+@media (max-width: 800px) {
+  .business-hero-grid, .business-layout, .business-offer { grid-template-columns: minmax(0, 1fr); }
+  .business-hero-grid .workflow-paper { margin-inline: 0; }
+  .business-offer { gap: 16px; }
+  .business-page .section { padding-block: 54px; }
+}
+@media (max-width: 600px) {
+  .business-spec > div { grid-template-columns: 1fr; gap: 3px; }
+  .workflow-paper li { gap: 14px; }
+  .business-hero h1 { font-size: clamp(1.75rem, 7.7vw, 2.4rem); }
+}

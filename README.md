@@ -1,6 +1,6 @@
 # Cyber Knock
 
-Cyber Knock公式サイトのソース。スポーツAI・動画分析、Web／モバイルプロダクト開発、AI品質改善、開発顧問、自治体・競技団体の実証支援を紹介する。
+Cyber Knock公式サイトのソース。受発注・見積・報告の業務改善、Excel管理のシステム化、AI・Web／モバイル開発、専門サービスを紹介する。
 
 公開サイト（正規ドメイン）: [https://cyberknock.jp/](https://cyberknock.jp/)
 
@@ -16,11 +16,11 @@ Next.jsの静的出力をCloudflare Pagesへ配信し、問い合わせだけを
 |---|---|
 | フロントエンド | Next.js 15.5.28、React 19.2.6、TypeScript、App Router |
 | 配信 | `output: 'export'` による `out/` の静的ファイル |
-| URL | `trailingSlash: false`。既存の5つの主要URLを維持 |
+| URL | `trailingSlash: false`。既存の公開URLを維持 |
 | 画像 | `images.unoptimized: true`。実アプリ素材を静的配信 |
 | UI | 共通CSSとTailwind、必要な箇所だけのクライアントコンポーネント |
-| 問い合わせ | `functions/contact.js` → `POST /contact` → 既存Slack通知先 |
-| 行動計測 | 既存 `window.gtag` がある場合だけ、許可リスト内の9イベントを送信 |
+| 問い合わせ | 一般法人は `POST /contact` から既存のSlack通知先へ。Growth Webは専用フォーム・APIを使用。 |
+| 行動計測 | 本番ホストでGA4を条件付き初期化。ページ閲覧と許可リスト内の行動イベントを計測 |
 | CI | [.github/workflows/quality.yml](.github/workflows/quality.yml)。型検査、テスト、静的build、Lighthouse |
 
 | パス | 主な用途 |
@@ -31,6 +31,7 @@ Next.jsの静的出力をCloudflare Pagesへ配信し、問い合わせだけを
 | [app/security](app/security/page.tsx) | AI・動画データの取り扱い |
 | [app/privacy-policy](app/privacy-policy/page.tsx) | プライバシーポリシー |
 | [app/globals.css](app/globals.css) | 公開ページのデザイントークン・共通スタイル |
+| [lib/business-services.ts](lib/business-services.ts) | 法人向け2サービスの料金・提供範囲・継続支援 |
 | [lib/site.ts](lib/site.ts) | サービス内容、製品・ストアの参照先 |
 | [components/contact-form.tsx](components/contact-form.tsx) | フォームの状態、入力チェック、エラー・成功表示 |
 | [lib/analytics.ts](lib/analytics.ts) | イベント名・属性の許可リストとURL情報の除外 |
@@ -72,7 +73,7 @@ npm run dev
 
 `next.config.mjs` ではTypeScriptのbuild errorを無視しない。一方、`eslint.ignoreDuringBuilds` は有効なため、build成功をESLint合格と扱わない。
 
-API12件・計測6件の計18テストを用意している。入力・同意・形式・文字数、JSONとbody上限、Origin、honeypot、通知のplain_text、通知先設定不足、上流失敗、許可イベント、URL由来PIIの除外等を確認する。これらはブラウザE2E、実機、実通知到達、GA4管理画面への到達を自動的に証明するテストではない。
+API・計測・公開コンテンツの回帰テストを用意している。入力・同意・形式・文字数、JSONとbody上限、Origin、honeypot、通知のplain_text、通知先設定不足、上流失敗、許可イベント、URL由来PIIの除外等を確認する。これらはブラウザE2E、実機、実通知到達、GA4管理画面への到達を自動的に証明するテストではない。
 
 検証結果は対象commitと実行条件を添えて記録する。型検査・テスト・buildが通っていても、Lighthouseや手動操作が未達なら別項目として残す。
 
@@ -174,11 +175,12 @@ UIは429も扱うが、Function自身がレート制限を実施して429を返�
 | 名前 | 設定する場所・目的 |
 |---|---|
 | `SLACK_WEBHOOK_URL` | Cloudflare Pages Functionの環境別のsecret。既存通知先を維持。フロント公開変数にしない。 |
+| `NEXT_PUBLIC_GA4_MEASUREMENT_ID` | ビルド時の公開測定ID。本番ビルドかつ本番ホストでのみサイトのタグを初期化。 |
 | `NEXT_TELEMETRY_DISABLED` | CIで使用するNextのテレメトリー設定。サイトの問い合わせ・GAイベントとは別。 |
 | `CHROME_PATH` | Lighthouseが利用するChrome実行ファイルの指定。CIでは検出した実行ファイルから設定。 |
 | `GITHUB_SHA / GITHUB_RUN_ID / GITHUB_REPOSITORY / GITHUB_STEP_SUMMARY` | GitHub Actionsが提供する測定記録用のコンテキスト。通常、開発者が秘密情報として設定する項目ではない。 |
 
-GA4のIDを読む環境変数は現行コードにない。環境変数を追加するだけでGA4収集が始まる実装ではない。計測接続は [運用計画](docs/redesign-20261102/MEASUREMENT-PLAN.md) に従って別途確認する。
+本番での受信は、公開後にGA4管理画面で別途確認する。
 
 ローカルモックとCIには本物の通知secretを渡す必要がない。CloudflareのPreviewとProductionで設定を混同しない。**実通知先への到達は現在未検証**であり、実送信を行う場合は、内容・宛先・受信者の了承がある検証として実施し、営業問い合わせとは分ける。
 
@@ -247,11 +249,9 @@ node scripts/audit-lighthouse.mjs --enforce
 
 ## 9. 計測の扱い
 
-現在は計測用コードを接続できる状態であり、GA4の収集開始・管理画面の受信確認は未実施。全ページの閲覧分母を取得する仕組みも、この9イベントとは別途必要になる。
+本番ホストでは、有効な測定IDがあり既存タグがない場合にサイトのGA4タグを初期化し、初回・ページ遷移時の `page_view` を手動送信する。localhostやPagesプレビューではサイトのタグを初期化しない。
 
-`source` はフォームの設置場所で、全相談がトップに集まる現在はhome。流入元・広告・直前のCTAではない。テーマは固定のservice値だけを扱い、個人情報やraw URLを送らない。previewでもイベント内URLは固定の本番URLになるため、将来のタグ導入時は環境別に収集を制御する。
-
-運用、9イベントの正確な契約、営業ステージ、分母、重複・コホート、PIIを含めないCRMとの集計、5名の理解度テストは [MEASUREMENT-PLAN.md](docs/redesign-20261102/MEASUREMENT-PLAN.md) を参照。
+`source` はフォーム設置ページ、`service` は相談テーマ。新LPの分類は `business_automation` と `business_systems`。計測には許可した属性・正規URLを使い、フォーム本文や個人情報を含めない。記事の `guide` は既存AI開発LPの相談文脈に限定する。イベントの正本は [lib/analytics.ts](lib/analytics.ts)。
 
 ## 10. 調査・検証資料
 

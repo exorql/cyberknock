@@ -62,6 +62,9 @@ export function consultationForGuide(slug: string) {
 
 export function inquiryMessageHint(source: string, service: string): string {
   const fallback = "実現したいこと、困っていること、希望時期など、分かる範囲でお聞かせください。"
+  if (service === "business-automation") return "例：メールで受けた注文を販売管理に入力し直しています。今の手順、使っている道具、特に時間のかかる作業をお聞かせください。"
+  if (service === "business-systems") return "例：営業所ごとのExcel台帳を月末に集めています。誰が更新し、どこで二重入力や確認待ちが起きるかをお聞かせください。"
+  if (source === "home" && !service) return "例：見積を作るたびに単価を探す、日報をExcelへ転記するなど。困っている仕事を一つお聞かせください。"
   if (source !== "ai_development") return fallback
   switch (service) {
     case "sports-ai":

@@ -6,9 +6,9 @@ import { SiteAnalytics } from "@/components/site-analytics"
 
 
 const siteUrl = "https://cyberknock.jp"
-const siteTitle = "Cyber Knock | AI・システム開発・PoC・アプリ開発"
+const siteTitle = "業務改善・自動化と業務システム開発 | Cyber Knock"
 const siteDescription =
-  "AI機能の技術検証（PoC）、動画解析、Web・モバイルアプリ開発から公開後の改善まで。自社アプリの開発・運用経験を活かし、業種を問わず新規サービス開発とAI活用を支援します。"
+  "受発注・見積・報告の手作業やExcelの二重入力を整理し、既存ツールの活用から業務システムの導入・運用まで支援します。支援内容・料金の目安・無料相談のほか、AI開発や自社アプリの実績をご覧いただけます。"
 
 export const metadata: Metadata = {
   title: siteTitle,
@@ -28,13 +28,13 @@ export const metadata: Metadata = {
     siteName: "Cyber Knock",
     type: "website",
     locale: "ja_JP",
-    images: [{ url: "/images/og/cyberknock-b2b.png", width: 1200, height: 630, alt: siteTitle }],
+    images: [{ url: "/images/og/business-operations.png", width: 1200, height: 630, alt: siteTitle }],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/images/og/cyberknock-b2b.png"],
+    images: ["/images/og/business-operations.png"],
   },
   verification: {
     google: "ib75LQ9trTgK_ExlWI9S7ZRaNfGtWg6O_8fJT3PN_d0",
